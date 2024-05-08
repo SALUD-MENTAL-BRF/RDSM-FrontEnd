@@ -1,6 +1,7 @@
+import { Register } from "../components/Forms/Register"
 
 export const RegisterPage = () => {
   return (
-    <h1>RegisterPage</h1>
+    <Register />
   )
 }
