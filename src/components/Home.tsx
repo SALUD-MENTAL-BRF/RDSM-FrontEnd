@@ -1,11 +1,13 @@
+import '../assets/style/Home.css'
+import { HeaderWithoutLoggedIn } from './headers/HeaderWithoutLoggedIn'
 
-export const Home = () => {
+export const Home: React.FC = () => {
   return (
     <>
-      <h1>Bienvenido a la Pagina Principal</h1>
+      <HeaderWithoutLoggedIn />
+      <div className="main">
 
-      <a className="btn btn-warning" href="/register">Registro</a>
-
+      </div>
     </>
   )
 }
