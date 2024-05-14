@@ -1,8 +1,6 @@
 import React from 'react';
 
 interface FormState {
-  name: string;
-  lastName: string;
   userName: string;
   email: string;
   password: string;
@@ -13,7 +11,9 @@ export const RegisterSubmit: React.FC<{ stateForm: FormState }> = ({ stateForm }
 
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
+
     console.log(stateForm);
+
   };
 
   return (
