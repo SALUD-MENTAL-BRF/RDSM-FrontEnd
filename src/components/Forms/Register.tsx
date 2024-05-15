@@ -2,9 +2,7 @@ import React, { useState, ChangeEvent } from 'react';
 import { RegisterSubmit } from './submits/RegisterSubmit';
 
 interface FormState {
-  name: string;
-  lastName: string;
-  userName: string;
+  username: string;
   email: string;
   password: string;
   confirmPassword: string;
@@ -12,9 +10,7 @@ interface FormState {
 
 export const Register: React.FC = () => {
   const [stateForm, setStateForm] = useState<FormState>({
-    name: '',
-    lastName: '',
-    userName: '',
+    username: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -37,30 +33,12 @@ export const Register: React.FC = () => {
           </div>
           <div className="registerPage__Form m-2">
             <form>
-              <div className="registerPage__Form_input_name">
-                <input
-                  type="text"
-                  placeholder="Nombre"
-                  name="name"
-                  value={stateForm.name}
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div className="registerPage__Form_input_lastName">
-                <input
-                  type="text"
-                  placeholder="Apellido"
-                  name="lastName"
-                  value={stateForm.lastName}
-                  onChange={handleInputChange}
-                />
-              </div>
               <div className="registerPage__Form_input_userName">
                 <input
                   type="text"
                   placeholder="Nombre de Usuario"
-                  name="userName"
-                  value={stateForm.userName}
+                  name="username"
+                  value={stateForm.username}
                   onChange={handleInputChange}
                 />
               </div>
