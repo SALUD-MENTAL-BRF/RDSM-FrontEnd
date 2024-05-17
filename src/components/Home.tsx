@@ -1,10 +1,10 @@
-import "../assets/style/Home.css";
-import { HeaderWithoutLoggedIn } from "./headers/HeaderWithoutLoggedIn";
+import '../assets/style/style-header/headerWithoutLoggedIn.css';
+import { Header } from "./headers/Header";
 
 export const Home: React.FC = () => {
   return (
     <>
-      <HeaderWithoutLoggedIn />
+      <Header />
       <div className="Main">
         <div className="Main__Section-text">
           <div className="Main__Section-text-title">

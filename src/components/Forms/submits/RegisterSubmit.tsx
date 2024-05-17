@@ -39,11 +39,31 @@ export const RegisterSubmit: React.FC<{ stateForm: FormState }> = ({
           }),
         });
 
-        if (!response.ok) {
-          // Si la respuesta HTTP no es exitosa, mostrar el mensaje de error
+        if (response.ok) {
+
+          // const data = await response.json();
+
+
+          Swal.fire({
+            title: "Éxito",
+            text: "Usuario registrado correctamente",
+            icon: "success",
+            width: "50%",
+            padding: "1rem",
+            background: "#FFF",
+            grow: "row",
+          });
+
+          setTimeout(() => {
+            window.location.href = "/login"
+          },3000)
+
+        } else {
+          const data = await response.json()
+          
           return Swal.fire({
             title: "Error",
-            text: "Hubo un problema al registrar el usuario",
+            text: data.message,
             icon: "error",
             width: "50%",
             padding: "1rem",
@@ -52,16 +72,6 @@ export const RegisterSubmit: React.FC<{ stateForm: FormState }> = ({
           });
         }
 
-        // Si la respuesta es exitosa, mostrar el mensaje de éxito
-        Swal.fire({
-          title: "Éxito",
-          text: "Usuario registrado correctamente",
-          icon: "success",
-          width: "50%",
-          padding: "1rem",
-          background: "#FFF",
-          grow: "row",
-        });
       } catch (error) {
         console.error("Error al registrar el usuario:", error);
         Swal.fire({
