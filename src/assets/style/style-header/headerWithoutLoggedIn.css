@@ -35,3 +35,12 @@
   color: #007090;
   font-family: 'Times New Roman', Times, serif;
 }
+
+.Header__buttons-Logout{
+  margin-right: 10px;
+  background-color: #E9E2F2;
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: #007090;
+  font-family: 'Times New Roman', Times, serif;
+}

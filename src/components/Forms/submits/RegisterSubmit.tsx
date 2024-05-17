@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import Swal from "sweetalert2";
+import { AuthContext } from "../../../context/AuthProvider";
 
 interface FormState {
   username: string;
@@ -11,6 +12,9 @@ interface FormState {
 export const RegisterSubmit: React.FC<{ stateForm: FormState }> = ({
   stateForm,
 }) => {
+
+  const { login } = useContext(AuthContext)
+
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (
     e
   ) => {
@@ -41,7 +45,8 @@ export const RegisterSubmit: React.FC<{ stateForm: FormState }> = ({
 
         if (response.ok) {
 
-          // const data = await response.json();
+          const data = await response.json();
+          login
 
 
           Swal.fire({
