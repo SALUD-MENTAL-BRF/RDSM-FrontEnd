@@ -1,4 +1,3 @@
-import '../assets/style/style-header/headerWithoutLoggedIn.css';
 import { Header } from "./headers/Header";
 
 export const Home: React.FC = () => {
