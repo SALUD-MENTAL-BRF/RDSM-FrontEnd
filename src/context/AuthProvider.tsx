@@ -12,12 +12,16 @@ const initialAuthState: AuthState = {
     admin: localStorage.getItem('admin') === 'true',
 };
 
-export const AuthContext = createContext<AuthContextType | null>(null);
+export const AuthContext = createContext<AuthContextType>({
+    authState: initialAuthState,
+    login: async () => {},
+    logout: () => {},
+});
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [authState, dispatch] = useReducer(authReducer, initialAuthState);
 
-    const login = async (payload: { token: { token: string }; user: { admin: boolean } }) => {
+    const login = async (payload: { token: string; user: { admin: boolean } }) => {
         dispatch({
             type: actiontypes.LOGIN,
             payload

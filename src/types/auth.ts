@@ -1,5 +1,3 @@
-// src/types/auth.ts
-
 export interface AuthState {
   token?: string;
   islogged: boolean;
@@ -11,6 +9,6 @@ export interface AuthState {
 
 export interface AuthContextType {
   authState: AuthState;
-  login: (payload: { token: { token: string }; user: { admin: boolean } }) => Promise<void>;
+  login: (payload: { token: string; user: { admin: boolean } }) => Promise<void>;
   logout: () => void;
 }
