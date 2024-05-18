@@ -52,9 +52,9 @@ export const RegisterSubmit: React.FC<{ stateForm: FormState }> = ({ stateForm }
                       grow: "row",
                   });
 
-                  // setTimeout(() => {
-                  //   window.location.href = "/login"
-                  // }, 3000);
+                  setTimeout(() => {
+                    window.location.href = "/"
+                  }, 2000);
 
               } else {
                   const data = await response.json();
