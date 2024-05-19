@@ -23,7 +23,7 @@
   }
 
   .Home__Main-hero-title {
-    margin-top: -50px;
+    margin-top: -10px;
     font-size: 3.9em;
     color: #007090;
     margin-bottom: 20px;
@@ -31,7 +31,7 @@
   }
 
   .Home__Main-hero-subtitle {
-    font-size: 1.2em;
+    font-size: 1.5em;
     color: #5292A6;
     margin-bottom: 20px;
     font-family: "Noto Sans", sans-serif; 
@@ -40,14 +40,25 @@
 
   .Home__Main-hero-list {
     list-style-type: none;
+    text-align: start;
     margin-bottom: 20px;
     padding-left: 0;
   }
-
+  
   .Home__Main-hero-list-item {
+    display: flex;
+    align-items: center;
     font-size: 1.1em;
     margin: 10px 0;
+    color: #6a7980;
   }
+  
+  .Home__Main-hero-list-item .material-symbols-outlined {
+    margin-right: 10px;
+    font-size: 1.2em;
+    color: #6a7980;
+  }
+  
 
   .Home__Main-imageContainer {
     flex: 1;
@@ -65,7 +76,6 @@
     margin-top: 20px;
     font-size: 2em;
     color: #333;
-    cursor: pointer;
     display: flex;
     justify-content: center;
     width: 100%;
