@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent } from 'react';
 import { RegisterSubmit } from './submits/RegisterSubmit';
+import '../../assets/style/formularios/Register.css'
 
 interface FormState {
   username: string;
