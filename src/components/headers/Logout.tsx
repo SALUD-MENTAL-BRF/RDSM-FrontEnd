@@ -29,6 +29,6 @@ export const Lougout = () => {
   }
 
   return(
-    <button onClick={handleLogout} className="btn Header__buttons-login">Cerrar Sesión </button>
+    <button onClick={handleLogout} className="Header__buttons-Logout">Cerrar Sesión </button>
   )
 }

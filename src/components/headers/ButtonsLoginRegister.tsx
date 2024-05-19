@@ -7,7 +7,7 @@ export const ButtonsLoginRegister: React.FC = () => {
       <Link 
         to="/login" 
         type="button" 
-        className="btn Header__buttons-login"
+        className="Header__buttons-login"
       >
         Iniciar Sesión
       </Link>
@@ -15,7 +15,7 @@ export const ButtonsLoginRegister: React.FC = () => {
       <Link
         to="/register"
         type="button"
-        className="btn Header__buttons-register"
+        className="Header__buttons-register"
       >
         Registrarse
       </Link>

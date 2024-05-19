@@ -2,7 +2,6 @@
   height: 10vh;
   background-color: #A3BAC3;
   display: flex;
-  font-weight: bold;
   justify-content: space-between;
 }
 
@@ -16,31 +15,35 @@
 .Header__buttons{
   display: flex;
   align-items: center;
-  margin-right: 20px;
+  justify-content: space-between;
+  margin-right: 15px;
 }
 
-.Header__buttons-login{
+.Header__buttons-login,
+.Header__buttons-register,
+.Header__buttons-Logout {
+  background-color: #E9E2F2;
+  color: #007090;
+  border: none;
+  border-radius: 5px;
   margin-right: 10px;
-  background-color: #E9E2F2;
-  border-radius: 5px;
-  padding: 5px 10px;
-  color: #007090;
-  font-family: 'Times New Roman', Times, serif;
+  text-decoration: none;
+  padding: 8px 12px;
+  font-weight: bold;
 }
 
-.Header__buttons-register{
+.Header__buttons-login:hover,
+.Header__buttons-register:hover,
+.Header__buttons-Logout:hover,
+.Header__buttons-login:active,
+.Header__buttons-register:active,
+.Header__buttons-Logout:active,
+.Header__buttons-login:focus,
+.Header__buttons-register:focus,
+.Header__buttons-Logout:focus {
   background-color: #E9E2F2;
-  border-radius: 5px;
-  padding: 5px 10px;
   color: #007090;
-  font-family: 'Times New Roman', Times, serif;
-}
-
-.Header__buttons-Logout{
-  margin-right: 10px;
-  background-color: #E9E2F2;
+  border: none;
   border-radius: 5px;
-  padding: 5px 10px;
-  color: #007090;
-  font-family: 'Times New Roman', Times, serif;
+  font-weight: bold;
 }
