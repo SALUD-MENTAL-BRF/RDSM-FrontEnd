@@ -29,10 +29,10 @@ export const Register: React.FC = () => {
     <>
       <div className="registerPage">
         <div className="registerPage__Secction_Form">
-          <div className="registerPage__title m-2">
-            <h1>Bienvenido a la página de registro</h1>
+          <div className="registerPage__Form m-4">
+          <div className="registerPage__title">
+            <h1>Registro</h1>
           </div>
-          <div className="registerPage__Form m-2">
             <form>
               <div className="registerPage__Form_input_userName">
                 <input
@@ -86,6 +86,7 @@ export const Register: React.FC = () => {
             </p>
           </div>
         </div>
+        <img className='registerPage-logo' src="/logo/logo-RDSM (1).png" alt="" />
       </div>
     </>
   );
