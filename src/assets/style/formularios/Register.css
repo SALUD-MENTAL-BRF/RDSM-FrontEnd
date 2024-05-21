@@ -45,6 +45,14 @@ input::placeholder {
   font-family: 'Times New Roman', Times, serif;
 }
 
+.registerPage__Form__input_email_svgOjo{
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
 .botonRegister{
   width: 300px;
   height: 45px;

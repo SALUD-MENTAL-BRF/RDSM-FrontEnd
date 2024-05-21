@@ -38,9 +38,24 @@
   padding: 0 20px 0 5px;
 }
 
+.loginPage__Form_input_email
+.loginPage__Form_input_password {
+  color: #000;
+  font-family: 'Times New Roman', Times, serif;
+  background: none;
+}
+
 input::placeholder {
   color: #000;
   font-family: 'Times New Roman', Times, serif;
+}
+
+.LoginPage__Form__input_email_svgOjo{
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  cursor: pointer;
+  margin-left: 10px;
 }
 
 .botonLogin{
