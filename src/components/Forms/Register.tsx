@@ -30,9 +30,9 @@ export const Register: React.FC = () => {
       <div className="registerPage">
         <div className="registerPage__Secction_Form">
           <div className="registerPage__Form">
-          <div className="registerPage__title">
-            <h1>Registro</h1>
-          </div>
+            <div className="registerPage__title">
+              <h1>Registro</h1>
+            </div>
             <form>
               <div className="registerPage__Form_input_userName">
                 <input
@@ -77,11 +77,9 @@ export const Register: React.FC = () => {
 
             <p>¿Olvidaste tu contraseña? <a className='registerForm-links' href="/login">Recuperar Contraseña</a></p>
 
-            <p>¿No tienes una cuenta? <a className='registerForm-links' href="/register">Registrarse</a></p>
-            
           </div>
         </div>
-        <img className='registerPage-logo' src="/logo/logo-removebg-preview.png" alt="" />
+        <img className='registerPage-logo' src="/logo/logo-removebg-preview.png" alt="Logo de la empresa" />
       </div>
     </>
   );

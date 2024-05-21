@@ -1,5 +1,5 @@
 import img from "/LandingPage/img.jpg";
-import "../assets/style/Home/Home.css";
+import "../assets/style/home/Home.css";
 import { Link } from "react-router-dom";
 
 export const Home: React.FC = () => {

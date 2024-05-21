@@ -1,13 +1,13 @@
-.registerPage{
+.loginPage{
   background-image: url('background-registerPage/stacked-waves-haikei.svg') ;
   min-height: 100vh;
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   justify-content: space-around;
   align-items: center;
 }
 
-.registerPage__Form{
+.loginPage__Form{
   width: 600px;
   height: 600px;
   display: flex;
@@ -16,10 +16,10 @@
   align-items: center;
   border: 1px solid #000;
   border-radius: 50px;
-  box-shadow: 10px 10px 0 0 #000; 
+  box-shadow: -10px 10px 0 0 #000; 
 }
 
-.registerPage__title{
+.loginPage__title{
   font-family: 'Times New Roman', Times, serif;
   font-weight: bold;
   font-size: 30px;
@@ -27,10 +27,8 @@
   margin-bottom: 20px;
 }
 
-.registerPage__Form .registerPage__Form_input_userName input,
-.registerPage__Form_input_email input,
-.registerPage__Form_input_password input,
-.registerPage__Form_input_confirmPassword input {
+.loginPage__Form_input_email input,
+.loginPage__Form_input_password input {
   width: 300px;
   height: 45px;
   background: transparent;
@@ -45,7 +43,7 @@ input::placeholder {
   font-family: 'Times New Roman', Times, serif;
 }
 
-.botonRegister{
+.botonLogin{
   width: 300px;
   height: 45px;
   background: #4CAF50;
@@ -58,12 +56,12 @@ input::placeholder {
   font-size: 20px;
 }
 
-.registerPage-logo{
+.loginPage-logo{
   width: 650px;
   height: 650px;
 }
 
-.registerForm-links{
+.loginForm-links{
   font-family: 'Times New Roman', Times, serif;
   color: #0584a7;
 }

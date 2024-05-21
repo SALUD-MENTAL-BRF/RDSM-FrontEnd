@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent } from "react";
 import { LoginSubmit } from "./submits/LoginSubmit";
+import '../../assets/style/formularios/Login.css'
 
 interface FormState {
   email: string;
@@ -24,10 +25,10 @@ export const Login: React.FC = () => {
     <>
       <div className="loginPage">
         <div className="loginPage__Secction_Form">
-          <div className="loginPage__title m-2">
-            <h1>Bienvenido a la página de Inicio de Sesión</h1>
-          </div>
-          <div className="loginPage__Form m-2">
+          <div className="loginPage__Form">
+            <div className="loginPage__title">
+              <h1>Inicio de Sesión</h1>
+            </div>
             <form>
               <div className="loginPage__Form_input_email">
                 <input
@@ -50,16 +51,12 @@ export const Login: React.FC = () => {
               <LoginSubmit stateForm={stateForm}/> 
             </form>
 
-            <p>
-              ¿Olvidaste tu contraseña?{" "}
-              <a href="/login">Recuperar Contraseña</a>
-            </p>
+            <p>¿Olvidaste tu contraseña? <a className='registerForm-links' href="/login">Recuperar Contraseña</a></p>
 
-            <p>
-              ¿No tienes una cuenta? <a href="/register">Registrarse</a>
-            </p>
+            <p>¿No tienes una cuenta? <a className='registerForm-links' href="/register">Registrarse</a></p>
           </div>
         </div>
+        <img className='loginPage-logo' src="/logo/logo-removebg-preview.png" alt="Logo de la empresa" />
       </div>
     </>
   );

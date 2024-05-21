@@ -60,8 +60,8 @@ export const LoginSubmit: React.FC <{ stateForm: FormState }> = ({stateForm})=>{
   }
 
   return (
-    <div className="botonRegister">
-      <button type="submit" onClick={handleSubmit} className="botonRegister">
+    <div className="botonLogin">
+      <button type="submit" onClick={handleSubmit} className="botonLogin">
         Registro
       </button>
     </div>  
