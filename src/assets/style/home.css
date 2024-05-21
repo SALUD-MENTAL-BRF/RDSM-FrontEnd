@@ -46,6 +46,7 @@
 .HeaderHome__ContainerButtons-buttonRegister:active {
   background-color: #E9E2F2;
   color: #007090;
+  color: #007090;
   border: none;
   border-radius: 5px;
 }
