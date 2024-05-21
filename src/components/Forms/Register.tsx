@@ -29,7 +29,7 @@ export const Register: React.FC = () => {
     <>
       <div className="registerPage">
         <div className="registerPage__Secction_Form">
-          <div className="registerPage__Form m-4">
+          <div className="registerPage__Form">
           <div className="registerPage__title">
             <h1>Registro</h1>
           </div>
@@ -73,20 +73,15 @@ export const Register: React.FC = () => {
               <RegisterSubmit stateForm={stateForm} />
             </form>
 
-            <p>
-              ¿Ya tienes una cuenta? <a href="/login">Iniciar Sesión</a>
-            </p>
+            <p>¿Ya tienes una cuenta? <a className='registerForm-links' href="/login">Iniciar Sesión</a></p>
 
-            <p>
-              ¿Olvidaste tu contraseña? <a href="/login">Recuperar Contraseña</a>
-            </p>
+            <p>¿Olvidaste tu contraseña? <a className='registerForm-links' href="/login">Recuperar Contraseña</a></p>
 
-            <p>
-              ¿No tienes una cuenta? <a href="/register">Registrarse</a>
-            </p>
+            <p>¿No tienes una cuenta? <a className='registerForm-links' href="/register">Registrarse</a></p>
+            
           </div>
         </div>
-        <img className='registerPage-logo' src="/logo/logo-RDSM (1).png" alt="" />
+        <img className='registerPage-logo' src="/logo/logo-removebg-preview.png" alt="" />
       </div>
     </>
   );

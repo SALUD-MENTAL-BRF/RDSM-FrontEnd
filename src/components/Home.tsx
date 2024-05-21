@@ -1,12 +1,10 @@
-import { Header } from "./headers/Header";
 import img from "/LandingPage/img.jpg";
-import "../assets/style/home/Home.css";
+import "../assets/style/Home/Home.css";
 import { Link } from "react-router-dom";
 
 export const Home: React.FC = () => {
   return (
     <>
-      <Header />
       <div className="Home__Main">
         <section className="Home__Main-hero">
           <div className="Home__Main-hero-content">
@@ -31,7 +29,7 @@ export const Home: React.FC = () => {
                 Recursos educativos personalizados.
               </li>
             </ul>
-            <Link to="/" className="cta-button">Empieza tu terapia</Link>
+            <Link to="/register" className="cta-button">Empieza tu terapia</Link>
           </div>
           <div className="Home__Main-imageContainer">
             <img

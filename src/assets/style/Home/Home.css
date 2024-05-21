@@ -5,8 +5,10 @@
     align-items: center;
     text-align: center;
     padding: 20px;
-    background-color: #E9E2F2;
-    min-height: 90vh;
+    background-image: url('background-homePage/blob-scene-haikei.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
   }
 
   .Home__Main-hero {
@@ -62,10 +64,15 @@
     border-radius: 5px;
     display: inline-block;
     transition: background-color 0.3s;
+    margin-top: 20px;
 }
 
 .cta-button:hover {
     background-color: #45a049;
+}
+
+.cta-button:focus{
+  outline: none;
 }
   
   .Home__Main-hero-list-item .material-symbols-outlined {
