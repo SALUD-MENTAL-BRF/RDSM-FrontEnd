@@ -1,0 +1,130 @@
+  .Home__Main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    background-image: url('background-homePage/blob-scene-haikei.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+  }
+
+  .Home__Main-hero {
+    display: flex;
+    margin-top: -50px;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    width: 100%;
+  }
+
+  .Home__Main-hero-content {
+    flex: 1;
+    height: 74vh;
+  }
+
+  .Home__Main-hero-title {
+    font-size: 3.9em;
+    color: #007090;
+    margin-bottom: 20px;
+    font-family: "Abril Fatface", serif;
+  }
+
+  .Home__Main-hero-subtitle {
+    font-size: 1.5em;
+    color: #5292A6;
+    margin-bottom: 20px;
+    font-family: "Noto Sans", sans-serif; 
+    text-align: center;
+  }
+
+  .Home__Main-hero-list {
+    list-style-type: none;
+    text-align: start;
+    margin-bottom: 20px;
+    padding-left: 0;
+  }
+  
+  .Home__Main-hero-list-item {
+    display: flex;
+    align-items: center;
+    font-size: 1.1em;
+    margin: 10px 0;
+    color: #6a7980;
+  }
+
+  .cta-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 1.2em;
+    border-radius: 5px;
+    display: inline-block;
+    transition: background-color 0.3s;
+    margin-top: 20px;
+}
+
+.cta-button:hover {
+    background-color: #45a049;
+}
+
+.cta-button:focus{
+  outline: none;
+}
+  
+  .Home__Main-hero-list-item .material-symbols-outlined {
+    margin-right: 10px;
+    font-size: 1.2em;
+    color: #6a7980;
+  }
+  
+
+  .Home__Main-imageContainer {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin-left: 125px;
+  }
+
+  .Home__Main-imageContainer-image {
+    width: 400px;
+    height: auto;
+    border-radius: 50%;
+  }
+
+  .arrow-down {
+    margin-top: 20px;
+    font-size: 2em;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  @media only screen and (max-width: 768px) {
+    .Home__Main {
+      min-height: 90vh;
+    }
+  
+    .Home__Main-hero {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .Home__Main-hero-title {
+      margin-top: 0;
+      font-size: 2.5em;
+    }
+  
+    .Home__Main-imageContainer {
+      margin-top: 20px;
+    }
+  
+    .Home__Main-imageContainer-image {
+      width: 300px;
+    }
+  }
+  
