@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent } from 'react';
 import { RegisterSubmit } from './submits/RegisterSubmit';
 import '../../assets/style/formularios/Register.css'
+import LoginGoogle from './submits/LoginGoogle';
 
 interface FormState {
   username: string;
@@ -99,6 +100,7 @@ export const Register: React.FC = () => {
               </div>
               
               <RegisterSubmit stateForm={stateForm} />
+              <LoginGoogle />
             </form>
 
             <p>¿Ya tienes una cuenta? <a className='registerForm-links' href="/login">Iniciar Sesión</a></p>
