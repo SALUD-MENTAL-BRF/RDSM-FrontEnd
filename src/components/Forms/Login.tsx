@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent } from "react";
 import { LoginSubmit } from "./submits/LoginSubmit";
 import '../../assets/style/formularios/Login.css';
+import LoginGoogle from "./submits/LoginGoogle";
 
 interface FormState {
   email: string;
@@ -64,6 +65,7 @@ export const Login: React.FC = () => {
                 </svg>
               </div>
               <LoginSubmit stateForm={stateForm}/>
+              <LoginGoogle />
             </form>
 
             <p>¿Olvidaste tu contraseña? <a className='registerForm-links' href="/login">Recuperar Contraseña</a></p>

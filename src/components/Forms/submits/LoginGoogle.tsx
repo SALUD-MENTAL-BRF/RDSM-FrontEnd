@@ -1,9 +1,12 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { gapi } from "gapi-script";
 import GoogleLogin from "react-google-login";
 import axios from "axios";
+import { AuthContext } from "../../../context/AuthProvider";
 
 function LoginGoogle() {
+
+  const { login }: any = useContext(AuthContext);
   const CLIENT_ID = "136089606734-e5goqplme4c83uluaqgtilb6r4mubnj7.apps.googleusercontent.com";
 
   useEffect(() => {
@@ -18,14 +21,12 @@ function LoginGoogle() {
   const onSuccess = (response:any) => {
     try {
       const tokenId = response.tokenId;  // Obtener el tokenId
-      console.log("Token ID:", tokenId);
-      console.log(response)
       
       // Enviar el tokenId al servidor
       axios
         .post("http://localhost:3000/auth/google", { tokenId })
         .then((response) => {
-          console.log("Usuario autenticado:", response.data);
+          login({ token: response.data.token, user: response.data.user });
         })
         .catch((error) => {
           console.error("Error al autenticar el usuario:", error.response.data);
