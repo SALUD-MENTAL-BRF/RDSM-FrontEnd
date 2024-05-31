@@ -9,7 +9,13 @@ interface FormState {
 }
 
 export const RegisterSubmit: React.FC<{ stateForm: FormState }> = ({ stateForm }) => {
-    const { login }: any = useContext(AuthContext);
+    const { login, authState }: any = useContext(AuthContext);
+
+    if (authState.islogged == true) {
+        window.location.href = "/"
+    }
+
+    
 
 
     const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
