@@ -12,16 +12,33 @@ export const PanelPatient: React.FC = () => {
                 <div className="col">
                     <div className="containerCard-patient">
                         <div className='main-patient'>
-                            <img className='tokenImage ms-3' src="/home-patient/Comunidad.jpg"/>
-                            <h2 className="text-center">Comunidad</h2>
+                            <img className='imageOptient-patient ms-3' src="/home-patient/actividades.png"/>
+                            <h2 className="text-center">Actividades</h2>
                             <p className='description text-center'>Puedes leer distintas experiencias.</p>
                             <hr />
                         </div>
                     </div>
                 </div>
                 <div className="col">
-                    <p>Actividades</p>
+                    <div className="containerCard-patient">
+                        <div className='main-patient'>
+                            <img className='imageOptient-patient ms-3' src="/home-patient/comunidad.jpg"/>
+                            <h2 className="text-center">Comunidad</h2>
+                            <p className='description text-center'>Puedes leer distintas experiencias.</p>
+                            <hr />
+                        </div>
+                    </div>
                 </div>
+                {/* <div className="col">
+                    <div className="containerCard-patient">
+                        <div className='main-patient'>
+                            <img className='imageOptient-patient ms-3' src="/home-patient/comunidad.jpg"/>
+                            <h2 className="text-center">Comunidad</h2>
+                            <p className='description text-center'>Puedes leer distintas experiencias.</p>
+                            <hr />
+                        </div>
+                    </div>
+                </div> */}
             </div>
         </main>
     )
