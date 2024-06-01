@@ -29,16 +29,16 @@ export const PanelPatient: React.FC = () => {
                         </div>
                     </div>
                 </div>
-                {/* <div className="col">
+                <div className="col">
                     <div className="containerCard-patient">
                         <div className='main-patient'>
-                            <img className='imageOptient-patient ms-3' src="/home-patient/comunidad.jpg"/>
-                            <h2 className="text-center">Comunidad</h2>
-                            <p className='description text-center'>Puedes leer distintas experiencias.</p>
+                            <img className='imageOptient-patient ms-3' src="/home-patient/diario.jpg"/>
+                            <h2 className="text-center">Diario</h2>
+                            <p className='description text-center'>Escribe tus pensamientios en tu diario personal.</p>
                             <hr />
                         </div>
                     </div>
-                </div> */}
+                </div>
             </div>
         </main>
     )
