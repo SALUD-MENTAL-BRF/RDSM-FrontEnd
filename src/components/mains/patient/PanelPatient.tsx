@@ -12,9 +12,9 @@ export const PanelPatient: React.FC = () => {
                 <div className="col">
                     <div className="containerCard-patient">
                         <div className='main-patient'>
-                            <img className='imageOptient-patient ms-3' src="/home-patient/actividades.png"/>
+                            <img className='imageOptient-patient ms-3'id="act-img" src="/home-patient/actividades.png"/>
                             <h2 className="text-center">Actividades</h2>
-                            <p className='description text-center'>Puedes leer distintas experiencias.</p>
+                            <p className='description text-center mt-3 mb-4'>Revisa tus actividades diarias.</p>
                             <hr />
                         </div>
                     </div>
