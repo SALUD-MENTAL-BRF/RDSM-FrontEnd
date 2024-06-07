@@ -1,7 +1,8 @@
 import React from "react";
 import "../../../assets/style/HomePatient/PanelPatient.css";
 
-export const OptionsPatient: React.FC = () => {
+
+export const Options: React.FC = () => {
     return (
         <main className="container-patient">
             <div className="container">
@@ -13,8 +14,8 @@ export const OptionsPatient: React.FC = () => {
                     <div className="col-md-4 col-sm-6 col-12 mb-4">
                         <div className="containerCard-patient">
                             <div className="main-patient">
-                                <img className="imageOptient-patient ms-3" id="act-img" src="/home-patient/actividades.png" alt="Actividades"/>
-                                <h2 className="text-center">Actividades</h2>
+                                <img className="imageOptient-patient ms-3" id="act-img" src="/home-options/actividades.png" alt="Actividades"/>
+                                <h2 className="ms-3 text-center">Actividades</h2>
                                 <p className="description text-center mt-3 mb-4">Revisa tus actividades diarias.</p>
                                 <hr />
                             </div>
@@ -23,9 +24,9 @@ export const OptionsPatient: React.FC = () => {
                     <div className="col-md-4 col-sm-6 col-12 mb-4">
                         <div className="containerCard-patient">
                             <div className="main-patient">
-                                <img className="imageOptient-patient ms-3" src="/home-patient/Comunidad.jpg" alt="Comunidad"/>
-                                <h2 className="text-center">Comunidad</h2>
-                                <p className="description text-center">Puedes leer distintas experiencias.</p>
+                                <img className="imageOptient-patient ms-3" src="/home-options/Comunidad.jpg" alt="Comunidad"/>
+                                <h2 className="ms-3 text-center">Comunidad</h2>
+                                <p className="ms-3 description text-center">Puedes leer distintas experiencias.</p>
                                 <hr />
                             </div>
                         </div>
@@ -33,9 +34,19 @@ export const OptionsPatient: React.FC = () => {
                     <div className="col-md-4 col-sm-6 col-12 mb-4">
                         <div className="containerCard-patient">
                             <div className="main-patient">
-                                <img className="imageOptient-patient ms-3" src="/home-patient/diario.jpg" alt="Diario"/>
-                                <h2 className="text-center">Diario</h2>
-                                <p className="description text-center">Escribe tus pensamientos en tu diario personal.</p>
+                                <img className="imageOptient-patient ms-3" src="/home-options/diario.jpg" alt="Diario"/>
+                                <h2 className="ms-3 text-center">Diario</h2>
+                                <p className="ms-3 description text-center">Escribe tus pensamientos en tu diario personal.</p>
+                                <hr />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-md-4 col-sm-6 col-12 mb-4">
+                        <div className="containerCard-patient">
+                            <div className="main-patient">
+                                <img className="imageOptient-patient ms-3" src="/home-options/informacion.webp" alt="Información"/>
+                                <h2 className="ms-3 text-center">Documentación</h2>
+                                <p className="ms-3 description text-center">Información sobre los trastornos.</p>
                                 <hr />
                             </div>
                         </div>
