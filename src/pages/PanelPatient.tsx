@@ -1,12 +1,12 @@
 import React from "react"
-import { PanelPatient } from "../components/mains/patient/PanelPatient"
+import { OptionsPatient } from "../components/mains/patient/OptionsPatient"
 // import { Header } from "../components/headers/Header"
 
-export const HomePatient : React.FC = () => {
+export const PanelPatient : React.FC = () => {
     return(
         <>  
             {/* <Header/> */}
-            <PanelPatient/>
+            <OptionsPatient/>
         </>
     )
 }
