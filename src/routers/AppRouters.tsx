@@ -4,6 +4,7 @@ import { RegisterPage } from '../pages/RegisterPage';
 import { LoginPage } from '../pages/LoginPage';
 import { PanelPatient } from '../pages/PanelPatient';
 import { Home } from '../components/Home';
+import {InfoMentalHealth} from '../pages/InfoMentalHealth'
 
 export const AppRouters = () => {
   return (
@@ -14,6 +15,7 @@ export const AppRouters = () => {
         <Route path='/login' element={<LoginPage />}/>
         <Route path='/patient' element={<PanelPatient/>}/>
         <Route path='/Home' element={<Home/>}/>
+        <Route path='/information' element={<InfoMentalHealth/>}/>
       </Routes>
     </BrowserRouter>
   );

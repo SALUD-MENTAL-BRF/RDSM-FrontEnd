@@ -1,6 +1,5 @@
-import React from "react"
-import { Options } from "../components/mains/patient/OptionsPatient"
-// import { Header } from "../components/headers/Header"
+import React from "react";
+import { Options } from "../components/mains/patient/OptionsPatient";
 
 export const PanelPatient : React.FC = () => {
     return(
@@ -8,5 +7,5 @@ export const PanelPatient : React.FC = () => {
             {/* <Header/> */}
             <Options/>
         </>
-    )
-}
+    );
+};
