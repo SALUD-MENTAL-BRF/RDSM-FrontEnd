@@ -7,9 +7,9 @@ export const TypesDisorders: React.FC = () => {
             <div>
                 <h5 className="text-center">Mental Health:</h5>
                 <section className="articles">
-                    <article>
+                    <article className="card-typeDisorders">
                         <div className="article-wrapper">
-                        <figure>
+                        <figure className="container-image-typeDisorders">
                             <img src="https://picsum.photos/id/1011/800/450" alt="" />
                         </figure>
                         <div className="article-body">
@@ -26,10 +26,9 @@ export const TypesDisorders: React.FC = () => {
                         </div>
                         </div>
                     </article>
-                    <article>
-
+                    <article className="card-typeDisorders">
                         <div className="article-wrapper">
-                        <figure>
+                        <figure className="container-image-typeDisorders">
                             <img src="https://picsum.photos/id/1005/800/450" alt="" />
                         </figure>
                         <div className="article-body">
@@ -46,10 +45,10 @@ export const TypesDisorders: React.FC = () => {
                         </div>
                         </div>
                     </article>
-                    <article>
+                    <article className="card-typeDisorders">
 
                         <div className="article-wrapper">
-                        <figure>
+                        <figure className="container-image-typeDisorders">
                             <img src="https://picsum.photos/id/103/800/450" alt="" />
                         </figure>
                         <div className="article-body">
