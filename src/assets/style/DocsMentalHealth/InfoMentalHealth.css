@@ -1,10 +1,12 @@
 .container-typeDisorders{
-    background-image: url('background-registerPage/stacked-waves-haikei.svg') ;
-    min-height: 100vh;
+    background: url('background-registerPage/stacked-waves-haikei.svg')no-repeat;
+    background-size: cover;
+    min-height: 160vh;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    
 }
 
 .card-typeDisorders {
@@ -31,7 +33,7 @@
   
   .card-typeDisorders h2 {
     margin: 0 0 18px 0;
-    font-family: "Bebas Neue", cursive;
+    /* font-family: "Bebas Neue", cursive; */
     font-size: 1.9rem;
     letter-spacing: 0.06em;
     color: var(--title-color);
