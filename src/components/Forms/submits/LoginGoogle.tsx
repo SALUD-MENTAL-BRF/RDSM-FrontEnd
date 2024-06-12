@@ -28,7 +28,7 @@ function LoginGoogle() {
         .then((response) => {
           login({ token: response.data.token, user: response.data.user });
           setTimeout(() => {
-            window.location.href = "http://localhost:4000/dashboard";
+            window.location.href = "http://localhost:4000/home  ";
           });
         })
         .catch((error) => {
