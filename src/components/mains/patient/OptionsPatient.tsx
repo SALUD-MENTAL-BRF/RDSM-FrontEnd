@@ -24,7 +24,7 @@ export const Options: React.FC = () => {
                     <div className="col-md-4 col-sm-6 col-12 mb-4">
                         <div className="containerCard-patient">
                             <div className="main-patient">
-                                <img className="imageOptient-patient ms-3" src="/home-patient/Comunidad.jpg" alt="Comunidad"/>
+                                <img className="imageOptient-patient ms-3" src="/home-patient/comunidad.jpg" alt="Comunidad"/>
                                 <h2 className="ms-3 text-center">Comunidad</h2>
                                 <p className="ms-3 description text-center">Puedes leer distintas experiencias.</p>
                                 <hr />
