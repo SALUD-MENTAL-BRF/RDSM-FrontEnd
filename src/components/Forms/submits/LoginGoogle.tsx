@@ -27,6 +27,9 @@ function LoginGoogle() {
         .post("http://localhost:3000/auth/google", { tokenId })
         .then((response) => {
           login({ token: response.data.token, user: response.data.user });
+          setTimeout(() => {
+            window.location.href = "http://localhost:4000/dashboard";
+          });
         })
         .catch((error) => {
           console.error("Error al autenticar el usuario:", error.response.data);
