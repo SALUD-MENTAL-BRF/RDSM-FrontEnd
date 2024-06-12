@@ -65,7 +65,9 @@ export const Login: React.FC = () => {
                 </svg>
               </div>
               <LoginSubmit stateForm={stateForm}/>
-              <LoginGoogle />
+              <div className="loginPage__sectionForm-form">
+                <LoginGoogle />
+              </div>
             </form>
 
             <p>¿Olvidaste tu contraseña? <a className='registerForm-links' href="/login">Recuperar Contraseña</a></p>

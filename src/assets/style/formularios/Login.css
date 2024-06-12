@@ -80,3 +80,13 @@ input::placeholder {
   font-family: 'Times New Roman', Times, serif;
   color: #0584a7;
 }
+
+.loginPage__sectionForm-form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: -20px;
+  margin-right: 25px;
+}
