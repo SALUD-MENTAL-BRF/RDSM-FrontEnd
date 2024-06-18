@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 export const Landing: React.FC = () => {
   return (
     <>
-      <div className="Home__Main">
+      <main className="Home__Main">
         <section className="Home__Main-hero">
           <div className="Home__Main-hero-content">
             <h1 className="Home__Main-hero-title">
@@ -40,7 +40,7 @@ export const Landing: React.FC = () => {
           </div>
         </section>
     
-      </div>
+      </main>
     </>
   );
 };
