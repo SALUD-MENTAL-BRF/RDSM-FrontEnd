@@ -5,7 +5,12 @@ import { Aside } from "../../../assets/style/aside/Aside";
 export const Options: React.FC = () => {
     return (
         <main className="container-patient">
-            <Aside/>
+            <div>
+                <div className="col-1">
+                    <Aside/>
+                </div>
+            </div>
+            
         </main>
     );
 };
