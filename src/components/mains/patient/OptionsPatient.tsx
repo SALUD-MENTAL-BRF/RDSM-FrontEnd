@@ -1,6 +1,6 @@
 import React from "react";
 import "../../../assets/style/HomePatient/PanelPatient.css";
-import { Aside } from "../../../assets/style/aside/aside";
+import { Aside } from "../../../assets/style/aside/Aside";
 
 export const Options: React.FC = () => {
     return (
