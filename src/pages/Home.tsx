@@ -1,7 +1,7 @@
 import React from "react";
 import { Options } from "../components/mains/patient/OptionsPatient";
 import { Header } from "../components/headers/Header";
-export const PanelPatient : React.FC = () => {
+export const Home : React.FC = () => {
     return(
         <>  
             <Header/>
