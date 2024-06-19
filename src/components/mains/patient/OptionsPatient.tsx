@@ -10,21 +10,21 @@ export const Options: React.FC = () => {
                     <Aside/>
                 </section>
                 <section className="col mt-5 options-container">
-                    <div className="row justify-content-space-between">
-                        <div className="col-3 text-end">
+                    <div className="row">
+                        <div className="col-12 col-md-3 text-md-end text-center mb-4 mb-md-0">
                             <div className="container-img-patient">
-                                <img className="img-actividades" src="home-patient/actividades.webp" alt="" />
+                                <img className="img-actividades img-fluid" src="home-patient/actividades.webp" alt="Actividades" />
                                 <figcaption>Actividades</figcaption>
                             </div>
                             <div className="container-img-patient mt-4">
-                                <img className="img-diario" src="home-patient/diario.webp" alt="" />
+                                <img className="img-diario img-fluid" src="home-patient/diario.webp" alt="Diario" />
                                 <figcaption>Diario</figcaption>
                             </div>
                         </div>
-                        <div className="col-6">
+                        <div className="col-12 col-md-6 text-center">
                             <div className="container-img-patient">
-                                <img className="imgPsicologo" src="home-patient/psicologo.webp" alt="" />
-                                <figcaption className="text-end">Profesional</figcaption>
+                                <img className="imgPsicologo img-fluid" src="home-patient/psicologo.webp" alt="Profesional" />
+                                <figcaption className="text-md-end">Profesional</figcaption>
                             </div>
                         </div>
                     </div>
