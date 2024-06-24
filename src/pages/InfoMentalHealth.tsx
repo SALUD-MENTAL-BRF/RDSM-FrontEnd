@@ -1,5 +1,5 @@
 import React from "react";
-import { TypesDisorders } from "../components/mains/DocsMentalHealth/TypesDisorders";
+import { TypesDisorders } from "../components/main/DocsMentalHealth/TypesDisorders";
 
 export const InfoMentalHealth: React.FC = () => {
 

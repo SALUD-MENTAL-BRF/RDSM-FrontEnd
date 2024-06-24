@@ -2,7 +2,7 @@ import React from "react";
 import "../../../assets/style/HomePatient/PanelPatient.css";
 import { Aside } from "../../../assets/style/aside/Aside";
 
-export const Options: React.FC = () => {
+export const OptionsPatient: React.FC = () => {
     return (
         <main className="container-patient">
             <div className="row w-100">
@@ -10,7 +10,7 @@ export const Options: React.FC = () => {
                     <Aside/>
                 </section>
                 <section className="col mt-5 options-container">
-                    <div className="row">
+                    <div className="row justify-content-center">
                         <div className="col-12 col-md-3 text-md-end text-center mb-4 mb-md-0">
                             <div className="container-img-patient">
                                 <img className="img-actividades img-fluid" src="home-patient/actividades.webp" alt="Actividades" />
