@@ -1,17 +1,19 @@
 import React from "react";
 import "../../../assets/style/HomePatient/PanelPatient.css";
-import { Aside } from "../../../assets/style/aside/Aside";
+import { Aside } from "../../aside/Aside";
+
 
 export const OptionsPatient: React.FC = () => {
+
     return (
         <main className="container-patient">
             <div className="row w-100">
-                <section className="aside-patient col-1 d-flex justify-content-center p-3">
+                <section className="aside-patient col-2 col-md-1 text-center">
                     <Aside/>
                 </section>
                 <section className="col mt-5 options-container">
                     <div className="row justify-content-center">
-                        <div className="col-12 col-md-3 text-md-end text-center mb-4 mb-md-0">
+                        <div className="col-12 col-md-3 text-md-end text-center">
                             <div className="container-img-patient">
                                 <img className="img-actividades img-fluid" src="home-patient/actividades.webp" alt="Actividades" />
                                 <figcaption>Actividades</figcaption>
