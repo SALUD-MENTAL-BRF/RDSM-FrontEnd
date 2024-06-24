@@ -3,10 +3,6 @@
     background-size: cover;
     min-height: 160vh;
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    
 }
 
 .card-typeDisorders {

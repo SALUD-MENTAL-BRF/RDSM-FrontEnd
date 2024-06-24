@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+// import React, { useContext } from "react";
 // import logo from "/logo/image.png";
 // import { Lougout } from "./Logout.tsx";
 // import { ButtonsLoginRegister } from "./ButtonsLoginRegister.tsx";
-import { AuthContext } from "../../context/AuthProvider";
+// import { AuthContext } from "../../context/AuthProvider";
 import '../../assets/style/header/header.css'
 // import threePersons from 'home-patient/three-persons.png'
 
@@ -12,7 +12,7 @@ import '../../assets/style/header/header.css'
 
 export const Header: React.FC = () => {
 
-  const { authState } = useContext(AuthContext)
+  // const { authState } = useContext(AuthContext)
 
   return (
     <header className="Header">
