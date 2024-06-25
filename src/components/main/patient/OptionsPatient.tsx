@@ -16,7 +16,7 @@ export const OptionsPatient: React.FC = () => {
                         <div className="col-12 col-md-3 text-md-end text-center">
                             <div className="container-img-patient">
                                 <img className="img-actividades img-fluid" src="home-patient/actividades.webp" alt="Actividades" />
-                                <figcaption>Actividades</figcaption>
+                                <figcaption className="text-black">Actividades</figcaption>
                             </div>
                             <div className="container-img-patient mt-4">
                                 <img className="img-diario img-fluid" src="home-patient/diario.webp" alt="Diario" />
