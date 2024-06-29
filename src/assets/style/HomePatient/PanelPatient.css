@@ -1,6 +1,85 @@
 .container-patient{
-  background-image: url('background-registerPage/stacked-waves-haikei.svg') ;
+  background: url('background-registerPage/stacked-waves-haikei.svg')no-repeat;
   background-size: cover;
-  height: 100vh;
+  height: 110vh;
+  display: flex;
+  /* flex-direction: row-reverse;
+  justify-content: space-around;
+  align-items: center; */
 }
 
+.aside-patient{
+  background-color: #ccc;
+}
+
+.img-actividades {
+  width: 100%;
+  border-top-left-radius: 20px;
+}
+
+.img-diario {
+  width: 100%;
+  border-end-start-radius: 20px;
+}
+
+.imgPsicologo{
+  width: 100%;
+  border-end-end-radius: 20px;
+  border-start-end-radius: 20px;
+  position: relative;
+}
+
+/* .options-container{
+  margin-left: 200px;
+} */
+
+.container-img-patient {
+  display: grid;
+  border-radius: 1rem;
+  overflow: hidden;
+  cursor: pointer;
+}
+.container-img-patient > * {
+  grid-area: 1/1;
+  transition: .4s;
+}
+.container-img-patient figcaption {
+  display: grid;
+  align-items: end;
+  font-family: sans-serif;
+  font-size: 2.3rem;
+  font-weight: bold;
+  color: black;
+  padding: .75rem;
+  background: var(--c,#0009);
+  clip-path: inset(0 var(--_i,100%) 0 0);
+  -webkit-mask:
+    linear-gradient(#000 0 0),
+    linear-gradient(#000 0 0);
+  mask:
+    linear-gradient(#000 0 0),
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  -webkit-mask-clip: text, padding-box;
+  mask-clip: text, padding-box;
+  margin: -1px;
+}
+.container-img-patient:hover figcaption {
+  --_i: 0%;
+}
+.container-img-patient:hover img {
+  transform: scale(1.2);
+}
+
+@media screen and (max-width: 768px) {
+  .container-patient {
+    height: 400vh;
+  }
+}
+
+@media screen and (max-width: 615px) {
+  .container-patient {
+    height: 300vh;
+  }
+}
