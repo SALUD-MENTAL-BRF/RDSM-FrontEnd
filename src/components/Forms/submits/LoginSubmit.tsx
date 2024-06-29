@@ -44,7 +44,7 @@ export const LoginSubmit: React.FC <{ stateForm: FormState }> = ({stateForm})=>{
       });
 
       setTimeout(() => {
-          window.location.href = "/"
+          window.location.href = "/home"
       }, 2000);
       }
 
