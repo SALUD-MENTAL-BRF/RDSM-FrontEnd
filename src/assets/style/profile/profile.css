@@ -1,0 +1,91 @@
+.containerMainProfile {
+  background: url('background-registerPage/stacked-waves-haikei.svg') no-repeat;
+  background-size: cover;
+  height: 90vh;
+  display: flex;
+  margin: 0;
+}
+
+.containerMainProfile__Aside {
+  background-color: #5292AD;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.user-info img {
+  border-radius: 50%;
+  margin-right: 30px;
+  height: 500px;
+  width: 650px;
+}
+
+.chat-history,
+.treatment-plan,
+.mental-health-stats,
+.heart-rate,
+.additional-stats {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 575.98px) {
+  .containerMainProfile {
+    flex-direction: column;
+  }
+
+  .user-info {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .user-info img {
+    height: auto;
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 10px;
+  }
+
+  .profile-section {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .user-info img {
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .user-info img {
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .user-info img {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 1399.98px) {
+  .user-info img {
+    margin-top: 50px;
+    max-width: 400px;
+    max-height: 400px;
+  }
+}
