@@ -1,6 +1,8 @@
 import React from "react";
 import { Aside } from "../aside/Aside";
 import "../../assets/style/personalDiary/personalDiary.css";
+import { ListNotes } from "./ListNotes";
+import { ContentNotes } from "./ContentNotes";
 
 export const PersonalDiary: React.FC = () => {
   return (
@@ -18,11 +20,11 @@ export const PersonalDiary: React.FC = () => {
             <div className="row w-100 m-0">
               {/* list of notes */}
               <div className="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 p-0 containerMainPersonalDiary__Notes-listNotes">
-                <h1>lista de notas</h1>
+                <ListNotes />
               </div>
               {/* contenido de nota */}
               <div className="col-12 col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 p-0 containerMainPersonalDiary__Notes-contentNote">
-                <h1>contenido de notas</h1>
+                <ContentNotes />
               </div>
             </div>
           </section>
