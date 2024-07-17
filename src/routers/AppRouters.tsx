@@ -7,6 +7,7 @@ import { ProfilePage } from '../pages/ProfilePage';
 import { HomePage } from '../pages/HomePage';
 import { InfoMentalHealthPage } from '../pages/InfoMentalHealthPage';
 import { AuthContext } from '../context/AuthProvider';
+import { PersonalDiaryPage } from '../pages/PersonalDiaryPage';
 
 export const AppRouters: React.FC = () => {
   const { authState }: any = useContext(AuthContext);
@@ -20,6 +21,7 @@ export const AppRouters: React.FC = () => {
         <Route path="/home" element={authState.islogged ? <HomePage /> : <Navigate to='/register' replace={true} />} />
         <Route path="/profile" element={ authState.islogged ? <ProfilePage /> : <Navigate to='/register' replace={true} />} />
         <Route path="/information" element={authState.islogged ? <InfoMentalHealthPage /> : <Navigate to='/register' replace={true} />} />
+        <Route path="/personalDiary" element={authState.islogged ? <PersonalDiaryPage /> : <Navigate to='/register' replace={true} />} />
         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
     </BrowserRouter>
