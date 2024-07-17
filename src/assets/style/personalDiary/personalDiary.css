@@ -1,0 +1,33 @@
+.containerMainPersonalDiary {
+  background: url('background-registerPage/stacked-waves-haikei.svg') no-repeat center center;
+  background-size: cover;
+  height: 90vh;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.containerMainPersonalDiary__Aside {
+  background-color: #5292AD;
+}
+
+.containerMainPersonalDiary__Notes {
+  display: flex;
+  flex-grow: 1;
+}
+
+
+.containerMainPersonalDiary__Notes-listNotes{
+  background-color: red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerMainPersonalDiary__Notes-contentNote{
+  background-color: blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 61.1vw;
+}
