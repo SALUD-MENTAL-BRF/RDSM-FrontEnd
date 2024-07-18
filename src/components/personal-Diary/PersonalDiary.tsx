@@ -19,9 +19,7 @@ export const PersonalDiary: React.FC = () => {
           <section className="container col-10 col-sm-10 col-md-10 col-lg-11 col-xl-11 col-xxl-11 p-0 containerMainPersonalDiary__Notes">
             <div className="row w-100 m-0">
               {/* list of notes */}
-              <div className="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 p-0 containerMainPersonalDiary__Notes-listNotes">
                 <ListNotes />
-              </div>
               {/* contenido de nota */}
               <div className="col-12 col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 p-0 containerMainPersonalDiary__Notes-contentNote">
                 <ContentNotes />
