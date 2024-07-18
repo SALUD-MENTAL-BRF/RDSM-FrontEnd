@@ -18,12 +18,10 @@ export const PersonalDiary: React.FC = () => {
           {/* section notes */}
           <section className="container col-10 col-sm-10 col-md-10 col-lg-11 col-xl-11 col-xxl-11 p-0 containerMainPersonalDiary__Notes">
             <div className="row w-100 m-0">
-              {/* list of notes */}
-                <ListNotes />
               {/* contenido de nota */}
-              <div className="col-12 col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 p-0 containerMainPersonalDiary__Notes-contentNote">
-                <ContentNotes />
-              </div>
+              <ContentNotes />
+              {/* list of notes */}
+              <ListNotes />
             </div>
           </section>
         </div>
