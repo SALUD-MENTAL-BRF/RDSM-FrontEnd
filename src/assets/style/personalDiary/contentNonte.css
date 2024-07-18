@@ -1,0 +1,6 @@
+.containerMainPersonalDiary__Notes-contentNote{
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+}

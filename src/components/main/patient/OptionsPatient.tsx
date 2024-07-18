@@ -1,9 +1,11 @@
 import React from "react";
 import "../../../assets/style/HomePatient/PanelPatient.css";
 import { Aside } from "../../aside/Aside";
-
+import { useNavigate } from 'react-router-dom'
 
 export const OptionsPatient: React.FC = () => {
+
+    const navigate = useNavigate();
 
     return (
         <main className="container-patient">
@@ -18,8 +20,8 @@ export const OptionsPatient: React.FC = () => {
                                 <img className="img-actividades img-fluid" src="home-patient/actividades.webp" alt="Actividades" />
                                 <figcaption className="text-black">Actividades</figcaption>
                             </div>
-                            <div className="container-img-patient mt-4">
-                                <img className="img-diario img-fluid" src="home-patient/diario.webp" alt="Diario" />
+                            <div className="container-img-patient mt-4" onClick={() =>  navigate("/personalDiary")}>
+                                <img className="img-diario img-fluid" src="home-patient/diario.webp" alt="Diario"/>
                                 <figcaption>Diario</figcaption>
                             </div>
                         </div>

@@ -1,19 +1,28 @@
-import { LandingPage } from '../pages/LandingPage'
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { LandingPage } from '../pages/LandingPage';
 import { RegisterPage } from '../pages/RegisterPage';
 import { LoginPage } from '../pages/LoginPage';
-import { Home } from '../pages/Home';
-import {InfoMentalHealth} from '../pages/InfoMentalHealth'
+import { ProfilePage } from '../pages/ProfilePage';
+import { HomePage } from '../pages/HomePage';
+import { InfoMentalHealthPage } from '../pages/InfoMentalHealthPage';
+import { AuthContext } from '../context/AuthProvider';
+import { PersonalDiaryPage } from '../pages/PersonalDiaryPage';
 
-export const AppRouters = () => {
+export const AppRouters: React.FC = () => {
+  const { authState }: any = useContext(AuthContext);
+
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path='/register' element={<RegisterPage />}/>
-        <Route path='/login' element={<LoginPage />}/>
-        <Route path='/home' element={<Home/>}/>
-        <Route path='/information' element={<InfoMentalHealth/>}/>
+        <Route path="/register" element={authState.islogged ? <Navigate to='/home' replace={true}/> : <RegisterPage />} />
+        <Route path="/login" element={authState.islogged ? <Navigate to='/home' replace={true} /> : <LoginPage />} />
+        <Route path="/home" element={authState.islogged ? <HomePage /> : <Navigate to='/register' replace={true} />} />
+        <Route path="/profile" element={ authState.islogged ? <ProfilePage /> : <Navigate to='/register' replace={true} />} />
+        <Route path="/information" element={authState.islogged ? <InfoMentalHealthPage /> : <Navigate to='/register' replace={true} />} />
+        <Route path="/personalDiary" element={authState.islogged ? <PersonalDiaryPage /> : <Navigate to='/register' replace={true} />} />
+        {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
     </BrowserRouter>
   );

@@ -9,11 +9,7 @@ interface FormState {
 
 export const LoginSubmit: React.FC <{ stateForm: FormState }> = ({stateForm})=>{
 
-  const { login, authState } = useContext(AuthContext)
-
-  if (authState.islogged == true) {
-    window.location.href = "/"
-}
+  const { login } = useContext(AuthContext)
 
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
@@ -44,7 +40,7 @@ export const LoginSubmit: React.FC <{ stateForm: FormState }> = ({stateForm})=>{
       });
 
       setTimeout(() => {
-          window.location.href = "/"
+          window.location.href = "/home"
       }, 2000);
       }
 
