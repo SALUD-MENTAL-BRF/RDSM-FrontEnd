@@ -1,11 +1,10 @@
-import { useContext } from "react";
 import Swal from "sweetalert2";
-import { AuthContext } from "../../context/AuthProvider";
+import useAuth from "../../hooks/useAuth";
 
 
 export const Lougout = () => {
 
-  const { logout } = useContext(AuthContext)
+  const { logout } = useAuth()
 
   const handleLogout = ()=>{
     Swal.fire({
@@ -24,6 +23,10 @@ export const Lougout = () => {
           "Tu sesión ha sido cerrada",
           "success"
         );
+        // redireccionar a la página de login
+        setTimeout(() => {
+          window.location.href = "/register"
+        },1500)
       }
     });
   }
