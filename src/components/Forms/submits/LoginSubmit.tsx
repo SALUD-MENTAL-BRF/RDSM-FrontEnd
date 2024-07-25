@@ -1,6 +1,7 @@
 import React from "react";
 import Swal from "sweetalert2";
 import { CustomFetch } from "../../../api/CustomFetch";
+import useAuth from "../../../hooks/useAuth";
 
 interface FormState {
   email: string;
@@ -9,22 +10,21 @@ interface FormState {
 
 export const LoginSubmit: React.FC <{ stateForm: FormState }> = ({stateForm})=>{
 
-
+  const { login } = useAuth();
 
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
     
     try {
-
       const payload = {
         email: stateForm.email,
         password: stateForm.password,
       }
 
-      const data = CustomFetch('http://localhost:3000/auth/login', 'POST', payload);
+      const data = await CustomFetch('http://localhost:3000/auth/login', 'POST', payload);
 
-        console.log(data)
-        // login({ token: data.token, user: data.user });
+      login(data.user, data.token); 
+
         Swal.fire({
           title: "Éxito",
           text: "Inicio de Sesión Exitoso",
@@ -35,9 +35,9 @@ export const LoginSubmit: React.FC <{ stateForm: FormState }> = ({stateForm})=>{
           grow: "row",
       });
 
-      // setTimeout(() => {
-      //     window.location.href = "/home"
-      // }, 2000);
+      setTimeout(() => {
+          window.location.href = "/home"
+      }, 2000);
 
     } catch (error) {
       console.error("Error al registrar el usuario:", error);
