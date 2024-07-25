@@ -2,8 +2,14 @@ import React from "react";
 import { Aside } from "../aside/Aside";
 import "../../assets/style/profile/profile.css";
 import imageExample from "/image-example/imageUser.jpg";
+import useAuth from "../../hooks/useAuth";
 
 export const Profile: React.FC = () => {
+
+  const { user } = useAuth()
+
+  console.log(user)
+
   return (
     <>
       <main className="container-fluid containerMainProfile">
@@ -14,15 +20,15 @@ export const Profile: React.FC = () => {
           <div className="col-10 col-sm-10 col-md-10 col-lg-11 col-xl-11 col-xxl-11 containerMainProfile__InformationUser">
             <div className="profile-header">
               <div className="user-info">
-                <img src={imageExample} alt="User" className="userImage" />
+                <img src={user?.imageUrl ? user.imageUrl : imageExample} alt="User" className="userImage" />
                 <div>
-                  <h2>Nombre Apellido</h2>
-                  <p>Genero: M/F</p>
-                  <p>Edad: 29</p>
-                  <p>terapia: Terapia de conducta cognitiva</p>
-                  <p>Ultima Sesión: hace 2 dias atrás</p>
-                  <p>Terapeuta: Dr. Smith</p>
-                  <p>User ID: ABC123</p>
+                  <h2>{user?.username}</h2>
+                  <p>Genero: {user?.gender ? user?.gender : 'Puedes editar esta información si lo necesitas.'}</p>
+                  <p>Edad: {user?.age ? user?.age : 'Puedes editar esta información si lo necesitas.'}</p>
+                  <p>terapia: Debes ser un paciente para visualizar esta información</p>
+                  <p>Ultima Sesión: Debes ser un paciente para visualizar esta información.</p>
+                  <p>Terapeuta: Debes ser un paciente para visualizar esta informacion</p>
+                  <p>User ID: {user?.id}</p>
                 </div>
               </div>
             </div>
