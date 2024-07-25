@@ -1,12 +1,11 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { gapi } from "gapi-script";
 import GoogleLogin from "react-google-login";
-import axios from "axios";
-import { AuthContext } from "../../../context/AuthProvider";
+import { CustomFetch } from "../../../api/CustomFetch";
+import useAuth from "../../../hooks/useAuth";
 
 function LoginGoogle() {
-
-  const { login }: any = useContext(AuthContext);
+  const { login } = useAuth();
   const CLIENT_ID = "136089606734-e5goqplme4c83uluaqgtilb6r4mubnj7.apps.googleusercontent.com";
 
   useEffect(() => {
@@ -18,22 +17,20 @@ function LoginGoogle() {
     gapi.load("client:auth2", start);
   }, []);
 
-  const onSuccess = (response:any) => {
+  const onSuccess = async (response: any) => {
     try {
-      const tokenId = response.tokenId;  // Obtener el tokenId
+      const tokenId = response.tokenId;
       
-      // Enviar el tokenId al servidor
-      axios
-        .post("http://localhost:3000/auth/google", { tokenId })
-        .then((response) => {
-          login({ token: response.data.token, user: response.data.user });
-          setTimeout(() => {
-            window.location.href = "http://localhost:4000/home  ";
-          });
-        })
-        .catch((error) => {
-          console.error("Error al autenticar el usuario:", error.response.data);
-        });
+      const data = await CustomFetch("http://localhost:3000/auth/google", 'POST', { tokenId });
+
+      if (data && data.user && data.token) {
+        login(data.user, data.token);
+        setTimeout(() => {
+          window.location.href = "http://localhost:4000/home";
+        }, 1000);
+      } else {
+        console.error("Error: Datos de usuario o token no recibidos correctamente.");
+        }
     } catch (error) {
       console.log(error);
     }
