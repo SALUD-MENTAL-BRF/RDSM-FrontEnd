@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import Swal from "sweetalert2";
-import { AuthContext } from "../../../context/AuthProvider";
+import { CustomFetch } from "../../../api/CustomFetch";
 
 interface FormState {
   email: string;
@@ -9,26 +9,22 @@ interface FormState {
 
 export const LoginSubmit: React.FC <{ stateForm: FormState }> = ({stateForm})=>{
 
-  const { login } = useContext(AuthContext)
+
 
   const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
     
     try {
-      const response = await fetch("http://localhost:3000/auth/login", {
-          method: "POST",
-          headers: {
-              "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-              email: stateForm.email,
-              password: stateForm.password,
-          }),
-      });
 
-      if (response.ok){
-        const data = await response.json();
-        login({ token: data.token, user: data.user });
+      const payload = {
+        email: stateForm.email,
+        password: stateForm.password,
+      }
+
+      const data = CustomFetch('http://localhost:3000/auth/login', 'POST', payload);
+
+        console.log(data)
+        // login({ token: data.token, user: data.user });
         Swal.fire({
           title: "Éxito",
           text: "Inicio de Sesión Exitoso",
@@ -39,10 +35,9 @@ export const LoginSubmit: React.FC <{ stateForm: FormState }> = ({stateForm})=>{
           grow: "row",
       });
 
-      setTimeout(() => {
-          window.location.href = "/home"
-      }, 2000);
-      }
+      // setTimeout(() => {
+      //     window.location.href = "/home"
+      // }, 2000);
 
     } catch (error) {
       console.error("Error al registrar el usuario:", error);

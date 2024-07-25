@@ -1,7 +1,6 @@
-import { useContext } from "react";
-import { AuthContext } from "../../../context/AuthProvider";
 import { CustomFetch } from '../../../api/CustomFetch';
 import Swal from "sweetalert2";
+import useAuth from '../../../hooks/useAuth';
 
 interface FormState {
     username: string;
@@ -11,7 +10,8 @@ interface FormState {
 }
 
 export const RegisterSubmit: React.FC<{ stateForm: FormState }> = ({ stateForm }) => {
-    const { login }: any = useContext(AuthContext);
+
+    const { login } = useAuth()
 
     const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
         e.preventDefault();
@@ -33,8 +33,7 @@ export const RegisterSubmit: React.FC<{ stateForm: FormState }> = ({ stateForm }
                     password: stateForm.password,
                 });
 
-                login({ token: data.token, user: data.user });
-
+                login(data.user, data.token);
                 Swal.fire({
                     title: "Éxito",
                     text: "Usuario registrado correctamente",
@@ -46,7 +45,7 @@ export const RegisterSubmit: React.FC<{ stateForm: FormState }> = ({ stateForm }
                 });
 
                 setTimeout(() => {
-                    window.location.href = "/";
+                    window.location.href = "/home";
                 }, 2000);
 
             } catch (error) {
