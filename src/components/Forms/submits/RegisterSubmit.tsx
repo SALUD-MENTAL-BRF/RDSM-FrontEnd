@@ -44,10 +44,6 @@ export const RegisterSubmit: React.FC<{ stateForm: FormState }> = ({ stateForm }
                     grow: "row",
                 });
 
-                setTimeout(() => {
-                    window.location.href = "/home";
-                }, 2000);
-
             } catch (error) {
                 console.error("Error al registrar el usuario:", error);
                 Swal.fire({
