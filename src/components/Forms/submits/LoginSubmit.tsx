@@ -33,11 +33,7 @@ export const LoginSubmit: React.FC <{ stateForm: FormState }> = ({stateForm})=>{
           padding: "1rem",
           background: "#FFF",
           grow: "row",
-      });
-
-      setTimeout(() => {
-          window.location.href = "/home"
-      }, 2000);
+      }); 
 
     } catch (error) {
       console.error("Error al registrar el usuario:", error);

@@ -23,10 +23,6 @@ export const Lougout = () => {
           "Tu sesión ha sido cerrada",
           "success"
         );
-        // redireccionar a la página de login
-        setTimeout(() => {
-          window.location.href = "/register"
-        },1500)
       }
     });
   }

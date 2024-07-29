@@ -25,9 +25,6 @@ function LoginGoogle() {
 
       if (data && data.user && data.token) {
         login(data.user, data.token);
-        setTimeout(() => {
-          window.location.href = "http://localhost:4000/home";
-        }, 1000);
       } else {
         console.error("Error: Datos de usuario o token no recibidos correctamente.");
         }
