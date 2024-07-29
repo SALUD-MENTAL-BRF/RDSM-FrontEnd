@@ -5,12 +5,12 @@ import { Aside } from "../../aside/Aside";
 export const TypesDisorders: React.FC = () => {
 
     return (
-        <main className="container-typeDisorders">
+        <main className="container-fluid container-typeDisorders">
             <div className="row w-100">
-                <div className="aside-patient col-2 col-md-1 text-center">
-                        <Aside/>
+                <div className="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1 col-xxl-1 text-center aside-patient">
+                    <Aside/>
                 </div>
-                <div className="col-10 mt-1">
+                <div className="col-10 col-sm-10 col-md-10 col-lg-11 col-xl-11 col-xxl-11 mt-1">
                     <h1 className="text-center">Problemas relacionados con la aplicación:</h1>
                     <section className="articles row">
                         <article className="col card-typeDisorders">

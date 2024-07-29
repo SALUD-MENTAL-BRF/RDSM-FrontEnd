@@ -8,12 +8,12 @@ export const OptionsPatient: React.FC = () => {
     const navigate = useNavigate();
 
     return (
-        <main className="container-patient">
+        <main className="container-fluid container-patient">
             <div className="row w-100">
-                <section className="aside-patient col-2 col-md-1 text-center">
+                <section className="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1 col-xxl-1 text-center aside-patient">
                     <Aside/>
                 </section>
-                <section className="col mt-5 options-container">
+                <section className="col-10 col-sm-10 col-md-10 col-lg-11 col-xl-11 col-xxl-11 mt-5 options-container">
                     <div className="row justify-content-center">
                         <div className="col-12 col-md-3 text-md-end text-center">
                             <div className="container-img-patient">
