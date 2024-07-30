@@ -1,7 +1,11 @@
 import React from "react";
 import "../../assets/style/personalDiary/listNotes.css";
 
-export const ListNotes: React.FC = () => {
+interface ListNotesProps {
+  onAddNote: () => void;
+}
+
+export const ListNotes: React.FC<ListNotesProps> = ({ onAddNote }) => {
   return (
     <>
       <div className="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 p-0 containerMainPersonalDiary__Notes-listNotes">
@@ -15,16 +19,14 @@ export const ListNotes: React.FC = () => {
             <span className="material-symbols-outlined m-1" role="button">
               unfold_less_double
             </span>
-            <span className="material-symbols-outlined" role="button">
+            <span className="material-symbols-outlined" role="button" onClick={onAddNote}>
               add
             </span>
           </div>
         </div>
 
         {/* lista de notas */}
-
         <div className="containerMainPersonalDiary__Notes-listNotes-notes">
-
           <div className="containerMainPersonalDiary__Notes-listNotes-notes-item">
             <h4>Título de la nota 1</h4>
             <p>Contenido de la primera nota.</p>
@@ -51,9 +53,7 @@ export const ListNotes: React.FC = () => {
               delete
             </span>
           </div>
-
         </div>
-
       </div>
     </>
   );
