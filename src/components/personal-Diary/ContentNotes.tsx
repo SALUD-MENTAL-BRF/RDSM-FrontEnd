@@ -1,22 +1,44 @@
 import React, { useRef, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import '../../assets/style/personalDiary/contentNonte.css';
+import useAuth from '../../hooks/useAuth';
+import { CustomFetch } from '../../api/CustomFetch';
+import Swal from 'sweetalert2';
 
 interface ContentNotesProps {
   onCompleteNote: () => void;
 }
 
-export const ContentNotes: React.FC<ContentNotesProps> = (/*{ onCompleteNote }*/) => {
+export const ContentNotes: React.FC<ContentNotesProps> = ({ onCompleteNote }) => {
   const editorRef = useRef<any>(null);
+
+  const { user } = useAuth()
 
   const [note, setNote] = useState('');
   const [title, setTitle] = useState('Titulo de la Nota');
 
-  const handleCompleteNote = () => {
+  const handleCompleteNote = async() => {
     if (editorRef.current) {
       setNote(editorRef.current.getContent());
     }
 
+    const payload = {
+      title,
+      content: note,
+      userId: user?.id
+    }
+
+    CustomFetch('http://localhost:3000/note', 'POST', payload)
+    .then(() => {
+      Swal.fire({
+        title: "Éxito",
+        text: "Nota guardada correctamente",
+        icon: "success",
+        width: "50%",
+        timer: 1500
+      });
+      onCompleteNote();
+    })
 
     // Llamar a la función onCompleteNote para ocultar el cuadro de notas
     // onCompleteNote();
