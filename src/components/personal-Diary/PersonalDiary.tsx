@@ -11,6 +11,10 @@ export const PersonalDiary: React.FC = () => {
     setShowContentNotes(true);
   };
 
+  const handleCompleteNote = () => {
+    setShowContentNotes(false);
+  };
+
   return (
     <>
       <main className="container-fluid p-0">
@@ -24,8 +28,7 @@ export const PersonalDiary: React.FC = () => {
           {/* section notes */}
           <section className="container col-10 col-sm-10 col-md-10 col-lg-11 col-xl-11 col-xxl-11 p-0 containerMainPersonalDiary__Notes">
             <div className="row w-100 m-0">
-              {/* contenido de nota */}
-             {/* Mostrar mensaje de invitación si no hay notas */}
+              {/* Mostrar mensaje de invitación si no hay notas */}
               {!showContentNotes && (
                 <div className="col-12 col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 p-0 text-center mt-5">
                   <h3>¡Bienvenido a tu Diario Personal!</h3>
@@ -33,7 +36,7 @@ export const PersonalDiary: React.FC = () => {
                 </div>
               )}
               {/* contenido de nota */}
-              {showContentNotes && <ContentNotes />}
+              {showContentNotes && <ContentNotes onCompleteNote={handleCompleteNote} />}
               {/* list of notes */}
               <ListNotes onAddNote={handleAddNote} />
             </div>

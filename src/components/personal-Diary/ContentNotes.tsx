@@ -2,24 +2,24 @@ import React, { useRef, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import '../../assets/style/personalDiary/contentNonte.css';
 
-export const ContentNotes: React.FC = () => {
+interface ContentNotesProps {
+  onCompleteNote: () => void;
+}
+
+export const ContentNotes: React.FC<ContentNotesProps> = (/*{ onCompleteNote }*/) => {
   const editorRef = useRef<any>(null);
 
   const [note, setNote] = useState('');
-  const [title, setTitle] = useState('Titulo de la Nota 1');
-  const [noteCount, setNoteCount] = useState(1);
+  const [title, setTitle] = useState('Titulo de la Nota');
 
-  const log = () => {
+  const handleCompleteNote = () => {
     if (editorRef.current) {
       setNote(editorRef.current.getContent());
     }
-    console.log("Título de la nota:", title);
-    console.log("Contenido de la nota:", note);
 
-    // Incrementa el número de la nota para el próximo título
-    const nextNoteCount = noteCount + 1;
-    setNoteCount(nextNoteCount);
-    setTitle(`Titulo de la Nota ${nextNoteCount}`);
+
+    // Llamar a la función onCompleteNote para ocultar el cuadro de notas
+    // onCompleteNote();
   }
 
   return (
@@ -49,7 +49,7 @@ export const ContentNotes: React.FC = () => {
           content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
         }}
       />
-      <button className='mt-4' onClick={log}>Completar</button>
+      <button className='mt-4' onClick={handleCompleteNote}>Completar</button>
     </div>
   );
 }
