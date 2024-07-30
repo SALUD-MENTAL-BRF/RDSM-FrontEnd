@@ -12,37 +12,46 @@ interface ContentNotesProps {
 export const ContentNotes: React.FC<ContentNotesProps> = ({ onCompleteNote }) => {
   const editorRef = useRef<any>(null);
 
-  const { user } = useAuth()
+  const { user } = useAuth();
 
-  const [note, setNote] = useState('');
-  const [title, setTitle] = useState('Titulo de la Nota');
+  const [title, setTitle] = useState('');
 
-  const handleCompleteNote = async() => {
-    if (editorRef.current) {
-      setNote(editorRef.current.getContent());
+  const handleCompleteNote = async () => {
+
+    const newContent = editorRef.current.getContent(); // Obtener el contenido directamente
+
+    if (!newContent || !title) {
+      Swal.fire({
+        title: "Error",
+        text: "Por favor, complete todos los campos",
+        icon: "error",
+        width: "50%",
+        timer: 1500
+      });
+      return;
     }
 
     const payload = {
       title,
-      content: note,
+      content: newContent, // Usar el nuevo contenido
       userId: user?.id
-    }
+    };
 
     CustomFetch('http://localhost:3000/note', 'POST', payload)
-    .then(() => {
-      Swal.fire({
-        title: "Éxito",
-        text: "Nota guardada correctamente",
-        icon: "success",
-        width: "50%",
-        timer: 1500
+      .then(() => {
+        Swal.fire({
+          title: "Éxito",
+          text: "Nota guardada correctamente",
+          icon: "success",
+          width: "50%",
+          timer: 1500
+        });
+        onCompleteNote();
+        setTimeout(() => {
+          window.location.reload();
+        },1000)
       });
-      onCompleteNote();
-    })
-
-    // Llamar a la función onCompleteNote para ocultar el cuadro de notas
-    // onCompleteNote();
-  }
+  };
 
   return (
     <div className="col-12 col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 p-0 containerMainPersonalDiary__Notes-contentNote">
@@ -56,7 +65,7 @@ export const ContentNotes: React.FC<ContentNotesProps> = ({ onCompleteNote }) =>
       <Editor
         apiKey="m0qegqqbmn8ufsv56zb9td6uc2fkp1wlvs7r51ew8nfqzy4p"
         onInit={(_evt, editor) => editorRef.current = editor}
-        initialValue="Este es tu lugar seguro. Escribe todo lo que necesites."
+        initialValue=""
         init={{
           height: 500,
           menubar: false,
