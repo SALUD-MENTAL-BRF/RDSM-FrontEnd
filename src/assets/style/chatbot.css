@@ -1,0 +1,6 @@
+.container-chatbot{
+    background: url('background-registerPage/stacked-waves-haikei.svg')no-repeat;
+    background-size: cover;
+    height: 110vh;
+    display: flex;
+}
