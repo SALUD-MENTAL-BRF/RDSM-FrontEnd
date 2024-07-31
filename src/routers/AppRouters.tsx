@@ -27,6 +27,7 @@ export const AppRouters: React.FC = () => {
           <Route
             path="/home"
             element={isLogged ? <HomePage /> : <Navigate to={"/login"} />}
+
           />
         <Route
           path="/profile"
