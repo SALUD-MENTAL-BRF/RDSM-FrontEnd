@@ -9,6 +9,7 @@ import { InfoMentalHealthPage } from "../pages/InfoMentalHealthPage";
 import { PersonalDiaryPage } from "../pages/PersonalDiaryPage";
 import useAuth from "../hooks/useAuth";
 import { ChatbotPage } from "../pages/ChatbotPage";
+import { ProfessionalListPage } from "../pages/ProfessionalsListPage";
 
 export const AppRouters: React.FC = () => {
   const { isLogged } = useAuth();
@@ -51,6 +52,12 @@ export const AppRouters: React.FC = () => {
           path="/chatbot"
           element={
             isLogged ? <ChatbotPage /> : <Navigate to={"/login"} />
+          }
+        />
+        <Route
+          path="/professionals"
+          element={
+            isLogged ? <ProfessionalListPage /> : <Navigate to={"/login"} />
           }
         />
         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
