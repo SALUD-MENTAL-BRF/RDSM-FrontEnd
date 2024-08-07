@@ -24,7 +24,6 @@
 }
 
 .user-info img {
-  border-radius: 50%;
   margin-right: 30px;
   height: 500px;
   width: 650px;
@@ -87,5 +86,13 @@
     margin-top: 50px;
     max-width: 400px;
     max-height: 400px;
+  }
+}
+
+@media (max-width: 1800px) {
+  .user-info img {
+    margin-top: 50px;
+    max-width: 290px;
+    max-height: 290px;
   }
 }
