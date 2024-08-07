@@ -11,6 +11,7 @@ import useAuth from "../hooks/useAuth";
 import { ChatbotPage } from "../pages/ChatbotPage";
 import { ProfessionalListPage } from "../pages/ProfessionalsListPage";
 import { FormProfessionalPage } from "../pages/FormProfessionalPage";
+import { ConsultationPage } from "../pages/ConsultationPage";
 
 export const AppRouters: React.FC = () => {
   const { isLogged } = useAuth();
@@ -65,6 +66,12 @@ export const AppRouters: React.FC = () => {
           path="/form-professional"
           element={
             isLogged ? <FormProfessionalPage /> : <Navigate to={"/login"} />
+          }
+        />
+                <Route
+          path="/consultation"
+          element={
+            isLogged ? <ConsultationPage /> : <Navigate to={"/login"} />
           }
         />
         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
