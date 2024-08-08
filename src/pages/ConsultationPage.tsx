@@ -1,6 +1,6 @@
 import { Header } from "../components/headers/Header";
 import { Aside } from "../components/aside/Aside";
-import '../assets/style/formularios/Consultation.css'
+import '../assets/style/Consultation.css'
 import { useNavigate } from "react-router-dom";
 
 
@@ -25,7 +25,7 @@ export const ConsultationPage = () => {
                                         <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
                                     </svg>
                                     <div>
-                                        <h5 className="ms-3">Problemas:</h5>
+                                        <h5 className="ms-3">Reporte:</h5>
                                         <p className="ms-4 mt-1">Si tienes algún problema con la aplicación, como errores técnicos, problemas de acceso, o cualquier otra dificultad, puedes completar el formulario describiendo el problema detalladamente. Nuestro equipo de soporte revisará tu caso y te ofrecerá una solución lo antes posible.</p>
                                     </div>
                                 </ul>
@@ -41,7 +41,7 @@ export const ConsultationPage = () => {
                             </div>
                             <div className="row mt-5">
                                 <div className="col-sm-6">
-                                    <button className="btn btn-outline-danger w-100">Problemas</button>
+                                    <button className="btn btn-outline-danger w-100">Reporte</button>
                                 </div>
                                 <div className="col">
                                     <button onClick={() => navigate("/form-professional")} className="btn btn-outline-success w-100">Profesionales</button>
