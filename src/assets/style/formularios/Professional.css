@@ -1,7 +1,7 @@
 .container-formProfessional{
     background: url('background-registerPage/stacked-waves-haikei.svg')no-repeat;
     background-size: cover;
-    min-height: 160vh;
+    min-height: 75vh;
     display: flex;
 }
 
@@ -134,8 +134,8 @@ body {
 .formProfessional select {
   background: url('https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-arrow-down-32.png') no-repeat right;
   outline: none;
-  -moz-appearance: none;
-  -webkit-appearance: none;
+  /* -moz-appearance: none;
+  -webkit-appearance: none; */
 }
 
 .formProfessional select::-ms-expand {
