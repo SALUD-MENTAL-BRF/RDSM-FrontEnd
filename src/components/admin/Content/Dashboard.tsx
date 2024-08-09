@@ -4,7 +4,7 @@ export const Dashboard = () => {
     return (
         <section className="home">
             <div className="text">
-                Dashboard
+                Dashboard 
             </div>
             <div>
                 <p className='Users'>Users</p>
