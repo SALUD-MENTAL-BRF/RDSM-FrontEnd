@@ -1,0 +1,11 @@
+:root {
+    --text-color:#707070;
+}
+
+.Users {
+    font-size: 25px;
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-color);
+    margin-top: 40px;
+    margin-left: 60px;
+}
