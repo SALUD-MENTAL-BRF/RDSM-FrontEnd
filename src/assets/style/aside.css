@@ -1,6 +1,9 @@
-/* @media screen and (max-width: 768px) {
-    .container-aside {
-      padding: 100px;
-    }
+@media screen and (max-width: 1215px) {
+  .aside-title{
+    display: none;
   }
-   */
+}
+  
+.aside-color{
+  background-color: #5292AD;
+}

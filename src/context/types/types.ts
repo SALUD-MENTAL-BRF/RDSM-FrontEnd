@@ -2,8 +2,8 @@ export interface User {
   id: number;
   username: string;
   email: string;
-  googleId: string;
-  imageUrl: string;
+  // googleId: string;
+  // imageUrl: string;
   password: string;
   roleId: number;
 }

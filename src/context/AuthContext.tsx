@@ -8,15 +8,19 @@ const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const [token, setToken] = useState<string | null>(null);
   const [isLogged, setIsLogged] = useState<boolean>(false);
 
+
   useEffect(() => {
     const savedUser = localStorage.getItem('user');
     const savedToken = localStorage.getItem('token');
+    
     if (savedUser && savedToken) {
-      setUser(JSON.parse(savedUser));
-      setToken(savedToken);
-      setIsLogged(true);
+        const parsedUser = JSON.parse(savedUser);
+        setUser(parsedUser);
+        setToken(savedToken);
+        setIsLogged(true);
+
     }
-  }, []);
+  }, [])
 
   const login = (user: User, token: string) => {
     setUser(user);

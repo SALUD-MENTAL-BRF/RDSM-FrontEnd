@@ -8,6 +8,10 @@ import { HomePage } from "../pages/HomePage";
 import { InfoMentalHealthPage } from "../pages/InfoMentalHealthPage";
 import { PersonalDiaryPage } from "../pages/PersonalDiaryPage";
 import useAuth from "../hooks/useAuth";
+import { ChatbotPage } from "../pages/ChatbotPage";
+import { ProfessionalListPage } from "../pages/ProfessionalsListPage";
+import { FormProfessionalPage } from "../pages/FormProfessionalPage";
+import { ConsultationPage } from "../pages/ConsultationPage";
 
 export const AppRouters: React.FC = () => {
   const { isLogged } = useAuth();
@@ -19,6 +23,7 @@ export const AppRouters: React.FC = () => {
         <Route
           path="/register"
           element={isLogged ? <Navigate to={"/home"} /> : <RegisterPage />}
+          
         />
         <Route
           path="/login"
@@ -27,6 +32,7 @@ export const AppRouters: React.FC = () => {
           <Route
             path="/home"
             element={isLogged ? <HomePage /> : <Navigate to={"/login"} />}
+
           />
         <Route
           path="/profile"
@@ -42,6 +48,30 @@ export const AppRouters: React.FC = () => {
           path="/personalDiary"
           element={
             isLogged ? <PersonalDiaryPage /> : <Navigate to={"/login"} />
+          }
+        />
+        <Route
+          path="/chatbot"
+          element={
+            isLogged ? <ChatbotPage /> : <Navigate to={"/login"} />
+          }
+        />
+        <Route
+          path="/professionals"
+          element={
+            isLogged ? <ProfessionalListPage /> : <Navigate to={"/login"} />
+          }
+        />
+        <Route
+          path="/form-professional"
+          element={
+            isLogged ? <FormProfessionalPage /> : <Navigate to={"/login"} />
+          }
+        />
+                <Route
+          path="/consultation"
+          element={
+            isLogged ? <ConsultationPage /> : <Navigate to={"/login"} />
           }
         />
         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
