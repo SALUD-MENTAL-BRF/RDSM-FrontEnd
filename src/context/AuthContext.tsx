@@ -28,6 +28,7 @@ const AuthProvider: FC<{ children: ReactNode }> = ({ children }) => {
     setIsLogged(true);
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', token);
+    localStorage.setItem('isLogged', isLogged ? "true" : "false");
   };
 
   const logout = () => {
