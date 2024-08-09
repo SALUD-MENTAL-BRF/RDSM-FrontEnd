@@ -12,15 +12,14 @@ export const authReducer = (state = {}, action:any) => {
             return {
                 ...action.payload,
                 islogged: true,
-                admin: user.admin,
-                cinema: user.cinemaId !== null
+                // admin: user.admin,
             };
 
         case types.LOGOUT:
             localStorage.clear()
             return {
                 isLogged: false,
-                admin: false
+                // admin: false
             }
 
         default:
