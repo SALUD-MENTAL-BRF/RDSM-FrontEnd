@@ -67,20 +67,21 @@ export const ContentNotes: React.FC<ContentNotesProps> = ({ onCompleteNote }) =>
         onInit={(_evt, editor) => editorRef.current = editor}
         initialValue=""
         init={{
-          height: 500,
+          height: 400,
           menubar: false,
           plugins: [
             'advlist', 'autolink', 'lists', 'image', 'charmap', 'preview',
             'anchor', 'searchreplace', 'visualblocks', 'code', 'fullscreen',
-            'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount'
+            'insertdatetime', 'media', 'table', 'code', 'help', 'wordcount',
           ],
           toolbar: 'undo redo | blocks | ' +
             'bold italic forecolor | alignleft aligncenter ' +
             'alignright alignjustify | bullist numlist outdent indent | ',
-          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+          content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+          resize: false
         }}
       />
-      <button className='mt-4' onClick={handleCompleteNote}>Completar</button>
+      <button className='mt-2 btn btn-success' onClick={handleCompleteNote}>Completar</button>
     </div>
   );
 }
