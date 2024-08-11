@@ -60,7 +60,7 @@ export const ContentNotes: React.FC<ContentNotesProps> = ({ onCompleteNote }) =>
         placeholder="Título de la nota"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="form-control mb-3"
+        className="form-control containerMainPersonalDiary__Notes-contentNote-inputTitle"
       />
       <Editor
         apiKey="m0qegqqbmn8ufsv56zb9td6uc2fkp1wlvs7r51ew8nfqzy4p"
