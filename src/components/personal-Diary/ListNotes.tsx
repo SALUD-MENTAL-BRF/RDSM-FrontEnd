@@ -39,6 +39,11 @@ export const ListNotes: React.FC<ListNotesProps> = ({ onAddNote }) => {
     return <p>Cargando notas...</p>;
   }
 
+  const stripHtmlTags = (html: string) => {
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    return doc.body.textContent || "";
+  };
+
   return (
     <>
       <div className="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 p-0 containerMainPersonalDiary__Notes-listNotes">
@@ -62,7 +67,7 @@ export const ListNotes: React.FC<ListNotesProps> = ({ onAddNote }) => {
           {notes.map(note => (
             <div key={note.id} className="containerMainPersonalDiary__Notes-listNotes-notes-item">
               <h4>{note.title}</h4>
-              <p>{note.content}</p>
+              <p>{stripHtmlTags(note.content)}</p>
               <span className="material-symbols-outlined">edit</span>
               <span className="material-symbols-outlined" role="button">
                 delete
