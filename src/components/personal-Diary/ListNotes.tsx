@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../../assets/style/personalDiary/listNotes.css";
 import useAuth from "../../hooks/useAuth";
 import { CustomFetch } from "../../api/CustomFetch";
+import Swal from "sweetalert2";
 
 interface Note {
   id: number;
@@ -44,6 +45,22 @@ export const ListNotes: React.FC<ListNotesProps> = ({ onAddNote }) => {
     return doc.body.textContent || "";
   };
 
+  const handleDeleteNote = async (noteId: number) => {
+    try {
+      await CustomFetch(`http://localhost:3000/note?noteId=${noteId}`, "DELETE");
+      setNotes(notes.filter(n => n.id!== noteId));
+      Swal.fire({
+        title: "Éxito",
+        text: "Nota eliminada correctamente",
+        icon: "success",
+        width: "50%",
+      });
+    }
+    catch (error) {
+      console.error(`Fetch error: ${error}`);
+    } 
+  };
+
   return (
     <>
       <div className="col-12 col-sm-4 col-md-4 col-lg-4 col-xl-4 col-xxl-4 p-0 containerMainPersonalDiary__Notes-listNotes">
@@ -69,7 +86,9 @@ export const ListNotes: React.FC<ListNotesProps> = ({ onAddNote }) => {
               <h4>{note.title}</h4>
               <p>{stripHtmlTags(note.content)}</p>
               <span className="material-symbols-outlined">edit</span>
-              <span className="material-symbols-outlined" role="button">
+              <span className="material-symbols-outlined" role="button" onClick={()=> {
+                handleDeleteNote(note.id);
+              }}>
                 delete
               </span>
             </div>
