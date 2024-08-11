@@ -16,7 +16,7 @@ export const FormProfessional = () => {
                         <h6 className='ms-1'>Volver</h6>
                     </div>
                 </section>
-                <section className="col-10 col-sm-10 col-md-10 col-lg-11 col-xl-11 col-xxl-11 mt-5">
+                <section className="col-10 col-sm-10 col-md-10 col-lg-11 col-xl-11 col-xxl-11">
                     <div className="row justify-content-center">
                         <div id="container">
                             <h1>&bull; Solicitud  &bull;</h1>
@@ -52,11 +52,6 @@ export const FormProfessional = () => {
                                         <option>Otro</option>
                                     </select>
                                 </div>
-                                
-                                {/* <div className="formProfessional-message">
-                                    <label htmlFor="message"></label>
-                                    <textarea name="message" placeholder="I'd like to chat about" id="message_input" cols={30} rows={5} required></textarea>
-                                </div> */}
                                     <div className="row">
                                         <div className="col">
                                             <div className="">
@@ -78,6 +73,10 @@ export const FormProfessional = () => {
                                                 <label htmlFor=""></label>
                                                 <input className='w-25' type="number" placeholder="" name="name" id="name_input" required />
                                             </div>
+                                        </div>
+                                        <div className="formProfessional-message">
+                                            <label htmlFor="message"></label>
+                                            <textarea name="message" placeholder="Cuentanos tu experiencia..." id="message_input" cols={30} rows={5} required></textarea>
                                         </div>
                                         {/* <div className="col">
                                             <div className="">
