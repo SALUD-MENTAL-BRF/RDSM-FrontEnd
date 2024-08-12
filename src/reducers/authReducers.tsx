@@ -6,12 +6,12 @@ export const authReducer = (state = {}, action:any) => {
     switch (action.type) {
         case types.LOGIN:
             const { token, user } = action.payload
-            localStorage.setItem('token', token.token);
+            localStorage.setItem('token', token);
             // localStorage.setItem('admin', user.admin);
             localStorage.setItem('isLogged', "true");
             return {
                 ...action.payload,
-                islogged: true,
+                isLogged: true,
                 // admin: user.admin,
             };
 
