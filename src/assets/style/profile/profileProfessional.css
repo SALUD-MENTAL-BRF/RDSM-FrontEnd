@@ -1,0 +1,11 @@
+.container-profileProfessional{
+    background: url('background-registerPage/stacked-waves-haikei.svg')no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+}
+
+.image-profileProfessional {
+    width: 200px;
+    height: 200px;
+}

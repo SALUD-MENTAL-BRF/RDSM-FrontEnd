@@ -40,7 +40,7 @@ export const ProfessionalList = () => {
                                 <h5 className="card-title">Nombre</h5>
                                     <p className="card-text">Titulo</p>
                                     <p className="card-text">Especialización</p>
-                                <button className="btn btn-primary">Ver más</button>
+                                <button onClick={() => navigate("/profile-professional")} className="btn btn-primary">Ver más</button>
                             </div>
                         </div>
                     </div>
