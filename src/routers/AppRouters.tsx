@@ -12,6 +12,7 @@ import { ChatbotPage } from "../pages/ChatbotPage";
 import { ProfessionalListPage } from "../pages/ProfessionalsListPage";
 import { FormProfessionalPage } from "../pages/FormProfessionalPage";
 import { ConsultationPage } from "../pages/ConsultationPage";
+import { SuperAdmin } from "../pages/SuperAdmin";
 
 export const AppRouters: React.FC = () => {
   const { isLogged } = useAuth();
@@ -73,6 +74,10 @@ export const AppRouters: React.FC = () => {
           element={
             isLogged ? <ConsultationPage /> : <Navigate to={"/login"} />
           }
+        />
+        <Route
+          path="/prueba"
+          element={<SuperAdmin/>}
         />
         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
