@@ -30,3 +30,24 @@ body.dark .home .text {
     color: var(--text-color);
     margin-left: 60px;    
 }
+.container {
+    display: flex;
+    justify-content: center;
+}	
+.box-1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(144, 78, 177);
+    width: 450px;
+    height: 350px;
+    margin: 30px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.user-box {
+    /* height: 300px; */
+    margin-bottom: 30px;
+    /* background-color: red; */
+}

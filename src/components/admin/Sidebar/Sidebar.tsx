@@ -33,7 +33,7 @@ export const Sidebar: React.FC = () => {
                         <li className="nav-link">
                             <a href="#">
                                 <i className="bx bxs-home icon"></i>
-                                <span className="text nav-text">Dashboard</span>
+                                <span className="text nav-text">Home</span>
                             </a>
                         </li>
                         <li className="nav-link">
