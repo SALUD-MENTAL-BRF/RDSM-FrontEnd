@@ -9,9 +9,10 @@ export interface User {
 }
 
 export interface AuthContextProps {
-  user: User | null;
-  token: string | null;
-  isLogged: boolean;
+  // user: User | null;
+  // token: string | null;
+  // isLogged: boolean;
   login: (user: User, token: string) => void;
   logout: () => void;
+  authState: any;
 }

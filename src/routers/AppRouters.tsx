@@ -14,7 +14,9 @@ import { FormProfessionalPage } from "../pages/FormProfessionalPage";
 import { ConsultationPage } from "../pages/ConsultationPage";
 
 export const AppRouters: React.FC = () => {
-  const { isLogged } = useAuth();
+
+  const {authState} = useAuth()
+
 
   return (
     <BrowserRouter>
@@ -22,56 +24,56 @@ export const AppRouters: React.FC = () => {
         <Route path="/" element={<LandingPage />} />
         <Route
           path="/register"
-          element={isLogged ? <Navigate to={"/home"} /> : <RegisterPage />}
+          element={authState.isLogged ? <Navigate to={"/home"} /> : <RegisterPage />}
           
         />
         <Route
           path="/login"
-          element={isLogged ? <Navigate to={"/home"} /> : <LoginPage />}
+          element={authState.isLogged ? <Navigate to={"/home"} /> : <LoginPage />}
         />
           <Route
             path="/home"
-            element={isLogged ? <HomePage /> : <Navigate to={"/login"} />}
+            element={authState.isLogged ? <HomePage /> : <Navigate to={"/login"} />}
 
           />
         <Route
           path="/profile"
-          element={isLogged ? <ProfilePage /> : <Navigate to={"/login"} />}
+          element={authState.isLogged ? <ProfilePage /> : <Navigate to={"/login"} />}
         />
         <Route
           path="/information"
           element={
-            isLogged ? <InfoMentalHealthPage /> : <Navigate to={"/login"} />
+            authState.isLogged ? <InfoMentalHealthPage /> : <Navigate to={"/login"} />
           }
         />
         <Route
           path="/personalDiary"
           element={
-            isLogged ? <PersonalDiaryPage /> : <Navigate to={"/login"} />
+            authState.isLogged ? <PersonalDiaryPage /> : <Navigate to={"/login"} />
           }
         />
         <Route
           path="/chatbot"
           element={
-            isLogged ? <ChatbotPage /> : <Navigate to={"/login"} />
+            authState.isLogged ? <ChatbotPage /> : <Navigate to={"/login"} />
           }
         />
         <Route
           path="/professionals"
           element={
-            isLogged ? <ProfessionalListPage /> : <Navigate to={"/login"} />
+            authState.isLogged ? <ProfessionalListPage /> : <Navigate to={"/login"} />
           }
         />
         <Route
           path="/form-professional"
           element={
-            isLogged ? <FormProfessionalPage /> : <Navigate to={"/login"} />
+            authState.isLogged ? <FormProfessionalPage /> : <Navigate to={"/login"} />
           }
         />
                 <Route
           path="/consultation"
           element={
-            isLogged ? <ConsultationPage /> : <Navigate to={"/login"} />
+            authState.isLogged ? <ConsultationPage /> : <Navigate to={"/login"} />
           }
         />
         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
