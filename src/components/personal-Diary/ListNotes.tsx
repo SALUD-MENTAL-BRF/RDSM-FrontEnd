@@ -15,9 +15,22 @@ interface ListNotesProps {
 }
 
 export const ListNotes: React.FC<ListNotesProps> = ({ onAddNote }) => {
-  const { user } = useAuth();
+  const { authState } = useAuth();
+  const [user, setUser] = useState<any>(null);
   const [notes, setNotes] = useState<Note[]>([]);
   const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    if (authState.token) {
+      CustomFetch(`http://localhost:3000/users/token/${authState.token}`, 'GET')
+        .then((response) => {
+          setUser(response);
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
+    }
+  }, [authState.token]);
 
   useEffect(() => {
     const fetchNotes = async () => {
