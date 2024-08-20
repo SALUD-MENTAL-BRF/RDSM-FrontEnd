@@ -1,29 +1,27 @@
 import { types } from "../types/typesUser";
+import { AuthState } from "../context/types/types.tsx";
 
+export const authReducer = (state: AuthState, action: any): AuthState => {
+  switch (action.type) {
+    case types.LOGIN:
+      const { token } = action.payload;
+      localStorage.setItem("token", token);
+      localStorage.setItem("isLogged", "true");
+      return {
+        ...state,
+        isLogged: true,
+        token,
+      };
 
-export const authReducer = (state = {}, action:any) => {
+    case types.LOGOUT:
+      localStorage.removeItem("token");
+      localStorage.setItem("isLogged", "false");
+      return {
+        isLogged: false,
+        token: null,
+      };
 
-    switch (action.type) {
-        case types.LOGIN:
-            const { token, user } = action.payload
-            localStorage.setItem('token', token);
-            // localStorage.setItem('admin', user.admin);
-            localStorage.setItem('isLogged', "true");
-            return {
-                ...action.payload,
-                isLogged: true,
-                // admin: user.admin,
-            };
-
-        case types.LOGOUT:
-            localStorage.clear()
-            return {
-                isLogged: false,
-                // admin: false
-            }
-
-        default:
-            return state;
-    }
-
+    default:
+      return state;
+  }
 };
