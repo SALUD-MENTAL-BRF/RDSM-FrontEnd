@@ -33,7 +33,7 @@ export const RegisterSubmit: React.FC<{ stateForm: FormState }> = ({ stateForm }
                     password: stateForm.password,
                 });
 
-                login(data.user, data.token);
+                login(data.token);
                 Swal.fire({
                     title: "Éxito",
                     text: "Usuario registrado correctamente",

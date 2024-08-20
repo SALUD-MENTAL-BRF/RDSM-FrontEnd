@@ -23,7 +23,7 @@ export const LoginSubmit: React.FC <{ stateForm: FormState }> = ({stateForm})=>{
 
       const data = await CustomFetch('http://localhost:3000/auth/login', 'POST', payload);
 
-      login(data.user, data.token); 
+      login(data.token); 
 
         Swal.fire({
           title: "Éxito",
