@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Aside } from "../aside/Aside";
 import "../../assets/style/profile/profile.css";
 import imageExample from "/image-example/imageUser.jpg";
 import useAuth from "../../hooks/useAuth";
+import { CustomFetch } from "../../api/CustomFetch";
 
 export const Profile: React.FC = () => {
-  const { user } = useAuth();
+  const { authState } = useAuth();
+  const [user, setUser] = useState<any>(null);
 
-  console.log(user);
+  useEffect(() => {
+    if (authState.token) {
+      CustomFetch(`http://localhost:3000/users/token/${authState.token}`, 'GET')
+        .then((response) => {
+          setUser(response);
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
+    }
+  }, [authState.token]);
 
   return (
     <>
@@ -28,21 +40,22 @@ export const Profile: React.FC = () => {
                   <h2>{user?.username}</h2>
                   <p>Email: {user?.email}</p>
                   <p>User ID: {user?.id}</p>
-                  {user?.roleId === 3 ? (
+                  {user?.roleId !== 3 ? (
                     <>
-
+                      <p>Role: {user?.roleId === 1 ? 'Nuevo Usuario' : 'Paciente'}</p>
+                    </>
+                  ) : (
+                    <>
                       <p>Terapia: Debes ser un paciente para visualizar esta información</p>
                       <p>Última Sesión: Debes ser un paciente para visualizar esta información.</p>
                       <p>Terapeuta: Debes ser un paciente para visualizar esta información</p>
                     </>
-                  ) : (
-                    <p>Role: {user?.roleId === 1 ? 'Nuevo Usuario' : 'Paciente'}</p>
                   )}
                 </div>
               </div>
             </div>
             <div className="profile-content row mt-5">
-              {user?.roleId === 3 ?? (
+              {user?.roleId === 3 && (
                 <>
                   <div className="col-12 col-md-6 col-lg-4 profile-section">
                     <div className="treatment-plan">
