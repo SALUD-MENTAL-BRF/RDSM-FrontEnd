@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import '../../assets/style/personalDiary/contentNonte.css';
 import useAuth from '../../hooks/useAuth';
@@ -11,8 +11,21 @@ interface ContentNotesProps {
 
 export const ContentNotes: React.FC<ContentNotesProps> = ({ onCompleteNote }) => {
   const editorRef = useRef<any>(null);
+  
+  const { authState } = useAuth();
+  const [user, setUser] = useState<any>(null)
 
-  const { user } = useAuth();
+  useEffect(() => {
+    if (authState.token) {
+      CustomFetch(`http://localhost:3000/users/token/${authState.token}`, 'GET')
+        .then((response) => {
+          setUser(response);
+        })
+        .catch((error) => {
+          console.error("Error fetching user data:", error);
+        });
+    }
+  }, [authState.token]);
 
   const [title, setTitle] = useState('');
 
