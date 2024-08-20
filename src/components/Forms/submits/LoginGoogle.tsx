@@ -23,8 +23,8 @@ function LoginGoogle() {
       
       const data = await CustomFetch("http://localhost:3000/auth/google", 'POST', { tokenId });
 
-      if (data && data.user && data.token) {
-        login(data.user, data.token);
+      if (data && data.token) {
+        login(data.token);
       } else {
         console.error("Error: Datos de usuario o token no recibidos correctamente.");
         }
