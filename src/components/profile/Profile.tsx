@@ -11,7 +11,7 @@ export const Profile: React.FC = () => {
 
   useEffect(() => {
     if (authState.token) {
-      CustomFetch(`http://localhost:3000/users/token/${authState.token}`, 'GET')
+      CustomFetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`, 'GET')
         .then((response) => {
           setUser(response);
         })

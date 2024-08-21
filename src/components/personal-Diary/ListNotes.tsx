@@ -22,7 +22,7 @@ export const ListNotes: React.FC<ListNotesProps> = ({ onAddNote }) => {
   
   useEffect(() => {
     if (authState.token) {
-      CustomFetch(`http://localhost:3000/users/token/${authState.token}`, 'GET')
+      CustomFetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`, 'GET')
         .then((response) => {
           setUser(response);
         })
@@ -36,7 +36,7 @@ export const ListNotes: React.FC<ListNotesProps> = ({ onAddNote }) => {
     const fetchNotes = async () => {
       try {
         if (user?.id) {
-          const fetchedNotes = await CustomFetch(`http://localhost:3000/note?userId=${user.id}`, "GET");
+          const fetchedNotes = await CustomFetch(`${import.meta.env.VITE_API_URL}note?userId=${user.id}`, "GET");
           setNotes(fetchedNotes);
         }
       } catch (error) {
@@ -60,7 +60,7 @@ export const ListNotes: React.FC<ListNotesProps> = ({ onAddNote }) => {
 
   const handleDeleteNote = async (noteId: number) => {
     try {
-      await CustomFetch(`http://localhost:3000/note?noteId=${noteId}`, "DELETE");
+      await CustomFetch(`${import.meta.env.VITE_API_URL}note?noteId=${noteId}`, "DELETE");
       setNotes(notes.filter(n => n.id!== noteId));
       Swal.fire({
         title: "Éxito",

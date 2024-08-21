@@ -17,7 +17,7 @@ export const ContentNotes: React.FC<ContentNotesProps> = ({ onCompleteNote }) =>
 
   useEffect(() => {
     if (authState.token) {
-      CustomFetch(`http://localhost:3000/users/token/${authState.token}`, 'GET')
+      CustomFetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`, 'GET')
         .then((response) => {
           setUser(response);
         })
@@ -50,7 +50,7 @@ export const ContentNotes: React.FC<ContentNotesProps> = ({ onCompleteNote }) =>
       userId: user?.id
     };
 
-    CustomFetch('http://localhost:3000/note', 'POST', payload)
+    CustomFetch(`${import.meta.env.VITE_API_URL}note`, 'POST', payload)
       .then(() => {
         Swal.fire({
           title: "Éxito",

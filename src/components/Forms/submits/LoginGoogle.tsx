@@ -21,7 +21,7 @@ function LoginGoogle() {
     try {
       const tokenId = response.tokenId;
       
-      const data = await CustomFetch("http://localhost:3000/auth/google", 'POST', { tokenId });
+      const data = await CustomFetch(`${import.meta.env.VITE_API_URL}auth/google`, 'POST', { tokenId });
 
       if (data && data.token) {
         login(data.token);

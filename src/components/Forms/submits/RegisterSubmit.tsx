@@ -11,6 +11,7 @@ interface FormState {
 
 export const RegisterSubmit: React.FC<{ stateForm: FormState }> = ({ stateForm }) => {
 
+
     const { login } = useAuth()
 
     const handleSubmit: React.MouseEventHandler<HTMLButtonElement> = async (e) => {
@@ -27,7 +28,7 @@ export const RegisterSubmit: React.FC<{ stateForm: FormState }> = ({ stateForm }
             });
         } else {
             try {
-                const data = await CustomFetch("http://localhost:3000/auth/register", "POST", {
+                const data = await CustomFetch(`${import.meta.env.VITE_API_URL}auth/register`, "POST", {
                     username: stateForm.username,
                     email: stateForm.email,
                     password: stateForm.password,

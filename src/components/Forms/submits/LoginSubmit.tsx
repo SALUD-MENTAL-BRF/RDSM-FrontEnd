@@ -21,7 +21,7 @@ export const LoginSubmit: React.FC <{ stateForm: FormState }> = ({stateForm})=>{
         password: stateForm.password,
       }
 
-      const data = await CustomFetch('http://localhost:3000/auth/login', 'POST', payload);
+      const data = await CustomFetch(`${import.meta.env.VITE_API_URL}auth/login`, 'POST', payload);
 
       login(data.token); 
 
