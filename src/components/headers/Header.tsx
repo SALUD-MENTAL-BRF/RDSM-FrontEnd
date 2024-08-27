@@ -7,19 +7,23 @@ export const Header: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <header className="Header">
+    <header className="Header navbar navbar-expand-lg navbar-light bg-light">
       {/* {home ? */}
       <div className="d-flex">
-        <img src="home-patient/three-people.png" alt="" />
-        <h1>Mental</h1>
+        <img src="./logo/logoNuevo.jpeg" alt="logo de MentalAid" className='logoMentalAid' />
       </div>
+        {/* <nav className="navbar-nav ms-auto">
+         <a className="nav-link text-teal" href="#servicios">Servicios</a>
+         <a className="nav-link text-teal" href="#como-funciona">Cómo Funciona</a>
+         <a className="nav-link text-teal" href="#contacto">Contacto</a>
+       </nav> */}
       <div className="d-flex align-items-center">
         <div role="button" title="Notificaciones">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="25"
             height="25"
-            fill="currentColor"
+            fill="#25c7b1"
             className="bi bi-bell-fill me-4"
             viewBox="0 0 16 16"
           >
@@ -32,7 +36,7 @@ export const Header: React.FC = () => {
             xmlns="http://www.w3.org/2000/svg"
             width="25"
             height="25"
-            fill="currentColor"
+            fill="#25c7b1"
             className="bi bi-gear-fill me-4"
             viewBox="0 0 16 16"
           >
@@ -59,5 +63,14 @@ export const Header: React.FC = () => {
         :<></>
       } */}
     </header>
+
+  //   <header className="navbar navbar-expand-lg navbar-light bg-light">
+  //   <div className="container">
+  //     <a className="navbar-brand d-flex align-items-center" href="#">
+  //       <img src="./logo/logoNuevo.jpeg" alt="logo de MentalAid" className='logoMentalAid' />
+  //     </a>
+
+  //   </div>
+  // </header>
   );
 };
