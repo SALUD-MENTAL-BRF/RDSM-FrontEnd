@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 import useAuth from "../../hooks/useAuth";
-
+import '../../assets/style/header/header.css'
 
 export const Lougout = () => {
 

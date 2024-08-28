@@ -96,3 +96,45 @@
     max-height: 290px;
   }
 }
+
+
+.profile-page {
+  background-color: #f0f8ff;
+  min-height: 73dvh;
+}
+
+.logo {
+  height: 40px;
+}
+
+.nav-link {
+  color: #008080 !important;
+}
+
+.card {
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+  background-color: #00CED1;
+  border-color: #00CED1;
+}
+
+.btn-primary:hover {
+  background-color: #008B8B;
+  border-color: #008B8B;
+}
+
+.list-group-item.active {
+  background-color: #00CED1;
+  border-color: #00CED1;
+}
+
+.badge {
+  font-size: 0.8em;
+}
+
+.footer {
+  background-color: #e9ecef !important;
+}
