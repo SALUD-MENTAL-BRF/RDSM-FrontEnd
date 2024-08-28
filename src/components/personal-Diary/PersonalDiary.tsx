@@ -1,46 +1,45 @@
-import React, { useState } from "react";
-import { Aside } from "../aside/Aside";
-import "../../assets/style/personalDiary/personalDiary.css";
-import { ListNotes } from "./ListNotes";
-import { ContentNotes } from "./ContentNotes";
+import React from 'react';
+import '../../assets/style/personalDiary/personalDiary.css';
+import { ContentNotes } from './ContentNotes';
+import { ListNotes } from './ListNotes';
+import { useNavigate } from 'react-router-dom';
 
 export const PersonalDiary: React.FC = () => {
-  const [showContentNotes, setShowContentNotes] = useState(false);
+  const navigate = useNavigate();
 
-  const handleAddNote = () => {
-    setShowContentNotes(true);
-  };
-
-  const handleCompleteNote = () => {
-    setShowContentNotes(false);
+  const handleBackClick = () => {
+    navigate(-1); // Retrocede a la última página visitada
   };
 
   return (
     <>
-      <main className="container-fluid p-0">
-        <div className="row w-100 containerMainPersonalDiary">
-          {/* aside */}
-          <section className="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1 col-xxl-1 p-0 d-flex flex-column justify-content-start align-items-center text-center containerMainPersonalDiary__Aside">
-            <Aside />
-          </section>
-          {/*  */}
+      <main className='container py-5'>
+        <button onClick={handleBackClick} className='btn btn-secondary'>
+          <svg
+            xmlns='http://www.w3.org/2000/svg'
+            width='24'
+            height='24'
+            viewBox='0 0 24 24'
+            fill='none'
+            stroke='currentColor'
+            strokeWidth='2'
+            strokeLinecap='round'
+            strokeLinejoin='round'
+          >
+            <path d='M19 12H5M12 19l-7-7 7-7' />
+          </svg>
+          Atrás
+        </button>
+        <h2 className='display-4 mb-4'>Bienvenido a tu espacio personal</h2>
+        <p className='lead mb-5'>
+          Aquí puedes escribir tus pensamientos, emociones y experiencias
+          diarias.
+        </p>
 
-          {/* section notes */}
-          <section className="container col-10 col-sm-10 col-md-10 col-lg-11 col-xl-11 col-xxl-11 p-0 containerMainPersonalDiary__Notes">
-            <div className="row w-100 m-0">
-              {/* Mostrar mensaje de invitación si no hay notas */}
-              {!showContentNotes && (
-                <div className="col-12 col-sm-8 col-md-8 col-lg-8 col-xl-8 col-xxl-8 p-0 text-center mt-5">
-                  <h3>¡Bienvenido a tu Diario Personal!</h3>
-                  <p>Haz clic en el botón de añadir para crear tu primera nota.</p>
-                </div>
-              )}
-              {/* contenido de nota */}
-              {showContentNotes && <ContentNotes onCompleteNote={handleCompleteNote} />}
-              {/* list of notes */}
-              <ListNotes onAddNote={handleAddNote} />
-            </div>
-          </section>
+        <div className='row g-4'>
+          <ContentNotes />
+
+          <ListNotes />
         </div>
       </main>
     </>

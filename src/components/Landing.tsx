@@ -1,21 +1,9 @@
-import '../assets/style/Home/Home.css'; // Asegúrate de crear este archivo para los estilos personalizados
+import '../assets/style/Home/Home.css';
+import { Footer } from './footer/Footer';
 
 export default function Landing() {
   return (
-    <div className="landing-page">
-      <header className="navbar navbar-expand-lg navbar-light bg-light">
-        <div className="container">
-          <a className="navbar-brand d-flex align-items-center" href="#">
-            <img src="./logo/logoNuevo.jpeg" alt="logo de MentalAid" className='logoMentalAid' />
-          </a>
-          <nav className="navbar-nav ms-auto">
-            <a className="nav-link text-teal" href="#servicios">Servicios</a>
-            <a className="nav-link text-teal" href="#como-funciona">Cómo Funciona</a>
-            <a className="nav-link text-teal" href="#contacto">Contacto</a>
-          </nav>
-        </div>
-      </header>
-
+    <div className="landing-page">      
       <main>
         <section className="hero bg-teal-light py-5">
           <div className="container text-center">
@@ -24,8 +12,8 @@ export default function Landing() {
               Conectamos pacientes con profesionales de salud mental de manera remota, facilitando el acceso a la atención que necesitas.
             </p>
             <div>
-              <button className="btn btn-teal btn-lg me-2">Comenzar Ahora</button>
-              <button className="btn btn-outline-teal btn-lg">Saber Más</button>
+              <a href="/home"><button className="btn btn-teal btn-lg me-2">Comenzar Ahora</button></a>
+              <a href="/information"><button className="btn btn-outline-teal btn-lg">Saber Más</button></a>
             </div>
           </div>
         </section>
@@ -109,19 +97,8 @@ export default function Landing() {
         </section>
       </main>
 
-      <footer className="bg-teal-light py-4">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-md-6 text-center text-md-start">
-              <p className="small text-teal-dark mb-0">© 2023 MenteSana. Todos los derechos reservados.</p>
-            </div>
-            <div className="col-md-6 text-center text-md-end">
-              <a href="#" className="text-teal-dark small me-3">Términos de Servicio</a>
-              <a href="#" className="text-teal-dark small">Política de Privacidad</a>
-            </div>
-          </div>
-        </div>
-      </footer>
+      <Footer />
+
     </div>
   );
 }

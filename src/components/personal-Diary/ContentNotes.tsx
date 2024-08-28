@@ -5,11 +5,7 @@ import useAuth from '../../hooks/useAuth';
 import { CustomFetch } from '../../api/CustomFetch';
 import Swal from 'sweetalert2';
 
-interface ContentNotesProps {
-  onCompleteNote: () => void;
-}
-
-export const ContentNotes: React.FC<ContentNotesProps> = ({ onCompleteNote }) => {
+export const ContentNotes: React.FC = () => {
   const editorRef = useRef<any>(null);
   
   const { authState } = useAuth();
@@ -59,7 +55,6 @@ export const ContentNotes: React.FC<ContentNotesProps> = ({ onCompleteNote }) =>
           width: "50%",
           timer: 1500
         });
-        onCompleteNote();
         setTimeout(() => {
           window.location.reload();
         },1000)
