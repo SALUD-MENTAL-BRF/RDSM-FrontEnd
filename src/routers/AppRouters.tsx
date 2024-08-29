@@ -44,9 +44,7 @@ export const AppRouters: React.FC = () => {
         />
         <Route
           path="/information"
-          element={
-            authState.isLogged ? <InfoMentalHealthPage /> : <Navigate to={"/login"} />
-          }
+          element={<InfoMentalHealthPage />}
         />
         <Route
           path="/personalDiary"
