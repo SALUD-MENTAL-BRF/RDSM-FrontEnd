@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { CustomFetch } from "../../api/CustomFetch"
 import { Professional } from "../main/professional/types/profileProfessional"
-
+import { Header } from "../headers/Header"
 export const ProfileProfessional = () => {
     const [professionalState, setProfessionalState] = useState<Professional | null>(null)
     const navigate = useNavigate()
@@ -18,13 +18,15 @@ export const ProfileProfessional = () => {
                 const data = await CustomFetch(`${import.meta.env.VITE_API_URL}professional/${id}`, 'GET')
 
                 setProfessionalState(data)      
-                console.log(professionalState?.availability);
                           
             }
         )()
     },[id])
 
     return(
+      <>
+        <Header/>
+        {/* <img src="./logo/logoNuevo.jpeg" alt="logo de MentalAid" className='logoMentalAid' /> */}
         <main className='container-fluid container-profileProfessional'>
         <div className="row w-100">
             <section className="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1 col-xxl-1 text-center">
@@ -103,6 +105,7 @@ export const ProfileProfessional = () => {
             </section>
         </div>
     </main>
+    </>
     )
 }
 

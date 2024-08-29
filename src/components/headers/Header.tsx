@@ -2,6 +2,7 @@ import React from "react";
 import { Lougout } from "./Logout.tsx";
 import { useNavigate } from "react-router-dom";
 import "../../assets/style/header/header.css";
+import logo from '/logo/logoNuevo.jpeg'
 
 export const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -10,7 +11,7 @@ export const Header: React.FC = () => {
     <header className="Header navbar navbar-expand-lg navbar-light bg-light">
       {/* {home ? */}
       <div className="d-flex">
-        <img src="./logo/logoNuevo.jpeg" alt="logo de MentalAid" className='logoMentalAid' />
+        <img src={logo} alt="logo de MentalAid" className='logoMentalAid' />
       </div>
         {/* <nav className="navbar-nav ms-auto">
          <a className="nav-link text-teal" href="#servicios">Servicios</a>
