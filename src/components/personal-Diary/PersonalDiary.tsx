@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../assets/style/personalDiary/personalDiary.css';
 import { ContentNotes } from './ContentNotes';
 import { ListNotes } from './ListNotes';
 import { useNavigate } from 'react-router-dom';
+import { Note } from './interface/Notes';
 
 export const PersonalDiary: React.FC = () => {
   const navigate = useNavigate();
 
+  const [ selectedNote, setSelectedNotes ] = useState<Note | null>(null)
+
   const handleBackClick = () => {
-    navigate(-1); // Retrocede a la última página visitada
+    navigate(-1);
   };
+
+  const handleEditNote = (note: Note) => {
+    setSelectedNotes(note);
+  }
 
   return (
     <>
@@ -37,9 +44,9 @@ export const PersonalDiary: React.FC = () => {
         </p>
 
         <div className='row g-4'>
-          <ContentNotes />
+          <ContentNotes selectedNote={selectedNote}/>
 
-          <ListNotes />
+          <ListNotes onEditNote={handleEditNote}/>
         </div>
       </main>
     </>

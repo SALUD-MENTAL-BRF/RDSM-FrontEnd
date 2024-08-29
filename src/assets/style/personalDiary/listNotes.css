@@ -4,10 +4,6 @@
   align-items: center;
 }
 
-.containerMainPersonalDiary__Notes-listNotes h3{
-  margin-top: 10px;
-}
-
 .containerMainPersonalDiary__Notes-listNotes-options{
   display: flex;
   flex-direction: row;
@@ -83,3 +79,9 @@
 .containerMainPersonalDiary__Notes-listNotes-notes-item:hover {
   background-color: #3e3e3e;
 }
+
+.lista-de-notas{
+  height: 80dvh;
+  overflow-y: auto;
+}
+

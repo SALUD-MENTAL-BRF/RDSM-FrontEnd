@@ -4,12 +4,19 @@ import '../../assets/style/personalDiary/contentNonte.css';
 import useAuth from '../../hooks/useAuth';
 import { CustomFetch } from '../../api/CustomFetch';
 import Swal from 'sweetalert2';
+import { Note } from './interface/Notes';
 
-export const ContentNotes: React.FC = () => {
+interface ContentNotesProps {
+  selectedNote: Note | null;
+}
+
+export const ContentNotes: React.FC<ContentNotesProps> = ({ selectedNote }) => {
   const editorRef = useRef<any>(null);
   
   const { authState } = useAuth();
-  const [user, setUser] = useState<any>(null)
+  const [user, setUser] = useState<any>(null);
+  const [title, setTitle] = useState(selectedNote?.title || '');
+  const [content] = useState('<br/>Escribe todo lo que sientas aquí.');
 
   useEffect(() => {
     if (authState.token) {
@@ -23,11 +30,18 @@ export const ContentNotes: React.FC = () => {
     }
   }, [authState.token]);
 
-  const [title, setTitle] = useState('');
+  useEffect(() => {
+    if (selectedNote) {
+      setTitle(selectedNote.title);
+      editorRef.current?.setContent(selectedNote.content);
+    } else {
+      setTitle('');
+      editorRef.current?.setContent('');
+    }
+  }, [selectedNote]);
 
-  const handleCompleteNote = async () => {
-
-    const newContent = editorRef.current.getContent(); // Obtener el contenido directamente
+  const handleSaveNote = async () => {
+    const newContent = editorRef.current?.getContent() || '';
 
     if (!newContent || !title) {
       Swal.fire({
@@ -42,22 +56,33 @@ export const ContentNotes: React.FC = () => {
 
     const payload = {
       title,
-      content: newContent, // Usar el nuevo contenido
-      userId: user?.id
+      content: newContent,
+      userId: user?.id,
     };
 
-    CustomFetch(`${import.meta.env.VITE_API_URL}note`, 'POST', payload)
+    const noteId = selectedNote?.id
+
+    const requestUrl = selectedNote 
+      ? `${import.meta.env.VITE_API_URL}note?noteId=${noteId}` 
+      : `${import.meta.env.VITE_API_URL}note`;
+
+    const requestMethod = selectedNote ? 'PUT' : 'POST';
+
+    CustomFetch(requestUrl, requestMethod, payload)
       .then(() => {
         Swal.fire({
           title: "Éxito",
-          text: "Nota guardada correctamente",
+          text: `Nota ${selectedNote ? 'actualizada' : 'guardada'} correctamente`,
           icon: "success",
           width: "50%",
           timer: 1500
         });
         setTimeout(() => {
           window.location.reload();
-        },1000)
+        }, 1000);
+      })
+      .catch((error) => {
+        console.error(`Error ${selectedNote ? 'actualizando' : 'creando'} nota:`, error);
       });
   };
 
@@ -73,7 +98,7 @@ export const ContentNotes: React.FC = () => {
       <Editor
         apiKey="m0qegqqbmn8ufsv56zb9td6uc2fkp1wlvs7r51ew8nfqzy4p"
         onInit={(_evt, editor) => editorRef.current = editor}
-        initialValue=""
+        initialValue={content}
         init={{
           height: 400,
           menubar: false,
@@ -89,7 +114,9 @@ export const ContentNotes: React.FC = () => {
           resize: false
         }}
       />
-      <button className='mt-2 btn btn-success' onClick={handleCompleteNote}>Completar</button>
+      <button className='mt-2 btn btn-success' onClick={handleSaveNote}>
+        {selectedNote ? 'Guardar cambios' : 'Completar'}
+      </button>
     </div>
   );
-}
+};
