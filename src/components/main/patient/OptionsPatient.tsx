@@ -2,6 +2,7 @@ import React from 'react';
 import '../../../assets/style/HomePatient/PanelPatient.css'
 import { Header } from '../../headers/Header';
 import { Footer } from '../../footer/Footer';
+import { useNavigate } from 'react-router-dom';
 
 interface FeatureProps {
   icon: React.ReactNode;
@@ -46,6 +47,9 @@ const IconSettings: React.FC = () => (
 
 
 export const OptionsPatient: React.FC = () => {
+  const navigate = useNavigate()
+
+
   return (
     <>
 
@@ -69,6 +73,7 @@ export const OptionsPatient: React.FC = () => {
                     type="text"
                   />
                   <button className="btn btn-primary" type="submit">Buscar</button>
+                  <button onClick={() => navigate('/professionals')} className="ms-1 btn btn-primary" type="submit">Ver lista</button>
                 </form>
               </div>
             </div>

@@ -1,3 +1,5 @@
+
+import { User } from "./user.dto";
 export interface Professional {
     id: number;
     description: string;
@@ -17,4 +19,5 @@ interface Profile {
     tuition: number;
     birthdate: string;
     userId: number;
+    user: User;
 }

@@ -14,7 +14,7 @@ export const Header: React.FC = () => {
       <div className='container'>
         <a className='navbar-brand d-flex align-items-center' href='/home'>
           <img
-            src='./logo/logoNuevo.jpeg'
+            src='/logo/logoNuevo.jpeg'
             alt='logo de MentalAid'
             className='logoMentalAid'
           />
@@ -22,7 +22,7 @@ export const Header: React.FC = () => {
         <nav className='navbar-nav ms-auto'>
           <div className='ms-3 position-relative'>
             <img
-              src='./image-example/imageUser.jpg'
+              src='/image-example/imageUser.jpg'
               alt='User Profile'
               className='rounded-circle user-profile-pic'
               width={40}
