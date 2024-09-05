@@ -10,7 +10,7 @@ const columns: GridColDef[] = [
     headerName: 'Image Url',
     width: 150,
     renderCell: (params) => (
-      <img src={params.value} alt="User Image" style={{ width: 52, height: 52, borderRadius: 50 }} />
+      <img src={params.value} alt="User Image" style={{ width: 50, height: 50, borderRadius: 50 }} />
     )
   },
   {

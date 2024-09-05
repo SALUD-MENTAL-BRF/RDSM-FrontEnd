@@ -3,22 +3,16 @@ import React, { useState } from 'react';
 
 export const Sidebar: React.FC = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
-    const [isDarkMode, setIsDarkMode] = useState(false);
 
     const toggleSidebar = () => {
         setIsCollapsed(!isCollapsed);
-    };
-
-    const toggleDarkMode = () => {
-        setIsDarkMode(!isDarkMode);
-        document.body.classList.toggle('dark', !isDarkMode);
     };
 
     return (
         <nav className={`sidebar ${isCollapsed ? 'close' : ''}`}>
             <header>
                 <div className="text logo">
-                    <span className="name">MentalHealth</span>
+                    <span className="name">MentalAid</span>
                     <span className="profe">Desarrollador</span>
                 </div>
                 <i className="bx bx-menu toggle" onClick={toggleSidebar}></i>
@@ -72,16 +66,6 @@ export const Sidebar: React.FC = () => {
                             <i className="bx bxs-log-out icon"></i>
                             <span className="text nav-text">Salir</span>
                         </a>
-                    </li>
-                    <li className="mode">
-                        <div className="sun-moon">
-                            <i className={`bx bxs-moon icon moon ${isDarkMode ? 'active' : ''}`}></i>
-                            <i className={`bx bxs-sun icon sun ${!isDarkMode ? 'active' : ''}`}></i>
-                        </div>
-                        <span className="mode-text text">{isDarkMode ? 'Modo oscuro' : 'Modo claro'}</span>
-                        <div className="toggle-switch" onClick={toggleDarkMode}>
-                            <span className={`switch ${isDarkMode ? 'active' : ''}`}></span>
-                        </div>
                     </li>
                 </div>
             </div>

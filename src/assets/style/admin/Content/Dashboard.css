@@ -32,22 +32,27 @@ body.dark .home .text {
 }
 .container {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
 }	
 .box-1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(144, 78, 177);
-    width: 450px;
-    height: 350px;
+    flex-direction: column;
+    background-color: rgb(151, 78, 191);
+    width: 290px;
+    height: 260px;
     margin: 30px;
-    border-radius: 15px;
+    border-radius: 20px;
     cursor: pointer;
+    font-size: 27px;
+    font-style: italic;
+    font-weight: bold;
+    color: white;
 }
 
 .user-box {
-    /* height: 300px; */
     margin-bottom: 30px;
-    /* background-color: red; */
 }
+
+
