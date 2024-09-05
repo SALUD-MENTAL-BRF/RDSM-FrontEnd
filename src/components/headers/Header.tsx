@@ -41,5 +41,14 @@ export const Header: React.FC = () => {
         </nav>
       </div>
     </header>
+
+  //   <header className="navbar navbar-expand-lg navbar-light bg-light">
+  //   <div className="container">
+  //     <a className="navbar-brand d-flex align-items-center" href="#">
+  //       <img src="./logo/logoNuevo.jpeg" alt="logo de MentalAid" className='logoMentalAid' />
+  //     </a>
+
+  //   </div>
+  // </header>
   );
 };

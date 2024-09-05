@@ -77,7 +77,7 @@ export const AppRouters: React.FC = () => {
           }
         />
         <Route
-          path="/profile-professional"
+          path="/profile-professional/:id"
           element={
             authState.isLogged ? <ProfileProfessionalPage/> : <Navigate to={"/login"}/>
           }
