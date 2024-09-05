@@ -12,7 +12,6 @@ import { ChatbotPage } from "../pages/ChatbotPage";
 import { ProfessionalListPage } from "../pages/ProfessionalsListPage";
 import { FormProfessionalPage } from "../pages/FormProfessionalPage";
 import { ConsultationPage } from "../pages/ConsultationPage";
-import { SuperAdmin } from "../pages/SuperAdmin";
 
 export const AppRouters: React.FC = () => {
   const { isLogged } = useAuth();
