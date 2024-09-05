@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../../assets/style/profile/profile.css';
 import useAuth from '../../hooks/useAuth';
 import { CustomFetch } from '../../api/CustomFetch';
+import Swal from 'sweetalert2';
 
 interface User {
   email: string;
@@ -9,7 +10,7 @@ interface User {
   id: number;
   imageUrl: string;
   password: string;
-  roleId: number
+  roleId: number;
   username: string;
 }
 
@@ -18,6 +19,7 @@ export const Profile: React.FC = () => {
   const [activeTab, setActiveTab] = useState('perfil');
   const [user, setUser] = useState<User>();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     if (authState.token) {
@@ -41,9 +43,16 @@ export const Profile: React.FC = () => {
     event.preventDefault();
     
     if (!selectedFile) {
-      alert("Por favor selecciona una imagen");
+      Swal.fire({
+        title: 'Error',
+        text: 'Debes seleccionar una imagen para actualizar el perfil.',
+        icon: 'error',
+        confirmButtonText: 'Aceptar',
+      });
       return;
     }
+
+    setIsLoading(true);
 
     const formData = new FormData();
     formData.append('file', selectedFile);
@@ -59,13 +68,26 @@ export const Profile: React.FC = () => {
 
       const result = await response.json();
       if (response.ok) {
-        alert('Imagen de perfil actualizada exitosamente');
+        Swal.fire({
+          title: 'Éxito',
+          text: 'Perfil actualizado correctamente.',
+          icon:'success',
+          confirmButtonText: 'Aceptar',
+        });
+
         setUser((prevUser) => prevUser ? { ...prevUser, imageUrl: result.imageUrl } : undefined);
       } else {
-        alert('Error al actualizar la imagen de perfil: ' + result.error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Hubo un error al actualizar el perfil.',
+          icon: 'error',
+          confirmButtonText: 'Aceptar',
+        });
       }
     } catch (error) {
       console.error("Error al enviar la imagen:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -87,26 +109,20 @@ export const Profile: React.FC = () => {
               </div>
             </div>
             <div className='list-group mt-4'>
-            <button
-                className={`list-group-item list-group-item-action ${
-                  activeTab === 'perfil' ? 'active' : ''
-                }`}
+              <button
+                className={`list-group-item list-group-item-action ${activeTab === 'perfil' ? 'active' : ''}`}
                 onClick={() => setActiveTab('perfil')}
               >
                 Perfil
               </button>
               <button
-                className={`list-group-item list-group-item-action ${
-                  activeTab === 'sesiones' ? 'active' : ''
-                }`}
+                className={`list-group-item list-group-item-action ${activeTab === 'sesiones' ? 'active' : ''}`}
                 onClick={() => setActiveTab('sesiones')}
               >
                 Mis Sesiones
               </button>
               <button
-                className={`list-group-item list-group-item-action ${
-                  activeTab === 'recursos' ? 'active' : ''
-                }`}
+                className={`list-group-item list-group-item-action ${activeTab === 'recursos' ? 'active' : ''}`}
                 onClick={() => setActiveTab('recursos')}
               >
                 Recursos
@@ -154,8 +170,8 @@ export const Profile: React.FC = () => {
                         onChange={handleFileChange}
                       />
                     </div>
-                    <button type='submit' className='btn btn-primary'>
-                      Actualizar Perfil
+                    <button type='submit' className='btn btn-primary' disabled={isLoading}>
+                      {isLoading ? 'Actualizando...' : 'Actualizar Perfil'} {/* Muestra el estado de carga */}
                     </button>
                   </form>
                 </div>
@@ -198,10 +214,7 @@ export const Profile: React.FC = () => {
                 <div className='card-body'>
                   <h3 className='card-title'>Recursos</h3>
                   <div className='list-group'>
-                    <a
-                      href='#'
-                      className='list-group-item list-group-item-action'
-                    >
+                    <a href='#' className='list-group-item list-group-item-action'>
                       <div className='d-flex w-100 justify-content-between'>
                         <h5 className='mb-1'>Guía de Meditación</h5>
                         <small>3 días atrás</small>
@@ -210,10 +223,7 @@ export const Profile: React.FC = () => {
                         Aprende técnicas de meditación para reducir el estrés.
                       </p>
                     </a>
-                    <a
-                      href='#'
-                      className='list-group-item list-group-item-action'
-                    >
+                    <a href='#' className='list-group-item list-group-item-action'>
                       <div className='d-flex w-100 justify-content-between'>
                         <h5 className='mb-1'>Ejercicios de Respiración</h5>
                         <small>1 semana atrás</small>
