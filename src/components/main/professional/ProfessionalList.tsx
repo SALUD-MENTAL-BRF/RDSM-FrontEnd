@@ -16,6 +16,8 @@ export const ProfessionalList = () => {
                 const data = await CustomFetch(`${import.meta.env.VITE_API_URL}professional`, 'GET')
                 setAllProfessionalState(data)
                 setProfessionalState(data)
+                console.log(data);
+                
             }
         )()
     },[])
@@ -78,7 +80,15 @@ export const ProfessionalList = () => {
                         professionalState.map((value) => (
                             <div className="col-12 col-sm-6 col-md-3">
                                 <div className="card card-profesional">
-                                    <img className="card-img-top" src="/image-example/imageUser.jpg" alt="Card image cap"/>
+                                <img 
+                                    className="card-img-top" 
+                                    src={
+                                        value?.professional?.user?.imageUrl && value.professional.user.imageUrl.length > 1 
+                                        ? value.professional.user.imageUrl 
+                                        : "/image-example/imageUser.jpg"
+                                    } 
+                                    alt="Card image cap"
+                                    />
                                     <div className="card-body">
                                         <h5 className="card-title">{value.professional.firstname}, {value.professional.lastname}</h5>
                                             <p className="card-text">{value.professional.title}</p>

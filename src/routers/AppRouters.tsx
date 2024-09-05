@@ -13,7 +13,7 @@ import { ProfessionalListPage } from "../pages/ProfessionalsListPage";
 import { FormProfessionalPage } from "../pages/FormProfessionalPage";
 import { ConsultationPage } from "../pages/ConsultationPage";
 import { ProfileProfessionalPage } from "../pages/ProfileProfessionalPage";
-import { ActivitiesPage } from "../pages/Activities";
+import { ActivitiesPage } from "../pages/ActivitiesPage";
 
 export const AppRouters: React.FC = () => {
 

@@ -8,8 +8,6 @@ interface Props {
 }
 
 export const InfoProfessional: React.FC<Props> = ({ professional, user }) => {
-
-
     
 
 

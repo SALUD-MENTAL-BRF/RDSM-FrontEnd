@@ -65,7 +65,7 @@ export const OptionsPatient: React.FC = () => {
           <section className="py-5 bg-emerald-50">
             <div className="container px-4 px-md-5">
               <div className="text-center">
-                <h1 className="display-5 fw-bold mb-3">
+                <h1 className="display-5 fw-bold mb-3"> 
                   Bienvenido a tu espacio de bienestar
                 </h1>
                 <p className="lead text-muted mb-4 mx-auto" style={{ maxWidth: '700px' }}>
@@ -120,7 +120,7 @@ export const OptionsPatient: React.FC = () => {
                   title='Actividades'
                   description='Prueba los distintos ejercicios.'
                   buttonText='Ver actividades'
-                  link='/home'
+                  link='/activities'
                 />
               </div>
             </div>
