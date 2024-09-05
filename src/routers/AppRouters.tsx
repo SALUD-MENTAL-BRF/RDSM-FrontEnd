@@ -75,10 +75,6 @@ export const AppRouters: React.FC = () => {
             isLogged ? <ConsultationPage /> : <Navigate to={"/login"} />
           }
         />
-        <Route
-          path="/prueba"
-          element={<SuperAdmin/>}
-        />
         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
     </BrowserRouter>
