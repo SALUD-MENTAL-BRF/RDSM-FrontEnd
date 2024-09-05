@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import '../../assets/style/profile/profile.css';
 import useAuth from '../../hooks/useAuth';
 import { CustomFetch } from '../../api/CustomFetch';
-import { ContentNotes } from '../personal-Diary/ContentNotes';
 
 interface User {
   email: string;
@@ -15,11 +14,10 @@ interface User {
 }
 
 export const Profile: React.FC = () => {
-
   const { authState } = useAuth();
-
   const [activeTab, setActiveTab] = useState('perfil');
-  const [user, setUser] = useState<User>()
+  const [user, setUser] = useState<User>();
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   useEffect(() => {
     if (authState.token) {
@@ -33,7 +31,43 @@ export const Profile: React.FC = () => {
     }
   }, [authState.token]);
 
-  console.log(user)
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      setSelectedFile(event.target.files[0]);
+    }
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    
+    if (!selectedFile) {
+      alert("Por favor selecciona una imagen");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}users/image/${user?.id}`, {
+        method: 'PUT',
+        headers: {
+          'Authorization': `Bearer ${authState.token}`,
+        },
+        body: formData,
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        alert('Imagen de perfil actualizada exitosamente');
+        setUser((prevUser) => prevUser ? { ...prevUser, imageUrl: result.imageUrl } : undefined);
+      } else {
+        alert('Error al actualizar la imagen de perfil: ' + result.error);
+      }
+    } catch (error) {
+      console.error("Error al enviar la imagen:", error);
+    }
+  };
 
   return (
     <div className='container-fluid profile-page'>
@@ -53,7 +87,7 @@ export const Profile: React.FC = () => {
               </div>
             </div>
             <div className='list-group mt-4'>
-              <button
+            <button
                 className={`list-group-item list-group-item-action ${
                   activeTab === 'perfil' ? 'active' : ''
                 }`}
@@ -77,14 +111,6 @@ export const Profile: React.FC = () => {
               >
                 Recursos
               </button>
-              <button
-                className={`list-group-item list-group-item-action ${
-                  activeTab === 'diario' ? 'active' : ''
-                }`}
-                onClick={() => setActiveTab('diario')}
-              >
-                Diario Personal
-              </button>
             </div>
           </div>
           <div className='col-md-9'>
@@ -92,7 +118,7 @@ export const Profile: React.FC = () => {
               <div className='card'>
                 <div className='card-body'>
                   <h3 className='card-title'>Mi Perfil</h3>
-                  <form>
+                  <form onSubmit={handleSubmit}>
                     <div className='mb-3'>
                       <label htmlFor='nombre' className='form-label'>
                         Nombre
@@ -118,14 +144,14 @@ export const Profile: React.FC = () => {
                       />
                     </div>
                     <div className='mb-3'>
-                      <label htmlFor='telefono' className='form-label'>
-                        Teléfono
+                      <label htmlFor='imagenPerfil' className='form-label'>
+                        Cambiar Imagen de Perfil
                       </label>
                       <input
-                        type='tel'
+                        type='file'
                         className='form-control'
-                        id='telefono'
-                        placeholder='+1 234 567 890'
+                        id='imagenPerfil'
+                        onChange={handleFileChange}
                       />
                     </div>
                     <button type='submit' className='btn btn-primary'>
@@ -196,34 +222,6 @@ export const Profile: React.FC = () => {
                         Técnicas de respiración para la ansiedad.
                       </p>
                     </a>
-                  </div>
-                </div>
-              </div>
-            )}
-            {activeTab === 'diario' && (
-              <div className='card'>
-                <div className='card-body'>
-                  <h3 className='card-title'>Diario Personal</h3>
-                  <form>
-                    <div className='mb-3 d-flex justify-content-center'>
-                      <label htmlFor='entradaDiario' className='form-label'>
-                        Nueva Entrada
-                      </label>
-                      <ContentNotes />
-                    </div>
-                  </form>
-                  <hr />
-                  <h5>Entradas Anteriores</h5>
-                  <div className='card mb-3'>
-                    <div className='card-body'>
-                      <h6 className='card-subtitle mb-2 text-muted'>
-                        14/06/2023
-                      </h6>
-                      <p className='card-text'>
-                        Hoy me sentí mucho mejor después de mi sesión de
-                        terapia...
-                      </p>
-                    </div>
                   </div>
                 </div>
               </div>
