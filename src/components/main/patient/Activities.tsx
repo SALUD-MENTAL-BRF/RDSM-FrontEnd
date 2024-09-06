@@ -17,7 +17,7 @@ export const Activities = () => {
                                 <h6 className='ms-1'>Atrás</h6>
                         </div>
                     </div>
-                    <div className="recommendations col-4 mt-4 rounded-4">
+                    <div className="recommendations col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 col-xxl-4 mt-4 rounded-4">
                         <div className="row h-100">
                             <div className="d-flex w-100">
                                 <div className="w-100">
@@ -40,7 +40,11 @@ export const Activities = () => {
                         </div>
                     </div>
                     <div className="col">
-                        <h4 className="text-center h4 fw-bold mb-3 mt-5">Actividades designadas</h4>
+
+                        <h4 className="text-center h4 fw-bold mb-3 mt-5">Actividades designadas</h4>    
+
+
+
                     </div>
                 </div>
             </div>
