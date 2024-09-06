@@ -1,13 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../assets/style/Home/Home.css';
 import { Lougout } from './Logout';
+import { CustomFetch } from '../../api/CustomFetch';
+import useAuth from '../../hooks/useAuth';
+import { User } from '../../types/user.dto';
 
 export const Header: React.FC = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [userState, setUserState] = useState<User>()
+  const {authState} = useAuth()
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
+
+  useEffect(() => {
+    (
+      async () => {
+        const data = await CustomFetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`, 'GET')
+        setUserState(data)
+      }
+    )()
+  },[])
+
 
   return (
     <header className='navbar navbar-expand-lg navbar-light bg-light'>
@@ -22,7 +37,10 @@ export const Header: React.FC = () => {
         <nav className='navbar-nav ms-auto'>
           <div className='ms-3 position-relative'>
             <img
-              src='/image-example/imageUser.jpg'
+              src={userState?.imageUrl?.length  ?
+                userState?.imageUrl :
+                "/image-example/imageUser.jpg"
+                }
               alt='User Profile'
               className='rounded-circle user-profile-pic'
               width={40}
