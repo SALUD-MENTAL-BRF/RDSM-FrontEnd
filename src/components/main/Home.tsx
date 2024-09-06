@@ -1,6 +1,9 @@
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import '../../assets/style/HomePatient/PanelPatient.css'
 import { useNavigate } from 'react-router-dom';
+import { CustomFetch } from '../../api/CustomFetch';
+import { User } from '../../types/user.dto';
+import useAuth from '../../hooks/useAuth';
 
 interface FeatureProps {
   icon: React.ReactNode;
@@ -52,6 +55,18 @@ const IconDice: React.FC = () => (
 
 export const Home: React.FC = () => {
   const navigate = useNavigate()
+  const {authState} = useAuth()
+  const [userState, setUserState] = useState<User>()
+
+  useEffect(() => {
+    (
+      async () => {
+        const data = await CustomFetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`, 'GET')
+        setUserState(data)
+      }
+    )()
+  },[])
+
 
 
   return (
@@ -104,20 +119,29 @@ export const Home: React.FC = () => {
                   buttonText="Ver Recursos"
                   link='/information'
                 />
-                <Feature
+                
+                {
+                  userState?.roleId != 2  ?
+                  <Feature
                   icon={<IconSettings />}
                   title="Diario Personal"
                   description="Este es tu espacio seguro."
                   buttonText="Escribir"
                   link='/personalDiary'
                 />
-                <Feature
+                :""
+                }
+                {
+                  userState?.roleId != 2  ?
+                  <Feature
                   icon={<IconDice/>}
                   title='Actividades'
                   description='Prueba los distintos ejercicios.'
                   buttonText='Ver actividades'
                   link='/activities'
-                />
+                />: ""
+               
+                }
               </div>
             </div>
           </section>
