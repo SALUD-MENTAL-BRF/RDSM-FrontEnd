@@ -13,7 +13,7 @@ import { ProfessionalListPage } from "../pages/ProfessionalsListPage";
 import { FormProfessionalPage } from "../pages/FormProfessionalPage";
 import { ConsultationPage } from "../pages/ConsultationPage";
 import { ProfileProfessionalPage } from "../pages/ProfileProfessionalPage";
-
+import { ActivitiesPage } from "../pages/ActivitiesPage";
 
 export const AppRouters: React.FC = () => {
 
@@ -80,6 +80,12 @@ export const AppRouters: React.FC = () => {
           path="/profile-professional/:id"
           element={
             authState.isLogged ? <ProfileProfessionalPage/> : <Navigate to={"/login"}/>
+          }
+        />
+        <Route
+          path="/activities"
+          element={
+            authState.isLogged ? <ActivitiesPage/> : <Navigate to={"/login"}/>
           }
         />
         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}

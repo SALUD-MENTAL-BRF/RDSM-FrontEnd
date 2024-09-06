@@ -2,6 +2,7 @@ import React from 'react';
 import '../../../assets/style/HomePatient/PanelPatient.css'
 import { Header } from '../../headers/Header';
 import { Footer } from '../../footer/Footer';
+import { useNavigate } from 'react-router-dom';
 
 interface FeatureProps {
   icon: React.ReactNode;
@@ -43,9 +44,18 @@ const IconSettings: React.FC = () => (
   <img src="./icons/notas.png" alt="icono de notas" />
 );
 
+const IconDice: React.FC = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-dice-6-fill" viewBox="0 0 16 16">
+    <path d="M3 0a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V3a3 3 0 0 0-3-3zm1 5.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m8 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m1.5 6.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0M12 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3M5.5 12a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0M4 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+  </svg>
+)
+
 
 
 export const OptionsPatient: React.FC = () => {
+  const navigate = useNavigate()
+
+
   return (
     <>
 
@@ -55,7 +65,7 @@ export const OptionsPatient: React.FC = () => {
           <section className="py-5 bg-emerald-50">
             <div className="container px-4 px-md-5">
               <div className="text-center">
-                <h1 className="display-5 fw-bold mb-3">
+                <h1 className="display-5 fw-bold mb-3"> 
                   Bienvenido a tu espacio de bienestar
                 </h1>
                 <p className="lead text-muted mb-4 mx-auto" style={{ maxWidth: '700px' }}>
@@ -69,6 +79,7 @@ export const OptionsPatient: React.FC = () => {
                     type="text"
                   />
                   <button className="btn btn-primary" type="submit">Buscar</button>
+                  <button onClick={() => navigate('/professionals')} className="ms-1 btn btn-primary" type="submit">Ver lista</button>
                 </form>
               </div>
             </div>
@@ -93,7 +104,7 @@ export const OptionsPatient: React.FC = () => {
                 <Feature
                   icon={<IconBook />}
                   title="Recursos"
-                  description="Explora material educativo y ejercicios."
+                  description="Explora material educativo."
                   buttonText="Ver Recursos"
                   link='/information'
                 />
@@ -103,6 +114,13 @@ export const OptionsPatient: React.FC = () => {
                   description="Este es tu espacio seguro."
                   buttonText="Escribir"
                   link='/personalDiary'
+                />
+                <Feature
+                  icon={<IconDice/>}
+                  title='Actividades'
+                  description='Prueba los distintos ejercicios.'
+                  buttonText='Ver actividades'
+                  link='/activities'
                 />
               </div>
             </div>

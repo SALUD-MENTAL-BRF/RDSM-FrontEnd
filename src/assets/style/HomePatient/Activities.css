@@ -1,0 +1,20 @@
+.recommendations {
+    background-color: #ecfdf5;
+    min-height: 400px;
+}
+
+.activities-designated{
+    min-height: 400px;
+    background-color: #ecfdf5;
+}
+
+
+.answerActivities{
+    background-color:  rgba(0, 0, 0, 0.5);
+    width: 200px;
+}
+
+.questionAll{
+    height: 10%;
+}
+
