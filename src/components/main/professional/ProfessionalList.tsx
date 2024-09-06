@@ -16,7 +16,6 @@ export const ProfessionalList = () => {
                 const data = await CustomFetch(`${import.meta.env.VITE_API_URL}professional`, 'GET')
                 setAllProfessionalState(data)
                 setProfessionalState(data)
-                console.log(data);
                 
             }
         )()
