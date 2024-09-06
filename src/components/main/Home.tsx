@@ -1,7 +1,5 @@
 import React from 'react';
-import '../../../assets/style/HomePatient/PanelPatient.css'
-import { Header } from '../../headers/Header';
-import { Footer } from '../../footer/Footer';
+import '../../assets/style/HomePatient/PanelPatient.css'
 import { useNavigate } from 'react-router-dom';
 
 interface FeatureProps {
@@ -52,14 +50,12 @@ const IconDice: React.FC = () => (
 
 
 
-export const OptionsPatient: React.FC = () => {
+export const Home: React.FC = () => {
   const navigate = useNavigate()
 
 
   return (
-    <>
-
-      <Header />
+ 
 
       <main className="flex-grow-1">
           <section className="py-5 bg-emerald-50">
@@ -126,9 +122,5 @@ export const OptionsPatient: React.FC = () => {
             </div>
           </section>
         </main>
-
-      <Footer />
-
-    </>
   );
 }
