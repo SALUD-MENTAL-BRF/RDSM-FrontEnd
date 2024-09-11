@@ -13,7 +13,8 @@ import { ProfessionalListPage } from "../pages/ProfessionalsListPage";
 import { FormProfessionalPage } from "../pages/FormProfessionalPage";
 import { ConsultationPage } from "../pages/ConsultationPage";
 import { ProfileProfessionalPage } from "../pages/ProfileProfessionalPage";
-import { ActivitiesPage } from "../pages/ActivitiesPage";
+import { SuperAdmin } from "../pages/SuperAdmin";
+
 
 export const AppRouters: React.FC = () => {
 
@@ -70,7 +71,7 @@ export const AppRouters: React.FC = () => {
             authState.isLogged ? <FormProfessionalPage /> : <Navigate to={"/login"} />
           }
         />
-                <Route
+        <Route
           path="/consultation"
           element={
             authState.isLogged ? <ConsultationPage /> : <Navigate to={"/login"} />
@@ -82,10 +83,10 @@ export const AppRouters: React.FC = () => {
             authState.isLogged ? <ProfileProfessionalPage/> : <Navigate to={"/login"}/>
           }
         />
-        <Route
-          path="/activities"
-          element={
-            authState.isLogged ? <ActivitiesPage/> : <Navigate to={"/login"}/>
+        <Route 
+          path="/superAdmin"
+          element= {
+            authState.isLogged  ? <SuperAdmin /> : <Navigate to={"/login"} />
           }
         />
         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}

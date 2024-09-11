@@ -1,40 +1,42 @@
-.home {
+.ma-home {
     position: absolute;
     top: 0;
     left: 250px;
     height: 100vh;
     width: calc(100% - 250px);
-    background-color: var(--body-color);
-    transition: var(--tran-05);
+    background-color: var(--ma-body-color);
+    transition: var(--ma-tran-05);
 }
 
-.home .text {
+.ma-home .ma-text {
     font-size: 30px;
     font-weight: 500;
-    color: var(--text-color);
+    color: var(--ma-text-color);
     padding: 12px 60px;
 }
 
-.sidebar.close ~ .home {
+.ma-sidebar.ma-close ~ .ma-home {
     left: 78px;
     width: calc(100% - 78px);
 }
 
-body.dark .home .text {
-    color: var(--text-color);
+body.ma-dark .ma-home .ma-text {
+    color: var(--ma-text-color);
 }
 
-.user-title {
+.ma-user-title {
     font-size: 24px;
     font-weight: 500;
-    color: var(--text-color);
+    color: var(--ma-text-color);
     margin-left: 60px;    
 }
-.container {
+
+.ma-container {
     display: flex;
     justify-content: space-evenly;
-}	
-.box-1 {
+}
+
+.ma-box-1 {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,8 +53,6 @@ body.dark .home .text {
     color: white;
 }
 
-.user-box {
+.ma-user-box {
     margin-bottom: 30px;
 }
-
-
