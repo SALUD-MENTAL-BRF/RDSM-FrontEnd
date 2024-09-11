@@ -13,6 +13,7 @@ import { ProfessionalListPage } from "../pages/ProfessionalsListPage";
 import { FormProfessionalPage } from "../pages/FormProfessionalPage";
 import { ConsultationPage } from "../pages/ConsultationPage";
 import { ProfileProfessionalPage } from "../pages/ProfileProfessionalPage";
+import { SuperAdmin } from "../pages/SuperAdmin";
 
 
 export const AppRouters: React.FC = () => {
@@ -81,6 +82,10 @@ export const AppRouters: React.FC = () => {
           element={
             authState.isLogged ? <ProfileProfessionalPage/> : <Navigate to={"/login"}/>
           }
+        />
+        <Route 
+          path="/superAdmin"
+          element={authState.isLogged ? <SuperAdmin /> : <Navigate to={"/login"}/>}
         />
         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
