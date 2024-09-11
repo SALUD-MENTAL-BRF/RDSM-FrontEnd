@@ -15,6 +15,8 @@ import { ConsultationPage } from "../pages/ConsultationPage";
 import { ProfileProfessionalPage } from "../pages/ProfileProfessionalPage";
 import { SuperAdmin } from "../pages/SuperAdmin";
 
+import { ActivitiesPage } from "../pages/ActivitiesPage";
+import { PatientManagementPage } from "../pages/PatientManagementPage";
 
 export const AppRouters: React.FC = () => {
 
@@ -87,6 +89,12 @@ export const AppRouters: React.FC = () => {
           path="/superAdmin"
           element= {
             authState.isLogged  ? <SuperAdmin /> : <Navigate to={"/login"} />
+          }
+        />
+        <Route
+          path="/patient"
+          element={
+            authState.isLogged ? <PatientManagementPage/> : <Navigate to={"/login"}/>
           }
         />
         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}

@@ -35,7 +35,7 @@ export const Activities = () => {
                                 </div>
                                 <div  className="questionAll position-relative d-flex justify-content-end mt-3">
                                         <div style={{opacity: opacity.answerRecommendations}} className="answerActivities position-absolute end-100 rounded-2 p-1">
-                                            <span className="text-white">En esta sección encontraras todas las actividades designadas por tu médico.</span>
+                                            <span className="text-white">En esta sección vas a encontrar las recomendaciones que te anota tu médico.</span>
                                         </div>
                                     <div onMouseOut={() => setOpacity({...opacity, answerRecommendations:0})} onMouseOver={() => setOpacity({...opacity, answerRecommendations: 1})}>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-question-circle" viewBox="0 0 16 16">

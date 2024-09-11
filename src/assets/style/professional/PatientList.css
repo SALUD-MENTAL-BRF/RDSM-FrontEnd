@@ -1,0 +1,24 @@
+.imgPatient{
+    border: 1px solid black;
+    width: 30%;
+}
+
+.patient-assigned{
+    background-color: #ecfdf5;
+    min-height: 400px;
+}
+.container-imgPatient{
+    min-height: 100px;
+   border-top: 2px solid grey;
+   border-bottom: 2px solid grey;
+   align-items: center;
+}
+
+.patient-assigned-exit{
+    height: 100px;
+    background-color: #ecfdf5;  
+}
+.info-patient{
+    background-color: #ecfdf5;
+    min-height: 400px;
+}
