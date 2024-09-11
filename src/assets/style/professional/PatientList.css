@@ -18,3 +18,7 @@
     height: 100px;
     background-color: #ecfdf5;  
 }
+.info-patient{
+    background-color: #ecfdf5;
+    min-height: 400px;
+}
