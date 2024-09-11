@@ -97,6 +97,12 @@ export const AppRouters: React.FC = () => {
             authState.isLogged ? <PatientManagementPage/> : <Navigate to={"/login"}/>
           }
         />
+        <Route
+          path="/activities"
+          element={
+            authState.isLogged ? <ActivitiesPage/> : <Navigate to={"/login"}/>
+          }
+        />
         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
     </BrowserRouter>
