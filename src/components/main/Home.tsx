@@ -1,8 +1,9 @@
-import React from 'react';
-import '../../../assets/style/HomePatient/PanelPatient.css'
-import { Header } from '../../headers/Header';
-import { Footer } from '../../footer/Footer';
+import React,{useEffect, useState} from 'react';
+import '../../assets/style/HomePatient/PanelPatient.css'
 import { useNavigate } from 'react-router-dom';
+import { CustomFetch } from '../../api/CustomFetch';
+import { User } from '../../types/user.dto';
+import useAuth from '../../hooks/useAuth';
 
 interface FeatureProps {
   icon: React.ReactNode;
@@ -13,7 +14,7 @@ interface FeatureProps {
 }
 
 const Feature: React.FC<FeatureProps> = ({ icon, title, description, buttonText, link }) => (
-  <div className="col-md-6 col-lg-3 mb-4">
+  <div className="col-md-12 col-lg-4 mb-4">
     <div className="d-flex flex-column align-items-center text-center h-100">
       <div className="mb-3 text-emerald-500">{icon}</div>
       <h2 className="h4 fw-bold mb-3">{title}</h2>
@@ -50,16 +51,32 @@ const IconDice: React.FC = () => (
   </svg>
 )
 
+const IconPerson: React.FC = () => {
+  return (
+  <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-person" viewBox="0 0 16 16">
+    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+  </svg>
+  )
+}
 
-
-export const OptionsPatient: React.FC = () => {
+export const Home: React.FC = () => {
   const navigate = useNavigate()
+  const {authState} = useAuth()
+  const [userState, setUserState] = useState<User>()
+
+  useEffect(() => {
+    (
+      async () => {
+        const data = await CustomFetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`, 'GET')
+        setUserState(data)
+      }
+    )()
+  },[])
+
 
 
   return (
-    <>
-
-      <Header />
+ 
 
       <main className="flex-grow-1">
           <section className="py-5 bg-emerald-50">
@@ -90,7 +107,7 @@ export const OptionsPatient: React.FC = () => {
                 <Feature
                   icon={<IconMessageCircle />}
                   title="Consultas en Línea"
-                  description="Accede a tus sesiones programadas con profesionales."
+                  description={`Accede a tus sesiones programadas con ${userState?.roleId == 2 ? "los pacientes" : "profesionales"}.`}
                   buttonText="Ver Consultas"
                   link='#'
                 />
@@ -108,27 +125,42 @@ export const OptionsPatient: React.FC = () => {
                   buttonText="Ver Recursos"
                   link='/information'
                 />
-                <Feature
+                
+                {
+                  userState?.roleId != 2  ?
+                  <Feature
                   icon={<IconSettings />}
                   title="Diario Personal"
                   description="Este es tu espacio seguro."
                   buttonText="Escribir"
                   link='/personalDiary'
                 />
-                <Feature
+                :""
+                }
+                {
+                  userState?.roleId != 2  ?
+                  <Feature
                   icon={<IconDice/>}
                   title='Actividades'
                   description='Prueba los distintos ejercicios.'
                   buttonText='Ver actividades'
                   link='/activities'
+                />: ""
+                }
+                {
+                userState?.roleId == 2 ? 
+                <Feature
+                  icon={<IconPerson/>}
+                  title='Pacientes'
+                  description='Gestiona las actividades y el progreso de tus pacientes.'
+                  buttonText='Ver pacientes'
+                  link='/patient'
                 />
+                :  ""
+                } 
               </div>
             </div>
           </section>
         </main>
-
-      <Footer />
-
-    </>
   );
 }

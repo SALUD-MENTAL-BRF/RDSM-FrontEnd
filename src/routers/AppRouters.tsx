@@ -15,6 +15,8 @@ import { ConsultationPage } from "../pages/ConsultationPage";
 import { ProfileProfessionalPage } from "../pages/ProfileProfessionalPage";
 import { SuperAdmin } from "../pages/SuperAdmin";
 import ProtectedRoute from "./ProtectedRoute";
+import { PatientManagementPage } from "../pages/PatientManagementPage";
+import { ActivitiesPage } from "../pages/ActivitiesPage";
 
 // Definir constante para los roles
 const ROLE_SUPERADMIN = parseInt(import.meta.env.VITE_ROLE_ADMIN);
@@ -109,6 +111,19 @@ export const AppRouters: React.FC = () => {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/patient"
+          element={
+            authState.isLogged ? <PatientManagementPage/> : <Navigate to={"/login"}/>
+          }
+        />
+        <Route
+          path="/activities"
+          element={
+            authState.isLogged ? <ActivitiesPage/> : <Navigate to={"/login"}/>
+          }
+        />
+        {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
     </BrowserRouter>
   );

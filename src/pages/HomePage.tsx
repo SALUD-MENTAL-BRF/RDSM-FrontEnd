@@ -1,9 +1,14 @@
 import React from "react";
-import { OptionsPatient } from "../components/main/patient/OptionsPatient";
+import { Home } from "../components/main/Home";
+import { Header } from "../components/headers/Header";
+import { Footer } from "../components/footer/Footer";
+
 export const HomePage : React.FC = () => {
     return(
         <>  
-            <OptionsPatient/>
+            <Header/>
+            <Home/>
+            <Footer/>
         </>
     );
 };
