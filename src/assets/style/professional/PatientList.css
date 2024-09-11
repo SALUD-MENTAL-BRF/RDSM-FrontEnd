@@ -13,3 +13,8 @@
    border-bottom: 2px solid grey;
    align-items: center;
 }
+
+.patient-assigned-exit{
+    height: 100px;
+    background-color: #ecfdf5;  
+}
