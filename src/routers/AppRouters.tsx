@@ -14,12 +14,15 @@ import { FormProfessionalPage } from "../pages/FormProfessionalPage";
 import { ConsultationPage } from "../pages/ConsultationPage";
 import { ProfileProfessionalPage } from "../pages/ProfileProfessionalPage";
 import { SuperAdmin } from "../pages/SuperAdmin";
+import ProtectedRoute from "./ProtectedRoute";
 
+// Definir constante para los roles
+const ROLE_SUPERADMIN = parseInt(import.meta.env.VITE_ROLE_ADMIN);
 
 export const AppRouters: React.FC = () => {
+  const { authState } = useAuth();
 
-  const {authState} = useAuth()
-
+  console.log(authState.isLogged);
 
   return (
     <BrowserRouter>
@@ -27,69 +30,85 @@ export const AppRouters: React.FC = () => {
         <Route path="/" element={<LandingPage />} />
         <Route
           path="/register"
-          element={authState.isLogged ? <Navigate to={"/home"} /> : <RegisterPage />}
-          
+          element={authState.isLogged ? <Navigate to="/home" /> : <RegisterPage />}
         />
         <Route
           path="/login"
-          element={authState.isLogged ? <Navigate to={"/home"} /> : <LoginPage />}
+          element={authState.isLogged ? <Navigate to="/home" /> : <LoginPage />}
         />
-          <Route
-            path="/home"
-            element={authState.isLogged ? <HomePage /> : <Navigate to={"/login"} />}
-
-          />
+        <Route
+          path="/home"
+          element={
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/profile"
-          element={authState.isLogged ? <ProfilePage /> : <Navigate to={"/login"} />}
+          element={
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute>
+          }
         />
-        <Route
-          path="/information"
-          element={<InfoMentalHealthPage />}
-        />
+        <Route path="/information" element={<InfoMentalHealthPage />} />
         <Route
           path="/personalDiary"
           element={
-            authState.isLogged ? <PersonalDiaryPage /> : <Navigate to={"/login"} />
+            <ProtectedRoute>
+              <PersonalDiaryPage />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/chatbot"
           element={
-            authState.isLogged ? <ChatbotPage /> : <Navigate to={"/login"} />
+            <ProtectedRoute>
+              <ChatbotPage />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/professionals"
           element={
-            authState.isLogged ? <ProfessionalListPage /> : <Navigate to={"/login"} />
+            <ProtectedRoute>
+              <ProfessionalListPage />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/form-professional"
           element={
-            authState.isLogged ? <FormProfessionalPage /> : <Navigate to={"/login"} />
+            <ProtectedRoute>
+              <FormProfessionalPage />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/consultation"
           element={
-            authState.isLogged ? <ConsultationPage /> : <Navigate to={"/login"} />
+            <ProtectedRoute>
+              <ConsultationPage />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/profile-professional/:id"
           element={
-            authState.isLogged ? <ProfileProfessionalPage/> : <Navigate to={"/login"}/>
+            <ProtectedRoute>
+              <ProfileProfessionalPage />
+            </ProtectedRoute>
           }
         />
-        <Route 
+        <Route
           path="/superAdmin"
-          element= {
-            authState.isLogged  ? <SuperAdmin /> : <Navigate to={"/login"} />
+          element={
+            <ProtectedRoute requiredRoleId={ROLE_SUPERADMIN}>
+              <SuperAdmin />
+            </ProtectedRoute>
           }
         />
-        {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
     </BrowserRouter>
   );
