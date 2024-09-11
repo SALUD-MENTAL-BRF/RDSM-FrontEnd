@@ -14,6 +14,7 @@ import { FormProfessionalPage } from "../pages/FormProfessionalPage";
 import { ConsultationPage } from "../pages/ConsultationPage";
 import { ProfileProfessionalPage } from "../pages/ProfileProfessionalPage";
 import { ActivitiesPage } from "../pages/ActivitiesPage";
+import { PatientListPage } from "../pages/PatientListPage";
 
 export const AppRouters: React.FC = () => {
 
@@ -86,6 +87,12 @@ export const AppRouters: React.FC = () => {
           path="/activities"
           element={
             authState.isLogged ? <ActivitiesPage/> : <Navigate to={"/login"}/>
+          }
+        />
+        <Route
+          path="/patient"
+          element={
+            authState.isLogged ? <PatientListPage/> : <Navigate to={"/login"}/>
           }
         />
         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
