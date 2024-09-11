@@ -99,8 +99,6 @@ export const Profile: React.FC = () => {
     }
   };  
 
-  console.log(user)
-
   return (
     <div className='container-fluid profile-page'>
       <main className='container pt-5'>
