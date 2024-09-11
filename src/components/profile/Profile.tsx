@@ -3,6 +3,7 @@ import '../../assets/style/profile/profile.css';
 import useAuth from '../../hooks/useAuth';
 import { CustomFetch } from '../../api/CustomFetch';
 import Swal from 'sweetalert2';
+import { formatInTimeZone } from "date-fns-tz";
 
 interface User {
   email: string;
@@ -12,6 +13,7 @@ interface User {
   password: string;
   roleId: number;
   username: string;
+  createdAt: string;
 }
 
 export const Profile: React.FC = () => {
@@ -20,6 +22,12 @@ export const Profile: React.FC = () => {
   const [user, setUser] = useState<User>();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Convertir la fecha de creación a la zona horaria de Argentina
+  const formatCreatedAt = (createdAt: string) => {
+    const timeZone = 'America/Argentina/Buenos_Aires';
+    return formatInTimeZone(createdAt, timeZone, 'dd/MM/yyyy HH:mm:ss');
+  };
 
   useEffect(() => {
     if (authState.token) {
@@ -71,7 +79,7 @@ export const Profile: React.FC = () => {
         Swal.fire({
           title: 'Éxito',
           text: 'Perfil actualizado correctamente.',
-          icon:'success',
+          icon: 'success',
           confirmButtonText: 'Aceptar',
         });
 
@@ -89,7 +97,9 @@ export const Profile: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  };
+  };  
+
+  console.log(user)
 
   return (
     <div className='container-fluid profile-page'>
@@ -105,7 +115,7 @@ export const Profile: React.FC = () => {
               />
               <div className='card-body text-center'>
                 <h5 className='card-title'>{user?.username}</h5>
-                <p className='card-text'>Usuario desde: Enero 2023 falta traer este dato de backend</p>
+                <p className='card-text'>Usuario desde: {user?.createdAt ? formatCreatedAt(user.createdAt) : 'Fecha no disponible'}</p>
               </div>
             </div>
             <div className='list-group mt-4'>
@@ -171,7 +181,7 @@ export const Profile: React.FC = () => {
                       />
                     </div>
                     <button type='submit' className='btn btn-primary' disabled={isLoading}>
-                      {isLoading ? 'Actualizando...' : 'Actualizar Perfil'} {/* Muestra el estado de carga */}
+                      {isLoading ? 'Actualizando...' : 'Actualizar Perfil'}
                     </button>
                   </form>
                 </div>
