@@ -25,9 +25,21 @@ export const PatientManagement = () => {
                         </div>
                 </section>
                 <PatientList changeFulscree={changeFulscree} fullscreenState={fullscreenState}/>
-                <section className="info-patient col mt-4 ms-2 m-2 rounded-4">
+                <section className="info-patient col mt-2 ms-2 m-2 rounded-4">
                     <div className="text-center">
-                        <img className="w-25 rounded-5 mt-2" src="/image-example/imageUser.jpg" alt="" />
+                        <img className="rounded-5 mt-2" src="/image-example/imageUser.jpg" alt="" />
+                        <p className="info-patient-title mt-1">Nombre</p>
+                        <div className="row">
+                            <div className="mt-4 mb-3">
+                            <button className="btn btn-primary" type="submit">Información</button>
+                            </div>
+                            <div className="mt-2 mb-3">
+                                <button className="btn btn-primary">Actividades</button>
+                            </div>
+                            <div className="mt-2 mb-3">
+                                <button className="btn btn-primary">Contactar</button>
+                            </div>
+                        </div>
                     </div>
                 </section>                
             </div>
