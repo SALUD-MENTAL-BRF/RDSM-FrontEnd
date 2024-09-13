@@ -1,29 +1,54 @@
 import React from 'react';
 import '../../../assets/style/admin/Content/Dashboard.css';
-import DataTable from './Datatable';
 
 export const Dashboard: React.FC = () => {
-    return (
-        <section className="ma-home">
-            <div className="ma-text">
-                Dashboard
-            </div>
-            <div>
-                <div className='ma-container'>
-                    <div className='ma-box-1'>
-                        <p>Crear Hospital</p>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="66" height="66" viewBox="0 0 24 24" style={{ fill: "white" }}><path d="M15 2.013H9V9H2v6h7v6.987h6V15h7V9h-7z"></path></svg>
-                    </div>
-                    <div className='ma-box-1'>
-                        <p>Listar Hospitales</p>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="66" height="66" viewBox="0 0 24 24" style={{ fill: "white" }}><path d="M19 4h-3V2h-2v2h-4V2H8v2H5c-1.103 0-2 .897-2 2v14c0 1.103.897 2 2 2h14c1.103 0 2-.897 2-2V6c0-1.103-.897-2-2-2zm-7 10H7v-2h5v2zm5-4H7V8h10v2z"></path></svg>
-                    </div>
+  return (
+    <div className='container-fluid'>
+      <div className='row'>
+        <main className='col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content'>
+          <div className='d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom'>
+            <h1 className='h2'>Hospitales</h1>
+            <form className='search-form'>
+              <input
+                type='search'
+                className='form-control'
+                placeholder='Buscar...'
+              />
+            </form>
+          </div>
+
+          <div className='row row-cols-1 row-cols-md-2 g-4'>
+            <div className='col'>
+              <div className='card h-100 text-center p-4'>
+                <div className='card-body'>
+                  <i className='bi bi-plus-circle card-icon mb-3'></i>
+                  <h5 className='card-title'>Crear Hospital</h5>
+                  <p className='card-text'>
+                    Añade un nuevo hospital al sistema
+                  </p>
+                  <a href='#' className='btn btn-primary'>
+                    Crear
+                  </a>
                 </div>
+              </div>
             </div>
-            <div className='ma-user-box'>
-                <p className='ma-user-title'>Users</p>
-                <DataTable />
+            <div className='col'>
+              <div className='card h-100 text-center p-4'>
+                <div className='card-body'>
+                  <i className='bi bi-list-ul card-icon mb-3'></i>
+                  <h5 className='card-title'>Listar Hospitales</h5>
+                  <p className='card-text'>
+                    Ver todos los hospitales registrados
+                  </p>
+                  <a href='#' className='btn btn-primary'>
+                    Listar
+                  </a>
+                </div>
+              </div>
             </div>
-        </section>
-    );
+          </div>
+        </main>
+      </div>
+    </div>
+  );
 };

@@ -1,58 +1,49 @@
-.ma-home {
-    position: absolute;
-    top: 0;
-    left: 250px;
-    height: 100vh;
-    width: calc(100% - 250px);
-    background-color: var(--ma-body-color);
-    transition: var(--ma-tran-05);
-}
+    .ma-home .ma-text {
+        font-size: 30px;
+        font-weight: 500;
+        color: var(--ma-text-color);
+        padding: 12px 60px;
+        margin-left: 50px;
+    }
 
-.ma-home .ma-text {
-    font-size: 30px;
-    font-weight: 500;
-    color: var(--ma-text-color);
-    padding: 12px 60px;
-}
+    .ma-sidebar.ma-close ~ .ma-home {
+        left: 78px;
+        width: calc(100% - 78px);
+    }
 
-.ma-sidebar.ma-close ~ .ma-home {
-    left: 78px;
-    width: calc(100% - 78px);
-}
+    body.ma-dark .ma-home .ma-text {
+        color: var(--ma-text-color);
+    }
 
-body.ma-dark .ma-home .ma-text {
-    color: var(--ma-text-color);
-}
+    .ma-user-title {
+        font-size: 24px;
+        font-weight: 500;
+        color: var(--ma-text-color);
+        margin-left: 60px;    
+    }
 
-.ma-user-title {
-    font-size: 24px;
-    font-weight: 500;
-    color: var(--ma-text-color);
-    margin-left: 60px;    
-}
+    .ma-container {
+        display: flex;
+        justify-content: space-evenly;
+    }
 
-.ma-container {
-    display: flex;
-    justify-content: space-evenly;
-}
+    .ma-box-1 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background-color: rgb(151, 78, 191);
+        width: 290px;
+        height: 260px;
+        margin: 30px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 27px;
+        font-style: italic;
+        font-weight: bold;
+        color: white;
+    }
 
-.ma-box-1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: rgb(151, 78, 191);
-    width: 290px;
-    height: 260px;
-    margin: 30px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 27px;
-    font-style: italic;
-    font-weight: bold;
-    color: white;
-}
-
-.ma-user-box {
-    margin-bottom: 30px;
-}
+    .ma-user-box {
+        margin-bottom: 30px;
+    }

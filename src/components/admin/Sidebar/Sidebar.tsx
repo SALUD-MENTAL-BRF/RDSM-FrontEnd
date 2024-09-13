@@ -1,7 +1,13 @@
+// Sidebar.tsx
 import React, { useState } from 'react';
-import '../../../assets/style/admin/Sidebar.css'
+import '../../../assets/style/admin/Sidebar.css';
 
-export const Sidebar: React.FC = () => {
+interface SidebarProps {
+    activeTab: string;
+    setActiveTab: (tab: string) => void;
+}
+
+export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
     const [isCollapsed, setIsCollapsed] = useState(false);
 
     const toggleSidebar = () => {
@@ -10,59 +16,43 @@ export const Sidebar: React.FC = () => {
 
     return (
         <nav className={`ma-sidebar ${isCollapsed ? 'ma-close' : ''}`}>
-            <header className="ma-sidebar-header">
-                <div className="ma-text ma-logo">
+            <header className="ma-sidebar-header d-flex justify-content-between align-items-center">
+                <div className="ma-logo">
                     <span className="ma-name">MentalAid</span>
                     <span className="ma-profe">Desarrollador</span>
                 </div>
-                <i className="bx bx-menu ma-toggle" onClick={toggleSidebar}></i>
+                <button className="ma-toggle btn" onClick={toggleSidebar} title='colapsar'>
+                    <i className="bx bx-menu"></i>
+                </button>
             </header>
             <div className="ma-menu-bar">
                 <div className="ma-menu">
-                    <li className="ma-search-box">
+                    <div className="ma-search-box mb-3">
                         <i className="bx bx-search ma-icon"></i>
                         <input type="text" placeholder="Buscar..." />
-                    </li>
-                    <ul className="ma-menu-links">
-                        <li className="ma-nav-link">
-                            <a href="#">
-                                <i className="bx bxs-home ma-icon"></i>
-                                <span className="ma-text ma-nav-text">Home</span>
-                            </a>
-                        </li>
-                        <li className="ma-nav-link">
-                            <a href="#">
-                                <i className="bx bx-plus-medical ma-icon"></i>
-                                <span className="ma-text ma-nav-text">Agregar Hospital</span>
-                            </a>
-                        </li>
-                        <li className="ma-nav-link">
-                            <a href="#">
-                                <i className="bx bxs-user ma-icon"></i>
-                                <span className="ma-text ma-nav-text">Usuarios</span>
-                            </a>
-                        </li>
-                        <li className="ma-nav-link">
-                            <a href="#">
-                                <i className="bx bxs-pie-chart ma-icon"></i>
-                                <span className="ma-text ma-nav-text">Analiticas</span>
-                            </a>
-                        </li>
-                        <li className="ma-nav-link">
-                            <a href="#">
-                                <i className="bx bxs-book-content ma-icon"></i>
-                                <span className="ma-text ma-nav-text">Contenido</span>
-                            </a>
-                        </li>
+                    </div>
+                    <ul className="ma-menu-links list-unstyled">
+                        {[
+                            { name: 'Home', icon: 'bxs-home' },
+                            { name: 'Agregar Hospital', icon: 'bx-plus-medical' },
+                            { name: 'Usuarios', icon: 'bxs-user' },
+                            { name: 'Analiticas', icon: 'bxs-pie-chart' },
+                            { name: 'Contenido', icon: 'bxs-book-content' },
+                        ].map((item) => (
+                            <li key={item.name} className={`ma-nav-link ${activeTab === item.name ? 'active' : ''}`}>
+                                <button className="btn d-flex align-items-center" onClick={() => setActiveTab(item.name)}>
+                                    <i className={`bx ${item.icon} ma-icon`}></i>
+                                    <span className="ma-text ma-nav-text">{item.name}</span>
+                                </button>
+                            </li>
+                        ))}
                     </ul>
                 </div>
-                <div className="ma-bottom-content">
-                    <li>
-                        <a href="#">
-                            <i className="bx bxs-log-out ma-icon"></i>
-                            <span className="ma-text ma-nav-text">Salir</span>
-                        </a>
-                    </li>
+                <div className="ma-bottom-content mt-auto">
+                    <button className="btn d-flex align-items-center">
+                        <i className="bx bxs-log-out ma-icon"></i>
+                        <span className="ma-text ma-nav-text">Salir</span>
+                    </button>
                 </div>
             </div>
         </nav>
