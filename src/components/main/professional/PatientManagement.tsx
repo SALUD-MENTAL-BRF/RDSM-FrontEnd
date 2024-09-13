@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { PatientList } from "./PatientList";
 import { patient } from "../../../types/patients.dto";
 
-
 const pat = [
     {
         "id": 1,
@@ -39,7 +38,6 @@ export const PatientManagement = () => {
     const [patientSelect, setPatientSelect] = useState<patient | undefined>()
     const navigate = useNavigate();
     const [fullscreenState, setfullscreen] = useState<boolean>(true);
-
 
     const changeFulscree = ():void => {
          setfullscreen(!fullscreenState)
@@ -94,7 +92,7 @@ export const PatientManagement = () => {
                             <p className="info-patient-title mt-1">{patientSelect.fullname}</p>
                             <div className="row">
                                 <div className="mt-4 mb-3">
-                                <button className="w-25 btn btn-info text-white" type="submit">Información</button>
+                                <button onClick={() => navigate('/information-patient')} className="w-25 btn btn-info text-white" type="submit">Información</button>
                                 </div>
                                 <div className="mt-2 mb-3">
                                     <button className="w-25 btn btn-info text-white">Actividades</button>
