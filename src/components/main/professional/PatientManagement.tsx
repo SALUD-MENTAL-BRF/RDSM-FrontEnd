@@ -19,14 +19,28 @@ const pat = [
             "gooleId": "",
             "roleId": 1
         }
+    },
+    {
+        "id": 2,
+        "fullname": "a",
+        "user":{
+            "id": 1,
+            "email": "veronrodrigo98@gmail.com",
+            "username": "Rodriasd",
+            "password": "",
+            "imageUrl": "",
+            "gooleId": "",
+            "roleId": 1
+        }
     }
 ]
 
-
 export const PatientManagement = () => {
     const [patientsState, setPatientState] = useState<Array<patient>>([]);
+    const [patientSelect, setPatientSelect] = useState<patient | undefined>()
     const navigate = useNavigate();
     const [fullscreenState, setfullscreen] = useState<boolean>(true);
+
 
     const changeFulscree = ():void => {
          setfullscreen(!fullscreenState)
@@ -38,7 +52,16 @@ export const PatientManagement = () => {
                 setPatientState(pat)
             }
         )()
-    },[])
+    },[]);
+
+    const updateInfoPatient = (data:any) => {
+        setPatientSelect(data)
+    }
+
+    const resetPatient = () => {
+        setPatientSelect(undefined)
+    }
+
 
     return(
         <main className="container-fluid">
@@ -53,27 +76,44 @@ export const PatientManagement = () => {
                             <h6 className='ms-1'>Atrás</h6>
                         </div>
                 </section>
-                <PatientList patientState={patientsState} changeFulscree={changeFulscree} fullscreenState={fullscreenState}/>
-                <section className="info-patient col mt-2 ms-2 m-2 rounded-4">
-                    <div className="text-center">
-                        <img className="rounded-5 mt-2" src="/image-example/imageUser.jpg" alt="" />
-                        <p className="info-patient-title mt-1">Nombre</p>
-                        <div className="row">
-                            <div className="mt-4 mb-3">
-                            <button className="btn btn-info text-white" type="submit">Información</button>
-                            </div>
-                            <div className="mt-2 mb-3">
-                                <button className="btn btn-info text-white">Actividades</button>
-                            </div>
-                            <div className="mt-2 mb-3">
-                                <button className="btn btn-info text-white">Contactar</button>
-                            </div>
-                            <div className="mt-2 mb-3">
-                                <button className="btn btn-danger">Derivar</button>
+                <PatientList updateInfoPatient={updateInfoPatient} patientState={patientsState} changeFulscree={changeFulscree} fullscreenState={fullscreenState}/>
+                {
+                patientSelect ?
+                    <section className="info-patient col mt-2 ms-2 m-2 rounded-4">
+                        <div className="text-end w-100">
+                        <svg onClick={resetPatient} role="button" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-x-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                        </svg>
+
+                        </div>
+                        <div className="text-center">
+                            <img className="rounded-5 mt-2" src="/image-example/imageUser.jpg" alt="" />
+                            <p className="info-patient-title mt-1">Nombre</p>
+                            <div className="row">
+                                <div className="mt-4 mb-3">
+                                <button className="btn btn-info text-white" type="submit">Información</button>
+                                </div>
+                                <div className="mt-2 mb-3">
+                                    <button className="btn btn-info text-white">Actividades</button>
+                                </div>
+                                <div className="mt-2 mb-3">
+                                    <button className="btn btn-info text-white">Contactar</button>
+                                </div>
+                                <div className="mt-2 mb-3">
+                                    <button className="btn btn-danger">Derivar</button>
+                                </div>
                             </div>
                         </div>
+                    </section> : 
+                    <div className="d-flex info-patient col mt-2 ms-2 m-2 rounded-4">
+                        <div className="h-100 w-100 d-flex align-items-center">
+                            <p className="w-100 text-center text-secondary">Selecciona un paciente</p>
+                        </div>
                     </div>
-                </section>                
+
+                               
+                }
             </div>
         </main>
     )

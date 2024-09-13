@@ -5,9 +5,10 @@ interface Props {
     fullscreenState: boolean;
     changeFulscree: () => void;
     patientState: Array<patient>;
+    updateInfoPatient: (patient: patient) => void;
 }
 
-export const PatientList: React.FC<Props> = ({changeFulscree,fullscreenState, patientState}) => {
+export const PatientList: React.FC<Props> = ({changeFulscree,fullscreenState, patientState, updateInfoPatient}) => {
     return(
         <>
             {
@@ -25,15 +26,15 @@ export const PatientList: React.FC<Props> = ({changeFulscree,fullscreenState, pa
                         {
 
                             patientState.map((patient) => (
-                                <div role="button" className="container-imgPatient d-flex">
-                                    <div>
+                                <div key={patient.id} className="container-imgPatient d-flex" onClick={() => updateInfoPatient(patient)}>
+                                    <div role="button">
                                     <img src={patient.user.imageUrl.length > 1 ?
                                             patient.user.imageUrl :
                                             "/image-example/imageUser.jpg"
                                     } alt="" className="imgPatient rounded-5"/>
                                         {/* <img className="imgPatient rounded-5" src="/image-example/imageUser.jpg" alt="" /> */}
                                     </div>
-                                    <p className="mt-3">{patient.fullname}</p>
+                                    <p role="button" className="mt-3 ms-3">{patient.fullname}</p>
                                 </div>
                             ))
 
