@@ -1,11 +1,13 @@
 import React from "react";
+import { patient } from "../../../types/patients.dto";
 
 interface Props {
     fullscreenState: boolean;
     changeFulscree: () => void;
+    patientState: Array<patient>;
 }
 
-export const PatientList: React.FC<Props> = ({changeFulscree,fullscreenState}) => {
+export const PatientList: React.FC<Props> = ({changeFulscree,fullscreenState, patientState}) => {
     return(
         <>
             {
@@ -20,11 +22,23 @@ export const PatientList: React.FC<Props> = ({changeFulscree,fullscreenState}) =
                                 </svg>
                             </div>
                         </div>
-                        <div role="button" className="container-imgPatient d-flex">
-                            <div>
-                                <img className="imgPatient rounded-5" src="/image-example/imageUser.jpg" alt="" />
-                            </div>
-                        </div>
+                        {
+
+                            patientState.map((patient) => (
+                                <div role="button" className="container-imgPatient d-flex">
+                                    <div>
+                                    <img src={patient.user.imageUrl.length > 1 ?
+                                            patient.user.imageUrl :
+                                            "/image-example/imageUser.jpg"
+                                    } alt="" className="imgPatient rounded-5"/>
+                                        {/* <img className="imgPatient rounded-5" src="/image-example/imageUser.jpg" alt="" /> */}
+                                    </div>
+                                    <p className="mt-3">{patient.fullname}</p>
+                                </div>
+                            ))
+
+                        }
+                        
                     </div>
                 </section>
                 : 
