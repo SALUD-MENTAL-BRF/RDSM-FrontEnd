@@ -6,4 +6,6 @@ export interface User {
     gooleId: string;
     imageUrl: string;
     roleId: number;
+    createdAt: string;
+    updatedAt: string;
 }
