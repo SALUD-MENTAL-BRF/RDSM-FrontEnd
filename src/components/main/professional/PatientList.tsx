@@ -43,8 +43,12 @@ export const PatientList: React.FC<Props> = ({changeFulscree,fullscreenState, pa
                     </div>
                 </section>
                 : 
-                <section className="patient-assigned-exit col-2 rounded-4 ms-2 m-2 mt-4">
-                    <div className="row">
+                <section className="text-center patient-assigned-exit col-12 col-sm-12 col-md-12 col-lg-1 col-xl-1 col-xxl-1 rounded-4 ms-2 m-2 mt-4">
+                    <svg role="button" onClick={changeFulscree} xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="text-center currentColor" className="bi bi-card-list" viewBox="0 0 16 16">
+                        <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
+                        <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8m0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0M4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"/>
+                    </svg>
+                    {/* <div className="row">
                         <div className="d-flex align-items-center w-100">
                             <h4 className="w-100 text-center fw-bold mt-4">Lista de pacientes</h4>
                             <div className="mt-3 ms-2" onClick={changeFulscree} title="Maximizar">
@@ -53,7 +57,7 @@ export const PatientList: React.FC<Props> = ({changeFulscree,fullscreenState, pa
                                 </svg>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                 </section>
             }
         </>

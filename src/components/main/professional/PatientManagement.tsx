@@ -5,7 +5,6 @@ import { PatientList } from "./PatientList";
 import { patient } from "../../../types/patients.dto";
 
 
-
 const pat = [
     {
         "id": 1,
@@ -88,20 +87,23 @@ export const PatientManagement = () => {
 
                         </div>
                         <div className="text-center">
-                            <img className="rounded-5 mt-2" src="/image-example/imageUser.jpg" alt="" />
-                            <p className="info-patient-title mt-1">Nombre</p>
+                            <img src={patientSelect.user.imageUrl.length > 1 ?
+                                            patientSelect.user.imageUrl :
+                                            "/image-example/imageUser.jpg"
+                                    } alt="" style={{width:"150px"}} className=""/>
+                            <p className="info-patient-title mt-1">{patientSelect.fullname}</p>
                             <div className="row">
                                 <div className="mt-4 mb-3">
-                                <button className="btn btn-info text-white" type="submit">Información</button>
+                                <button className="w-25 btn btn-info text-white" type="submit">Información</button>
                                 </div>
                                 <div className="mt-2 mb-3">
-                                    <button className="btn btn-info text-white">Actividades</button>
+                                    <button className="w-25 btn btn-info text-white">Actividades</button>
                                 </div>
                                 <div className="mt-2 mb-3">
-                                    <button className="btn btn-info text-white">Contactar</button>
+                                    <button className="w-25 btn btn-info text-white">Reunión</button>
                                 </div>
                                 <div className="mt-2 mb-3">
-                                    <button className="btn btn-danger">Derivar</button>
+                                    <button className="w-25 btn btn-danger">Derivar</button>
                                 </div>
                             </div>
                         </div>
