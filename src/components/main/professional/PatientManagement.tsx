@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import '../../../assets/style/professional/PatientList.css'
 import { useEffect, useState } from "react";
-import { PatientList } from "./PatientList";
 import { patient } from "../../../types/patients.dto";
 
 const pat = [
