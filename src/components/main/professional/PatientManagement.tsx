@@ -35,13 +35,10 @@ const pat = [
 
 export const PatientManagement = () => {
     const [patientsState, setPatientState] = useState<Array<patient>>([]);
-    const [patientSelect, setPatientSelect] = useState<patient | undefined>()
     const navigate = useNavigate();
-    const [fullscreenState, setfullscreen] = useState<boolean>(true);
 
-    const changeFulscree = ():void => {
-         setfullscreen(!fullscreenState)
-    };
+
+
 
     useEffect(() => {
         (
@@ -50,14 +47,6 @@ export const PatientManagement = () => {
             }
         )()
     },[]);
-
-    const updateInfoPatient = (data:any) => {
-        setPatientSelect(data)
-    }
-
-    const resetPatient = () => {
-        setPatientSelect(undefined)
-    }
 
 
     return(
@@ -73,47 +62,39 @@ export const PatientManagement = () => {
                             <h6 className='ms-1'>Atrás</h6>
                         </div>
                 </section>
-                <PatientList updateInfoPatient={updateInfoPatient} patientState={patientsState} changeFulscree={changeFulscree} fullscreenState={fullscreenState}/>
-                {
-                patientSelect ?
-                    <section className="info-patient col mt-2 ms-2 m-2 rounded-4">
-                        <div className="text-end w-100">
-                        <svg onClick={resetPatient} role="button" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-x-circle" viewBox="0 0 16 16">
-                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
-                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
-                        </svg>
+                <div className="info-patient col mt-2 ms-2 m-2 rounded-4 bg-light min-vh-100">
 
-                        </div>
-                        <div className="text-center">
-                            <img src={patientSelect.user.imageUrl.length > 1 ?
-                                            patientSelect.user.imageUrl :
-                                            "/image-example/imageUser.jpg"
-                                    } alt="" style={{width:"150px"}} className=""/>
-                            <p className="info-patient-title mt-1">{patientSelect.fullname}</p>
-                            <div className="row">
-                                <div className="mt-4 mb-3">
-                                <button onClick={() => navigate('/information-patient')} className="w-25 btn btn-info text-white" type="submit">Información</button>
+                    <div className="container py-5">
+                        <h1 className="mb-4">Lista de pacientes</h1>
+                        <div className="row">
+                        {patientsState.map((patient) => (
+                            <div key={patient.id} className="col-12 col-md-6 col-lg-4 mb-4">
+                            <div className="card">
+                                <div className="card-body">
+                                <div className="d-flex align-items-center mb-3">
+                                    <img
+                                    src={patient.user.imageUrl}
+                                    className="rounded-circle me-3"
+                                    width="60"
+                                    height="60"
+                                    />
+                                    <h5 className="card-title mb-0">{patient.fullname}</h5>
                                 </div>
-                                <div className="mt-2 mb-3">
-                                    <button className="w-25 btn btn-info text-white">Actividades</button>
+                                <ul className="list-group list-group-flush">
+                                    <a href="#" className="list-group-item text-primary">Información</a>
+                                    <a href="#" className="list-group-item text-success">Actividades</a>
+                                    <a href="#" className="list-group-item text-info">Reunión</a>
+                                </ul>
                                 </div>
-                                <div className="mt-2 mb-3">
-                                    <button className="w-25 btn btn-info text-white">Reunión</button>
-                                </div>
-                                <div className="mt-2 mb-3">
-                                    <button className="w-25 btn btn-danger">Derivar</button>
+                                <div className="card-footer">
+                                <button className="btn btn-danger w-100">Derivar</button>
                                 </div>
                             </div>
-                        </div>
-                    </section> : 
-                    <div className="d-flex info-patient col mt-2 ms-2 m-2 rounded-4">
-                        <div className="h-100 w-100 d-flex align-items-center">
-                            <p className="w-100 text-center text-secondary">Selecciona un paciente</p>
+                            </div>
+                        ))}
                         </div>
                     </div>
-
-                               
-                }
+                    </div>
             </div>
         </main>
     )
