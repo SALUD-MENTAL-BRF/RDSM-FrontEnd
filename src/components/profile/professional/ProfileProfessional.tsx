@@ -6,7 +6,6 @@ import { CustomFetch } from "../../../api/CustomFetch";
 import { Professional } from "../../../types/profileProfessional.dto";
 import useAuth from "../../../hooks/useAuth";
 import { User } from "../../../types/user.dto";
-import { InfoProfessional } from "./InfoProfessional";
 
 // export const ProfileProfessional = () => {
 
