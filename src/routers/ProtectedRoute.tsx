@@ -15,52 +15,52 @@ interface User {
 }
 
 interface ProtectedRouteProps {
-  requiredRoleId?: number;
   children: JSX.Element;
 }
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
-  requiredRoleId,
-  children,
-}) => {
+const ProtectedRoute: React.FC<ProtectedRouteProps> = (props) => {
+
+const ROLE_SUPERADMIN: number = Number(import.meta.env.VITE_ROLE_ADMIN);
+
+  const { children } = props;
   const { authState } = useAuth();
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (authState.token) {
-      CustomFetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`, "GET")
-        .then((response) => {
+    const fetchUser = async () => {
+      if (authState.token) {
+        try {
+          const response = await CustomFetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`, "GET");
           setUser(response);
-          setIsLoading(false);
-        })
-        .catch((error) => {
+        } catch (error) {
           console.error("Error fetching user data:", error);
-          // Manejar mejor el error
           alert("Error al cargar los datos del usuario.");
-          setIsLoading(false);
-        });
-    } else {
-      setIsLoading(false);
-    }
+        }
+      } else {
+        setUser(null);
+      }
+    };
+
+    fetchUser();
   }, [authState.token]);
 
-  // Si no está logueado, redirigir a la página de login
   if (!authState.isLogged) {
+    console.log("Usuario no autenticado, redirigiendo a login");
     return <Navigate to="/login" />;
   }
-
-  // Mostrar un estado de carga mientras se obtienen los datos del usuario
-  if (isLoading) {
-    return <div>Loading...</div>;
+  
+  if (user === null) {
+    return <div>Loading...</div>;  // Esperar a que los datos del usuario se carguen
   }
-
-  // Si se requiere un rol específico y el usuario no lo tiene, redirigir
-  if (requiredRoleId && user?.roleId !== requiredRoleId) {
+  
+  if (user.roleId !== ROLE_SUPERADMIN) {
+    console.log("Usuario no autorizado, redirigiendo a login");
     return <Navigate to="/login" />;
   }
+  
+  console.log("Acceso autorizado, mostrando contenido");
+  
 
-  // Si está logueado y tiene los permisos adecuados, renderizar el componente hijo
   return children;
 };
 

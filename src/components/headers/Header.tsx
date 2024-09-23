@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../../assets/style/Home/Home.css';
 import { Lougout } from './Logout';
-import useAuth from '../../hooks/useAuth';
 import { CustomFetch } from '../../api/CustomFetch';
+import useAuth from '../../hooks/useAuth';
 import { User } from '../../types/user.dto';
 
 export const Header: React.FC = () => {
@@ -41,7 +41,10 @@ export const Header: React.FC = () => {
         <nav className='navbar-nav ms-auto'>
           <div className='ms-3 position-relative'>
             <img
-              src={user?.imageUrl}
+              src={user?.imageUrl?.length  ?
+                user?.imageUrl :
+                "/image-example/imageUser.jpg"
+                }
               alt='User Profile'
               className='rounded-circle user-profile-pic'
               width={40}
