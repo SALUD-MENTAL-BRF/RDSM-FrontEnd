@@ -30,13 +30,13 @@ export const FormPatient = () => {
       };
     
       const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-        // e.preventDefault();
-        // console.log(formData);
+        e.preventDefault();
+        console.log(formData);
       };
     return(
         <main className="container mt-5 mb-5">
         <h2 className="mb-4">Formulario de Salud Mental</h2>
-        <form onSubmit={() => handleSubmit}>
+        <form>
           <div className="card mb-4">
             <div className="card-header">
               1. Datos personales
@@ -75,7 +75,7 @@ export const FormPatient = () => {
               </div>
               <div className="mb-3">
                 <label htmlFor="telefono" className="form-label">Teléfono de contacto</label>
-                <input type="tel" className="form-control" id="telefono" name="telephone" value={formData.telephone} onChange={handleChange} required />
+                <input type="number" className="form-control" id="telefono" name="telephone" value={formData.telephone} onChange={handleChange} required />
               </div>
               {/* <div className="mb-3">
                 <label htmlFor="email" className="form-label">Correo electrónico</label>
@@ -165,12 +165,12 @@ export const FormPatient = () => {
               </div>
               <div className="mb-3">
                 <label htmlFor="historiaFamiliar" className="form-label">Historia familiar de problemas de salud mental</label>
-                <textarea className="form-control" id="historiaFamiliar" name="historiaFamiliar" value={formData.histoyFamily} onChange={handleChange}></textarea>
+                <textarea className="form-control" id="historiaFamiliar" name="histoyFamily" value={formData.histoyFamily} onChange={handleChange}></textarea>
               </div>
             </div>
           </div>
   
-          <button type="submit" className="btn btn-primary">Enviar formulario</button>
+          <button onClick={handleSubmit} type="button" className="btn btn-primary">Enviar formulario</button>
         </form>
       </main>
     )
