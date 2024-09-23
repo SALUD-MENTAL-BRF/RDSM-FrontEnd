@@ -7,27 +7,23 @@ export interface patient {
     user: User;
 }
 
-export interface FormPatient {
-    nombreCompleto: string;
-    edad: string;
-    genero: string;
-    estadoCivil: string;
-    direccion: string;
-    telefono: string;
-    email: string;
-    contactoEmergenciaNombre: string;
-    contactoEmergenciaRelacion: string;
-    contactoEmergenciaTelefono: string;
-    motivoConsulta: string;
-    descripcionProblema: string;
-    duracionProblema: string;
-    factoresDesencadenantes: string;
-    diagnosticosPrevios: string;
-    tratamientosAnteriores: string;
-    hospitalizacionesPrevias: string;
-    medicacionActual: string;
-    historialConsumo: string;
-    historialEnfermedades: string;
-    historiaFamiliar: string;
+export interface formPatientDto {
+    fullName: string;
+    date_birth: string;
+    genre: string;
+    address: string;
+    telephone: string;
+    contactEmergencyName: string;
+    contactEmergencyRelation: string;
+    contactEmergencyTelephone: string;
+    reasonConsultation: string;
+    descriptionProblem: string;
+    diagnosesPrevious: string;
+    treatmentsPrevious: string;
+    hospitalizationsPrevious: string;
+    meciationCurrent: string;
+    historyConsumption: string;
+    historyDiseases: string;
+    histoyFamily: string;
   }
   
