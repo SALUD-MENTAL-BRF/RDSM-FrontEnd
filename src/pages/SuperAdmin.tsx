@@ -3,7 +3,8 @@ import { Sidebar } from '../components/admin/Sidebar/Sidebar';
 import { Dashboard } from '../components/admin/Content/Dashboard';
 import { Home } from '../components/admin/Content/Home';
 import '../assets/style/admin/Sidebar.css'
-import DataTable from '../components/admin/Content/Datatable';
+import { Hospitals } from '../components/admin/Content/Hospitals'
+import { UserList } from '../components/admin/Content/UserList'
 
 export const SuperAdmin: React.FC = () => {
   const [activeTab, setActiveTab] = useState('Home');
@@ -12,11 +13,10 @@ export const SuperAdmin: React.FC = () => {
     <>
       <main className='mainContentAdmin'>
           <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-          <div>
           {activeTab === 'Home' && <Home />}
-          {activeTab === 'Agregar Hospital' && <Dashboard />}
-          {activeTab === 'Usuarios' && <DataTable />}
-        </div>
+          {activeTab === 'Agregar Hospital' && <Hospitals />}
+          {activeTab === 'Usuarios' && <UserList />}
+          {activeTab === 'Analiticas' && <Dashboard />}
       </main>
     </>
   );

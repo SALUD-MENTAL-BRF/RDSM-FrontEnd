@@ -45,22 +45,17 @@ const ROLE_SUPERADMIN: number = Number(import.meta.env.VITE_ROLE_ADMIN);
   }, [authState.token]);
 
   if (!authState.isLogged) {
-    console.log("Usuario no autenticado, redirigiendo a login");
     return <Navigate to="/login" />;
   }
   
   if (user === null) {
-    return <div>Loading...</div>;  // Esperar a que los datos del usuario se carguen
+    return <div>Loading...</div>;
   }
   
   if (user.roleId !== ROLE_SUPERADMIN) {
-    console.log("Usuario no autorizado, redirigiendo a login");
     return <Navigate to="/login" />;
   }
   
-  console.log("Acceso autorizado, mostrando contenido");
-  
-
   return children;
 };
 

@@ -1,0 +1,44 @@
+.adminUsersList {
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+.adminUsersList {
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+/* Add transition for modal */
+.modal.fade .modal-dialog {
+  transition: transform 0.3s ease-out;
+  transform: translate(0, -50px);
+}
+
+.modal.fade.show .modal-dialog {
+  transform: none;
+}
+
+/* Custom styling for modal */
+.modal-content {
+  border-radius: 0.5rem;
+}
+
+.modal-header {
+  background-color: #6200ee;
+  color: white;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+}
+
+.modal-header .btn-close {
+  color: white;
+}
+
+.btn-primary {
+  background-color: #6200ee;
+  border-color: #6200ee;
+}
+
+.btn-primary:hover {
+  background-color: #3700b3;
+  border-color: #3700b3;
+}

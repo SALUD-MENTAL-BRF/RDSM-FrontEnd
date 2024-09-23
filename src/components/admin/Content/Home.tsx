@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from '../../../assets/style/admin/Content/Home.module.css'
+import styles from '../../../assets/style/admin/Content/Home.module.css';
 
 export const Home:React.FC = () => {
   return (

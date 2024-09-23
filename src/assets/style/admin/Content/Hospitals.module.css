@@ -1,0 +1,9 @@
+.customPurple {
+  background-color: #9333ea;
+  border-color: #9333ea;
+}
+
+.customPurple:hover {
+  background-color: #7e22ce;
+  border-color: #7e22ce;
+}
