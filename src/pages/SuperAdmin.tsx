@@ -10,9 +10,9 @@ export const SuperAdmin: React.FC = () => {
 
   return (
     <>
-      <main>
+      <main className='mainContentAdmin'>
           <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
-        <div className='mainContentAdmin'>
+          <div>
           {activeTab === 'Home' && <Home />}
           {activeTab === 'Agregar Hospital' && <Dashboard />}
           {activeTab === 'Usuarios' && <DataTable />}

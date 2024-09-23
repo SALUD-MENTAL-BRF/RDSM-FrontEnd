@@ -154,3 +154,9 @@
 .ma-bottom-content button:focus:not(:hover) {
     box-shadow: 0 0 0 2px var(--ma-primary-color);
 }
+
+.mainContentAdmin{
+    margin-left: 250px;
+    display: flex;
+    flex-direction: column;
+}
