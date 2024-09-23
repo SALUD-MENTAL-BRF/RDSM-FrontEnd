@@ -111,7 +111,7 @@ export const AppRouters: React.FC = () => {
           }
         />
         <Route
-          path="/form-patient"
+          path="/form-patient/:id"
           element={
             authState.isLogged ? <FormPatientPage/> : <Navigate to={"/login"}/>
           }

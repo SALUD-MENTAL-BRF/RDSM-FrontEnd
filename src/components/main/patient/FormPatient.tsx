@@ -1,5 +1,8 @@
 import React,{useState} from "react";
 import { formPatientDto } from "../../../types/patients.dto";
+import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
+
 export const FormPatient = () => {
     const [formData, setFormData] = useState<formPatientDto>({
         fullName: '',
@@ -20,6 +23,8 @@ export const FormPatient = () => {
         historyDiseases: '',
         histoyFamily: ''
       });
+      const navigate = useNavigate()
+      const {id} = useParams()
     
       const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -169,8 +174,10 @@ export const FormPatient = () => {
               </div>
             </div>
           </div>
-  
-          <button onClick={handleSubmit} type="button" className="btn btn-primary">Enviar formulario</button>
+                <div className="text-center">
+                    <button onClick={handleSubmit} type="button" className="text-center btn btn-primary">Enviar formulario</button>
+                    <button onClick={() => navigate(`/profile-professional/${id}`)} type="button" className="text-center btn btn-danger ms-2">Cancelar</button>
+                </div>
         </form>
       </main>
     )
