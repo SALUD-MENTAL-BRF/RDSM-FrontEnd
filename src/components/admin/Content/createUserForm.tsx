@@ -1,4 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { RolesList, useFetchRoles } from '../../../hooks/useFetchRoles';
+import { CustomFetch } from '../../../api/CustomFetch';
+import Swal from 'sweetalert2';
+import styles from '../../../assets/style/admin/Content/createUserForm.module.css'
 
 interface CreateUserFormProps {
   onClose: () => void;
@@ -8,13 +12,42 @@ export const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose }) => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
+  const [roles, setRoles] = useState<RolesList[]>([]);
+  const [selectedRole, setSelectedRole] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Creating user:', { username, email, password, role });
-    onClose();
+  const handleSubmit = async (e: React.FormEvent) => {
+    try {
+      e.preventDefault();
+
+      const data = {
+        username,
+        email,
+        password,
+        role_id: selectedRole,
+      };
+
+      const response = await CustomFetch(`${import.meta.env.VITE_API_URL}users`, 'POST', data);
+
+      if (response.success) {
+        Swal.fire('Usuario creado exitosamente!', '', 'success');
+        onClose();
+        window.location.reload();
+      }
+    } catch (err) {
+      console.error('Error al crear usuario:', err);
+    }
   };
+
+  const { rolesList, error, loading } = useFetchRoles();
+
+  useEffect(() => {
+    if (rolesList.length > 0) {
+      setRoles(rolesList);
+    }
+  }, [rolesList]);
+
+  if (loading) return <p>Cargando...</p>;
+  if (error) return <p>Error cargando roles: {error.message}</p>;
 
   return (
     <form onSubmit={handleSubmit}>
@@ -33,7 +66,7 @@ export const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose }) => {
         <label htmlFor="email" className="form-label">Email</label>
         <input
           type="email"
-          className="form-control"
+          className={`form-control ${styles.emailInput}`}
           id="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -56,15 +89,16 @@ export const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose }) => {
         <select
           className="form-select"
           id="role"
-          value={role}
-          onChange={(e) => setRole(e.target.value)}
+          value={selectedRole}
+          onChange={(e) => setSelectedRole(e.target.value)}
           required
         >
-          <option value="">Seleccionar rol</option>
-          <option value="admin">Administrador</option>
-          <option value="doctor">Doctor</option>
-          <option value="nurse">Enfermero</option>
-          <option value="patient">Paciente</option>
+          <option value="" disabled>Seleccionar rol</option>
+          {roles.map((role) => (
+            <option key={role.id} value={role.id} className='text-dark'>
+              {role.type}
+            </option>
+          ))}
         </select>
       </div>
       <div className="d-flex justify-content-end">

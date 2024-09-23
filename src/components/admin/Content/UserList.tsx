@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
+import Swal from 'sweetalert2';
 import styles from '../../../assets/style/admin/Content/User.module.css';
 import { useFetchUser } from '../../../hooks/useFetchUsers';
 import { User } from '../../../types/user.dto';
+import { CustomFetch } from '../../../api/CustomFetch';
 import { CreateUserForm } from './createUserForm';
 
 export const UserList = () => {
@@ -25,13 +27,42 @@ export const UserList = () => {
   }
 
   const filteredUsers = usersList.filter(user => {
-    const matchesSearchTerm = user.username.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                              user.email.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearchTerm =
+      user.username.toLowerCase().includes(searchTerm.toLowerCase()) || 
+      user.email.toLowerCase().includes(searchTerm.toLowerCase());
+    
     return matchesSearchTerm && (showInactive || user.status !== 'inactive');
   });
 
   const toggleModal = () => {
     setShowModal(!showModal);
+  };
+
+  const handleDeleteUser = async (userId: string) => {
+    const result = await Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'No podrás revertir esta acción',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+    });
+
+    if (result.isConfirmed) {
+      try {
+        const response = await CustomFetch(`${import.meta.env.VITE_API_URL}users/${userId}`, 'DELETE');
+
+        if (response.success) {
+          window.location.reload();
+          Swal.fire('Usuario eliminado!', 'El usuario ha sido eliminado correctamente.','success');
+        } else {
+          Swal.fire('Error!', 'No se pudo eliminar el usuario.', 'error');
+        }
+      } catch (err) {
+        console.error('Error eliminando usuario:', err);
+        Swal.fire('Error!', 'Ocurrió un error al intentar eliminar el usuario.', 'error');
+      }
+    }
   };
 
   return (
@@ -87,10 +118,10 @@ export const UserList = () => {
                   <td>{user.email}</td>
                   <td>{user.roleId}</td>
                   <td>{user.status}</td>
-                  <td>{user.createdAt}</td>
+                  <td>{new Date(user.createdAt).toLocaleDateString()}</td>
                   <td>
                     <button className="btn btn-sm btn-primary me-2">Editar</button>
-                    <button className="btn btn-sm btn-danger">Eliminar</button>
+                    <button className="btn btn-sm btn-danger" onClick={() => handleDeleteUser(user.id.toString())}>Eliminar</button>
                   </td>
                 </tr>
               ))}
@@ -100,20 +131,24 @@ export const UserList = () => {
       )}
 
       {/* Modal */}
-      <div className={`modal fade ${showModal ? 'show' : ''}`} tabIndex={-1} role="dialog" style={{display: showModal ? 'block' : 'none'}}>
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">Agregar Nuevo Usuario</h5>
-              <button type="button" className="btn-close" onClick={toggleModal}></button>
-            </div>
-            <div className="modal-body">
-              <CreateUserForm onClose={toggleModal} />
+      {showModal && (
+        <>
+          <div className="modal fade show" tabIndex={-1} role="dialog" style={{ display: 'block' }}>
+            <div className="modal-dialog modal-dialog-centered">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Agregar Nuevo Usuario</h5>
+                  <button type="button" className="btn-close" onClick={toggleModal}></button>
+                </div>
+                <div className="modal-body">
+                  <CreateUserForm onClose={toggleModal} />
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
-      {showModal && <div className="modal-backdrop fade show"></div>}
+          <div className="modal-backdrop fade show"></div>
+        </>
+      )}
     </div>
   );
 };
