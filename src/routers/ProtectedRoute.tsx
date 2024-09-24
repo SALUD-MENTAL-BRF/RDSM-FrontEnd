@@ -16,13 +16,13 @@ interface User {
 
 interface ProtectedRouteProps {
   children: JSX.Element;
+  VITE_ROLE_ADMIN?: string;
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = (props) => {
 
-const ROLE_SUPERADMIN: number = Number(import.meta.env.VITE_ROLE_ADMIN);
-
-  const { children } = props;
+  const { children, VITE_ROLE_ADMIN} = props;
+  const ROLE_VITE_ROLE_ADMINSUPERADMIN = Number(VITE_ROLE_ADMIN);
   const { authState } = useAuth();
   const [user, setUser] = useState<User | null>(null);
 
@@ -47,15 +47,15 @@ const ROLE_SUPERADMIN: number = Number(import.meta.env.VITE_ROLE_ADMIN);
   if (!authState.isLogged) {
     return <Navigate to="/login" />;
   }
-  
+
   if (user === null) {
     return <div>Loading...</div>;
   }
-  
-  if (user.roleId !== ROLE_SUPERADMIN) {
-    return <Navigate to="/login" />;
+
+  if (VITE_ROLE_ADMIN && user.roleId!== ROLE_VITE_ROLE_ADMINSUPERADMIN) {
+    return <Navigate to="/home" />;
   }
-  
+
   return children;
 };
 

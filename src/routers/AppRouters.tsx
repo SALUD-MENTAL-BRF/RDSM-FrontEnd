@@ -20,6 +20,7 @@ import { ActivitiesPage } from "../pages/ActivitiesPage";
 
 export const AppRouters: React.FC = () => {
   const { authState } = useAuth();
+  const VITE_ROLE_ADMIN = import.meta.env.VITE_ROLE_ADMIN
 
   return (
     <BrowserRouter>
@@ -101,7 +102,7 @@ export const AppRouters: React.FC = () => {
         <Route
           path="/superAdmin"
           element={
-            <ProtectedRoute >
+            <ProtectedRoute VITE_ROLE_ADMIN={VITE_ROLE_ADMIN}>
               <SuperAdmin />
             </ProtectedRoute>
           }
