@@ -1,16 +1,53 @@
 import { useNavigate } from "react-router-dom";
 import '../../../assets/style/professional/PatientList.css'
-import { useState } from "react";
-import { PatientList } from "./PatientList";
+import { useEffect, useState } from "react";
+import { patient } from "../../../types/patients.dto";
+
+const pat = [
+    {
+        "id": 1,
+        "fullname": "Veron Rodrigo Gabriel",
+        "user":{
+            "id": 1,
+            "email": "veronrodrigo98@gmail.com",
+            "username": "Rodriasd",
+            "password": "",
+            "imageUrl": "https://lh3.googleusercontent.com/a/ACg8ocK5LmTXencJ6VTXilUuhdYJqDB1zuf4tNSCqriiZSSQp4r-qhn8=s96-c",
+            "gooleId": "",
+            "roleId": 1
+        }
+    },
+    {
+        "id": 2,
+        "fullname": "a",
+        "user":{
+            "id": 1,
+            "email": "veronrodrigo98@gmail.com",
+            "username": "Rodriasd",
+            "password": "",
+            "imageUrl": "",
+            "gooleId": "",
+            "roleId": 1
+        }
+    }
+]
 
 export const PatientManagement = () => {
+    const [patientsState, setPatientState] = useState<Array<patient>>([]);
+    const navigate = useNavigate();
 
-    const navigate = useNavigate()
-    const [fullscreenState, setfullscreen] = useState<boolean>(true)
 
-    const changeFulscree = ():void => {
-         setfullscreen(!fullscreenState)
-    } 
+
+
+    useEffect(() => {
+        (
+            async () => {
+                setPatientState(pat)
+            }
+        )()
+    },[]);
+
+
     return(
         <main className="container-fluid">
             <div className="row w-100">
@@ -24,12 +61,39 @@ export const PatientManagement = () => {
                             <h6 className='ms-1'>Atrás</h6>
                         </div>
                 </section>
-                <PatientList changeFulscree={changeFulscree} fullscreenState={fullscreenState}/>
-                <section className="info-patient col mt-4 ms-2 m-2 rounded-4">
-                    <div className="text-center">
-                        <img className="w-25 rounded-5 mt-2" src="/image-example/imageUser.jpg" alt="" />
+                <div className="info-patient col mt-2 ms-2 m-2 rounded-4 bg-light min-vh-100">
+
+                    <div className="container py-5">
+                        <h1 className="mb-4">Lista de pacientes</h1>
+                        <div className="row">
+                        {patientsState.map((patient) => (
+                            <div key={patient.id} className="col-12 col-md-6 col-lg-4 mb-4">
+                            <div className="card">
+                                <div className="card-body">
+                                <div className="d-flex align-items-center mb-3">
+                                    <img
+                                    src={patient.user.imageUrl}
+                                    className="rounded-circle me-3"
+                                    width="60"
+                                    height="60"
+                                    />
+                                    <h5 className="card-title mb-0">{patient.fullname}</h5>
+                                </div>
+                                <ul className="list-group list-group-flush">
+                                    <a href="#" className="list-group-item text-primary">Información</a>
+                                    <a href="#" className="list-group-item text-success">Actividades</a>
+                                    <a href="#" className="list-group-item text-info">Reunión</a>
+                                </ul>
+                                </div>
+                                <div className="card-footer">
+                                <button className="btn btn-danger w-100">Derivar</button>
+                                </div>
+                            </div>
+                            </div>
+                        ))}
+                        </div>
                     </div>
-                </section>                
+                    </div>
             </div>
         </main>
     )

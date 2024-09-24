@@ -15,6 +15,8 @@ import { ConsultationPage } from "../pages/ConsultationPage";
 import { ProfileProfessionalPage } from "../pages/ProfileProfessionalPage";
 import { SuperAdmin } from "../pages/SuperAdmin";
 import ProtectedRoute from "./ProtectedRoute";
+import { InfoPatientPage } from "../pages/InfoPatientPage";
+import { FormPatientPage } from "../pages/FormPatientPage";
 import { PatientManagementPage } from "../pages/PatientManagementPage";
 import { ActivitiesPage } from "../pages/ActivitiesPage";
 
@@ -122,6 +124,19 @@ export const AppRouters: React.FC = () => {
           element={
             authState.isLogged ? <ActivitiesPage/> : <Navigate to={"/login"}/>
           }
+        />
+        <Route
+          path="/information-patient"
+          element={
+            authState.isLogged ? <InfoPatientPage/> : <Navigate to={"/login"}/>
+          }
+        />
+        <Route
+          path="/form-patient/:id/:userId"
+          element={
+            authState.isLogged ? <FormPatientPage/> : <Navigate to={"/login"}/>
+          }
+          
         />
         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>

@@ -1,11 +1,11 @@
-import { Header } from "../components/headers/Header"
-import { PatientManagement } from "../components/main/professional/PatientManagement"
+import { Header } from '../components/headers/Header';
+import { PatientManagement } from '../components/main/professional/PatientManagement';
 
 export const PatientManagementPage = () => {
-    return (
-        <>
-            <Header/>
-            <PatientManagement/>
-        </>
-    )
+  return (
+    <>
+        <Header/>
+        <PatientManagement/>
+    </>
+  );
 }
