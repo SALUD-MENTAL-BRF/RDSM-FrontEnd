@@ -19,7 +19,7 @@ import { InfoPatientPage } from "../pages/InfoPatientPage";
 import { FormPatientPage } from "../pages/FormPatientPage";
 import { PatientManagementPage } from "../pages/PatientManagementPage";
 import { ActivitiesPage } from "../pages/ActivitiesPage";
-
+import { RequestListPage } from "../pages/RequestListPage";
 // Definir constante para los roles
 const ROLE_SUPERADMIN = parseInt(import.meta.env.VITE_ROLE_ADMIN);
 
@@ -116,25 +116,33 @@ export const AppRouters: React.FC = () => {
         <Route
           path="/patient"
           element={
-            authState.isLogged ? <PatientManagementPage/> : <Navigate to={"/login"}/>
+            <ProtectedRoute>
+             <PatientManagementPage/>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/activities"
           element={
-            authState.isLogged ? <ActivitiesPage/> : <Navigate to={"/login"}/>
+            <ProtectedRoute>
+              <ActivitiesPage/>
+            </ProtectedRoute>
           }
         />
         <Route
           path="/information-patient"
           element={
-            authState.isLogged ? <InfoPatientPage/> : <Navigate to={"/login"}/>
+            <ProtectedRoute>
+              <InfoPatientPage/> 
+            </ProtectedRoute> 
           }
         />
         <Route
           path="/form-patient/:id/:userId"
           element={
-            authState.isLogged ? <FormPatientPage/> : <Navigate to={"/login"}/>
+            <ProtectedRoute>
+              <FormPatientPage/> 
+            </ProtectedRoute>
           }
           
         />
