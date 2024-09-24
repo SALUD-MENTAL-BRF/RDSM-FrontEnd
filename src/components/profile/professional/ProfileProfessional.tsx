@@ -83,17 +83,17 @@ export const ProfileProfessional = () => {
                   {/* <h5>{profile.followers}</h5> */}
                   <p className="text-muted">Seguidores</p>
                 </div>
-                <div className="col-4 mt-4">
+                <div className="col-4 mt-3">
                     
                     {
-                        userState?.roleId == 3 || userState?.roleId == 1  && professionalState?.availability  ?
-                    <button onClick={() => navigate(`/form-patient/${id}`)} className="btn btn-primary">
-                        <Heart size={24} className="me-2" />
+                        userState?.roleId == 3 || userState?.roleId == 4  && professionalState?.availability  ?
+                    <button onClick={() => navigate(`/form-patient/${id}/${userState.id}`)} className="btn btn-primary">
+                        <Heart size={24} className="" />
                         Consultar
                     </button>
                     :
                     <button disabled className="btn btn-primary">
-                        <Heart size={24} className="me-2" />
+                        <Heart size={24} className="" />
                         Consultar
                     </button>
                     }

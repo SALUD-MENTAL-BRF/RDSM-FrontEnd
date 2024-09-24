@@ -2,6 +2,7 @@ import React,{useState} from "react";
 import { formPatientDto } from "../../../types/patients.dto";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 export const FormPatient = () => {
     const [formData, setFormData] = useState<formPatientDto>({
@@ -24,8 +25,9 @@ export const FormPatient = () => {
         histoyFamily: ''
       });
       const navigate = useNavigate()
-      const {id} = useParams()
-    
+      const {id, userId} = useParams()
+      const [prefijo, setPrefijo] = useState<string>("+54")
+
       const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData(prevState => ({
@@ -34,9 +36,41 @@ export const FormPatient = () => {
         }));
       };
     
-      const handleSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
+      const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        console.log(formData);
+        
+        const response = await fetch(`${import.meta.env.VITE_API_URL}request-patient/${userId}/${id}`,{
+          method: "POST",
+          body: JSON.stringify({...formData,telephone: prefijo + formData.telephone, 
+            contactEmergencyTelephone: prefijo + formData.contactEmergencyTelephone
+          }),
+          headers: {
+            'content-type':'application/json'
+          }
+        })
+        if(response.status == 200){
+          return Swal.fire({
+            title: "Enviado",
+            text: "Solicitud enviada.",
+            icon: "success",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "ok",
+          }).then(() => {
+            return navigate("/home")
+          })
+        }
+
+        const data = await response.json()
+        
+        if(data.statusCode == 400){
+          return Swal.fire({
+            title: "Error",
+            text: data.message[0],
+            icon: "error",
+            confirmButtonColor: "#3085d6",
+            confirmButtonText: "ok",
+          })
+        }
       };
     return(
         <main className="container mt-5 mb-5">
@@ -80,7 +114,11 @@ export const FormPatient = () => {
               </div>
               <div className="mb-3">
                 <label htmlFor="telefono" className="form-label">Teléfono de contacto</label>
-                <input type="number" className="form-control" id="telefono" name="telephone" value={formData.telephone} onChange={handleChange} required />
+                <div className="d-flex">
+                    <p className="mt-3 me-2">{prefijo}</p>
+                    <input type="number" className="form-control" id="telefono" name="telephone" value={formData.telephone} onChange={handleChange} required />
+
+                </div>
               </div>
               {/* <div className="mb-3">
                 <label htmlFor="email" className="form-label">Correo electrónico</label>
@@ -103,8 +141,12 @@ export const FormPatient = () => {
                 <input type="text" className="form-control" id="contactoEmergenciaRelacion" name="contactEmergencyRelation" value={formData.contactEmergencyRelation} onChange={handleChange} required />
               </div>
               <div className="mb-3">
-                <label htmlFor="contactoEmergenciaTelefono" className="form-label">Número de teléfono de emergencia</label>
-                <input type="tel" className="form-control" id="contactoEmergenciaTelefono" name="contactEmergencyTelephone" value={formData.contactEmergencyTelephone} onChange={handleChange} required />
+                  <label htmlFor="contactoEmergenciaTelefono" className="form-label">Número de teléfono de emergencia</label>
+                <div className="d-flex">
+                  <p className="mt-3 me-2">{prefijo}</p> 
+                  <input type="number" className="form-control" id="contactoEmergenciaTelefono" name="contactEmergencyTelephone" value={formData.contactEmergencyTelephone} onChange={handleChange} required />
+                </div>
+               
               </div>
             </div>
           </div>
