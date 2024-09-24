@@ -144,7 +144,14 @@ export const AppRouters: React.FC = () => {
               <FormPatientPage/> 
             </ProtectedRoute>
           }
-          
+        />
+        <Route
+          path="/request-list"
+          element={
+            <ProtectedRoute>
+              <RequestListPage/> 
+            </ProtectedRoute>
+          }
         />
         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
