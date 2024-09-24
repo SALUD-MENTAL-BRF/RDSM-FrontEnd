@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { CustomFetch } from '../../api/CustomFetch';
 import { User } from '../../types/user.dto';
 import useAuth from '../../hooks/useAuth';
+import Swal from 'sweetalert2';
 
 interface FeatureProps {
   icon: React.ReactNode;
@@ -11,18 +12,42 @@ interface FeatureProps {
   description: string;
   buttonText: string;
   link: string;
+  roleId?: number
 }
 
-const Feature: React.FC<FeatureProps> = ({ icon, title, description, buttonText, link }) => (
+
+
+const Feature: React.FC<FeatureProps> = ({ icon, title, description, buttonText, link, roleId }) => {
+  
+  const navigate = useNavigate()  
+
+  const redirect = (link: string) =>{
+
+    if(link == "/activities"){
+      if(roleId !== 3){
+        return Swal.fire({
+          title: "Error",
+          text: "Necesitas tener un profesional asignado para acceder a las actividades.",
+          icon: "error",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "ok",
+        })
+      }
+    }
+
+    return navigate(link)
+  } 
+  return(
   <div className="col-md-12 col-lg-4 mb-4">
     <div className="d-flex flex-column align-items-center text-center h-100">
       <div className="mb-3 text-emerald-500">{icon}</div>
       <h2 className="h4 fw-bold mb-3">{title}</h2>
       <p className="text-muted small mb-3">{description}</p>
-      <a href={link}><button className="btn btn-outline-primary mt-auto">{buttonText}</button></a>
+      <button onClick={()=>redirect(link)} className="btn btn-outline-primary mt-auto">{buttonText}</button>
     </div>
   </div>
-);
+  )
+};
 
 const IconMessageCircle: React.FC = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -145,6 +170,7 @@ export const Home: React.FC = () => {
                   description='Prueba los distintos ejercicios.'
                   buttonText='Ver actividades'
                   link='/activities'
+                  roleId={userState?.roleId}
                 />: ""
                 }
                 {
