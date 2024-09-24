@@ -8,7 +8,6 @@ import useAuth from "../../../hooks/useAuth";
 import { User } from "../../../types/user.dto";
 import { ArrowLeft, Book, Heart, Users } from 'lucide-react';
 
-
 export const ProfileProfessional = () => {
 
   const [professionalState, setProfessionalState] = useState<Professional | null>(null);
@@ -16,13 +15,17 @@ export const ProfileProfessional = () => {
   const navigate = useNavigate();
   const { authState } = useAuth();
   const { id } = useParams();
+  const [consult, setConsult] = useState<boolean>(false)
 
   useEffect(() => {
       (async () => {
           if (id && authState.token) {
               const professional = await CustomFetch(`${import.meta.env.VITE_API_URL}professional/${id}`, 'GET');
               const user = await CustomFetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`, 'GET');
-
+              const request = await CustomFetch(`${import.meta.env.VITE_API_URL}request-patient/${user.id}/${id}`, "GET")
+              if(request){
+                setConsult(true)
+              }
               setProfessionalState(professional);
               setUserState(user);
           }
@@ -86,7 +89,7 @@ export const ProfileProfessional = () => {
                 <div className="col-4 mt-3">
                     
                     {
-                        userState?.roleId == 3 || userState?.roleId == 4  && professionalState?.availability  ?
+                        userState?.roleId == 3 || userState?.roleId == 4  && professionalState?.availability && !consult  ?
                     <button onClick={() => navigate(`/form-patient/${id}/${userState.id}`)} className="btn btn-primary">
                         <Heart size={24} className="" />
                         Consultar
