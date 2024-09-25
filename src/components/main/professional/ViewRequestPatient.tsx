@@ -2,19 +2,19 @@ import { formPatientDto } from "../../../types/patients.dto";
 import { ArrowLeft } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { removeRequest } from "./optionsRequest";
+import { removeRequest, acceptRequest } from "./optionsRequest";
 import Swal from "sweetalert2";
 import '../../../assets/style/professional/ViewRequestPatient.css'
 
 export const ViewRequestPatient = () => {
     const [patientRequest, setPatientRequest] = useState<formPatientDto>()
     const navigate = useNavigate()
-    const {id} = useParams()
+    const {professionalId,requestId} = useParams()
     
     useEffect(() => {
         (
             async () => {
-                const response = await fetch(`${import.meta.env.VITE_API_URL}request-patient/${id}`)
+                const response = await fetch(`${import.meta.env.VITE_API_URL}request-patient/${requestId}`)
                 const data = await response.json()
                 setPatientRequest(data)
             }
@@ -63,7 +63,18 @@ export const ViewRequestPatient = () => {
       </div>
       <div className="card-footer row mt-2 mb-2">
         <div className="text-center">
-            <button className="request-patient-buttons btn btn-primary mb-2">Aceptar</button>
+            <button onClick={async () =>{
+                const response = await acceptRequest(Number(professionalId), Number(patientRequest?.id))
+
+                if(response.status == 200){
+                  return Swal.fire({
+                      title: "Solicitud aceptada.",
+                      icon: "success",
+                      confirmButtonColor: "#3085d6",
+                      confirmButtonText: "ok",
+                    }).then(() => navigate("/request-list"))
+              };
+            }} className="request-patient-buttons btn btn-primary mb-2">Aceptar</button>
         </div>
         <div className="text-center">
             <button onClick={async () => {

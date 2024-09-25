@@ -156,7 +156,7 @@ export const AppRouters: React.FC = () => {
           }
         />
         <Route
-          path="/view-request/:id"
+          path="/view-request/:professionalId/:requestId"
           element={
             <ProtectedRoute>
               <ViewRequestPatientPage/>

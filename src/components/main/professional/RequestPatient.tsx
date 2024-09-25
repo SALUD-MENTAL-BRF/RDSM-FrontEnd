@@ -71,7 +71,7 @@ export const RequestPatient = () => {
                             </ul> */}
                             </div>
                             <div className="card-footer">
-                            <button onClick={() => navigate(`/view-request/${patient.id}`)} className="btn btn-primary w-100 mb-2">Ver solicitud</button>
+                            <button onClick={() => navigate(`/view-request/${professionalState?.id}/${patient.id}`)} className="btn btn-primary w-100 mb-2">Ver solicitud</button>
                             <button onClick={async () => {
                                 const response = await acceptRequest(Number(professionalState?.id), Number(patient.id))
                                 
