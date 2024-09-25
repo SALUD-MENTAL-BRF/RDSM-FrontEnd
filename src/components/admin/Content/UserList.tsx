@@ -4,13 +4,14 @@ import styles from '../../../assets/style/admin/Content/User.module.css';
 import { useFetchUser } from '../../../hooks/useFetchUsers';
 import { User } from '../../../types/user.dto';
 import { CustomFetch } from '../../../api/CustomFetch';
-import { CreateUserForm } from './createUserForm';
+import { UserForm } from './createUserForm';
 
 export const UserList = () => {
   const [usersList, setUsersList] = useState<User[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [showInactive, setShowInactive] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [editingUser, setEditingUser] = useState<User | null>(null);
 
   const { users, error, loading } = useFetchUser();
 
@@ -36,6 +37,12 @@ export const UserList = () => {
 
   const toggleModal = () => {
     setShowModal(!showModal);
+    setEditingUser(null);
+  };
+
+  const handleEditUser = (user: User) => {
+    setEditingUser(user);
+    setShowModal(true);
   };
 
   const handleDeleteUser = async (userId: string) => {
@@ -53,7 +60,7 @@ export const UserList = () => {
         const response = await CustomFetch(`${import.meta.env.VITE_API_URL}users/${userId}`, 'DELETE');
 
         if (response.success) {
-          window.location.reload();
+          setUsersList(usersList.filter(user => user.id.toString() !== userId));
           Swal.fire('Usuario eliminado!', 'El usuario ha sido eliminado correctamente.','success');
         } else {
           Swal.fire('Error!', 'No se pudo eliminar el usuario.', 'error');
@@ -76,6 +83,7 @@ export const UserList = () => {
             placeholder="Buscar usuarios..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            aria-label="Buscar usuarios"
           />
         </div>
         <div className="col-md-3">
@@ -120,7 +128,7 @@ export const UserList = () => {
                   <td>{user.status}</td>
                   <td>{new Date(user.createdAt).toLocaleDateString()}</td>
                   <td>
-                    <button className="btn btn-sm btn-primary me-2">Editar</button>
+                    <button className="btn btn-sm btn-primary me-2" onClick={() => handleEditUser(user)}>Editar</button>
                     <button className="btn btn-sm btn-danger" onClick={() => handleDeleteUser(user.id.toString())}>Eliminar</button>
                   </td>
                 </tr>
@@ -137,11 +145,11 @@ export const UserList = () => {
             <div className="modal-dialog modal-dialog-centered">
               <div className="modal-content">
                 <div className="modal-header">
-                  <h5 className="modal-title">Agregar Nuevo Usuario</h5>
-                  <button type="button" className="btn-close" onClick={toggleModal}></button>
+                  <h5 className="modal-title">{editingUser ? 'Editar Usuario' : 'Agregar Nuevo Usuario'}</h5>
+                  <button type="button" className="btn-close" onClick={toggleModal} aria-label="Cerrar"></button>
                 </div>
                 <div className="modal-body">
-                  <CreateUserForm onClose={toggleModal} />
+                  <UserForm user={editingUser || undefined} onClose={toggleModal} />
                 </div>
               </div>
             </div>

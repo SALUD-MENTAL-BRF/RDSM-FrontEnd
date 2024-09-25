@@ -2,41 +2,21 @@ import { useEffect, useState } from 'react';
 import { RolesList, useFetchRoles } from '../../../hooks/useFetchRoles';
 import { CustomFetch } from '../../../api/CustomFetch';
 import Swal from 'sweetalert2';
-import styles from '../../../assets/style/admin/Content/createUserForm.module.css'
+import styles from '../../../assets/style/admin/Content/createUserForm.module.css';
+import { User } from '../../../types/user.dto';
 
-interface CreateUserFormProps {
+interface UserFormProps {
   onClose: () => void;
+  user?: User;
 }
 
-export const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose }) => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
+export const UserForm: React.FC<UserFormProps> = ({ onClose, user }) => {
+  const [username, setUsername] = useState(user?.username || '');
+  const [email, setEmail] = useState(user?.email || '');
   const [password, setPassword] = useState('');
   const [roles, setRoles] = useState<RolesList[]>([]);
-  const [selectedRole, setSelectedRole] = useState('');
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    try {
-      e.preventDefault();
-
-      const data = {
-        username,
-        email,
-        password,
-        role_id: selectedRole,
-      };
-
-      const response = await CustomFetch(`${import.meta.env.VITE_API_URL}users`, 'POST', data);
-
-      if (response.success) {
-        Swal.fire('Usuario creado exitosamente!', '', 'success');
-        onClose();
-        window.location.reload();
-      }
-    } catch (err) {
-      console.error('Error al crear usuario:', err);
-    }
-  };
+  const [selectedRole, setSelectedRole] = useState(user?.roleId.toString() || '');
+  const [status, setStatus] = useState(user?.status || 'active');
 
   const { rolesList, error, loading } = useFetchRoles();
 
@@ -45,6 +25,44 @@ export const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose }) => {
       setRoles(rolesList);
     }
   }, [rolesList]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const data: any = {
+        username,
+        email,
+        roleId: parseInt(selectedRole),
+        status
+      };
+
+      if (!user) {
+        data.password = password;
+      }
+
+      const url = user
+        ? `${import.meta.env.VITE_API_URL}users/${user.id}`
+        : `${import.meta.env.VITE_API_URL}users`;
+      const method = user ? 'PUT' : 'POST';
+
+      const response = await CustomFetch(url, method, data);
+
+      console.log(response);
+
+      if (response.success) {
+        Swal.fire(
+          user ? 'Usuario actualizado exitosamente!' : 'Usuario creado exitosamente!',
+          '',
+          'success'
+        );
+        onClose();
+        window.location.reload();
+      }
+    } catch (err) {
+      console.error('Error al procesar usuario:', err);
+      Swal.fire('Error!', 'No se pudo procesar el usuario.', 'error');
+    }
+  };
 
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>Error cargando roles: {error.message}</p>;
@@ -73,17 +91,19 @@ export const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose }) => {
           required
         />
       </div>
-      <div className="mb-3">
-        <label htmlFor="password" className="form-label">Contraseña</label>
-        <input
-          type="password"
-          className="form-control"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-      </div>
+      {!user && (
+        <div className="mb-3">
+          <label htmlFor="password" className="form-label">Contraseña</label>
+          <input
+            type="password"
+            className="form-control"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+      )}
       <div className="mb-3">
         <label htmlFor="role" className="form-label">Rol</label>
         <select
@@ -101,9 +121,24 @@ export const CreateUserForm: React.FC<CreateUserFormProps> = ({ onClose }) => {
           ))}
         </select>
       </div>
+      <div className="mb-3">
+        <label htmlFor="status" className="form-label">Estado</label>
+        <select
+          className="form-select"
+          id="status"
+          value={status}
+          onChange={(e) => setStatus(e.target.value)}
+          required
+        >
+          <option value="active">Activo</option>
+          <option value="inactive">Inactivo</option>
+        </select>
+      </div>
       <div className="d-flex justify-content-end">
         <button type="button" className="btn btn-secondary me-2" onClick={onClose}>Cancelar</button>
-        <button type="submit" className="btn btn-primary">Crear Usuario</button>
+        <button type="submit" className="btn btn-primary">
+          {user ? 'Actualizar Usuario' : 'Crear Usuario'}
+        </button>
       </div>
     </form>
   );
