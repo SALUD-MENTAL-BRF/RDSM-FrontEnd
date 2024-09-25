@@ -200,7 +200,7 @@ export const Home: React.FC = () => {
                     title='Solicitudes'
                     description='Gestiona las solicitudes de los usuarios que requieren de tu atención.'
                     buttonText='Ver solicitudes'
-                    link='/patient'
+                    link='/request-list'
                   />
                   :  ""
                 }

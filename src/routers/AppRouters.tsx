@@ -15,11 +15,15 @@ import { ConsultationPage } from "../pages/ConsultationPage";
 import { ProfileProfessionalPage } from "../pages/ProfileProfessionalPage";
 import { SuperAdmin } from "../pages/SuperAdmin";
 import ProtectedRoute from "./ProtectedRoute";
-// import { InfoPatientPage } from "../pages/InfoPatientPage";
-// import { FormPatientPage } from "../pages/FormPatientPage";
+import { InfoPatientPage } from "../pages/InfoPatientPage";
+import { FormPatientPage } from "../pages/FormPatientPage";
 import { PatientManagementPage } from "../pages/PatientManagementPage";
 import { ActivitiesPage } from "../pages/ActivitiesPage";
-// import { RequestListPage } from "../pages/RequestListPage";
+import { RequestListPage } from "../pages/RequestListPage";
+import { ViewRequestPatientPage } from "../pages/ViewRequestPatientPage";
+
+// Definir constante para los roles
+const ROLE_SUPERADMIN = parseInt(import.meta.env.VITE_ROLE_ADMIN);
 
 export const AppRouters: React.FC = () => {
   const { authState } = useAuth();
@@ -127,6 +131,39 @@ export const AppRouters: React.FC = () => {
           }
         />
         <Route path="*" element={<Navigate to="/" replace />} />
+        <Route
+          path="/information-patient"
+          element={
+            <ProtectedRoute>
+              <InfoPatientPage/> 
+            </ProtectedRoute> 
+          }
+        />
+        <Route
+          path="/form-patient/:id/:userId"
+          element={
+            <ProtectedRoute>
+              <FormPatientPage/> 
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/request-list"
+          element={
+            <ProtectedRoute>
+              <RequestListPage/> 
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/view-request/:id"
+          element={
+            <ProtectedRoute>
+              <ViewRequestPatientPage/>
+            </ProtectedRoute>
+          }
+        />
+        {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
     </BrowserRouter>
   );
