@@ -2,10 +2,14 @@ import { useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { formPatientDto } from "../../../types/patients.dto"
 import useAuth from "../../../hooks/useAuth"
+import '../../../assets/style/professional/RequestPatient.css'
+import { removeRequest } from "./optionsRequest"
+import Swal from "sweetalert2"
 
 export const RequestPatient = () => {
     const [requestPatient, setRequestPatient] = useState<Array<formPatientDto>>()
     const {authState} = useAuth()
+    const [reloadPage, setReloadPage] = useState<boolean>(false)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -18,10 +22,10 @@ export const RequestPatient = () => {
             const patientRequestReponse = await fetch(`${import.meta.env.VITE_API_URL}request-patient/${professional.id}`)
             const patientRequest = await patientRequestReponse.json()
             setRequestPatient(patientRequest)
-                      
         }
        )() 
-    },[])
+    },[reloadPage])
+
 
     return(
         <main className="container-fluid">
@@ -36,9 +40,9 @@ export const RequestPatient = () => {
                         <h6 className='ms-1'>Atrás</h6>
                     </div>
             </section>
-            <div className="info-patient col mt-2 ms-2 m-2 rounded-4 bg-light min-vh-100">
+            <div className="col mt-2 ms-2 m-2 rounded-4 bg-light min-vh-100">
 
-                <div className="container py-5">
+                <div className="container container-request py-5">
                     <h1 className="mb-4">Solicitudes</h1>
                     <div className="row bg-secondary-emphasis h-100">
 
@@ -64,7 +68,20 @@ export const RequestPatient = () => {
                             <div className="card-footer">
                             <button className="btn btn-primary w-100 mb-2">Ver solicitud</button>
                             <button className="btn btn-primary w-100 mb-2">Aceptar</button>
-                            <button className="btn btn-danger w-100">Rechazar</button>
+                            <button onClick={async () => {
+                                
+                                const response = await removeRequest(Number(patient.id));
+                                if(response.status == 200){
+                                    setReloadPage(!reloadPage)
+                                    return Swal.fire({
+                                        title: "Solicitud rechazada.",
+                                        icon: "success",
+                                        confirmButtonColor: "#3085d6",
+                                        confirmButtonText: "ok",
+                                      })
+                                };
+                                }  
+                                } className="btn btn-danger w-100">Rechazar</button>
                             </div>
                         </div>
                         </div>
