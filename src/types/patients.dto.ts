@@ -8,6 +8,7 @@ export interface patient {
 }
 
 export interface formPatientDto {
+    id?: number;
     fullName: string;
     date_birth: string;
     genre: string;
@@ -25,5 +26,7 @@ export interface formPatientDto {
     historyConsumption: string;
     historyDiseases: string;
     histoyFamily: string;
+    userId?: number;
+    professionalId?: number;
   }
   

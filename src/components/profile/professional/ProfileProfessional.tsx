@@ -20,7 +20,7 @@ export const ProfileProfessional = () => {
   useEffect(() => {
       (async () => {
           if (id && authState.token) {
-              const professional = await CustomFetch(`${import.meta.env.VITE_API_URL}professional/${id}`, 'GET');
+              const professional = await CustomFetch(`${import.meta.env.VITE_API_URL}professional/profile/${id}`, 'GET');
               const user = await CustomFetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`, 'GET');
               const request = await CustomFetch(`${import.meta.env.VITE_API_URL}request-patient/${user.id}/${id}`, "GET")
               if(request){
