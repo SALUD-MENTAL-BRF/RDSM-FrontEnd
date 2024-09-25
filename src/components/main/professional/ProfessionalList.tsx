@@ -6,7 +6,7 @@ import { Professional } from "../../../types/profileProfessional.dto.ts";
 import React from "react";
 
 export const ProfessionalList = () => {
-    const [allProfessionalState, setAllProfessionalState] = useState<Array<Professional>>([])
+    // const [allProfessionalState, setAllProfessionalState] = useState<Array<Professional>>([])
     const [professionalState, setProfessionalState] = useState<Array<Professional>>([])
     const [barSearch, setBarSearch] = useState<string>("")
 
@@ -14,7 +14,7 @@ export const ProfessionalList = () => {
         (
             async () => {
                 const data = await CustomFetch(`${import.meta.env.VITE_API_URL}professional`, 'GET')
-                setAllProfessionalState(data)
+                // setAllProfessionalState(data)
                 setProfessionalState(data)
                 
             }

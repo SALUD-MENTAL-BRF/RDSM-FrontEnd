@@ -1,5 +1,4 @@
 import React from "react"
-import { patient } from "../../../../types/patients.dto"
 import { useNavigate } from "react-router-dom"
 
 // interface Props {
