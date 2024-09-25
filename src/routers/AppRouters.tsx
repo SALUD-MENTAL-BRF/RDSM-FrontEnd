@@ -20,8 +20,6 @@ import ProtectedRoute from "./ProtectedRoute";
 import { PatientManagementPage } from "../pages/PatientManagementPage";
 import { ActivitiesPage } from "../pages/ActivitiesPage";
 // import { RequestListPage } from "../pages/RequestListPage";
-// Definir constante para los roles
-const ROLE_SUPERADMIN = parseInt(import.meta.env.VITE_ROLE_ADMIN);
 
 export const AppRouters: React.FC = () => {
   const { authState } = useAuth();
