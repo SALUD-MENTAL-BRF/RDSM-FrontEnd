@@ -3,11 +3,13 @@ import { useEffect, useState } from "react"
 import { formPatientDto } from "../../../types/patients.dto"
 import useAuth from "../../../hooks/useAuth"
 import '../../../assets/style/professional/RequestPatient.css'
-import { removeRequest } from "./optionsRequest"
+import { removeRequest, acceptRequest } from "./optionsRequest"
 import Swal from "sweetalert2"
+import { Professional } from "../../../types/profileProfessional.dto"
 
 export const RequestPatient = () => {
     const [requestPatient, setRequestPatient] = useState<Array<formPatientDto>>()
+    const [professionalState, setProfessionalState] = useState<Professional>()
     const {authState} = useAuth()
     const [reloadPage, setReloadPage] = useState<boolean>(false)
     const navigate = useNavigate()
@@ -19,10 +21,10 @@ export const RequestPatient = () => {
             const user = await userResponse.json()
             const professionalResponse = await fetch(`${import.meta.env.VITE_API_URL}professional/${user.id}`);
             const professional = await professionalResponse.json()
-            const patientRequestReponse = await fetch(`${import.meta.env.VITE_API_URL}request-patient/${professional.id}`)
+            const patientRequestReponse = await fetch(`${import.meta.env.VITE_API_URL}request-patient/professional/${professional.id}`)
             const patientRequest = await patientRequestReponse.json()
             setRequestPatient(patientRequest)
-            
+            setProfessionalState(professional)
         }
        )() 
     },[reloadPage])
@@ -69,8 +71,22 @@ export const RequestPatient = () => {
                             </ul> */}
                             </div>
                             <div className="card-footer">
-                            <button className="btn btn-primary w-100 mb-2">Ver solicitud</button>
-                            <button className="btn btn-primary w-100 mb-2">Aceptar</button>
+                            <button onClick={() => navigate(`/view-request/${patient.id}`)} className="btn btn-primary w-100 mb-2">Ver solicitud</button>
+                            <button onClick={async () => {
+                                const response = await acceptRequest(Number(professionalState?.id), Number(patient.id))
+                                
+                                if(response.status == 200){
+                                    setReloadPage(!reloadPage)
+                                    return Swal.fire({
+                                        title: "Solicitud aceptada.",
+                                        icon: "success",
+                                        confirmButtonColor: "#3085d6",
+                                        confirmButtonText: "ok",
+                                      })
+                                };
+                                
+
+                            }} className="btn btn-primary w-100 mb-2">Aceptar</button>
                             <button onClick={async () => {
                                 
                                 const response = await removeRequest(Number(patient.id));

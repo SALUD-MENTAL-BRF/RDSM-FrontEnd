@@ -5,3 +5,11 @@ export const removeRequest = async (id: number) => {
 
     return  response
 };
+
+export const acceptRequest = async (professionalId: number, requestId:number) => {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}request-patient/professional/${requestId}/${professionalId}`,{
+        method: 'POST'
+    })
+    
+    return response
+}
