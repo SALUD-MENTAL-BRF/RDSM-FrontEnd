@@ -32,7 +32,7 @@ export const UserList = () => {
       user.username.toLowerCase().includes(searchTerm.toLowerCase()) || 
       user.email.toLowerCase().includes(searchTerm.toLowerCase());
     
-    return matchesSearchTerm && (showInactive || user.status !== 'inactive');
+    return matchesSearchTerm && (showInactive || user.status !== 'INACTIVO');
   });
 
   const toggleModal = () => {

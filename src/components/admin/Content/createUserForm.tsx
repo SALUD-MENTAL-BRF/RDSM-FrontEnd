@@ -130,8 +130,8 @@ export const UserForm: React.FC<UserFormProps> = ({ onClose, user }) => {
           onChange={(e) => setStatus(e.target.value)}
           required
         >
-          <option value="active">Activo</option>
-          <option value="inactive">Inactivo</option>
+          <option value="ACTIVO">Activo</option>
+          <option value="INACTIVO">Inactivo</option>
         </select>
       </div>
       <div className="d-flex justify-content-end">
