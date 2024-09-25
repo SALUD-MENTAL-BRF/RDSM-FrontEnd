@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { CustomFetch } from '../../api/CustomFetch';
 import { User } from '../../types/user.dto';
 import useAuth from '../../hooks/useAuth';
+import Swal from 'sweetalert2';
 
 interface FeatureProps {
   icon: React.ReactNode;
@@ -11,18 +12,42 @@ interface FeatureProps {
   description: string;
   buttonText: string;
   link: string;
+  roleId?: number
 }
 
-const Feature: React.FC<FeatureProps> = ({ icon, title, description, buttonText, link }) => (
+
+
+const Feature: React.FC<FeatureProps> = ({ icon, title, description, buttonText, link, roleId }) => {
+  
+  const navigate = useNavigate()  
+
+  const redirect = (link: string) =>{
+
+    if(link == "/activities"){
+      if(roleId !== 3){
+        return Swal.fire({
+          title: "Error",
+          text: "Necesitas tener un profesional asignado para acceder a las actividades.",
+          icon: "error",
+          confirmButtonColor: "#3085d6",
+          confirmButtonText: "ok",
+        })
+      }
+    }
+
+    return navigate(link)
+  } 
+  return(
   <div className="col-md-12 col-lg-4 mb-4">
     <div className="d-flex flex-column align-items-center text-center h-100">
       <div className="mb-3 text-emerald-500">{icon}</div>
       <h2 className="h4 fw-bold mb-3">{title}</h2>
       <p className="text-muted small mb-3">{description}</p>
-      <a href={link}><button className="btn btn-outline-primary mt-auto">{buttonText}</button></a>
+      <button onClick={()=>redirect(link)} className="btn btn-outline-primary mt-auto">{buttonText}</button>
     </div>
   </div>
-);
+  )
+};
 
 const IconMessageCircle: React.FC = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -56,6 +81,15 @@ const IconPerson: React.FC = () => {
   <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" className="bi bi-person" viewBox="0 0 16 16">
     <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
   </svg>
+  )
+}
+
+const IconList: React.FC = () => {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-card-list" viewBox="0 0 16 16">
+      <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
+      <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8m0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0M4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"/>
+    </svg>
   )
 }
 
@@ -145,6 +179,7 @@ export const Home: React.FC = () => {
                   description='Prueba los distintos ejercicios.'
                   buttonText='Ver actividades'
                   link='/activities'
+                  roleId={userState?.roleId}
                 />: ""
                 }
                 {
@@ -158,6 +193,17 @@ export const Home: React.FC = () => {
                 />
                 :  ""
                 } 
+                {
+                  userState?.roleId == 2 ? 
+                  <Feature
+                    icon={<IconList/>}
+                    title='Solicitudes'
+                    description='Gestiona las solicitudes de los usuarios que requieren de tu atención.'
+                    buttonText='Ver solicitudes'
+                    link='/patient'
+                  />
+                  :  ""
+                }
               </div>
             </div>
           </section>

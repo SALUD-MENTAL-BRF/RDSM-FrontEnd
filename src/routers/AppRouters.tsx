@@ -15,8 +15,13 @@ import { ConsultationPage } from "../pages/ConsultationPage";
 import { ProfileProfessionalPage } from "../pages/ProfileProfessionalPage";
 import { SuperAdmin } from "../pages/SuperAdmin";
 import ProtectedRoute from "./ProtectedRoute";
+// import { InfoPatientPage } from "../pages/InfoPatientPage";
+// import { FormPatientPage } from "../pages/FormPatientPage";
 import { PatientManagementPage } from "../pages/PatientManagementPage";
 import { ActivitiesPage } from "../pages/ActivitiesPage";
+// import { RequestListPage } from "../pages/RequestListPage";
+// Definir constante para los roles
+const ROLE_SUPERADMIN = parseInt(import.meta.env.VITE_ROLE_ADMIN);
 
 export const AppRouters: React.FC = () => {
   const { authState } = useAuth();
