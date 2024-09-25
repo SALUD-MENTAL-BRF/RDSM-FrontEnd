@@ -22,6 +22,7 @@ export const RequestPatient = () => {
             const patientRequestReponse = await fetch(`${import.meta.env.VITE_API_URL}request-patient/${professional.id}`)
             const patientRequest = await patientRequestReponse.json()
             setRequestPatient(patientRequest)
+            
         }
        )() 
     },[reloadPage])
@@ -46,7 +47,9 @@ export const RequestPatient = () => {
                     <h1 className="mb-4">Solicitudes</h1>
                     <div className="row bg-secondary-emphasis h-100">
 
-                    {requestPatient?.map((patient) => (
+                    {
+                    requestPatient && requestPatient?.length > 0 ?
+                    requestPatient?.map((patient) => (
                         <div key={patient.id} className="col-12 col-md-6 col-lg-4 mb-4">
                         <div className="card">
                             <div className="card-body">
@@ -85,7 +88,12 @@ export const RequestPatient = () => {
                             </div>
                         </div>
                         </div>
-                    ))}
+                    ))
+                    :
+                    <div className="d-flex mt-5">
+                        <p className="h-100 w-100 text-secondary text-center">No hay solicitudes.</p>
+                    </div>
+                    }
                     </div>
                 </div>
                 </div>
