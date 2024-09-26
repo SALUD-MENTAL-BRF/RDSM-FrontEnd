@@ -43,3 +43,8 @@
 .headerProfileProfessional{
     background-color: #059669;
 }
+
+
+.input-EditProfileProfessional {
+    text-transform:  none;
+}
