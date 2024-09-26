@@ -15,9 +15,7 @@ export const PatientManagement = () => {
         (
             async () => {
                 const user = await CustomFetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`, 'GET')
-                const professional = await CustomFetch(`${import.meta.env.VITE_API_URL}professional/${user.id}`, 'GET')
-                console.log(professional);
-                
+                const professional = await CustomFetch(`${import.meta.env.VITE_API_URL}professional/${user.id}`, 'GET')                
                 const patients = await CustomFetch(`${import.meta.env.VITE_API_URL}patient/${professional.id}`, 'GET') 
                 setPatientState(patients)
             }
@@ -56,7 +54,7 @@ export const PatientManagement = () => {
                                     />
                                     <h5 className="card-title mb-0">{patient.fullName}</h5>
                                 </div>
-                                <ul className="list-group list-group-flush">
+                                <ul className="list-group list-group-flush text-center">
                                     <a href="#" className="list-group-item text-primary">Información</a>
                                     <a href="#" className="list-group-item text-success">Actividades</a>
                                     <a href="#" className="list-group-item text-info">Reunión</a>
