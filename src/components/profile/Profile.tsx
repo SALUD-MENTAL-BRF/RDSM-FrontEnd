@@ -101,7 +101,7 @@ export const Profile: React.FC = () => {
     }
   };  
 
-  console.log(user)
+  console.log(user?.imageUrl)
 
   return (
     <div className='container-fluid profile-page'>
@@ -110,7 +110,8 @@ export const Profile: React.FC = () => {
           <div className='col-md-3'>
             <div className='card'>
               <img
-                src={user?.imageUrl ? user.imageUrl : imageExample}
+                src={
+                  user?.imageUrl ? user.imageUrl : imageExample}
                 alt='Foto de perfil'
                 className='card-img-top rounded-circle mx-auto d-block mt-3'
                 style={{ width: '150px', height: '150px' }}
