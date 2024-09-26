@@ -1,48 +1,25 @@
 import { useNavigate } from "react-router-dom";
 import '../../../assets/style/professional/PatientList.css'
 import { useEffect, useState } from "react";
-import { patient } from "../../../types/patients.dto";
-
-const pat = [
-    {
-        "id": 1,
-        "fullname": "Veron Rodrigo Gabriel",
-        "user":{
-            "id": 1,
-            "email": "veronrodrigo98@gmail.com",
-            "username": "Rodriasd",
-            "password": "",
-            "imageUrl": "https://lh3.googleusercontent.com/a/ACg8ocK5LmTXencJ6VTXilUuhdYJqDB1zuf4tNSCqriiZSSQp4r-qhn8=s96-c",
-            "gooleId": "",
-            "roleId": 1
-        }
-    },
-    {
-        "id": 2,
-        "fullname": "a",
-        "user":{
-            "id": 1,
-            "email": "veronrodrigo98@gmail.com",
-            "username": "Rodriasd",
-            "password": "",
-            "imageUrl": "",
-            "gooleId": "",
-            "roleId": 1
-        }
-    }
-]
-
+import { formPatientDto } from "../../../types/patients.dto";
+import useAuth from "../../../hooks/useAuth";
+import { CustomFetch } from "../../../api/CustomFetch";
 export const PatientManagement = () => {
-    const [patientsState, setPatientState] = useState<Array<patient>>([]);
+    const [patientsState, setPatientState] = useState<Array<formPatientDto>>([]);
     const navigate = useNavigate();
-
+    const {authState} = useAuth()
 
 
 
     useEffect(() => {
         (
             async () => {
-                setPatientState(pat)
+                const user = await CustomFetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`, 'GET')
+                const professional = await CustomFetch(`${import.meta.env.VITE_API_URL}professional/${user.id}`, 'GET')
+                console.log(professional);
+                
+                const patients = await CustomFetch(`${import.meta.env.VITE_API_URL}patient/${professional.id}`, 'GET') 
+                setPatientState(patients)
             }
         )()
     },[]);
@@ -72,12 +49,12 @@ export const PatientManagement = () => {
                                 <div className="card-body">
                                 <div className="d-flex align-items-center mb-3">
                                     <img
-                                    src={patient.user.imageUrl}
+                                    src={patient.user?.imageUrl == null ? "/image-example/imageUser.jpg" : patient.user?.imageUrl }
                                     className="rounded-circle me-3"
                                     width="60"
                                     height="60"
                                     />
-                                    <h5 className="card-title mb-0">{patient.fullname}</h5>
+                                    <h5 className="card-title mb-0">{patient.fullName}</h5>
                                 </div>
                                 <ul className="list-group list-group-flush">
                                     <a href="#" className="list-group-item text-primary">Información</a>
