@@ -1,26 +1,90 @@
-import React from "react"
-import { useNavigate } from "react-router-dom"
+import { useEffect,useState }  from 'react';
+import { formPatientDto } from '../../../../types/patients.dto';
+import { CustomFetch } from '../../../../api/CustomFetch';
+import { useParams } from 'react-router-dom';
+import { ArrowLeft } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-// interface Props {
-//     patientSelect:patient
-// }
-
-export const InfoPatient: React.FC = () => {
-
+export const InfoPatient = () => {
+    const [patientState,setPatientState] = useState<formPatientDto>()
+    const {id} = useParams()
     const navigate = useNavigate()
 
-    return (
-        <main className="container-fluid">
-            <div className="row w-100">
-                <section className="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1 col-xxl-1 text-center">
-                            <div role='button' onClick={() => navigate('/patient')}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-arrow-bar-left mt-4" viewBox="0 0 16 16">
-                                    <path fillRule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5" />
-                                </svg>
-                                <h6 className='ms-1'>Ver pacientes</h6>
-                            </div>
-                </section>
+    useEffect(() => {
+        (
+            async () => {
+                const patient = await CustomFetch(`${import.meta.env.VITE_API_URL}patient/${id}`,"GET")
+                
+                setPatientState(patient)
+            }
+        )()
+    },[])
+  return (
+    <div className="container mt-5">
+              <div className="headerProfileProfessional card-header text-white d-flex justify-content-between align-items-center mb-1">
+            <button className="btn btn-link text-white" onClick={() => navigate("/patient")}>
+                <ArrowLeft size={24} />
+                Atrás
+            </button>
+            <h1 className="p-2">Información del paciente</h1>
+            <div></div> 
+        </div>
+      <div className="card">
+        <div className="card-body">
+          <h2 className="card-title text-center">{patientState?.fullName}</h2>
+          <div className="row">
+            <div className="col text-center me-2">
+                <img
+                className='border border-dark'
+                src={
+                    patientState?.user?.imageUrl == null ?
+                    "/image-example/imageUser.jpg"
+                    :
+                    patientState?.user?.imageUrl
+                } alt="" />
             </div>
-        </main>
-    )
-}
+            <div className="col mt-2">
+                <p className="card-text"><strong>Fecha de Nacimiento:</strong> {patientState?.date_birth}</p>
+                <p className="card-text"><strong>Género:</strong> {patientState?.genre}</p>
+                <p className="card-text"><strong>Dirección:</strong> {patientState?.address}</p>
+                <p className="card-text"><strong>Teléfono:</strong> {patientState?.telephone}</p>
+            </div>
+          </div>
+          <div className='mt-2'>
+            <div className="row">
+                <div className="col d-flex justify-content-center">
+                    <div>
+                    <h3 className="mt-4">Información Médica</h3>
+                    <p className="card-text"><strong>Razón de Consulta:</strong> {patientState?.reasonConsultation}</p>
+                    <p className="card-text"><strong>Descripción del Problema:</strong> {patientState?.descriptionProblem}</p>
+                    <p className="card-text"><strong>Diagnósticos Previos:</strong> {patientState?.diagnosesPrevious}</p>
+                    <p className="card-text"><strong>Tratamientos Previos:</strong> {patientState?.treatmentsPrevious}</p>
+                    <p className="card-text"><strong>Hospitalizaciones Previas:</strong> {patientState?.hospitalizationsPrevious}</p>
+                    <p className="card-text"><strong>Medicación Actual:</strong> {patientState?.meciationCurrent}</p>
+                    <p className="card-text"><strong>Historial de Consumo:</strong> {patientState?.historyConsumption}</p>
+                    <p className="card-text"><strong>Historial de Enfermedades:</strong> {patientState?.historyDiseases}</p>
+                    <p className="card-text"><strong>Historial Familiar:</strong> {patientState?.histoyFamily}</p>
+
+                    </div>
+
+                </div>
+                <div className="col">  
+                    <h3 className="mt-4">Contacto de Emergencia</h3>
+                    <p className="card-text"><strong>Nombre:</strong> {patientState?.contactEmergencyName}</p>
+                    <p className="card-text"><strong>Relación:</strong> {patientState?.contactEmergencyRelation}</p>
+                    <p className="card-text"><strong>Teléfono:</strong> {patientState?.contactEmergencyTelephone}</p>
+                </div>
+            </div>
+          </div>
+
+
+          
+
+          {/* <h3 className="mt-4">Información de Usuario</h3>
+          <p className="card-text"><strong>Nombre de Usuario:</strong> {patientState?.user?.username}</p>
+          <p className="card-text"><strong>Email:</strong> {patientState?.user?.email}</p> */}
+        </div>
+      </div>
+    </div>
+  );
+};

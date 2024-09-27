@@ -134,7 +134,7 @@ export const AppRouters: React.FC = () => {
         />
         <Route path="*" element={<Navigate to="/" replace />} />
         <Route
-          path="/information-patient"
+          path="/information-patient/:id"
           element={
             <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
               <InfoPatientPage/> 
