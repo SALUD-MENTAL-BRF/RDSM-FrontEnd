@@ -28,7 +28,9 @@ const ROLE_SUPERADMIN = parseInt(import.meta.env.VITE_ROLE_ADMIN);
 export const AppRouters: React.FC = () => {
   const { authState } = useAuth();
   const VITE_ROLE_ADMIN = import.meta.env.VITE_ROLE_ADMIN
-
+  const VITE_ROLE_PATIENT = import.meta.env.VITE_ROLE_PATIENT
+  const VITE_ROLE_PROFESSIONAL = import.meta.env.VITE_ROLE_PROFESSIONAL
+  
   return (
     <BrowserRouter>
       <Routes>
@@ -117,7 +119,7 @@ export const AppRouters: React.FC = () => {
         <Route
           path="/patient"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
               <PatientManagementPage />
             </ProtectedRoute>
           }
@@ -125,7 +127,7 @@ export const AppRouters: React.FC = () => {
         <Route
           path="/activities"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute VITE_ROLE_PATIENT={VITE_ROLE_PATIENT}>
               <ActivitiesPage />
             </ProtectedRoute>
           }
@@ -134,7 +136,7 @@ export const AppRouters: React.FC = () => {
         <Route
           path="/information-patient"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
               <InfoPatientPage/> 
             </ProtectedRoute> 
           }
@@ -150,7 +152,7 @@ export const AppRouters: React.FC = () => {
         <Route
           path="/request-list"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
               <RequestListPage/> 
             </ProtectedRoute>
           }
@@ -158,7 +160,7 @@ export const AppRouters: React.FC = () => {
         <Route
           path="/view-request/:professionalId/:requestId"
           element={
-            <ProtectedRoute>
+            <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
               <ViewRequestPatientPage/>
             </ProtectedRoute>
           }

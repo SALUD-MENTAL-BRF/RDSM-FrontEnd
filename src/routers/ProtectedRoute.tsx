@@ -17,11 +17,13 @@ interface User {
 interface ProtectedRouteProps {
   children: JSX.Element;
   VITE_ROLE_ADMIN?: string;
+  VITE_ROLE_PROFESSIONAL?:string;
+  VITE_ROLE_PATIENT?: string;
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = (props) => {
 
-  const { children, VITE_ROLE_ADMIN} = props;
+  const { children, VITE_ROLE_ADMIN,VITE_ROLE_PROFESSIONAL, VITE_ROLE_PATIENT} = props;
   const ROLE_VITE_ROLE_ADMINSUPERADMIN = Number(VITE_ROLE_ADMIN);
   const { authState } = useAuth();
   const [user, setUser] = useState<User | null>(null);
@@ -54,6 +56,14 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = (props) => {
 
   if (VITE_ROLE_ADMIN && user.roleId!== ROLE_VITE_ROLE_ADMINSUPERADMIN) {
     return <Navigate to="/home" />;
+  }
+
+  if(VITE_ROLE_PROFESSIONAL && user.roleId !== Number(VITE_ROLE_PROFESSIONAL)) {
+    return <Navigate to={"/home"}/>
+  }
+
+  if (VITE_ROLE_PATIENT && user.roleId !== Number(VITE_ROLE_PATIENT)) {
+    return <Navigate to={"/home"}/>
   }
 
   return children;
