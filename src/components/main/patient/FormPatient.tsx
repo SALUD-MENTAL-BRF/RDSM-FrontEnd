@@ -1,8 +1,10 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import { formPatientDto } from "../../../types/patients.dto";
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import { CustomFetch } from "../../../api/CustomFetch";
+import { ProvinceDto } from "../../../types/privinces.dto";
 
 export const FormPatient = () => {
     const [formData, setFormData] = useState<formPatientDto>({
@@ -22,12 +24,13 @@ export const FormPatient = () => {
         meciationCurrent: '',
         historyConsumption: '',
         historyDiseases: '',
-        histoyFamily: ''
+        histoyFamily: '',
+        localityId: 1
       });
       const navigate = useNavigate()
       const {id, userId} = useParams()
       const [prefijo, setPrefijo] = useState<string>("+54")
-
+      const [stateProvinces, setStateProvinces] = useState<Array<ProvinceDto>>()
       const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData(prevState => ({
@@ -72,6 +75,21 @@ export const FormPatient = () => {
           })
         }
       };
+
+      useEffect(() => {
+        (
+          async () => {
+            const provinces = await CustomFetch(`${import.meta.env.VITE_API_URL}province`, 'GET')
+            setStateProvinces(provinces)
+            
+          }
+        )()
+      },[])
+
+      const findlocality = async (provinceId:number) => {
+        console.log(provinceId);
+        
+      }
     return(
         <main className="container mt-5 mb-5">
         <h2 className="mb-4">Formulario de Salud Mental</h2>
@@ -110,6 +128,17 @@ export const FormPatient = () => {
               </div> */}
               <div className="mb-3">
                 <label htmlFor="direccion" className="form-label">Dirección</label>
+                <div>
+                    <select className="selects-formPatient w-50" name="" id="">
+                      <option value="">Selecciones una provincia...</option>
+                      {
+                        stateProvinces?.map((province) => (
+                          <option key={province.id} value="" onClick={() => findlocality(province.id)}>{province.name}</option>
+                        ))
+                      }
+                    </select>
+                <select className="w-50" name="" id=""></select>
+                </div>
                 <input type="text" className="form-control" id="direccion" name="address" value={formData.address} onChange={handleChange} required />
               </div>
               <div className="mb-3">

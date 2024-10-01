@@ -2,3 +2,7 @@
     background-color: #ecfdf5;
     min-height: 80vh;
 }
+
+.selects-formPatient {
+    text-transform:  none;
+}

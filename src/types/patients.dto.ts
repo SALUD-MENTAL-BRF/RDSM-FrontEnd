@@ -28,6 +28,7 @@ export interface formPatientDto {
     histoyFamily: string;
     userId?: number;
     professionalId?: number;
-    user?: User
+    user?: User;
+    localityId: number
   }
   
