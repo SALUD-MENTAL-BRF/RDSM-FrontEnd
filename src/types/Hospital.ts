@@ -1,4 +1,5 @@
 export interface Hospital {
+  id: number;
   name: string;
   address: string;
   telephone: string;
@@ -6,6 +7,17 @@ export interface Hospital {
   website: string;
   director: string;
   openingHours: string;
-  typeHospital: string; // Nuevo campo para el tipo de hospital
-  specialities: string[]; // Nuevo campo para las especialidades
+  type: string;
+  specialties: Array<{
+    specialtyId: number;
+    specialty: {
+      name: string;
+    };
+  }>;
+  services: Array<{
+    serviceId: number;
+    service: {
+      name: string;
+    };
+  }>;
 }
