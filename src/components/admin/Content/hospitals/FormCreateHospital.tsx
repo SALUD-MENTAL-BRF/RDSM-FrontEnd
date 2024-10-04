@@ -10,6 +10,7 @@ interface FormCreateHospitalProps {
 export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) => {
 
   const [stateForm, setStateForm] = useState<Hospital>({
+    id: 0,
     name: '',
     address: '',
     telephone: '',
@@ -17,19 +18,10 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
     website: '',
     director: '',
     openingHours: '',
-    typeHospital: '',
-    specialities: [],
+    type: '',
+    specialties: [],
+    services: [],
   });
-
-  const onChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
-    const { name, value } = e.target;
-    setStateForm((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
 
   const specialityOptions = [
     { value: 'Cardiología', label: 'Cardiología' },
@@ -39,23 +31,49 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
     { value: 'Traumatología', label: 'Traumatología' },
   ];
 
+  const serviceOptions = [
+    { value: 'Terapia Individual', label: 'Terapia Individual' },
+    { value: 'Terapia de Grupo', label: 'Terapia de Grupo' },
+    { value: 'Cirugía General', label: 'Cirugía General' },
+  ];
+
   const typeHospitalOptions = [
     { value: 'Publico', label: 'Publico' },
     { value: 'Privado', label: 'Privado' },
-  ]
+  ];
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setStateForm((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
   const handleSpecialitiesChange = (selectedOptions: any) => {
     const values = selectedOptions.map((option: any) => option.value);
     setStateForm((prevState) => ({
       ...prevState,
-      specialities: values,
+      specialties: values.map((value: any) => ({
+        specialty: { name: value },
+      })),
+    }));
+  };
+
+  const handleServicesChange = (selectedOptions: any) => {
+    const values = selectedOptions.map((option: any) => option.value);
+    setStateForm((prevState) => ({
+      ...prevState,
+      services: values.map((value: any) => ({
+        service: { name: value },
+      })),
     }));
   };
 
   const handleTypeHospitalChange = (selectedOption: any) => {
     setStateForm((prevState) => ({
-    ...prevState,
-      typeHospital: selectedOption.value,
+      ...prevState,
+      type: selectedOption.value,
     }));
   };
 
@@ -63,8 +81,10 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
     e.preventDefault();
     console.log(stateForm);
 
+    // Reset form
     setShowList(true);
     setStateForm({
+      id: 0,
       name: '',
       address: '',
       telephone: '',
@@ -72,8 +92,9 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
       website: '',
       director: '',
       openingHours: '',
-      typeHospital: '',
-      specialities: [],
+      type: '',
+      specialties: [],
+      services: [],
     });
   };
 
@@ -183,44 +204,51 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
             onChange={onChange}
           />
         </div>
-        <div className='mb-3'>
-          <label htmlFor='typeHospital' className='form-label'>
-            Tipo de Hospital
-          </label>
-          <Select
-            name='typeHospital'
-            options={typeHospitalOptions}
-            className='basic-multi-select'
-            classNamePrefix='select'
-            value={typeHospitalOptions.filter((option) => 
-              stateForm.typeHospital.includes(option.value)
-            )}
-            onChange={handleTypeHospitalChange}
-          />
-        </div>
-        <div className='mb-3'>
-          <label htmlFor='specialities' className='form-label'>
-            Especialidades
-          </label>
-          <Select
-            isMulti
-            name='specialities'
-            options={specialityOptions}
-            className='basic-multi-select'
-            classNamePrefix='select'
-            value={specialityOptions.filter((option) =>
-              stateForm.specialities.includes(option.value),
-            )}
-            onChange={handleSpecialitiesChange}
-          />
-        </div>
-        <button
-          type='submit'
-          className={`btn btn-primary ${styles.customPurple}`}
-        >
-          Guardar Hospital
-        </button>
-      </form>
+          <div className='mb-3'>
+            <label htmlFor='typeHospital' className='form-label'>Tipo de Hospital</label>
+            <Select
+              name='typeHospital'
+              options={typeHospitalOptions}
+              className='basic-multi-select'
+              classNamePrefix='select'
+              value={typeHospitalOptions.filter((option) =>
+                stateForm.type.includes(option.value)
+              )}
+              onChange={handleTypeHospitalChange}
+            />
+          </div>
+          <div className='mb-3'>
+            <label htmlFor='specialties' className='form-label'>Especialidades</label>
+            <Select
+              isMulti
+              name='specialties'
+              options={specialityOptions}
+              className='basic-multi-select'
+              classNamePrefix='select'
+              value={specialityOptions.filter((option) =>
+                stateForm.specialties.map((s) => s.specialty.name).includes(option.value)
+              )}
+              onChange={handleSpecialitiesChange}
+            />
+          </div>
+          <div className='mb-3'>
+            <label htmlFor='services' className='form-label'>Servicios</label>
+            <Select
+              isMulti
+              name='services'
+              options={serviceOptions}
+              className='basic-multi-select'
+              classNamePrefix='select'
+              value={serviceOptions.filter((option) =>
+                stateForm.services.map((s) => s.service.name).includes(option.value)
+              )}
+              onChange={handleServicesChange}
+            />
+          </div>
+          <button type='submit' className={`btn btn-primary ${styles.customPurple}`}>
+            Guardar Hospital
+          </button>
+        </form>
     </div>
   </div>
   )
