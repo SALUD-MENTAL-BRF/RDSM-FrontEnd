@@ -21,6 +21,7 @@ import { PatientManagementPage } from "../pages/PatientManagementPage";
 import { ActivitiesPage } from "../pages/ActivitiesPage";
 import { RequestListPage } from "../pages/RequestListPage";
 import { ViewRequestPatientPage } from "../pages/ViewRequestPatientPage";
+import { ManagementActivitiesPage } from "../pages/ManagementActivitiesPage";
 
 // Definir constante para los roles
 const ROLE_SUPERADMIN = parseInt(import.meta.env.VITE_ROLE_ADMIN);
@@ -162,6 +163,14 @@ export const AppRouters: React.FC = () => {
           element={
             <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
               <ViewRequestPatientPage/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/management-activities"
+          element={
+            <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
+              <ManagementActivitiesPage/>
             </ProtectedRoute>
           }
         />

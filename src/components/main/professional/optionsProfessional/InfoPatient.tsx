@@ -46,7 +46,10 @@ export const InfoPatient = () => {
             <div className="col mt-2">
                 <p className="card-text"><strong>Fecha de Nacimiento:</strong> {patientState?.date_birth}</p>
                 <p className="card-text"><strong>Género:</strong> {patientState?.genre}</p>
-                <p className="card-text"><strong>Dirección:</strong> {patientState?.address}</p>
+                <p className="card-text"><strong>Provincia:</strong> {patientState?.locality?.province?.name}</p>
+                <p className="card-text"><strong>Localidad:</strong> {patientState?.locality?.name}</p>
+                <p className="card-text"><strong>Colonia o barrio:</strong> {patientState?.neighborhood}</p>
+                <p className="card-text"><strong>Calle y número (o apartamento):</strong> {patientState?.streetNumber}</p>
                 <p className="card-text"><strong>Teléfono:</strong> {patientState?.telephone}</p>
             </div>
           </div>
