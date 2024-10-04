@@ -1,5 +1,5 @@
 import { User } from "./user.dto";
-
+import { localityDto } from "./locality.dto";
 
 export interface patient {
     id: number;
@@ -12,7 +12,6 @@ export interface formPatientDto {
     fullName: string;
     date_birth: string;
     genre: string;
-    address: string;
     telephone: string;
     contactEmergencyName: string;
     contactEmergencyRelation: string;
@@ -29,6 +28,9 @@ export interface formPatientDto {
     userId?: number;
     professionalId?: number;
     user?: User;
-    localityId: number
+    localityId: number | null;
+    streetNumber: string;
+    neighborhood: string;
+    locality?: localityDto
   }
   

@@ -16,6 +16,7 @@ export const ViewRequestPatient = () => {
             async () => {
                 const response = await fetch(`${import.meta.env.VITE_API_URL}request-patient/${requestId}`)
                 const data = await response.json()
+
                 setPatientRequest(data)
             }
         )()
@@ -37,7 +38,10 @@ export const ViewRequestPatient = () => {
             <div className="col-md-6">
               <p><strong>Fecha de Nacimiento:</strong> {patientRequest?.date_birth}</p>
               <p><strong>Género:</strong> {patientRequest?.genre}</p>
-              <p><strong>Dirección:</strong> {patientRequest?.address}</p>
+              <p><strong>Privincia:</strong> {patientRequest?.locality?.province?.name}</p>
+              <p><strong>Localidad:</strong> {patientRequest?.locality?.name}</p>
+              <p><strong>Colonia o barrio:</strong> {patientRequest?.neighborhood}</p>
+              <p><strong>Calle y número (o apartamento):</strong> {patientRequest?.streetNumber}</p>
               <p><strong>Teléfono:</strong> {patientRequest?.telephone}</p>
             </div>
             <div className="col-md-6">

@@ -5,13 +5,13 @@ import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import { CustomFetch } from "../../../api/CustomFetch";
 import { ProvinceDto } from "../../../types/privinces.dto";
+import { localityDto } from "../../../types/locality.dto";
 
 export const FormPatient = () => {
     const [formData, setFormData] = useState<formPatientDto>({
         fullName: '',
         date_birth: '',
         genre: '',
-        address: '',
         telephone: '',
         contactEmergencyName: '',
         contactEmergencyRelation: '',
@@ -25,18 +25,33 @@ export const FormPatient = () => {
         historyConsumption: '',
         historyDiseases: '',
         histoyFamily: '',
-        localityId: 1
+        localityId: null,
+        neighborhood: "",
+        streetNumber: ""
       });
       const navigate = useNavigate()
       const {id, userId} = useParams()
-      const [prefijo, setPrefijo] = useState<string>("+54")
+      const [prefijo, _setPrefijo] = useState<string>("+54")
       const [stateProvinces, setStateProvinces] = useState<Array<ProvinceDto>>()
-      const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+      const [stateLocality, setStateLocality] = useState<Array<localityDto>>()
+
+      const handleChange = async (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData(prevState => ({
           ...prevState,
           [name]: value
         }));
+
+        if (name == "province"){
+          if (value == "0"){
+            setStateLocality([])
+          } 
+          if (value != "0"){
+            await findlocality(Number(value))
+          }
+        }
+        console.log(formData);
+        
       };
     
       const handleSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -87,8 +102,8 @@ export const FormPatient = () => {
       },[])
 
       const findlocality = async (provinceId:number) => {
-        console.log(provinceId);
-        
+          const localities = await CustomFetch(`${import.meta.env.VITE_API_URL}locality/${provinceId}`, 'GET')
+          setStateLocality(localities)
       }
     return(
         <main className="container mt-5 mb-5">
@@ -129,17 +144,28 @@ export const FormPatient = () => {
               <div className="mb-3">
                 <label htmlFor="direccion" className="form-label">Dirección</label>
                 <div>
-                    <select className="selects-formPatient w-50" name="" id="">
-                      <option value="">Selecciones una provincia...</option>
+                    <select onChange={handleChange} className="selects-formPatient w-50" name="province" id="">
+                      <option value="0">Selecciona una provincia...</option>
                       {
                         stateProvinces?.map((province) => (
-                          <option key={province.id} value="" onClick={() => findlocality(province.id)}>{province.name}</option>
+                          <option key={province.id} value={province.id}>{province.name}</option>
                         ))
                       }
                     </select>
-                <select className="w-50" name="" id=""></select>
+                    
+                    <select onChange={handleChange} className="selects-formPatient w-50" name="localityId" id="">
+                        <option value="0" >Selecciona una localidad</option>
+                        {
+                          stateLocality?.map((locality) => (
+                            <option key={locality.id} value={locality.id}>{locality.name}</option>
+                          ))
+                        }
+                    </select>
                 </div>
-                <input type="text" className="form-control" id="direccion" name="address" value={formData.address} onChange={handleChange} required />
+                <div className="d-flex">
+                  <input placeholder="Colonia o barrio" type="text" className="form-control" id="direccion" name="neighborhood" value={formData.neighborhood} onChange={handleChange} required />
+                  <input placeholder="Calle y número (o apartamento)" type="text" className="form-control" id="direccion" name="streetNumber" value={formData.streetNumber} onChange={handleChange} required />
+                </div>
               </div>
               <div className="mb-3">
                 <label htmlFor="telefono" className="form-label">Teléfono de contacto</label>
