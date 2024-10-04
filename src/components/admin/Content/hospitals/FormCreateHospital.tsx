@@ -52,6 +52,13 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
     }));
   };
 
+  const handleTypeHospitalChange = (selectedOption: any) => {
+    setStateForm((prevState) => ({
+    ...prevState,
+      typeHospital: selectedOption.value,
+    }));
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(stateForm);
@@ -188,6 +195,7 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
             value={typeHospitalOptions.filter((option) => 
               stateForm.typeHospital.includes(option.value)
             )}
+            onChange={handleTypeHospitalChange}
           />
         </div>
         <div className='mb-3'>
