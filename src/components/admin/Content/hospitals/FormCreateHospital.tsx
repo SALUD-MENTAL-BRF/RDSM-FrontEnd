@@ -3,6 +3,8 @@ import { Hospital } from "../../../../types/Hospital";
 import Select from 'react-select'
 import styles from '../../../../assets/style/admin/Content/Hospitals.module.css';
 import { useFetchTypesHospitals } from "../../../../hooks/useFetchTypesHospitals";
+import { useFetchSpecialityHospital } from "../../../../hooks/useFetchSpecialityHospital";
+import { SpecialtyHospital } from "../../../../types/SpecialtyHospitals.type";
 
 interface FormCreateHospitalProps {
   setShowList: (setShowList: boolean) => void;
@@ -24,21 +26,18 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
     services: [],
   });
   const { typesHospitals } = useFetchTypesHospitals();
-
-  console.log(typesHospitals)
+  const { specialityHospital } = useFetchSpecialityHospital();
+  console.log(specialityHospital);
 
   const typeHospitalOptions = typesHospitals?.map((type: string) => ({
     value: type,
     label: type,
   }));
 
-  const specialityOptions = [
-    { value: 'Cardiología', label: 'Cardiología' },
-    { value: 'Neurología', label: 'Neurología' },
-    { value: 'Pediatría', label: 'Pediatría' },
-    { value: 'Psiquiatría', label: 'Psiquiatría' },
-    { value: 'Traumatología', label: 'Traumatología' },
-  ];
+  const specialityOptions = specialityHospital?.map((specialty: SpecialtyHospital) => ({
+    value: specialty.id,
+    label: specialty.name,
+  }));
 
   const serviceOptions = [
     { value: 'Terapia Individual', label: 'Terapia Individual' },
