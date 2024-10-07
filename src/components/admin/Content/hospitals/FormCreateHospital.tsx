@@ -2,6 +2,7 @@ import { FC, useState } from "react"
 import { Hospital } from "../../../../types/Hospital";
 import Select from 'react-select'
 import styles from '../../../../assets/style/admin/Content/Hospitals.module.css';
+import { useFetchTypesHospitals } from "../../../../hooks/useFetchTypesHospitals";
 
 interface FormCreateHospitalProps {
   setShowList: (setShowList: boolean) => void;
@@ -22,6 +23,14 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
     specialties: [],
     services: [],
   });
+  const { typesHospitals } = useFetchTypesHospitals();
+
+  console.log(typesHospitals)
+
+  const typeHospitalOptions = typesHospitals?.map((type: string) => ({
+    value: type,
+    label: type,
+  }));
 
   const specialityOptions = [
     { value: 'Cardiología', label: 'Cardiología' },
@@ -35,11 +44,6 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
     { value: 'Terapia Individual', label: 'Terapia Individual' },
     { value: 'Terapia de Grupo', label: 'Terapia de Grupo' },
     { value: 'Cirugía General', label: 'Cirugía General' },
-  ];
-
-  const typeHospitalOptions = [
-    { value: 'Publico', label: 'Publico' },
-    { value: 'Privado', label: 'Privado' },
   ];
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -81,7 +85,6 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
     e.preventDefault();
     console.log(stateForm);
 
-    // Reset form
     setShowList(true);
     setStateForm({
       id: 0,
@@ -204,19 +207,17 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
             onChange={onChange}
           />
         </div>
-          <div className='mb-3'>
-            <label htmlFor='typeHospital' className='form-label'>Tipo de Hospital</label>
-            <Select
-              name='typeHospital'
-              options={typeHospitalOptions}
-              className='basic-multi-select'
-              classNamePrefix='select'
-              value={typeHospitalOptions.filter((option) =>
-                stateForm.type.includes(option.value)
-              )}
-              onChange={handleTypeHospitalChange}
-            />
-          </div>
+        <div className='mb-3'>
+          <label htmlFor='typeHospital' className='form-label'>Tipo de Hospital</label>
+          <Select
+            name='typeHospital'
+            options={typeHospitalOptions}
+            className='basic-multi-select'
+            classNamePrefix='select'
+            value={typeHospitalOptions.find(option => option.value === stateForm.type)}
+            onChange={handleTypeHospitalChange}
+          />
+        </div>
           <div className='mb-3'>
             <label htmlFor='specialties' className='form-label'>Especialidades</label>
             <Select
