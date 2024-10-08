@@ -1,12 +1,12 @@
 import { FC, useState } from "react"
 import { Hospital } from "../../../../types/Hospital";
 import Select from 'react-select'
-import styles from '../../../../assets/style/admin/Content/Hospitals.module.css';
 import { useFetchTypesHospitals } from "../../../../hooks/useFetchTypesHospitals";
 import { useFetchSpecialityHospital } from "../../../../hooks/useFetchSpecialityHospital";
-import { SpecialtyHospital } from "../../../../types/SpecialtyHospitals.type";
 import { useFetchServiceHospital } from "../../../../hooks/useFetchServiceHospital";
-import { ServiceHospital } from "../../../../types/ServiceHospital.type";
+import { specialityHospitalOptions } from "../../../../types/SpecialtyHospitals.type";
+import { serviceHospitalOptions } from "../../../../types/ServiceHospital.type";
+import { SubmitCreateHospital } from "./SubmitCreateHospital";
 
 interface FormCreateHospitalProps {
   setShowList: (setShowList: boolean) => void;
@@ -27,24 +27,6 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
     specialties: [],
     services: [],
   });
-  const { typesHospitals } = useFetchTypesHospitals();
-  const { specialityHospital } = useFetchSpecialityHospital();
-  const { serviceHospital } = useFetchServiceHospital();
-
-  const typeHospitalOptions = typesHospitals?.map((type: string) => ({
-    value: type,
-    label: type,
-  }));
-
-  const specialityOptions = specialityHospital?.map((specialty: SpecialtyHospital) => ({
-    value: specialty.id,
-    label: specialty.name,
-  }));
-
-  const serviceOptions = serviceHospital?.map((service: ServiceHospital) => ({
-    value: service.id,
-    label: service.name,
-  }));
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -54,52 +36,47 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
     }));
   };
 
-  const handleSpecialitiesChange = (selectedOptions: any) => {
-    const values = selectedOptions.map((option: any) => option.value);
-    setStateForm((prevState) => ({
-      ...prevState,
-      specialties: values.map((value: any) => ({
-        specialty: { name: value },
-      })),
-    }));
-  };
-
-  const handleServicesChange = (selectedOptions: any) => {
-    const values = selectedOptions.map((option: any) => option.value);
-    setStateForm((prevState) => ({
-      ...prevState,
-      services: values.map((value: any) => ({
-        service: { name: value },
-      })),
-    }));
-  };
-
+  // type Hospitals -------------------------------
+  const { typesHospitals } = useFetchTypesHospitals();
+  const typeHospitalOptions = typesHospitals?.map((type: string) => ({
+    value: type,
+    label: type,
+  }));
   const handleTypeHospitalChange = (selectedOption: any) => {
     setStateForm((prevState) => ({
       ...prevState,
       type: selectedOption.value,
     }));
   };
+  // ---------------------------------------------
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log(stateForm);
-
-    setShowList(true);
-    setStateForm({
-      id: 0,
-      name: '',
-      address: '',
-      telephone: '',
-      email: '',
-      website: '',
-      director: '',
-      openingHours: '',
-      type: '',
-      specialties: [],
-      services: [],
-    });
+  // specialties Hospitals -----------------------
+  const { specialityHospital } = useFetchSpecialityHospital();
+  const specialityHospitalOptions = specialityHospital?.map((specialty: specialityHospitalOptions) => ({
+    value: specialty.id,
+    label: specialty.name,
+  }));
+  const handleSpecialityHospitalChange = (selectedOptions: any) => {
+    setStateForm((prevState) => ({
+      ...prevState,
+      specialties: selectedOptions.map((option: any) => option.value),
+    }));
   };
+  // ---------------------------------------------
+
+  // services Hospitals --------------------------
+  const { serviceHospital } = useFetchServiceHospital();
+  const serviceHospitalOptions = serviceHospital?.map((service: serviceHospitalOptions) => ({
+    value: service.id,
+    label: service.name,
+  }));
+  const handleServiceHospitalChange = (selectedOptions: any) => {
+    setStateForm((prevState) => ({
+      ...prevState,
+      services: selectedOptions.map((option: any) => option.value),
+    }));
+  };
+  // ----------------------------------------------
 
 
   return (
@@ -108,7 +85,6 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
       <h5 className='card-title mb-0'>Crear Nuevo Hospital</h5>
     </div>
     <div className='card-body'>
-      <form onSubmit={handleSubmit}>
         <div className='mb-3'>
           <label htmlFor='hospitalName' className='form-label'>
             Nombre del Hospital
@@ -220,36 +196,21 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
         </div>
           <div className='mb-3'>
             <label htmlFor='specialties' className='form-label'>Especialidades</label>
-            <Select
-              isMulti
-              name='specialties'
-              options={specialityOptions}
-              className='basic-multi-select'
-              classNamePrefix='select'
-              value={specialityOptions.filter((option) =>
-                stateForm.specialties.map((s) => s.specialty.name).includes(option.value)
-              )}
-              onChange={handleSpecialitiesChange}
-            />
+              <Select
+                isMulti
+                options={specialityHospitalOptions}
+                onChange={ handleSpecialityHospitalChange }
+              />
           </div>
           <div className='mb-3'>
             <label htmlFor='services' className='form-label'>Servicios</label>
-            <Select
-              isMulti
-              name='services'
-              options={serviceOptions}
-              className='basic-multi-select'
-              classNamePrefix='select'
-              value={serviceOptions.filter((option) =>
-                stateForm.services.map((s) => s.service.name).includes(option.value)
-              )}
-              onChange={handleServicesChange}
-            />
+              <Select
+                isMulti
+                options={ serviceHospitalOptions }
+                onChange={ handleServiceHospitalChange }
+              />
           </div>
-          <button type='submit' className={`btn btn-primary ${styles.customPurple}`}>
-            Guardar Hospital
-          </button>
-        </form>
+          <SubmitCreateHospital stateForm={stateForm} setStateForm={setStateForm} setShowList={setShowList}/>
     </div>
   </div>
   )
