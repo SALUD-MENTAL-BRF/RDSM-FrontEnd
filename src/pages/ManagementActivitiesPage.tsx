@@ -10,13 +10,17 @@ import { formPatientDto } from "../types/patients.dto"
 
 
 export const ManagementActivitiesPage = () => {
-    const [changeComponent, setChangeComponent]= useState<boolean>(false)
+ 
+    const initialComponentState = localStorage.getItem('changeComponent') === 'true'
+    
+    const [changeComponent, setChangeComponent]= useState<boolean>(initialComponentState)
     const navigate = useNavigate()
     const {patientId} = useParams()
     const [patientState, setPatientState] = useState<formPatientDto>()
 
     const changeValue = (change: boolean) => {
         setChangeComponent(change)
+        localStorage.setItem('changeComponent', String(change))
     }
 
     useEffect(() => {
@@ -24,19 +28,16 @@ export const ManagementActivitiesPage = () => {
             async () => {
                 const patient = await CustomFetch(`${import.meta.env.VITE_API_URL}patient/${patientId}`, 'GET')
                 setPatientState(patient)
-                
             }
         )()
     },[])
 
 
-    
     return(
         <>
             <Header/>
             <main className="container-fluid mb-5">
                 <div className="row w-100">
-
 
                     <section className="col-2 col-sm-2 col-md-2 col-lg-1 col-xl-1 col-xxl-1 text-center">
                             <div role='button' onClick={() => navigate('/patient')}>
@@ -57,7 +58,6 @@ export const ManagementActivitiesPage = () => {
                     {changeComponent ? <AssignActivity/> :  <CreateRecommendation/> }
                 </div>
             </main>
-            {/* <ManagementActivities/> */}
         </>
     )
 }
