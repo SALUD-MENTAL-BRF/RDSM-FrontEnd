@@ -1,3 +1,18 @@
 .management-activitiesButtons {
     background-color: darkgrey;
 }
+
+.activitiesAssign-container {
+    background-color: #ecfdf5;
+    min-height: 400px;
+
+}
+
+.cardActivitiesPatient-container{
+    height: 300px;
+}
+
+.cardAddActivity {
+    border: solid 5px gray;
+    border-radius: 10px;
+}
