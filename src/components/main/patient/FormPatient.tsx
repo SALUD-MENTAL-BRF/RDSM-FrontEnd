@@ -50,7 +50,6 @@ export const FormPatient = () => {
             await findlocality(Number(value))
           }
         }
-        console.log(formData);
         
       };
     

@@ -3,20 +3,38 @@ import { CreateRecommendation } from "../components/main/professional/optionsPro
 import { AssignActivity } from "../components/main/professional/optionsProfessional/AssignActivity"
 import { useNavigate } from "react-router-dom"
 import '../assets/style/professional/ManagementActivities.css'
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useParams } from "react-router-dom"
+import { CustomFetch } from "../api/CustomFetch"
+import { formPatientDto } from "../types/patients.dto"
+
 
 export const ManagementActivitiesPage = () => {
     const [changeComponent, setChangeComponent]= useState<boolean>(false)
     const navigate = useNavigate()
+    const {patientId} = useParams()
+    const [patientState, setPatientState] = useState<formPatientDto>()
 
     const changeValue = (change: boolean) => {
         setChangeComponent(change)
     }
 
+    useEffect(() => {
+        (
+            async () => {
+                const patient = await CustomFetch(`${import.meta.env.VITE_API_URL}patient/${patientId}`, 'GET')
+                setPatientState(patient)
+                
+            }
+        )()
+    },[])
+
+
+    
     return(
         <>
             <Header/>
-            <main className="container-fluid">
+            <main className="container-fluid mb-5">
                 <div className="row w-100">
 
 
@@ -31,6 +49,8 @@ export const ManagementActivitiesPage = () => {
                 </div>
                 <div className="row">
                     <div className="text-center">
+                        <h6 className="" style={{color: "#059669"}}>Paciente:</h6>
+                        <h5>{patientState?.fullName}</h5>
                         <button onClick={() => changeValue(false)} className={`btn ${changeComponent ? 'management-activitiesButtons' : 'btn-primary'} rounded-3 me-1`}>Crear recomendación</button>
                         <button onClick={() => changeValue(true)} className={`btn ${changeComponent ? 'btn-primary' : 'management-activitiesButtons'} rounded-3 ms-1`}>Asignar actividad</button>
                     </div>

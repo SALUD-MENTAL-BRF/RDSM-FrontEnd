@@ -167,7 +167,7 @@ export const AppRouters: React.FC = () => {
           }
         />
         <Route
-          path="/management-activities"
+          path="/management-activities/:patientId"
           element={
             <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
               <ManagementActivitiesPage/>

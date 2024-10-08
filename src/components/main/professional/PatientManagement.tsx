@@ -4,11 +4,11 @@ import { useEffect, useState } from "react";
 import { formPatientDto } from "../../../types/patients.dto";
 import useAuth from "../../../hooks/useAuth";
 import { CustomFetch } from "../../../api/CustomFetch";
+
 export const PatientManagement = () => {
     const [patientsState, setPatientState] = useState<Array<formPatientDto>>([]);
     const navigate = useNavigate();
     const {authState} = useAuth()
-
 
 
     useEffect(() => {
@@ -55,8 +55,8 @@ export const PatientManagement = () => {
                                     <h5 className="card-title mb-0">{patient.fullName}</h5>
                                 </div>
                                 <ul className="list-group list-group-flush text-center">
-                                    <a role="button" onClick={() => navigate(`/information-patient/${patient.id}`)} className="info-patient-title list-group-item text-primary" >Información</a>
-                                    <a role="button" onClick={() => navigate('/management-activities')} className="info-patient-title list-group-item text-success">Actividades</a>
+                                    <a role="button" onClick={() => navigate(`/information-patient/${patient.id}`)} className="info-patient-title list-group-item text-primary">Información</a>
+                                    <a role="button" onClick={() => navigate(`/management-activities/${patient.id}`)} className="info-patient-title list-group-item text-success">Recomendaciones/Actividades</a>
                                     <a role="button" className="info-patient-title list-group-item text-info">Reunión</a>
                                 </ul>
                                 </div>
