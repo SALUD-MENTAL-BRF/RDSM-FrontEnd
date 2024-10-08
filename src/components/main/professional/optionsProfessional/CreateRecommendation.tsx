@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
 import { useParams } from "react-router-dom"
 import { recomendationDto } from "../../../../types/recomendation.dto"
 import Swal from "sweetalert2"
 import useAuth from "../../../../hooks/useAuth"
 import { Professional } from "../../../../types/profileProfessional.dto"
+import { findRecommendations } from "./fetchRecommendations"
+import { createOrUpdate } from "./fetchRecommendations"
 
 export const CreateRecommendation= () => {
-    const navigate = useNavigate()
     const {authState} = useAuth()
     const [formState, setFormSate] = useState<recomendationDto>({
         description:"",
@@ -16,16 +16,15 @@ export const CreateRecommendation= () => {
     const {patientId} = useParams()
     const [professionalState, setProfessionalState] = useState<Professional>()
     const [recommendationState, setRecommendationState] = useState<Array<recomendationDto>>()
+    const [editState, setEditState] = useState<boolean>(false)
 
     const createRecommendation = async () => {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}recommendation/${patientId}/${professionalState?.id}`,{
-            method: 'POST',
-            body: JSON.stringify(formState),
-            headers: {
-                "content-type": "application/json"
-            }
-        })
-        const data = await response.json()
+        const url = editState ? `${import.meta.env.VITE_API_URL}recommendation/${formState.id}` :
+                `${import.meta.env.VITE_API_URL}recommendation/${patientId}/${professionalState?.id}` 
+
+        const method = editState ? 'PUT' : 'POST'
+
+        const data = await createOrUpdate(url, method, formState)
 
         if(data.statusCode == 400){
             return Swal.fire({
@@ -40,7 +39,7 @@ export const CreateRecommendation= () => {
       
          return Swal.fire({
             title: "Enviado",
-            text: "Recomendación creada.",
+            text: `Recomendación ${editState ? 'editada' : 'creada'} .`,
             icon: "success",
             confirmButtonColor: "#3085d6",
             confirmButtonText: "ok",
@@ -49,7 +48,8 @@ export const CreateRecommendation= () => {
                         description:"",
                         title: ""
               })
-              await findRecommendations(Number(patientId!), professionalState?.id!)
+              setRecommendationState(await findRecommendations(Number(patientId!), professionalState?.id!))
+              setEditState(false)
         })
     };
 
@@ -70,18 +70,31 @@ export const CreateRecommendation= () => {
                 const responseProfessional = await fetch(`${import.meta.env.VITE_API_URL}professional/${user.id}`);
                 const professional = await responseProfessional.json();
                 setProfessionalState(professional)
-                await findRecommendations(Number(patientId!), professional.id)
-
-                
+                setRecommendationState(await findRecommendations(Number(patientId!), professional.id))
             }
         )()
     },[])
 
-    const findRecommendations = async (patientId: number, professionalId: number) => {
-        const responseRecommendation = await fetch(`${import.meta.env.VITE_API_URL}recommendation/${patientId}/${professionalId}`)
-        const recommendation = await responseRecommendation.json()
-        setRecommendationState(recommendation)
+    const editRecommendation = async (data: recomendationDto) =>{
+        setFormSate({
+            id: data.id,
+            title: data.title,
+            description: data.description
+        })
+        setEditState(true)
+        window.scrollTo({
+            top: 100,
+            behavior: "smooth"
+        })
     };
+
+    const cancelEdit = async () => {
+        setFormSate({
+            description:"",
+            title: ""
+        })
+        setEditState(false)
+    }
 
     return(
             <div className="row">
@@ -90,11 +103,11 @@ export const CreateRecommendation= () => {
                             <h4 className="text-center h4 fw-bold mb-3 mt-2">Recomendaciones creadas</h4>
                             <div className="row ">
                                     {recommendationState?.map((recommendation) => (
-                                        <div>
+                                        <div className="border mb-1">
                                             <h6>{recommendation.title}:</h6>
                                             <p className="ms-4">{recommendation.description}</p>
-                                            <div className="text-end">
-                                                <svg  role="button" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#059669" className="bi bi-pen me-2" viewBox="0 0 16 16">
+                                            <div className="text-end mb-2">
+                                                <svg onClick={() => editRecommendation(recommendation)} role="button" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#059669" className="bi bi-pen me-2" viewBox="0 0 16 16">
                                                     <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
                                                 </svg>
                                                 <svg role="button" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" className="bi bi-archive" viewBox="0 0 16 16">
@@ -105,20 +118,12 @@ export const CreateRecommendation= () => {
                                     ))}
                             </div>
                         </div>
-                        {/* <div  role="button" title="editar" className=" d-flex align-items-end justify-content-end me-1 mb-1">
-                            <svg role="button" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-card-list" viewBox="0 0 16 16">
-                                <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
-                                <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8m0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0
-                                    1-.5-.5m-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0M4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"/>
-                                    
-                            </svg>
-                        </div> */}
                     </div>
                     <div className="activities-designated col mt-4 rounded-4 ms-2 m-2">
                         <div className="row">
                             <div className="d-flex">
                                 <div className="w-100">
-                                    <h4 className="text-center h4 fw-bold mb-3 mt-2">Crea tu recomendación</h4> 
+                                    <h4 className="text-center h4 fw-bold mb-3 mt-2">{editState ? "Edita" : "Crea"} tu recomendación</h4> 
                                 </div>
                             </div>
                             <div className="text-center">
@@ -131,7 +136,8 @@ export const CreateRecommendation= () => {
                                     <label className="form-label" htmlFor="description">Descripción</label>
                                     <textarea onChange={handleChange} value={formState.description} className="form-control" name="description" id="description"></textarea>
                                 </div>
-                                <button onClick={createRecommendation} className="btn btn-primary">Crear</button>
+                                <button onClick={createRecommendation} className="btn btn-primary">{editState ? "Guardar" : "Crear"}</button>
+                                {editState ? <button onClick={cancelEdit} className="btn btn-danger ms-1">Cancelar</button> : ""}
                             </div>
                         </div>
                 </div>
