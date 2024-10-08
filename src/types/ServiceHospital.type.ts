@@ -1,4 +1,4 @@
-export interface ServiceHospital {
-  id: string;
-  name: string;
+export interface serviceHospitalOptions {
+  id: string,
+  name: string
 }

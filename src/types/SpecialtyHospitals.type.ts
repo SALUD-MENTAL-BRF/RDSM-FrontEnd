@@ -1,4 +1,4 @@
-export interface SpecialtyHospital {
+export interface specialityHospitalOptions {
   id: string;
   name: string;
 }
