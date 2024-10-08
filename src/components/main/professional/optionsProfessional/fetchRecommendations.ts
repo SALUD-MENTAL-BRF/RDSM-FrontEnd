@@ -16,3 +16,11 @@ export const createOrUpdate = async (url:string, method: string, formData:recome
     })
     return await response.json()
 }
+
+export const deleteRecommendationById = async (recomendationId: number) => {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}recommendation/${recomendationId}`,{
+        method: 'DELETE'
+    })
+
+    return response.json()
+};
