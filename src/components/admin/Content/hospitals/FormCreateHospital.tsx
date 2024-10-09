@@ -1,12 +1,15 @@
-import { FC, useState } from "react"
+import Select from 'react-select';
+import styles from '../../../../assets/style/admin/Content/Hospitals.module.css';
+import { FC, useState } from "react";
 import { Hospital } from "../../../../types/Hospital";
-import Select from 'react-select'
 import { useFetchTypesHospitals } from "../../../../hooks/useFetchTypesHospitals";
 import { useFetchSpecialityHospital } from "../../../../hooks/useFetchSpecialityHospital";
 import { useFetchServiceHospital } from "../../../../hooks/useFetchServiceHospital";
 import { specialityHospitalOptions } from "../../../../types/SpecialtyHospitals.type";
 import { serviceHospitalOptions } from "../../../../types/ServiceHospital.type";
 import { SubmitCreateHospital } from "./SubmitCreateHospital";
+import { FormCreateSpecialtyHospital } from './FormCreateSpecialtyHospital';
+import { FormCreateServiceHospital } from './FormCreateServiceHospital';
 
 interface FormCreateHospitalProps {
   setShowList: (setShowList: boolean) => void;
@@ -76,15 +79,34 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
       services: selectedOptions.map((option: any) => option.value),
     }));
   };
-  // ----------------------------------------------
 
+  const [showSpecialtyModal, setShowSpecialtyModal] = useState(false);
+  const [showServiceModal, setShowServiceModal] = useState(false);
+
+
+  const openServiceModal = () => {
+    setShowServiceModal(true);
+  };
+
+  const closeServiceModal = () => {
+    setShowServiceModal(false);
+  };
+  // ---------------------------------------------
+
+  const openSpecialtyModal = () => {
+    setShowSpecialtyModal(true);
+  };
+
+  const closeSpecialtyModal = () => {
+    setShowSpecialtyModal(false);
+  };
 
   return (
     <div className='card'>
-    <div className='card-header'>
-      <h5 className='card-title mb-0'>Crear Nuevo Hospital</h5>
-    </div>
-    <div className='card-body'>
+      <div className='card-header'>
+        <h5 className='card-title mb-0'>Crear Nuevo Hospital</h5>
+      </div>
+      <div className='card-body'>
         <div className='mb-3'>
           <label htmlFor='hospitalName' className='form-label'>
             Nombre del Hospital
@@ -194,24 +216,34 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
             onChange={handleTypeHospitalChange}
           />
         </div>
-          <div className='mb-3'>
-            <label htmlFor='specialties' className='form-label'>Especialidades</label>
-              <Select
-                isMulti
-                options={specialityHospitalOptions}
-                onChange={ handleSpecialityHospitalChange }
-              />
+        <div className='mb-3'>
+          <label htmlFor='specialties' className='form-label'>Especialidades</label>
+          <div className={styles.containerSelect}>
+            <Select
+              className={styles.select}
+              isMulti
+              options={specialityHospitalOptions}
+              onChange={handleSpecialityHospitalChange}
+            />
+            <button className={`btn btn-success ${styles.button}`} onClick={openSpecialtyModal}>Crear</button>
           </div>
-          <div className='mb-3'>
-            <label htmlFor='services' className='form-label'>Servicios</label>
-              <Select
-                isMulti
-                options={ serviceHospitalOptions }
-                onChange={ handleServiceHospitalChange }
-              />
+        </div>
+        <div className='mb-3'>
+          <label htmlFor='services' className='form-label'>Servicios</label>
+          <div className={styles.containerSelect}>
+            <Select
+              className={styles.select}
+              isMulti
+              options={serviceHospitalOptions}
+              onChange={handleServiceHospitalChange}
+            />
+            <button className={`btn btn-success ${styles.button}`} onClick={openServiceModal}>Crear</button>
           </div>
-          <SubmitCreateHospital stateForm={stateForm} setStateForm={setStateForm} setShowList={setShowList}/>
+        </div>
+        <SubmitCreateHospital stateForm={stateForm} setStateForm={setStateForm} setShowList={setShowList}/>
+      </div>
+      <FormCreateSpecialtyHospital showSpecialtyModal={showSpecialtyModal} closeSpecialtyModal={closeSpecialtyModal} setShowSpecialtyModal={setShowSpecialtyModal} specialityHospital={specialityHospital}/>
+      <FormCreateServiceHospital showServiceModal={showServiceModal} closeServiceModal={closeServiceModal} setShowServiceModal={setShowServiceModal} serviceHospital={serviceHospital}/>
     </div>
-  </div>
-  )
+  );
 }
