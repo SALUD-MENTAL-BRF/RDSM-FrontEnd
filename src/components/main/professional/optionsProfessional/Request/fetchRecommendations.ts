@@ -1,4 +1,4 @@
-import { recomendationDto } from "../../../../types/recomendation.dto";
+import { recomendationDto } from "../../../../../types/recomendation.dto";
 
 export const findRecommendations = async (patientId: number, professionalId: number) => {
     const responseRecommendation = await fetch(`${import.meta.env.VITE_API_URL}recommendation/${patientId}/${professionalId}`)

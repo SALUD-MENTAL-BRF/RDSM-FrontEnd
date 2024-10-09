@@ -4,8 +4,8 @@ import { recomendationDto } from "../../../../types/recomendation.dto"
 import Swal from "sweetalert2"
 import useAuth from "../../../../hooks/useAuth"
 import { Professional } from "../../../../types/profileProfessional.dto"
-import { deleteRecommendationById, findRecommendations } from "./fetchRecommendations"
-import { createOrUpdate } from "./fetchRecommendations"
+import { deleteRecommendationById, findRecommendations } from "./Request/fetchRecommendations"
+import { createOrUpdate } from "./Request/fetchRecommendations"
 
 export const CreateRecommendation= () => {
     const {authState} = useAuth()
