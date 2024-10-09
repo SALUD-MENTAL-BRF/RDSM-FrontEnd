@@ -96,6 +96,14 @@ export const ListHospital: FC = () => {
                     ))}
                   </ul>
                 </div>
+                <div className="mt-3">
+                  <a href={`/admin/hospitals/edit/${hospital.id}`} className="btn btn-primary m-3">
+                    Editar
+                  </a>
+                  <a href={`/admin/hospitals/delete/${hospital.id}`} className="btn btn-danger ml-2">
+                    Eliminar
+                  </a>
+                </div>
               </div>
             </div>
           </div>
