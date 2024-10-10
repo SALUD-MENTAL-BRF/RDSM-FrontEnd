@@ -26,6 +26,7 @@ export const SubmitCreateHospital: FC<SubmitCreateHospitalProps> = ({ stateForm,
       type: stateForm.type,
       specialties: stateForm.specialties,
       services: stateForm.services,
+      userId: stateForm.userId
     }
 
     try {
