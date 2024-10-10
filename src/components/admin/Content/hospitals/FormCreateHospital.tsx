@@ -155,7 +155,7 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
           </label>
           <input
             type='email'
-            className='form-control'
+            className={`form-control ${styles.formEmail}`}
             id='hospitalEmail'
             name='email'
             placeholder='Ingrese el email del hospital'
