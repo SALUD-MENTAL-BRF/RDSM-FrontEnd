@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { CustomFetch } from "../../../api/CustomFetch";
 import { ProvinceDto } from "../../../types/privinces.dto";
 import { localityDto } from "../../../types/locality.dto";
+import { disorderDto } from "../../../types/disorder.dto";
 
 export const FormPatient = () => {
     const [formData, setFormData] = useState<formPatientDto>({
@@ -34,7 +35,7 @@ export const FormPatient = () => {
       const [prefijo, _setPrefijo] = useState<string>("+54")
       const [stateProvinces, setStateProvinces] = useState<Array<ProvinceDto>>()
       const [stateLocality, setStateLocality] = useState<Array<localityDto>>()
-
+      const [disorderState,setDisorderState] = useState<Array<disorderDto>>([])
       const handleChange = async (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData(prevState => ({
@@ -94,6 +95,8 @@ export const FormPatient = () => {
         (
           async () => {
             const provinces = await CustomFetch(`${import.meta.env.VITE_API_URL}province`, 'GET')
+            const disorder = await CustomFetch(`${import.meta.env.VITE_API_URL}disorder`, 'GET');
+            setDisorderState(disorder);
             setStateProvinces(provinces)
             
           }
@@ -213,9 +216,11 @@ export const FormPatient = () => {
                 <label htmlFor="motivoConsulta" className="form-label">Razón principal para buscar ayuda</label>
                 <select className="form-select" id="motivoConsulta" name="reasonConsultation" value={formData.reasonConsultation} onChange={handleChange} required>
                   <option value="">Seleccione...</option>
-                  <option value="ansiedad">Ansiedad</option>
-                  <option value="depresion">Depresión</option>
-                  <option value="estres">Neurodesarrollo</option>
+                  {
+                    disorderState.map((value) => (
+                      <option key={value.id} value={value.type}>{value.type}</option>
+                    ))
+                  }
                   <option value="otro">Otro</option>
                 </select>
               </div>
