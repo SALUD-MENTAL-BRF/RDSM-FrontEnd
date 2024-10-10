@@ -24,6 +24,11 @@ export const FormCreateSpecialtyHospital: FC<FormCreateSpecialtyHospitalProps> =
   const handleSubmitSpecialty = async (e: any) => {
     e.preventDefault();
 
+    if(!speciality) {
+      Swal.fire('Error!', 'Debes ingresar un nombre de especialidad', 'error');
+      return;
+    }
+    
     const data = {
       name: speciality,
     }
@@ -56,28 +61,70 @@ export const FormCreateSpecialtyHospital: FC<FormCreateSpecialtyHospitalProps> =
     setSpeciality(e.target.value);
   };
 
+  const handleDelete = async (id: number) => {
+    try {
+      const result = await Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'No podrás revertir esta acción',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+      });
+      
+      if (result.isConfirmed) {
+        const response = await CustomFetch(`${import.meta.env.VITE_API_URL}specialityHospital/${id}`, 'DELETE');
+        if(response.success) {
+          Swal.fire('Éxito!', 'La especialidad ha sido eliminada','success');
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000)
+        }
+      }
+    }  catch (err) {
+      if (err instanceof Error) {
+        console.error(err.message);
+        Swal.fire('Error', 'No se pudo eliminar la especialidad', 'error');
+      } else {
+        console.error('An unexpected error occurred', err);
+      }
+    }
+  }
+  
   return showSpecialtyModal ? (
     <div className={styles.modal} onClick={closeSpecialtyModal}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
         <span className={styles.close} onClick={closeSpecialtyModal}>&times;</span>
         <h2>Agregar Nueva Especialidad</h2>
-        <input type="text" className="form-control" placeholder="Nombre de la Especialidad" onChange={handleSpecialityChange}/>
-
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Nombre de la Especialidad"
+          onChange={handleSpecialityChange}
+        />
+  
         <div className={styles.divider}></div>
-
+  
         {specialityHospital.length ? (
           specialityHospital.map((specialty: specialityHospitalOptions) => (
             <div key={specialty.id}>  
-              <label htmlFor={specialty.id}>{specialty.name}</label>
-              <button className='btn btn-danger m-2'>Eliminar</button>
+              <label htmlFor={specialty.id.toString()}>{specialty.name}</label>
+              <button
+                className="btn btn-danger m-2"
+                onClick={() => handleDelete(specialty.id)}
+              >
+                Eliminar
+              </button>
             </div>
           ))
         ) : (
           <p>No hay especialidades registradas</p>
         )}
-
-        <button className="btn btn-primary mt-3" onClick={handleSubmitSpecialty}>Guardar Especialidad</button>
+  
+        <button className="btn btn-primary mt-3" onClick={handleSubmitSpecialty}>
+          Guardar Especialidad
+        </button>
       </div>
     </div>
   ) : null;
-};
+  };
