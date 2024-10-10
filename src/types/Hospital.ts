@@ -20,4 +20,5 @@ export interface Hospital {
       name: string;
     };
   }>;
+  userId: string
 }
