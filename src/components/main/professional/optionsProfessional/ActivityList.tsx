@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { CustomFetch } from '../../../../api/CustomFetch'
 import { activityDto } from '../../../../types/activity.dto'
-import { likedActivityWithPatient } from './Request/fetchActivity'
+import { linkedActivityWithPatient } from './Request/fetchActivity'
 import Swal from 'sweetalert2'
 
 export const ActivityList : React.FC= () => {
@@ -43,7 +43,7 @@ export const ActivityList : React.FC= () => {
             confirmButtonColor: "#3085d6",
             confirmButtonText: "ok",
           })
-        const response = await likedActivityWithPatient(patientId!, activitySelected);
+        const response = await linkedActivityWithPatient(patientId!, activitySelected);
         
         if(response.status == 200){
             Swal.fire({
@@ -89,7 +89,7 @@ export const ActivityList : React.FC= () => {
             <div className="row activityList-container d-flex justify-content-center">
                 {
                     activitieState?.map((activity) => (
-                        <div key={activity.id} onClick={() => {
+                        <div role='button' key={activity.id} onClick={() => {
 
                             if(activitiesLinkedState.find(value => value.id == activity.id)){
                                 return 

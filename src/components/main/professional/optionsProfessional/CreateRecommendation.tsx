@@ -124,8 +124,8 @@ export const CreateRecommendation= () => {
                             <h4 className="text-center h4 fw-bold mb-3 mt-2">Recomendaciones creadas</h4>
                             <div className="row ">
                                     {recommendationState?.map((recommendation) => (
-                                        <div className="border mb-1">
-                                            <h6>{recommendation.title}:</h6>
+                                        <div key={recommendation.id} className="border border-3 mb-1 rounded-2">
+                                            <h5>{recommendation.title}:</h5>
                                             <p className="ms-4">{recommendation.description}</p>
                                             <div className="text-end mb-2">
                                                 <svg onClick={() => editRecommendation(recommendation)} role="button" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#059669" className="bi bi-pen me-2" viewBox="0 0 16 16">
