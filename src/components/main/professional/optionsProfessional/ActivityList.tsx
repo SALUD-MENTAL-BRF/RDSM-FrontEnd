@@ -45,7 +45,16 @@ export const ActivityList : React.FC= () => {
           })
         const response = await likedActivityWithPatient(patientId!, activitySelected);
         
-        
+        if(response.status == 200){
+            Swal.fire({
+                title: "Se añadio la actividad",
+                icon: "success",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "ok",
+            }).then(() => {
+                return navigate(`/management-activities/${patientId}`)
+            })
+        }   
 
     };
 
