@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { useFetchHospitals } from '../../../../hooks/useFetchHospitals';
 import styles from '../../../../assets/style/admin/Content/Hospitals.module.css';
+import { CustomFetch } from '../../../../api/CustomFetch';
+import Swal from 'sweetalert2';
 
 interface Service {
   serviceId: number;
@@ -33,8 +35,6 @@ interface Hospital {
 export const ListHospital: FC = () => {
   const { hospitals, error, loading } = useFetchHospitals();
 
-  console.log(hospitals)
-
   if (loading) {
     return <p className="text-center">Loading...</p>;
   }
@@ -45,6 +45,37 @@ export const ListHospital: FC = () => {
 
   if (!hospitals || hospitals.length === 0) {
     return <p className="text-center">No se encontraron hospitales</p>;
+  }
+
+  const handleDelete = async (id: number) => {
+    try {
+
+      const result = await Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'No podrás revertir esta acción',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+      });
+
+      if(result.isConfirmed){
+        const response = await CustomFetch(`${import.meta.env.VITE_API_URL}hospital/${id}`, 'DELETE');
+        if(response.success) {
+          Swal.fire('Hospital eliminado', 'El hospital ha sido eliminado correctamente','success');
+          setTimeout(() => {
+            window.location.reload();
+          },1000)
+        }
+      }
+
+    } catch (err) {
+      if(err instanceof Error) {
+        console.error('Error deleting hospital:', err.message);
+      } else {
+        console.error('Error deleting hospital:', err);
+      }
+    }
   }
 
   return (
@@ -100,7 +131,7 @@ export const ListHospital: FC = () => {
                   <a href={`/admin/hospitals/edit/${hospital.id}`} className="btn btn-primary m-3">
                     Editar
                   </a>
-                  <a href={`/admin/hospitals/delete/${hospital.id}`} className="btn btn-danger ml-2">
+                  <a className="btn btn-danger ml-2" onClick={() => handleDelete(hospital.id)}>
                     Eliminar
                   </a>
                 </div>
