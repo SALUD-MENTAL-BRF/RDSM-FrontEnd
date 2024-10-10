@@ -127,7 +127,6 @@ export const FormPatient = () => {
                   <option value="">Seleccione...</option>
                   <option value="masculino">Masculino</option>
                   <option value="femenino">Femenino</option>
-                  <option value="otro">Otro</option>
                 </select>
               </div>
               {/* <div className="mb-3">

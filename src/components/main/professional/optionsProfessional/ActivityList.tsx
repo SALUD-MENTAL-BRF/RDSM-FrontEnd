@@ -1,39 +1,44 @@
-import '../../../../assets/style/professional/ActivityList.css'
-import { useNavigate } from 'react-router-dom'
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { CustomFetch } from '../../../../api/CustomFetch'
-import { activityDto } from '../../../../types/activity.dto'
-import { linkedActivityWithPatient } from './Request/fetchActivity'
-import Swal from 'sweetalert2'
+import '../../../../assets/style/professional/ActivityList.css';
+import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { CustomFetch } from '../../../../api/CustomFetch';
+import { activityDto, CategoryActivitiesDto } from '../../../../types/activity.dto';
+import { linkedActivityWithPatient } from './Request/fetchActivity';
+import { disorderDto } from '../../../../types/disorder.dto';
+import Swal from 'sweetalert2';
 
 export const ActivityList : React.FC= () => {
-    const navigate = useNavigate()
-    const {patientId} = useParams()
-    const [activitieState, setActivitieState] = useState<Array<activityDto>>()
-    const [activitySelected, setActivitySelected] = useState<Array<number>>([])
-    const [activitiesLinkedState, setActivitiesLinkedState] = useState<Array<activityDto>>([])
+    const navigate = useNavigate();
+    const {patientId} = useParams();
+    const [activitieState, setActivitieState] = useState<Array<activityDto>>();
+    const [activitySelected, setActivitySelected] = useState<Array<number>>([]);
+    const [activitiesLinkedState, setActivitiesLinkedState] = useState<Array<activityDto>>([]);
+    const [disorderState, setDisorderState] = useState<Array<disorderDto>>([]);
+    const [categorieState, serCategorieState] = useState<Array<CategoryActivitiesDto>>([])
 
     useEffect(() => {
         (
             async () => {
                 const activities = await CustomFetch(`${import.meta.env.VITE_API_URL}activity`, 'GET');
                 const activitiesLinked = await CustomFetch(`${import.meta.env.VITE_API_URL}activity/${patientId}`, 'GET');
-                setActivitiesLinkedState(activitiesLinked)
-                setActivitieState(activities)
+                const disorder = await CustomFetch(`${import.meta.env.VITE_API_URL}disorder`, 'GET');
+                setDisorderState(disorder);
+                setActivitiesLinkedState(activitiesLinked);
+                setActivitieState(activities);
                 
             }
-        )()
-    },[])
+        )();
+    },[]);
 
 
     const selectActivity = (id: number) => {        
         if (activitySelected.find(value => value == id)){
-            setActivitySelected(activitySelected.filter(value => value !== id ))
+            setActivitySelected(activitySelected.filter(value => value !== id ));
         } else {
-            setActivitySelected(prevstate => [...prevstate, id])
-        }
-    }
+            setActivitySelected(prevstate => [...prevstate, id]);
+        };
+    };
 
     const lindedActivity = async () => {
         if (activitySelected.length < 1) return Swal.fire({
@@ -42,7 +47,7 @@ export const ActivityList : React.FC= () => {
             icon: "error",
             confirmButtonColor: "#3085d6",
             confirmButtonText: "ok",
-          })
+          });
         const response = await linkedActivityWithPatient(patientId!, activitySelected);
         
         if(response.status == 200){
@@ -52,10 +57,22 @@ export const ActivityList : React.FC= () => {
                 confirmButtonColor: "#3085d6",
                 confirmButtonText: "ok",
             }).then(() => {
-                return navigate(`/management-activities/${patientId}`)
-            })
-        }   
+                return navigate(`/management-activities/${patientId}`);
+            });
+        }; 
 
+    };
+
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const {name, value} = e.target;
+
+        if(name == "disorderId"){
+            if(value == "0"){
+                
+            }else {
+               
+            };
+        };
     };
 
     return(
@@ -70,9 +87,17 @@ export const ActivityList : React.FC= () => {
                 </thead>
                 <tbody>
                 <tr>
-                    <td valign="top" width="150" align="center">
-                        <select className="w-100 text-center" name="" id="">
+                    <td valign="top" width="200" align="center">
+                        {/* <select className="w-100 text-center" name="" id="">
                             <option value="">--</option>
+                        </select> */}
+                        <select style={{textTransform: "none"}} onChange={handleChange} className="w-100 text-center" name="disorderId" id="">
+                            <option value="0">--</option>
+                            {
+                            disorderState?.map((disorder) => (
+                                <option key={disorder.id} value={disorder.id}>{disorder.type}</option>
+                            ))
+                            }
                         </select>
                     </td>
                     <td valign="top" width="150" align="center">
@@ -133,5 +158,5 @@ export const ActivityList : React.FC= () => {
             </div>
 
         </div>
-    )
-}
+    );
+};
