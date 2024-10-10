@@ -161,7 +161,7 @@ export const Home: React.FC = () => {
                 />
                 
                 {
-                  userState?.roleId != 2  ?
+                  userState?.roleId != import.meta.env.VITE_ROLE_PROFESSIONAL  ?
                   <Feature
                   icon={<IconSettings />}
                   title="Diario Personal"
@@ -172,7 +172,7 @@ export const Home: React.FC = () => {
                 :""
                 }
                 {
-                  userState?.roleId != 2  ?
+                  userState?.roleId != import.meta.env.VITE_ROLE_PROFESSIONAL  ?
                   <Feature
                   icon={<IconDice/>}
                   title='Actividades'
@@ -183,7 +183,7 @@ export const Home: React.FC = () => {
                 />: ""
                 }
                 {
-                userState?.roleId == 2 ? 
+                userState?.roleId == import.meta.env.VITE_ROLE_PROFESSIONAL ? 
                 <Feature
                   icon={<IconPerson/>}
                   title='Pacientes'
@@ -194,7 +194,7 @@ export const Home: React.FC = () => {
                 :  ""
                 } 
                 {
-                  userState?.roleId == 2 ? 
+                  userState?.roleId == import.meta.env.VITE_ROLE_PROFESSIONAL ? 
                   <Feature
                     icon={<IconList/>}
                     title='Solicitudes'
