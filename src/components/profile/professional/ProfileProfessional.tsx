@@ -164,8 +164,8 @@ export const ProfileProfessional = () => {
                 <div className="col-4 mt-3">
                     
                     {
-                        userState?.roleId == 3 || userState?.roleId == 4  && professionalState?.availability && !consult  ?
-                    <button onClick={() => navigate(`/form-patient/${id}/${userState.id}`)} className="btn btn-primary">
+                        userState?.roleId == import.meta.env.VITE_ROLE_PATIENT || userState?.roleId == import.meta.env.VITE_ROLE_GUEST  && professionalState?.availability && !consult  ?
+                    <button onClick={() => navigate(`/form-patient/${id}/${userState?.id}`)} className="btn btn-primary">
                         <Heart size={24} className="" />
                         Consultar
                     </button>
