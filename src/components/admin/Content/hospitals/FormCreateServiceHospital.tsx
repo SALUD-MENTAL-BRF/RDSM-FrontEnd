@@ -25,6 +25,12 @@ export const FormCreateServiceHospital: FC<FormCreateServiceHospitalProps> = ({
 
   const onSubmitService = async (e: any) => {
     e.preventDefault();
+
+    if(!service) {
+      Swal.fire('Error', 'Debes ingresar un nombre de servicio', 'error');
+      return;
+    }
+
     const data = {
       name: service,
     }
@@ -56,6 +62,26 @@ export const FormCreateServiceHospital: FC<FormCreateServiceHospitalProps> = ({
 
   if (!showServiceModal) return null;
 
+  const handleDelete = async (id: string) => {
+    try {
+
+      const response = await CustomFetch(`${import.meta.env.VITE_API_URL}serviceHospital/${id}`, 'DELETE');
+      if (response.success) {
+        Swal.fire('Éxito!', 'El servicio ha sido eliminado','success');
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000)
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        console.error(err.message);
+        Swal.fire('Error', 'No se pudo eliminar el servicio', 'error');
+      } else {
+        console.error('An unexpected error occurred', err);
+      }
+    }
+  }
+
   return (
     <div className={styles.modal} onClick={closeServiceModal}>
       <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
@@ -73,10 +99,10 @@ export const FormCreateServiceHospital: FC<FormCreateServiceHospitalProps> = ({
         <div className={styles.divider}></div>
 
         {serviceHospital.length ? (
-          serviceHospital.map((specialty: serviceHospitalOptions) => (
-            <div key={specialty.id}>
-              <label htmlFor={specialty.id}>{specialty.name}</label>
-              <button className='btn btn-danger m-2'>Eliminar</button>
+          serviceHospital.map((service: serviceHospitalOptions) => (
+            <div key={service.id}>
+              <label htmlFor={service.id}>{service.name}</label>
+              <button className='btn btn-danger m-2' onClick={() => handleDelete(service.id)}>Eliminar</button>
             </div>
           ))
         ) : (
