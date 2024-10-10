@@ -41,7 +41,7 @@ export const ProfessionalList = () => {
             <div className="container-ProfessionalList rounded-5">
                 <div className="ms-4" role='button' onClick={() => navigate('/home')}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-arrow-bar-left mt-4" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5" />
+                            <path fillRule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5" />
                         </svg>
                         <h6 className=''>Atrás</h6>
                 </div>
@@ -61,23 +61,29 @@ export const ProfessionalList = () => {
                                     <button className="btn btn-primary">Buscar</button>
                                 </form>
                                 <table id="myTable">
-                                        <th>Título</th>
-                                        <th>Especialización</th>
-                                <tr>
-                                    <td valign="top" width="150" align="center">
-                                        <select className="w-100" name="" id=""></select>
-                                    </td>
-                                    <td valign="top" width="150" align="center">
-                                        <select className="w-100" name="" id=""></select>
-                                    </td>
-                                </tr>
+                                    <thead>
+                                        <tr>
+                                            <th>Título</th>
+                                            <th>Especialización</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td valign="top" width="150" align="center">
+                                                <select className="w-100" name="" id=""></select>
+                                            </td>
+                                            <td valign="top" width="150" align="center">
+                                                <select className="w-100" name="" id=""></select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
                     <div className="row">
                     {
                         professionalState.map((value) => (
-                            <div className="col-12 col-sm-6 col-md-3">
+                            <div key={value.id} className="col-12 col-sm-6 col-md-3">
                                 <div className="card card-profesional">
                                 <img 
                                     className="card-img-top" 
