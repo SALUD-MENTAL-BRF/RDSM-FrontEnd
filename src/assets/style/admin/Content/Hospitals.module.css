@@ -65,3 +65,7 @@
   width: 90%;
   margin: 20px 20px;
 }
+
+.formEmail{
+  text-transform: none;
+}
