@@ -10,6 +10,7 @@ import { serviceHospitalOptions } from "../../../../types/ServiceHospital.type";
 import { SubmitCreateHospital } from "./SubmitCreateHospital";
 import { FormCreateSpecialtyHospital } from './FormCreateSpecialtyHospital';
 import { FormCreateServiceHospital } from './FormCreateServiceHospital';
+import { useFetchUserHospitals } from '../../../../hooks/useFetchUserHospitals';
 
 interface FormCreateHospitalProps {
   setShowList: (setShowList: boolean) => void;
@@ -29,6 +30,7 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
     type: '',
     specialties: [],
     services: [],
+    userId: '',
   });
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -82,6 +84,22 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
 
   const [showSpecialtyModal, setShowSpecialtyModal] = useState(false);
   const [showServiceModal, setShowServiceModal] = useState(false);
+  // -----------------------------------------------
+
+  // users hospitals -------------------------------
+
+  const { usersHospitals } = useFetchUserHospitals();
+
+  const userHospitalOptions = usersHospitals?.map((user: any) => ({
+    value: user.id,
+    label: user.username,
+  }));
+  const handleUserHospitalChange = (selectedOption: any) => {
+    setStateForm((prevState) => ({
+    ...prevState,
+      userId: selectedOption.value,
+    }));
+  };
 
 
   const openServiceModal = () => {
@@ -239,6 +257,13 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
             />
             <button className={`btn btn-success ${styles.button}`} onClick={openServiceModal}>Crear</button>
           </div>
+        </div>
+        <div className='mb-3'>
+          <label htmlFor="user" className='form-label'>Usuario Asignado <small>(se debe crear un usuario con rol hospital antes de asignar)</small></label>
+          <Select
+            options={userHospitalOptions}
+            onChange={handleUserHospitalChange}
+          />
         </div>
         <SubmitCreateHospital stateForm={stateForm} setStateForm={setStateForm} setShowList={setShowList}/>
       </div>
