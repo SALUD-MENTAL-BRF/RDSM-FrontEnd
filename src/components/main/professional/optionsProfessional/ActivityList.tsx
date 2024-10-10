@@ -7,6 +7,7 @@ import { activityDto, CategoryActivitiesDto } from '../../../../types/activity.d
 import { linkedActivityWithPatient } from './Request/fetchActivity';
 import { disorderDto } from '../../../../types/disorder.dto';
 import Swal from 'sweetalert2';
+import { findCategoryByDisorder } from './Request/fetchFilter';
 
 export const ActivityList : React.FC= () => {
     const navigate = useNavigate();
@@ -15,7 +16,7 @@ export const ActivityList : React.FC= () => {
     const [activitySelected, setActivitySelected] = useState<Array<number>>([]);
     const [activitiesLinkedState, setActivitiesLinkedState] = useState<Array<activityDto>>([]);
     const [disorderState, setDisorderState] = useState<Array<disorderDto>>([]);
-    const [categorieState, serCategorieState] = useState<Array<CategoryActivitiesDto>>([])
+    const [categorieState, setCategorieState] = useState<Array<CategoryActivitiesDto>>([])
 
     useEffect(() => {
         (
@@ -63,14 +64,14 @@ export const ActivityList : React.FC= () => {
 
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const handleChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
         const {name, value} = e.target;
 
         if(name == "disorderId"){
-            if(value == "0"){
-                
+            if(value !== "0"){
+                setCategorieState(await findCategoryByDisorder(value))
             }else {
-               
+               setCategorieState([])
             };
         };
     };
@@ -102,7 +103,12 @@ export const ActivityList : React.FC= () => {
                     </td>
                     <td valign="top" width="150" align="center">
                         <select className="w-100 text-center" name="" id="">
-                            <option value="">--</option>
+                            <option value="0">--</option>
+                            {
+                                categorieState?.map((category)=> (
+                                    <option key={category.id} value={category.id}>{category.type}</option>
+                                ))
+                            }
                         </select>
                     </td>
                 </tr>
