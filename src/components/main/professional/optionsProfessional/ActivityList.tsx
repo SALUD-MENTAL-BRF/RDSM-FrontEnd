@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { CustomFetch } from '../../../../api/CustomFetch';
 import { activityDto, CategoryActivitiesDto } from '../../../../types/activity.dto';
-import { linkedActivityWithPatient } from './Request/fetchActivity';
+import { linkedActivityWithPatient,findAllActivities, findActivitiesLinked } from './Request/fetchActivity';
 import { disorderDto } from '../../../../types/disorder.dto';
 import Swal from 'sweetalert2';
 import { findCategoryByDisorder } from './Request/fetchFilter';
@@ -16,18 +16,19 @@ export const ActivityList : React.FC= () => {
     const [activitySelected, setActivitySelected] = useState<Array<number>>([]);
     const [activitiesLinkedState, setActivitiesLinkedState] = useState<Array<activityDto>>([]);
     const [disorderState, setDisorderState] = useState<Array<disorderDto>>([]);
-    const [categorieState, setCategorieState] = useState<Array<CategoryActivitiesDto>>([])
+    const [categorieState, setCategorieState] = useState<Array<CategoryActivitiesDto>>([]);
+    const [saveActivities, setSaveActivities] = useState<Array<activityDto>>([]);
+    const [disorderIdState, setDisorderId] = useState<string>("");
 
     useEffect(() => {
         (
             async () => {
-                const activities = await CustomFetch(`${import.meta.env.VITE_API_URL}activity`, 'GET');
-                const activitiesLinked = await CustomFetch(`${import.meta.env.VITE_API_URL}activity/${patientId}`, 'GET');
                 const disorder = await CustomFetch(`${import.meta.env.VITE_API_URL}disorder`, 'GET');
+                const activities = await findAllActivities()
                 setDisorderState(disorder);
-                setActivitiesLinkedState(activitiesLinked);
+                setActivitiesLinkedState(await findActivitiesLinked(patientId!));
                 setActivitieState(activities);
-                
+                setSaveActivities(activities);
             }
         )();
     },[]);
@@ -69,9 +70,23 @@ export const ActivityList : React.FC= () => {
 
         if(name == "disorderId"){
             if(value !== "0"){
-                setCategorieState(await findCategoryByDisorder(value))
+                setCategorieState(await findCategoryByDisorder(value));
+                setActivitieState(saveActivities?.filter(activity => activity.disorderId == Number(value)));
+                setDisorderId(value);
             }else {
-               setCategorieState([])
+               setCategorieState([]);
+               setActivitieState(saveActivities);
+               setDisorderId("");
+            };
+        };
+
+        if(name == "categoryId"){
+            if (value !== "0") {
+              setActivitieState(saveActivities.filter(activity => activity.categoryActivitiesId == Number(value)));  
+            } else {                
+                if(disorderIdState.length > 0){
+                    setActivitieState(saveActivities?.filter(activity => activity.disorderId == Number(disorderIdState)));
+                }
             };
         };
     };
@@ -88,10 +103,7 @@ export const ActivityList : React.FC= () => {
                 </thead>
                 <tbody>
                 <tr>
-                    <td valign="top" width="200" align="center">
-                        {/* <select className="w-100 text-center" name="" id="">
-                            <option value="">--</option>
-                        </select> */}
+                    <td valign="top" width="200" align="center">    
                         <select style={{textTransform: "none"}} onChange={handleChange} className="w-100 text-center" name="disorderId" id="">
                             <option value="0">--</option>
                             {
@@ -102,7 +114,7 @@ export const ActivityList : React.FC= () => {
                         </select>
                     </td>
                     <td valign="top" width="150" align="center">
-                        <select className="w-100 text-center" name="" id="">
+                        <select className="w-100 text-center" onChange={handleChange} name="categoryId" id="">
                             <option value="0">--</option>
                             {
                                 categorieState?.map((category)=> (

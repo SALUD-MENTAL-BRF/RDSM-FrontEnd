@@ -1,9 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { CustomFetch } from "../../../../api/CustomFetch";
 import { activityDto } from "../../../../types/activity.dto";
-import { unlinkActivityWithPatient } from "./Request/fetchActivity";
+import { unlinkActivityWithPatient, findActivitiesLinked } from "./Request/fetchActivity";
 import Swal from "sweetalert2";
 export const AssignActivity = () => {
     const navigate = useNavigate();
@@ -14,9 +13,7 @@ export const AssignActivity = () => {
     useEffect(() => {
         (
             async () => {
-                const activitiesLinked = await CustomFetch(`${import.meta.env.VITE_API_URL}activity/${patientId}`, 'GET');
-
-                setActivitiesLinkedState(activitiesLinked)
+                setActivitiesLinkedState(await findActivitiesLinked(patientId!))
             }
         )();
     },[reloadPage]);

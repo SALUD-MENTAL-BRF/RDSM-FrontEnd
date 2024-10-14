@@ -18,3 +18,13 @@ export const unlinkActivityWithPatient = async (patientId: string, activityId:nu
     });
     return response;
 }
+
+export const findAllActivities = async () => {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}activity`)
+    return await response.json()
+};
+
+export const findActivitiesLinked = async (patientId:string) => {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}activity/${patientId}`)
+    return await response.json()
+};  
