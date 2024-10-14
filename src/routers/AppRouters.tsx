@@ -17,10 +17,12 @@ import { SuperAdmin } from "../pages/SuperAdmin";
 import ProtectedRoute from "./ProtectedRoute";
 import { PatientManagementPage } from "../pages/PatientManagementPage";
 import { ActivitiesPage } from "../pages/ActivitiesPage";
+import { HospitalPanelPage } from "../pages/HospitalPanelPage";
 
 export const AppRouters: React.FC = () => {
   const { authState } = useAuth();
   const VITE_ROLE_ADMIN = import.meta.env.VITE_ROLE_ADMIN
+  const VITE_ROLE_HOSPITAL = import.meta.env.VITE_ROLE_HOSPITAL
 
   return (
     <BrowserRouter>
@@ -104,6 +106,14 @@ export const AppRouters: React.FC = () => {
           element={
             <ProtectedRoute VITE_ROLE_ADMIN={VITE_ROLE_ADMIN}>
               <SuperAdmin />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/panelHospital"
+          element={
+            <ProtectedRoute VITE_ROLE_HOSPITAL={VITE_ROLE_HOSPITAL}>
+              <HospitalPanelPage />
             </ProtectedRoute>
           }
         />
