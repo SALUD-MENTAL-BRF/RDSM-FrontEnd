@@ -110,7 +110,7 @@ export const AppRouters: React.FC = () => {
           }
         />
         <Route
-          path="/panelHospital"
+          path="/hospital"
           element={
             <ProtectedRoute VITE_ROLE_HOSPITAL={VITE_ROLE_HOSPITAL}>
               <HospitalPanelPage />
