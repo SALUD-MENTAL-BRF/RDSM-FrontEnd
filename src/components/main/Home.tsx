@@ -49,6 +49,7 @@ const Feature: React.FC<FeatureProps> = ({ icon, title, description, buttonText,
   )
 };
 
+
 const IconMessageCircle: React.FC = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" />
@@ -171,7 +172,7 @@ export const Home: React.FC = () => {
                 />
                 :""
                 }
-                {
+                {/* {
                   userState?.roleId != import.meta.env.VITE_ROLE_PROFESSIONAL  ?
                   <Feature
                   icon={<IconDice/>}
@@ -181,7 +182,7 @@ export const Home: React.FC = () => {
                   link='/activities'
                   roleId={userState?.roleId}
                 />: ""
-                }
+                } */}
                 {
                 userState?.roleId == import.meta.env.VITE_ROLE_PROFESSIONAL ? 
                 <Feature
@@ -203,6 +204,17 @@ export const Home: React.FC = () => {
                     link='/request-list'
                   />
                   :  ""
+                }
+                {
+                  userState?.roleId == import.meta.env.VITE_ROLE_PATIENT ? 
+                    <Feature
+                      icon={<IconPerson/>}
+                      title='Profesionales'
+                      description='Lista de los profesionales que tienes asignados.'
+                      buttonText='Ver profesionales'
+                      link='/assigned-professionals'
+                    />
+                    : ""
                 }
               </div>
             </div>
