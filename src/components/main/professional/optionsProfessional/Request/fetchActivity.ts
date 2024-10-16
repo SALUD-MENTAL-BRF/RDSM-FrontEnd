@@ -24,7 +24,7 @@ export const findAllActivities = async () => {
     return await response.json()
 };
 
-export const findActivitiesLinked = async (patientId:string, professionalId: number) => {
+export const findActivitiesLinked = async (patientId:string, professionalId: number | string) => {
     const response = await fetch(`${import.meta.env.VITE_API_URL}activity/${patientId}/${professionalId}`)
     return await response.json()
 };  

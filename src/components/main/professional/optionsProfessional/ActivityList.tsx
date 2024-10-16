@@ -11,7 +11,7 @@ import { findCategoryByDisorder } from './Request/fetchFilter';
 
 export const ActivityList : React.FC= () => {
     const navigate = useNavigate();
-    const {patientId} = useParams();
+    const {patientId, professionalId} = useParams();
     const [activitieState, setActivitieState] = useState<Array<activityDto>>();
     const [activitySelected, setActivitySelected] = useState<Array<number>>([]);
     const [activitiesLinkedState, setActivitiesLinkedState] = useState<Array<activityDto>>([]);
@@ -26,7 +26,7 @@ export const ActivityList : React.FC= () => {
                 const disorder = await CustomFetch(`${import.meta.env.VITE_API_URL}disorder`, 'GET');
                 const activities = await findAllActivities()
                 setDisorderState(disorder);
-                setActivitiesLinkedState(await findActivitiesLinked(patientId!));
+                setActivitiesLinkedState(await findActivitiesLinked(patientId!,professionalId!));
                 setActivitieState(activities);
                 setSaveActivities(activities);
             }
