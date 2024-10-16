@@ -1,12 +1,20 @@
 import { disorderDto } from "./disorder.dto";
 
+export interface activityXPatientDto {
+    id: number;
+    patientId: number;
+    professionalId: number;
+    activityId: number;
+    activity: activityDto
+}
+
 export interface activityDto {
     id : number;
     title: string;
     description: string;
     categoryActivitiesId: number;
     disorderId: number;
-    categoryActivities: CategoryActivitiesDto;
+    categoryActivities?: CategoryActivitiesDto;
 };
 
 export interface CategoryActivitiesDto{

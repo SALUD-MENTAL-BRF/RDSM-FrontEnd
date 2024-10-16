@@ -43,6 +43,7 @@ export const ActivityList : React.FC= () => {
     };
 
     const lindedActivity = async () => {
+        
         if (activitySelected.length < 1) return Swal.fire({
             title: "Error",
             text: "No se selecciono ninguna actividad.",
@@ -50,7 +51,7 @@ export const ActivityList : React.FC= () => {
             confirmButtonColor: "#3085d6",
             confirmButtonText: "ok",
           });
-        const response = await linkedActivityWithPatient(patientId!, activitySelected);
+        const response = await linkedActivityWithPatient(patientId!,professionalId!, activitySelected);
         
         if(response.status == 200){
             Swal.fire({

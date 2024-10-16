@@ -163,11 +163,11 @@ export const ProfileProfessional = () => {
                 </div>
                 <div className="col-4 mt-3">
                     {professionalState?.professional.patient?.find(patient => patient.userId == userState?.id) ? <h6>¡Ya es tu médico!</h6> : consult ?
-                      <h6>¡Tienes una consulta pendiente!</h6>
+                      <h6>¡Tienes una solicitud pendiente!</h6>
                       : ""}
                     {
                         userState?.roleId == import.meta.env.VITE_ROLE_PATIENT || userState?.roleId == import.meta.env.VITE_ROLE_GUEST  && professionalState?.availability  ?
-                        !consult ? 
+                        !consult && !(professionalState?.professional.patient?.find(patient => patient.userId == userState?.id)) ?
                           <button onClick={() => navigate(`/form-patient/${id}/${userState?.id}`)} className="btn btn-primary">
                             <Heart size={24} className="" />
                               Consultar
@@ -179,9 +179,6 @@ export const ProfileProfessional = () => {
                           </button>
                         :
                         ""
-                    }
-                    {
-
                     }
                 </div>
               </div>

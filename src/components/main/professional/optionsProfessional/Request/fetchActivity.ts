@@ -1,5 +1,5 @@
-export const linkedActivityWithPatient = async (patientId: string, data: Array<number>) => {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}activity/${patientId}`,{
+export const linkedActivityWithPatient = async (patientId: string,professionalId: string, data: Array<number>) => {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}activity/${patientId}/${professionalId}`,{
         method: 'POST',
         body: JSON.stringify({
             activityIds: data
@@ -12,8 +12,8 @@ export const linkedActivityWithPatient = async (patientId: string, data: Array<n
     return response
 };
 
-export const unlinkActivityWithPatient = async (patientId: string, activityId:number) => {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}activity/${patientId}/${activityId}`,{
+export const unlinkActivityWithPatient = async (patientXactivityId : number) => {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}activity/${patientXactivityId}`,{
         method: 'DELETE'
     });
     return response;
