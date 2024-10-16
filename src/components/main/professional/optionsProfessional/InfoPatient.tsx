@@ -1,21 +1,26 @@
 import { useEffect,useState }  from 'react';
-import { formPatientDto } from '../../../../types/patients.dto';
+import { InfoPatientDto, patientDto } from '../../../../types/patients.dto';
 import { CustomFetch } from '../../../../api/CustomFetch';
 import { useParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import useAuth from '../../../../hooks/useAuth';
 
 export const InfoPatient = () => {
-    const [patientState,setPatientState] = useState<formPatientDto>()
+    const [patientState,setPatientState] = useState<patientDto>()
+    const [InfoPatientState, setInfoPatient] = useState<InfoPatientDto>()
     const {id} = useParams()
     const navigate = useNavigate()
-
+    const {authState} = useAuth()
     useEffect(() => {
         (
             async () => {
                 const patient = await CustomFetch(`${import.meta.env.VITE_API_URL}patient/${id}`,"GET")
-                
+                const user = await  CustomFetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`, 'GET')
+                const professional = await CustomFetch(`${import.meta.env.VITE_API_URL}professional/${user.id}`, 'GET')
+                const InfoPatient = await CustomFetch(`${import.meta.env.VITE_API_URL}patient/info/${patient.id}/${professional.id}`, 'GET')      
                 setPatientState(patient)
+                setInfoPatient(InfoPatient)
             }
         )()
     },[])
@@ -58,15 +63,15 @@ export const InfoPatient = () => {
                 <div className="col d-flex justify-content-center">
                     <div>
                     <h3 className="mt-4">Información Médica</h3>
-                    <p className="card-text"><strong>Razón de Consulta:</strong> {patientState?.reasonConsultation}</p>
-                    <p className="card-text"><strong>Descripción del Problema:</strong> {patientState?.descriptionProblem}</p>
-                    <p className="card-text"><strong>Diagnósticos Previos:</strong> {patientState?.diagnosesPrevious}</p>
-                    <p className="card-text"><strong>Tratamientos Previos:</strong> {patientState?.treatmentsPrevious}</p>
-                    <p className="card-text"><strong>Hospitalizaciones Previas:</strong> {patientState?.hospitalizationsPrevious}</p>
-                    <p className="card-text"><strong>Medicación Actual:</strong> {patientState?.meciationCurrent}</p>
-                    <p className="card-text"><strong>Historial de Consumo:</strong> {patientState?.historyConsumption}</p>
-                    <p className="card-text"><strong>Historial de Enfermedades:</strong> {patientState?.historyDiseases}</p>
-                    <p className="card-text"><strong>Historial Familiar:</strong> {patientState?.histoyFamily}</p>
+                    <p className="card-text"><strong>Razón de Consulta:</strong> {InfoPatientState?.reasonConsultation}</p>
+                    <p className="card-text"><strong>Descripción del Problema:</strong> {InfoPatientState?.descriptionProblem}</p>
+                    <p className="card-text"><strong>Diagnósticos Previos:</strong> {InfoPatientState?.diagnosesPrevious}</p>
+                    <p className="card-text"><strong>Tratamientos Previos:</strong> {InfoPatientState?.treatmentsPrevious}</p>
+                    <p className="card-text"><strong>Hospitalizaciones Previas:</strong> {InfoPatientState?.hospitalizationsPrevious}</p>
+                    <p className="card-text"><strong>Medicación Actual:</strong> {InfoPatientState?.meciationCurrent}</p>
+                    <p className="card-text"><strong>Historial de Consumo:</strong> {InfoPatientState?.historyConsumption}</p>
+                    <p className="card-text"><strong>Historial de Enfermedades:</strong> {InfoPatientState?.historyDiseases}</p>
+                    <p className="card-text"><strong>Historial Familiar:</strong> {InfoPatientState?.histoyFamily}</p>
 
                     </div>
 

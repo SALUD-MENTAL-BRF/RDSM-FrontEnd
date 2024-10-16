@@ -1,7 +1,7 @@
 import { User } from "./user.dto";
 import { localityDto } from "./locality.dto";
 
-export interface patient {
+export interface patientDto {
     id: number;
     fullName: string;
     date_birth: string;
@@ -18,7 +18,7 @@ export interface patient {
     locality?: localityDto;
 }
 
-export interface InfoPatient {
+export interface InfoPatientDto {
     reasonConsultation: string;
     descriptionProblem: string;
     diagnosesPrevious: string;

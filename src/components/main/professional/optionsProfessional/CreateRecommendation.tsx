@@ -1,26 +1,22 @@
-import { useEffect, useState } from "react"
+import React,{ useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import { recomendationDto } from "../../../../types/recomendation.dto"
 import Swal from "sweetalert2"
-import useAuth from "../../../../hooks/useAuth"
-import { Professional } from "../../../../types/profileProfessional.dto"
 import { deleteRecommendationById, findRecommendations } from "./Request/fetchRecommendations"
 import { createOrUpdate } from "./Request/fetchRecommendations"
 
-export const CreateRecommendation= () => {
-    const {authState} = useAuth()
+export const CreateRecommendation: React.FC<{professionalId:number}> = ({professionalId}) => {
     const [formState, setFormSate] = useState<recomendationDto>({
         description:"",
         title: ""
     }) 
     const {patientId} = useParams()
-    const [professionalState, setProfessionalState] = useState<Professional>()
     const [recommendationState, setRecommendationState] = useState<Array<recomendationDto>>()
     const [editState, setEditState] = useState<boolean>(false)
 
     const createRecommendation = async () => {
         const url = editState ? `${import.meta.env.VITE_API_URL}recommendation/${formState.id}` :
-                `${import.meta.env.VITE_API_URL}recommendation/${patientId}/${professionalState?.id}` 
+                `${import.meta.env.VITE_API_URL}recommendation/${patientId}/${professionalId}` 
 
         const method = editState ? 'PUT' : 'POST'
 
@@ -48,7 +44,7 @@ export const CreateRecommendation= () => {
                         description:"",
                         title: ""
               })
-              setRecommendationState(await findRecommendations(Number(patientId!), professionalState?.id!))
+              setRecommendationState(await findRecommendations(Number(patientId!), professionalId))
               setEditState(false)
         })
     };
@@ -65,15 +61,12 @@ export const CreateRecommendation= () => {
     useEffect(() => {
         (
             async () => {
-                const responseUser = await fetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`);
-                const user = await responseUser.json();
-                const responseProfessional = await fetch(`${import.meta.env.VITE_API_URL}professional/${user.id}`);
-                const professional = await responseProfessional.json();
-                setProfessionalState(professional)
-                setRecommendationState(await findRecommendations(Number(patientId!), professional.id))
+                if(professionalId){
+                    setRecommendationState(await findRecommendations(Number(patientId!), professionalId))
+                }
             }
         )()
-    },[])
+    },[professionalId])
 
     const editRecommendation = async (data: recomendationDto) =>{
         setFormSate({
@@ -112,7 +105,7 @@ export const CreateRecommendation= () => {
                 "Se elimino correctamente.",
                 "success"
               );
-              setRecommendationState(await findRecommendations(Number(patientId!), professionalState?.id!))
+              setRecommendationState(await findRecommendations(Number(patientId!), professionalId))
             }
           });
     }

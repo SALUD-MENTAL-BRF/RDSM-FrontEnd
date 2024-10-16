@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { activityDto } from "../../../../types/activity.dto";
 import { unlinkActivityWithPatient, findActivitiesLinked } from "./Request/fetchActivity";
 import Swal from "sweetalert2";
-export const AssignActivity = () => {
+
+export const AssignActivity: React.FC<{professionalId: number}> = ({professionalId}) => {
     const navigate = useNavigate();
     const {patientId} = useParams();
     const [activitiesLinkedState, setActivitiesLinkedState] = useState<Array<activityDto>>([]);
@@ -13,10 +14,12 @@ export const AssignActivity = () => {
     useEffect(() => {
         (
             async () => {
-                setActivitiesLinkedState(await findActivitiesLinked(patientId!))
+                if(professionalId){
+                    setActivitiesLinkedState(await findActivitiesLinked(patientId!, professionalId))
+                }
             }
         )();
-    },[reloadPage]);
+    },[reloadPage, professionalId]);
 
     const unlinkActivity = async (activityId: number) => {
         Swal.fire({

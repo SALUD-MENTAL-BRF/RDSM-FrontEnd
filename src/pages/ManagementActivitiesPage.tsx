@@ -7,12 +7,12 @@ import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { CustomFetch } from "../api/CustomFetch"
 import { formPatientDto } from "../types/patients.dto"
-
+import useAuth from "../hooks/useAuth"
 
 export const ManagementActivitiesPage = () => {
- 
+    const {authState} = useAuth()
     const initialComponentState = localStorage.getItem('changeComponent') === 'true'
-    
+    const [professionalId, setProfessionalId] = useState<number>()
     const [changeComponent, setChangeComponent]= useState<boolean>(initialComponentState)
     const navigate = useNavigate()
     const {patientId} = useParams()
@@ -27,10 +27,14 @@ export const ManagementActivitiesPage = () => {
         (
             async () => {
                 const patient = await CustomFetch(`${import.meta.env.VITE_API_URL}patient/${patientId}`, 'GET')
+                const user = await CustomFetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`, 'GET')
+                const professional = await CustomFetch(`${import.meta.env.VITE_API_URL}professional/${user.id}`, 'GET')
+                setProfessionalId(professional.id)
                 setPatientState(patient)
             }
         )()
     },[])
+
 
 
     return(
@@ -55,7 +59,7 @@ export const ManagementActivitiesPage = () => {
                         <button onClick={() => changeValue(false)} className={`btn ${changeComponent ? 'management-activitiesButtons' : 'btn-primary'} rounded-3 me-1`}>Crear recomendación</button>
                         <button onClick={() => changeValue(true)} className={`btn ${changeComponent ? 'btn-primary' : 'management-activitiesButtons'} rounded-3 ms-1`}>Asignar actividad</button>
                     </div>
-                    {changeComponent ? <AssignActivity/> :  <CreateRecommendation/> }
+                    {changeComponent ? <AssignActivity professionalId={professionalId!}/> :  <CreateRecommendation professionalId={professionalId!}/> }
                 </div>
             </main>
         </>
