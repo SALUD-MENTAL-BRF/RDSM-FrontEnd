@@ -23,12 +23,12 @@ export const ProfileProfessional = () => {
           if (id && authState.token) {
               const professional = await CustomFetch(`${import.meta.env.VITE_API_URL}professional/profile/${id}`, 'GET');
               const user = await CustomFetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`, 'GET');
-              const request = await CustomFetch(`${import.meta.env.VITE_API_URL}request-patient/${user.id}/${id}`, "GET")
+              const request = await CustomFetch(`${import.meta.env.VITE_API_URL}request-patient/patient/${user.id}`, "GET")
               if(request){
                 setConsult(true)
               }
               setProfessionalState(professional);
-              setUserState(user);
+              setUserState(user);              
           }
       })();
   }, [id, authState.token, reloadPage]);
@@ -162,18 +162,26 @@ export const ProfileProfessional = () => {
                   <p className="text-muted">Seguidores</p>
                 </div>
                 <div className="col-4 mt-3">
-                    
+                    {professionalState?.professional.patient?.find(patient => patient.userId == userState?.id) ? <h6>¡Ya es tu médico!</h6> : consult ?
+                      <h6>¡Tienes una consulta pendiente!</h6>
+                      : ""}
                     {
-                        userState?.roleId == import.meta.env.VITE_ROLE_PATIENT || userState?.roleId == import.meta.env.VITE_ROLE_GUEST  && professionalState?.availability && !consult  ?
-                    <button onClick={() => navigate(`/form-patient/${id}/${userState?.id}`)} className="btn btn-primary">
-                        <Heart size={24} className="" />
-                        Consultar
-                    </button>
-                    :
-                    <button disabled className="btn btn-primary">
-                        <Heart size={24} className="" />
-                        Consultar
-                    </button>
+                        userState?.roleId == import.meta.env.VITE_ROLE_PATIENT || userState?.roleId == import.meta.env.VITE_ROLE_GUEST  && professionalState?.availability  ?
+                        !consult ? 
+                          <button onClick={() => navigate(`/form-patient/${id}/${userState?.id}`)} className="btn btn-primary">
+                            <Heart size={24} className="" />
+                              Consultar
+                          </button>
+                        :
+                          <button disabled className="btn btn-primary">
+                              <Heart size={24} className="" />
+                              Consultar
+                          </button>
+                        :
+                        ""
+                    }
+                    {
+
                     }
                 </div>
               </div>

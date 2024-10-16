@@ -1,5 +1,7 @@
 
 import { User } from "./user.dto";
+import { patient } from "./patients.dto";
+
 export interface Professional {
     id: number;
     description: string;
@@ -8,6 +10,7 @@ export interface Professional {
     url_image: string;
     professionalId: number;
     professional: Profile;
+   
 }
 
 interface Profile {
@@ -20,4 +23,5 @@ interface Profile {
     birthdate: string;
     userId: number;
     user: User;
+    patient?: Array<patient>;
 }

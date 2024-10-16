@@ -3,9 +3,34 @@ import { localityDto } from "./locality.dto";
 
 export interface patient {
     id: number;
-    fullname: string;
-    user: User;
+    fullName: string;
+    date_birth: string;
+    genre: string;
+    telephone: string;
+    contactEmergencyName: string;
+    contactEmergencyRelation: string;
+    contactEmergencyTelephone: string;
+    streetNumber: string;
+    neighborhood: string;
+    userId: number;
+    localityId: number;
+    user?: User;
+    locality?: localityDto;
 }
+
+export interface InfoPatient {
+    reasonConsultation: string;
+    descriptionProblem: string;
+    diagnosesPrevious: string;
+    treatmentsPrevious: string;
+    hospitalizationsPrevious: string;
+    meciationCurrent: string;
+    historyConsumption: string;
+    historyDiseases: string;
+    histoyFamily: string;
+    patientId?: number;
+    professionalId?: number;
+};
 
 export interface formPatientDto {
     id?: number;

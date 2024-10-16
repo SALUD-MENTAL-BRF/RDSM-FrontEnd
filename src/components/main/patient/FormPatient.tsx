@@ -36,6 +36,11 @@ export const FormPatient = () => {
       const [stateProvinces, setStateProvinces] = useState<Array<ProvinceDto>>()
       const [stateLocality, setStateLocality] = useState<Array<localityDto>>()
       const [disorderState,setDisorderState] = useState<Array<disorderDto>>([])
+      const [patientState,setPatientState] = useState(false);
+      const [adresState,setAdressState  ] = useState({
+        province: "",
+        locality: ""
+      });
       const handleChange = async (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData(prevState => ({
@@ -96,6 +101,29 @@ export const FormPatient = () => {
           async () => {
             const provinces = await CustomFetch(`${import.meta.env.VITE_API_URL}province`, 'GET')
             const disorder = await CustomFetch(`${import.meta.env.VITE_API_URL}disorder`, 'GET');
+            const patient = await CustomFetch(`${import.meta.env.VITE_API_URL}patient/user/${userId}`, 'GET')
+            if(patient){
+              setPatientState(true)
+              
+              setFormData(prevState => ({
+                ...prevState,
+                fullName: patient.fullName,
+                date_birth: patient.date_birth,
+                genre: patient.genre,
+                telephone: patient.telephone,
+                contactEmergencyName: patient.contactEmergencyName,
+                contactEmergencyRelation: patient.contactEmergencyRelation,
+                contactEmergencyTelephone: patient.contactEmergencyTelephone,
+                neighborhood: patient.neighborhood,
+                streetNumber: patient.streetNumber,
+                localityId: patient.locality.id
+              })
+              )
+              setAdressState({
+                locality: patient.locality.name,
+                province: patient.locality.province.name
+              })
+            }
             setDisorderState(disorder);
             setStateProvinces(provinces)
             
@@ -118,35 +146,25 @@ export const FormPatient = () => {
             <div className="card-body">
               <div className="mb-3">
                 <label htmlFor="nombreCompleto" className="form-label">Nombre completo</label>
-                <input type="text" className="form-control" id="nombreCompleto" name="fullName" value={formData.fullName} onChange={handleChange} required />
+                <input disabled={patientState ? true : false} type="text" className="form-control" id="nombreCompleto" name="fullName" value={formData.fullName} onChange={handleChange} required />
               </div>
               <div className="mb-3">
-                <label htmlFor="edad" className="form-label">Edad</label>
-                <input type="date" className="form-control" id="edad" name="date_birth" value={formData.date_birth} onChange={handleChange} required/>
+                <label htmlFor="edad" className="form-label">Fecha de nacimiento</label>
+                <input disabled={patientState ? true : false} type="date" className="form-control" id="edad" name="date_birth" value={formData.date_birth} onChange={handleChange} required/>
               </div>
               <div className="mb-3">
                 <label htmlFor="genero" className="form-label">Género</label>
-                <select className="form-select" id="genero" name="genre" value={formData.genre} onChange={handleChange} required>
+                <select disabled={patientState ? true : false} className="form-select" id="genero" name="genre" value={formData.genre} onChange={handleChange} required>
                   <option value="">Seleccione...</option>
                   <option value="masculino">Masculino</option>
                   <option value="femenino">Femenino</option>
                 </select>
               </div>
-              {/* <div className="mb-3">
-                <label htmlFor="estadoCivil" className="form-label">Estado civil</label>
-                <select className="form-select" id="estadoCivil" name="estadoCivil" value={formData.estadoCivil} onChange={handleChange} required>
-                  <option value="">Seleccione...</option>
-                  <option value="soltero">Soltero/a</option>
-                  <option value="casado">Casado/a</option>
-                  <option value="divorciado">Divorciado/a</option>
-                  <option value="viudo">Viudo/a</option>
-                </select>
-              </div> */}
               <div className="mb-3">
                 <label htmlFor="direccion" className="form-label">Dirección</label>
                 <div>
-                    <select onChange={handleChange} className="selects-formPatient w-50" name="province" id="">
-                      <option value="0">Selecciona una provincia...</option>
+                    <select disabled={patientState ? true : false} onChange={handleChange} className="selects-formPatient w-50" name="province" id="">
+                      <option value="0">{patientState ? adresState.province : "Selecciona una provincia..."}</option>
                       {
                         stateProvinces?.map((province) => (
                           <option key={province.id} value={province.id}>{province.name}</option>
@@ -154,32 +172,36 @@ export const FormPatient = () => {
                       }
                     </select>
                     
-                    <select onChange={handleChange} className="selects-formPatient w-50" name="localityId" id="">
-                        <option value="0" >Selecciona una localidad</option>
+                    <select disabled={patientState ? true : false} onChange={handleChange} className="selects-formPatient w-50" name="localityId" id="">
+                        <option value="0" >{patientState ? adresState.locality : "Selecciona una localidad..."}</option>
                         {
                           stateLocality?.map((locality) => (
                             <option key={locality.id} value={locality.id}>{locality.name}</option>
                           ))
                         }
                     </select>
-                </div>
+                  </div>
                 <div className="d-flex">
-                  <input placeholder="Colonia o barrio" type="text" className="form-control" id="direccion" name="neighborhood" value={formData.neighborhood} onChange={handleChange} required />
-                  <input placeholder="Calle y número (o apartamento)" type="text" className="form-control" id="direccion" name="streetNumber" value={formData.streetNumber} onChange={handleChange} required />
+                  <input disabled={patientState ? true : false} placeholder="Colonia o barrio" type="text" className="form-control" id="direccion" name="neighborhood" value={formData.neighborhood} onChange={handleChange} required />
+                  <input disabled={patientState ? true : false} placeholder="Calle y número (o apartamento)" type="text" className="form-control" id="direccion" name="streetNumber" value={formData.streetNumber} onChange={handleChange} required />
                 </div>
               </div>
               <div className="mb-3">
                 <label htmlFor="telefono" className="form-label">Teléfono de contacto</label>
-                <div className="d-flex">
-                    <p className="mt-3 me-2">{prefijo}</p>
-                    <input type="number" className="form-control" id="telefono" name="telephone" value={formData.telephone} onChange={handleChange} required />
+                {
+                  !patientState ? 
+                    <div className="d-flex">
+                      <p className="mt-3 me-2">{prefijo}</p>
+                      <input type="number" className="form-control" id="telefono" name="telephone" value={formData.telephone} onChange={handleChange} required />
 
-                </div>
+                    </div>
+                  :
+                    <div className="d-flex">
+                      <input disabled type="text" className="form-control" id="telefono" name="telephone" value={formData.telephone} onChange={handleChange} required />
+
+                    </div>
+                }
               </div>
-              {/* <div className="mb-3">
-                <label htmlFor="email" className="form-label">Correo electrónico</label>
-                <input type="email" className="form-control" id="email" name="email" value={formData.email} onChange={handleChange} required />
-              </div> */}
             </div>
           </div>
   
@@ -190,18 +212,25 @@ export const FormPatient = () => {
             <div className="card-body">
               <div className="mb-3">
                 <label htmlFor="contactoEmergenciaNombre" className="form-label">Nombre de contacto de emergencia</label>
-                <input type="text" className="form-control" id="contactoEmergenciaNombre" name="contactEmergencyName" value={formData.contactEmergencyName} onChange={handleChange} required />
+                <input disabled={patientState ? true : false} type="text" className="form-control" id="contactoEmergenciaNombre" name="contactEmergencyName" value={formData.contactEmergencyName} onChange={handleChange} required />
               </div>
               <div className="mb-3">
                 <label htmlFor="contactoEmergenciaRelacion" className="form-label">Relación con el paciente</label>
-                <input type="text" className="form-control" id="contactoEmergenciaRelacion" name="contactEmergencyRelation" value={formData.contactEmergencyRelation} onChange={handleChange} required />
+                <input disabled={patientState ? true : false} type="text" className="form-control" id="contactoEmergenciaRelacion" name="contactEmergencyRelation" value={formData.contactEmergencyRelation} onChange={handleChange} required />
               </div>
               <div className="mb-3">
                   <label htmlFor="contactoEmergenciaTelefono" className="form-label">Número de teléfono de emergencia</label>
-                <div className="d-flex">
-                  <p className="mt-3 me-2">{prefijo}</p> 
-                  <input type="number" className="form-control" id="contactoEmergenciaTelefono" name="contactEmergencyTelephone" value={formData.contactEmergencyTelephone} onChange={handleChange} required />
-                </div>
+                {
+                  patientState ? 
+                  <div className="d-flex">
+                    <input disabled type="text" className="form-control" id="contactoEmergenciaTelefono" name="contactEmergencyTelephone" value={formData.contactEmergencyTelephone} onChange={handleChange} required />
+                  </div>
+                  :
+                  <div className="d-flex">
+                    <p className="mt-3 me-2">{prefijo}</p> 
+                    <input type="number" className="form-control" id="contactoEmergenciaTelefono" name="contactEmergencyTelephone" value={formData.contactEmergencyTelephone} onChange={handleChange} required />
+                  </div>
+                }
                
               </div>
             </div>
@@ -228,14 +257,6 @@ export const FormPatient = () => {
                 <label htmlFor="descripcionProblema" className="form-label">Descripción breve del problema actual</label>
                 <textarea className="form-control" id="descripcionProblema" name="descriptionProblem" value={formData.descriptionProblem} onChange={handleChange} required></textarea>
               </div>
-              {/* <div className="mb-3">
-                <label htmlFor="duracionProblema" className="form-label">Duración del problema</label>
-                <input type="text" className="form-control" id="duracionProblema" name="duracionProblema" value={formData.duracionProblema} onChange={handleChange} required />
-              </div> */}
-              {/* <div className="mb-3">
-                <label htmlFor="factoresDesencadenantes" className="form-label">Factores desencadenantes</label>
-                <textarea className="form-control" id="factoresDesencadenantes" name="factoresDesencadenantes" value={formData.factoresDesencadenantes} onChange={handleChange} required></textarea>
-              </div> */}
             </div>
           </div>
   
