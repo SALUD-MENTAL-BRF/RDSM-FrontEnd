@@ -23,7 +23,7 @@ import { RequestListPage } from "../pages/RequestListPage";
 import { ViewRequestPatientPage } from "../pages/ViewRequestPatientPage";
 import { ManagementActivitiesPage } from "../pages/ManagementActivitiesPage";
 import { AddActivityPage } from "../pages/AddActivityPage";
-import { AssignedProfessionalsPage } from "../pages/AssignedProfessionals";
+import { AssignedProfessionalsPage } from "../pages/AssignedProfessionalsPage";
 
 // Definir constante para los roles
 const ROLE_SUPERADMIN = parseInt(import.meta.env.VITE_ROLE_ADMIN);

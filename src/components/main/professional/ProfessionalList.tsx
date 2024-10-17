@@ -2,12 +2,12 @@ import "../../../assets/style/professional/ProfessionalList.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { CustomFetch } from "../../../api/CustomFetch.tsx";
-import { Professional } from "../../../types/profileProfessional.dto.ts";
+import { ProfileProfessionalDto } from "../../../types/profileProfessional.dto.ts";
 import React from "react";
 
 export const ProfessionalList = () => {
     // const [allProfessionalState, setAllProfessionalState] = useState<Array<Professional>>([])
-    const [professionalState, setProfessionalState] = useState<Array<Professional>>([])
+    const [professionalState, setProfessionalState] = useState<Array<ProfileProfessionalDto>>([])
     const [barSearch, setBarSearch] = useState<string>("")
 
     useEffect(() => {

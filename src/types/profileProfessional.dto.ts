@@ -1,19 +1,18 @@
 
 import { User } from "./user.dto";
-import { patient } from "./patients.dto";
+import { patientDto } from "./patients.dto";
 
-export interface Professional {
+export interface ProfileProfessionalDto {
     id: number;
     description: string;
     availability: boolean;
     preference_communication: string;
     url_image: string;
     professionalId: number;
-    professional: Profile;
-   
+    professional: ProfessionalDto;
 }
 
-interface Profile {
+export interface ProfessionalDto {
     id: number;
     firstname: string;
     lastname: string;
@@ -22,6 +21,6 @@ interface Profile {
     tuition: number;
     birthdate: string;
     userId: number;
-    user: User;
-    patient?: Array<patient>;
+    user?: User;
+    patient?: Array<patientDto>;
 }

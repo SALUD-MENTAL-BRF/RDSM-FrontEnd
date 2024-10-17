@@ -161,7 +161,7 @@ export const ActivityList : React.FC= () => {
                                         {activity.description}
                                     </p>
                                     <h5 className='activityCategory'>Categoría</h5>
-                                    <p className='activityType'>{activity.categoryActivities.type}</p>
+                                    <p className='activityType'>{activity.categoryActivities?.type}</p>
 
                                 </div>
                                 </div>

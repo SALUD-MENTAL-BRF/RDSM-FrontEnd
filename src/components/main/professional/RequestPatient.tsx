@@ -5,11 +5,11 @@ import useAuth from "../../../hooks/useAuth"
 import '../../../assets/style/professional/RequestPatient.css'
 import { removeRequest, acceptRequest } from "./optionsRequest"
 import Swal from "sweetalert2"
-import { Professional } from "../../../types/profileProfessional.dto"
+import { ProfessionalDto } from "../../../types/profileProfessional.dto"
 
 export const RequestPatient = () => {
     const [requestPatient, setRequestPatient] = useState<Array<formPatientDto>>()
-    const [professionalState, setProfessionalState] = useState<Professional>()
+    const [professionalState, setProfessionalState] = useState<ProfessionalDto>()
     const {authState} = useAuth()
     const [reloadPage, setReloadPage] = useState<boolean>(false)
     const navigate = useNavigate()

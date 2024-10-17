@@ -3,7 +3,7 @@ import '../../../assets/style/profile/profileProfessional.css';
 import { useParams } from "react-router-dom";
 import {useEffect, useState } from "react";
 import { CustomFetch } from "../../../api/CustomFetch";
-import { Professional } from "../../../types/profileProfessional.dto";
+import { ProfileProfessionalDto } from "../../../types/profileProfessional.dto";
 import useAuth from "../../../hooks/useAuth";
 import { User } from "../../../types/user.dto";
 import { ArrowLeft, Book, Heart, Users } from 'lucide-react';
@@ -11,7 +11,7 @@ import Swal from "sweetalert2";
 
 export const ProfileProfessional = () => {
   const [reloadPage, setReloadPage] = useState(false)
-  const [professionalState, setProfessionalState] = useState<Professional | null>(null);
+  const [professionalState, setProfessionalState] = useState<ProfileProfessionalDto | null>(null);
   const [userState, setUserState] = useState<User | null>(null);
   const navigate = useNavigate();
   const { authState } = useAuth();
