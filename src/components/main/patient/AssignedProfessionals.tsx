@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { ProfessionalDto } from "../../../types/profileProfessional.dto";
 import useAuth from "../../../hooks/useAuth";
 import { CustomFetch } from "../../../api/CustomFetch";
+import '../../../assets/style/HomePatient/assignedProfessionals.css'
 
 export const AssignedProfessionals = () => {
     const [professionalState, setProfessionalState] = useState<Array<ProfessionalDto>>([]);
@@ -37,7 +38,7 @@ export const AssignedProfessionals = () => {
                             <h6 className='ms-1'>Atrás</h6>
                         </div>
                 </section>
-                <div className="info-patient col mt-2 ms-2 m-2 rounded-4 bg-light min-vh-100">
+                <div className="info-professional col mt-2 ms-2 m-2 rounded-4 bg-light min-vh-100">
 
                     <div className="container py-5">
                         <h1 className="mb-4">Lista de profesionales</h1>
@@ -56,9 +57,9 @@ export const AssignedProfessionals = () => {
                                     <h5 className="card-title mb-0">{professional.lastname} {professional.firstname}</h5>
                                 </div>
                                 <ul className="list-group list-group-flush text-center">
-                                    <a role="button" onClick={() => navigate(`/profile-professional/${professional.id}`)} className="info-patient-title list-group-item text-primary">Perfil</a>
-                                    <a role="button" onClick={() => navigate(`/activities`)} className="info-patient-title list-group-item text-success">Recomendaciones/Actividades</a>
-                                    <a role="button" className="info-patient-title list-group-item text-info">Reunión</a>
+                                    <a role="button" onClick={() => navigate(`/profile-professional/${professional.id}`)} className="info-professional-title list-group-item text-primary">Perfil</a>
+                                    <a role="button" onClick={() => navigate(`/activities`)} className="info-professional-title list-group-item text-success">Recomendaciones/Actividades</a>
+                                    <a role="button" className="info-professional-title list-group-item text-info">Reunión</a>
                                 </ul>
                                 </div>
                                 <div className="card-footer">
