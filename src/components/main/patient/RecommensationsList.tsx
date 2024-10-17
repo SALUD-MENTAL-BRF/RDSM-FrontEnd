@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { findRecommendations } from "../professional/optionsProfessional/Request/fetchRecommendations";
+import { recomendationDto } from "../../../types/recomendation.dto";
+import { useParams } from "react-router-dom";
 
 interface Props {
     setOpacity: React.Dispatch<React.SetStateAction<{
@@ -12,8 +15,22 @@ interface Props {
 };
 
 export const RecommendationsList: React.FC<Props> = ({opacity, setOpacity}) => {
+    const [recommendationState, setRecommendationState] = useState<Array<recomendationDto>>()
+    const {patientId,professionalId} = useParams()
+
+    useEffect(() => {
+        (
+            async () => {
+                const recommendation = await findRecommendations(patientId!, professionalId!)
+                setRecommendationState(recommendation)
+                console.log(recommendation);
+                
+            }
+        )()
+    },[])
+
     return(
-        <div className="recommendations col-11 mt-4 rounded-4 ms-2 m-2  ">
+        <div className="recommendations col-11 mt-4 rounded-4 ms-2 m-2 mb-5">
             <div className="row h-100">
                 <div className="d-flex w-100">
                     <div className="w-100">
@@ -31,7 +48,14 @@ export const RecommendationsList: React.FC<Props> = ({opacity, setOpacity}) => {
                         </div>
                     </div>
                 </div>
-                
+                <div className="row ">
+                        {recommendationState?.map((recommendation) => (
+                            <div key={recommendation.id} className="border border-3 mb-1 rounded-2">
+                                <h5>{recommendation.title}:</h5>
+                                <p className="ms-4">{recommendation.description}</p>
+                            </div>
+                        ))}
+                </div>
                 <div className=" d-flex align-items-end justify-content-end me-1 mb-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-card-list" viewBox="0 0 16 16">
                         <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
@@ -40,6 +64,7 @@ export const RecommendationsList: React.FC<Props> = ({opacity, setOpacity}) => {
                         
                     </svg>
                 </div>
+
             </div>
         </div>
     )

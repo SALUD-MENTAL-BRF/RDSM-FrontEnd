@@ -8,6 +8,7 @@ import '../../../assets/style/HomePatient/assignedProfessionals.css'
 
 export const AssignedProfessionals = () => {
     const [professionalState, setProfessionalState] = useState<Array<ProfessionalDto>>([]);
+    const [patientId, setPatientId] = useState<number>(0)
     const navigate = useNavigate();
     const {authState} = useAuth()
 
@@ -19,7 +20,7 @@ export const AssignedProfessionals = () => {
                 const patient = await CustomFetch(`${import.meta.env.VITE_API_URL}patient/user/${user.id}`, 'GET')                
                 const data = await CustomFetch(`${import.meta.env.VITE_API_URL}professional/patient/${patient.id}`, 'GET') 
                 setProfessionalState(data.professional)
-                
+                setPatientId(patient.id)
             }
         )()
     },[]);
@@ -58,7 +59,7 @@ export const AssignedProfessionals = () => {
                                 </div>
                                 <ul className="list-group list-group-flush text-center">
                                     <a role="button" onClick={() => navigate(`/profile-professional/${professional.id}`)} className="info-professional-title list-group-item text-primary">Perfil</a>
-                                    <a role="button" onClick={() => navigate(`/activities`)} className="info-professional-title list-group-item text-success">Recomendaciones/Actividades</a>
+                                    <a role="button" onClick={() => navigate(`/activities/${patientId}/${professional.id}`)} className="info-professional-title list-group-item text-success">Recomendaciones/Actividades</a>
                                     <a role="button" className="info-professional-title list-group-item text-info">Reunión</a>
                                 </ul>
                                 </div>

@@ -127,14 +127,6 @@ export const AppRouters: React.FC = () => {
             </ProtectedRoute>
           }
         />
-        <Route
-          path="/activities"
-          element={
-            <ProtectedRoute VITE_ROLE_PATIENT={VITE_ROLE_PATIENT}>
-              <ActivitiesPage />
-            </ProtectedRoute>
-          }
-        />
         <Route path="*" element={<Navigate to="/" replace />} />
         <Route
           path="/information-patient/:id"
@@ -185,10 +177,18 @@ export const AppRouters: React.FC = () => {
           }
         />
         <Route
-          path="/assigned-professionals"
+          path="/assigned-professionals/"
           element={
             <ProtectedRoute VITE_ROLE_PATIENT={VITE_ROLE_PATIENT}>
               <AssignedProfessionalsPage/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/activities/:patientId/:professionalId"
+          element={
+            <ProtectedRoute VITE_ROLE_PATIENT={VITE_ROLE_PATIENT}>
+              <ActivitiesPage />
             </ProtectedRoute>
           }
         />
