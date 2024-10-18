@@ -33,10 +33,10 @@ export const UserForm: React.FC<UserFormProps> = ({ onClose, user }) => {
       const data: any = {
         username,
         email,
+        password,
         roleId: parseInt(selectedRole),
         status
       };
-
       if (!user) {
         data.password = password;
       }
