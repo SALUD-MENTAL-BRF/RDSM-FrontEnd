@@ -2,6 +2,7 @@ import React,{ useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
 import { activityXPatientDto} from "../../../types/activity.dto";
 import { findActivitiesLinked } from "../professional/optionsProfessional/Request/fetchActivity";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     setOpacity: React.Dispatch<React.SetStateAction<{
@@ -19,6 +20,7 @@ export const ActivitiesAssigned: React.FC<Props> = ({setOpacity, opacity}) => {
     const [activitieState, setActivitiesState] = useState<Array<activityXPatientDto>>()
     const [saveActivities, setSaveActivities] = useState<Array<activityXPatientDto>>()
     const {patientId,professionalId} = useParams()
+    const navigate = useNavigate()
     
     const chanBoxActivities = () => {
         if(contanerActivity === '700px'){
@@ -81,7 +83,7 @@ export const ActivitiesAssigned: React.FC<Props> = ({setOpacity, opacity}) => {
                     {
                         activitieState?.map((data) => (
                             <div role="button" key={data.id} onClick={() => {}} className='d-flex justify-content-center mt-1 mb-1 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3'>
-                                <div className ={`card-activityList`}>
+                                <div onClick={() => navigate(`/play-activity/${data.activityId}`)} className ={`card-activityList`}>
                                     {/* <div className="text-end mt-1 me-2">
                                         <svg onClick={() => unlinkActivity(data.id)} role="button" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-x-circle" viewBox="0 0 16 16">
                                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>

@@ -96,7 +96,7 @@ export const ProfileProfessional = () => {
         <div className="col-md-12 mx-auto">
           <div className="card shadow-sm mt-5">
             <div className="headerProfileProfessional card-header text-white d-flex justify-content-between align-items-center">
-              <button className="btn btn-link text-white" onClick={() => navigate("/professionals")}>
+              <button className="btn btn-link text-white" onClick={() => navigate(-1)}>
                 <ArrowLeft size={24} />
                 Atrás
               </button>

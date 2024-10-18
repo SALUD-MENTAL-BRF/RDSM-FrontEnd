@@ -24,6 +24,7 @@ import { ViewRequestPatientPage } from "../pages/ViewRequestPatientPage";
 import { ManagementActivitiesPage } from "../pages/ManagementActivitiesPage";
 import { AddActivityPage } from "../pages/AddActivityPage";
 import { AssignedProfessionalsPage } from "../pages/AssignedProfessionalsPage";
+import { PlayActivityPage } from "../pages/PlayActivityPage";
 
 // Definir constante para los roles
 const ROLE_SUPERADMIN = parseInt(import.meta.env.VITE_ROLE_ADMIN);
@@ -191,6 +192,10 @@ export const AppRouters: React.FC = () => {
               <ActivitiesPage />
             </ProtectedRoute>
           }
+        />
+        <Route
+          path="/play-activity/:activityId"
+          element={<PlayActivityPage/>}
         />
         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
