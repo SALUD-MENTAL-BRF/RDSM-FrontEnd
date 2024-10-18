@@ -1,3 +1,8 @@
 .emailInput{
   text-transform: none;
 }
+
+.inputPassword{
+  display: flex;
+  align-items: center;
+}

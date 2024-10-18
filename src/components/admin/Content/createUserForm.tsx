@@ -17,6 +17,7 @@ export const UserForm: React.FC<UserFormProps> = ({ onClose, user }) => {
   const [roles, setRoles] = useState<RolesList[]>([]);
   const [selectedRole, setSelectedRole] = useState(user?.roleId.toString() || '');
   const [status, setStatus] = useState(user?.status || 'active');
+  const [showPassword, setShowPassword] = useState(false)
 
   const { rolesList, error, loading } = useFetchRoles();
 
@@ -47,8 +48,6 @@ export const UserForm: React.FC<UserFormProps> = ({ onClose, user }) => {
 
       const response = await CustomFetch(url, method, data);
 
-      console.log(response);
-
       if (response.success) {
         Swal.fire(
           user ? 'Usuario actualizado exitosamente!' : 'Usuario creado exitosamente!',
@@ -63,6 +62,10 @@ export const UserForm: React.FC<UserFormProps> = ({ onClose, user }) => {
       Swal.fire('Error!', 'No se pudo procesar el usuario.', 'error');
     }
   };
+
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  }
 
   if (loading) return <p>Cargando...</p>;
   if (error) return <p>Error cargando roles: {error.message}</p>;
@@ -94,14 +97,34 @@ export const UserForm: React.FC<UserFormProps> = ({ onClose, user }) => {
       {!user && (
         <div className="mb-3">
           <label htmlFor="password" className="form-label">Contraseña</label>
-          <input
-            type="password"
-            className="form-control"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+            <div className={styles.inputPassword}>
+              {
+                !showPassword ? (
+                  <input
+                  type="password"
+                  className="form-control"
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+                ):
+                <input
+                type="text"
+                className="form-control"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+              }
+              {
+                !showPassword ? (
+                  <i className="fa-solid fa-eye m-2" onClick={handleShowPassword} role='button'></i>
+                ):
+                <i className="fa-solid fa-eye-slash m-2" onClick={handleShowPassword} role='button'></i>
+              }
+            </div>
         </div>
       )}
       <div className="mb-3">
