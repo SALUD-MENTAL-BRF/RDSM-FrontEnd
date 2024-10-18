@@ -19,6 +19,8 @@ export const ActivityList : React.FC= () => {
     const [categorieState, setCategorieState] = useState<Array<CategoryActivitiesDto>>([]);
     const [saveActivities, setSaveActivities] = useState<Array<activityDto>>([]);
     const [disorderIdState, setDisorderId] = useState<string>("");
+    const [categoryId, setCategotyId] = useState<string>("");
+    const [isChecked, setIsChecked] = useState(false);
 
     useEffect(() => {
         (
@@ -34,12 +36,14 @@ export const ActivityList : React.FC= () => {
     },[]);
 
 
-    const selectActivity = (id: number) => {        
-        if (activitySelected.find(value => value == id)){
-            setActivitySelected(activitySelected.filter(value => value !== id ));
-        } else {
-            setActivitySelected(prevstate => [...prevstate, id]);
-        };
+    const selectActivity = (id: number, active: boolean) => {    
+        if(active){
+            if (activitySelected.find(value => value == id)){
+                setActivitySelected(activitySelected.filter(value => value !== id ));
+            } else {
+                setActivitySelected(prevstate => [...prevstate, id]);
+            };
+        }    
     };
 
     const lindedActivity = async () => {
@@ -66,7 +70,7 @@ export const ActivityList : React.FC= () => {
 
     };
 
-    const handleChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const handleChange = async (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
         const {name, value} = e.target;
 
         if(name == "disorderId"){
@@ -74,22 +78,49 @@ export const ActivityList : React.FC= () => {
                 setCategorieState(await findCategoryByDisorder(value));
                 setActivitieState(saveActivities?.filter(activity => activity.disorderId == Number(value)));
                 setDisorderId(value);
+                setCategotyId("")
             }else {
                setCategorieState([]);
                setActivitieState(saveActivities);
                setDisorderId("");
+               setCategotyId("")
             };
         };
 
         if(name == "categoryId"){
             if (value !== "0") {
-              setActivitieState(saveActivities.filter(activity => activity.categoryActivitiesId == Number(value)));  
-            } else {                
+              setActivitieState(saveActivities.filter(activity => activity.categoryActivitiesId == Number(value)));
+              setCategotyId(value)
+            } else {
+                setCategotyId("")             
                 if(disorderIdState.length > 0){
                     setActivitieState(saveActivities?.filter(activity => activity.disorderId == Number(disorderIdState)));
                 }
             };
         };
+
+        if(name == "active"){
+            if(!isChecked){
+                setActivitieState(activitieState?.filter(activity => activity.active == true))
+                setIsChecked(true)
+            } else  {
+                if(categoryId.length > 0){
+                    setActivitieState(saveActivities.filter(activity => activity.categoryActivitiesId == Number(categoryId)));
+                } else {
+                    if(disorderIdState.length > 0){
+                        setActivitieState(saveActivities?.filter(activity => activity.disorderId == Number(disorderIdState)));
+                        
+                        
+                        
+                    } else {
+                        setActivitieState(saveActivities)
+                    }
+                }
+
+                setIsChecked(false)
+            }
+            
+        }
     };
 
     return(
@@ -100,6 +131,7 @@ export const ActivityList : React.FC= () => {
                     <tr>
                         <th>Trastorno</th>
                         <th>Categoría</th>
+                        <th>Solo disponibles</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -124,6 +156,9 @@ export const ActivityList : React.FC= () => {
                             }
                         </select>
                     </td>
+                    <td valign="top" width="150" align="center">
+                            <input onChange={handleChange} className='mt-3 w-25' type="checkbox" name="active" id="" />
+                    </td>
                 </tr>
 
                 </tbody>
@@ -138,17 +173,23 @@ export const ActivityList : React.FC= () => {
                             if(activitiesLinkedState.find(value => value.id == activity.id)){
                                 return 
                             };
-                            selectActivity(activity.id)
+                            selectActivity(activity.id, activity.active)
                             
                             }} className='d-flex justify-content-center mt-1 mb-1 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3'>
                             <div className ={`card-activityList
-                                ${activitiesLinkedState.find(value => value.id == activity.id) ? 'bg-secondary' : ''}
+                                ${activitiesLinkedState.find(value => value.id == activity.id) || activity.active == false ? 
+                                    'bg-secondary' : ''}
                                 ${activitySelected.find(value => value == activity.id) ? 'border border-2 border-dark':''}`
                                 
                                 }>
                                 {
                                     activitiesLinkedState.find(value => value.id == activity.id) ?
                                     <h6 className='text-white text-center mt-1'>Actividad añadida</h6>
+                                    : ""
+                                }
+                                {
+                                    activity.active == false ? 
+                                    <h6 className='text-white text-center mt-1'>No disponible</h6>
                                     : ""
                                 }
                                 <div className="card-content">

@@ -12,6 +12,7 @@ export interface activityDto {
     id : number;
     title: string;
     description: string;
+    active: boolean;
     categoryActivitiesId: number;
     disorderId: number;
     categoryActivities?: CategoryActivitiesDto;

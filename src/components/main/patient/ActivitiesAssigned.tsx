@@ -102,7 +102,7 @@ export const ActivitiesAssigned: React.FC<Props> = ({setOpacity, opacity}) => {
 
                                         </div>
                                     </div>
-                                    <button></button>
+                                    
                                 </div>
                             </div>
                         ))

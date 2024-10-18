@@ -23,8 +23,6 @@ export const RecommendationsList: React.FC<Props> = ({opacity, setOpacity}) => {
             async () => {
                 const recommendation = await findRecommendations(patientId!, professionalId!)
                 setRecommendationState(recommendation)
-                console.log(recommendation);
-                
             }
         )()
     },[])
