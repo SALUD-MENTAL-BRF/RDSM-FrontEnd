@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-
+import React, { useState, useEffect, ChangeEvent } from 'react';
+import { CustomFetch } from '../../../../api/CustomFetch';
+import { useParams } from 'react-router-dom';
 
 type Scenario = {
   id: number;
@@ -32,10 +33,13 @@ export const SocialHability= () => {
   const [currentScenario, setCurrentScenario] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
+  const [selectStage, setSelectStage] = useState<string>("")
+  // const {patientId, activityId} = useParams()
 
-  const handleOptionSelect = (index: number) => {
-    setSelectedOption(index);
-    setShowFeedback(true);
+  const handleStageSelect = (e: ChangeEvent<HTMLSelectElement>) => {
+    setSelectStage(e.target.value)
+    console.log(e.target.value);
+    
   };
 
   const nextScenario = () => {
@@ -50,14 +54,38 @@ export const SocialHability= () => {
 
   const scenario = scenarios[currentScenario];
 
+  const initGame = () => {
+
+    
+  }
+
+  useEffect(() => {
+    ( 
+      async () => {
+        // const patient = await CustomFetch(`${import.meta.env.VITE_API_URL}patient/${patientId}`, 'GET');
+        // console.log(patient);
+        
+      }
+    )()
+  },[])
+
   return (
     <div className="container mt-5">
       <h1 className="text-center mb-4">Habilidades Sociales</h1>
       <div className="card">
-        <div className='text-center'>
-          <button className='btn btn-primary'>Iniciar</button>
-        </div>
-        <div className="card-body">
+          <div className='row'>
+              <div className='col ms-2'>
+                <select onChange={handleStageSelect} name="" id="">
+                  <option value="">Selecciona un escenario...</option>
+                  <option value="Escuela">Escuela</option>
+                  <option value="Trabajo">Trabajo</option>
+                </select>
+              </div>
+              <div className='col text-end'>
+                <button className='btn btn-primary me-2 mt-2'>Iniciar</button>
+              </div>
+          </div>
+        {/* <div className="card-body">
           <h5 className="card-title">Escenario {scenario.id}</h5>
           <p className="card-text">{scenario.description}</p>
           <div className="list-group mt-3">
@@ -82,7 +110,7 @@ export const SocialHability= () => {
               Siguiente Escenario
             </button>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

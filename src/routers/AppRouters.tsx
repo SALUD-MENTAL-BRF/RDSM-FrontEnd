@@ -194,7 +194,7 @@ export const AppRouters: React.FC = () => {
           }
         />
         <Route
-          path="/play-activity/:activityId"
+          path="/play-activity/:patientId/:activityId"
           element={<PlayActivityPage/>}
         />
         {/* <Route path="*" element={<Navigate to="/" replace />} /> */}

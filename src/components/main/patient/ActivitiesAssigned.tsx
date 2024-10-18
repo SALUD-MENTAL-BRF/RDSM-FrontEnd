@@ -83,7 +83,7 @@ export const ActivitiesAssigned: React.FC<Props> = ({setOpacity, opacity}) => {
                     {
                         activitieState?.map((data) => (
                             <div role="button" key={data.id} onClick={() => {}} className='d-flex justify-content-center mt-1 mb-1 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3'>
-                                <div onClick={() => navigate(`/play-activity/${data.activityId}`)} className ={`card-activityList`}>
+                                <div onClick={() => navigate(`/play-activity/${patientId}/${data.activityId}`)} className ={`card-activityList`}>
                                     {/* <div className="text-end mt-1 me-2">
                                         <svg onClick={() => unlinkActivity(data.id)} role="button" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-x-circle" viewBox="0 0 16 16">
                                             <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
