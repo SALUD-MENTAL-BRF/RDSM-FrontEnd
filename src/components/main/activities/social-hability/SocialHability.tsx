@@ -1,6 +1,9 @@
 import React, { useState, useEffect, ChangeEvent } from 'react';
 import { CustomFetch } from '../../../../api/CustomFetch';
 import { useParams } from 'react-router-dom';
+import '../../../../assets/style/activities/HabilitySocial.css'
+import { patientDto } from '../../../../types/patients.dto';
+import { fetchSocialHability } from './fetchSocialHability';
 
 type Scenario = {
   id: number;
@@ -34,12 +37,11 @@ export const SocialHability= () => {
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
   const [selectStage, setSelectStage] = useState<string>("")
-  // const {patientId, activityId} = useParams()
+  const [genrePatient, setGenrePatient] = useState<string>()
+  const {patientId, activityId} = useParams()
 
   const handleStageSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectStage(e.target.value)
-    console.log(e.target.value);
-    
   };
 
   const nextScenario = () => {
@@ -54,16 +56,20 @@ export const SocialHability= () => {
 
   const scenario = scenarios[currentScenario];
 
-  const initGame = () => {
-
+  const initGame = async () => {
+    if (selectStage.length < 1){
+      return alert("No se selecciono ningun escenario.")
+    }
+    const response = await fetchSocialHability(genrePatient!, selectStage)
+    console.log(response);
     
   }
 
   useEffect(() => {
     ( 
       async () => {
-        // const patient = await CustomFetch(`${import.meta.env.VITE_API_URL}patient/${patientId}`, 'GET');
-        // console.log(patient);
+        const patient = await CustomFetch(`${import.meta.env.VITE_API_URL}patient/${patientId}`, 'GET');
+       setGenrePatient(patient.genre)
         
       }
     )()
@@ -72,17 +78,17 @@ export const SocialHability= () => {
   return (
     <div className="container mt-5">
       <h1 className="text-center mb-4">Habilidades Sociales</h1>
-      <div className="card">
-          <div className='row'>
-              <div className='col ms-2'>
+      <div className="card mb-5 contaner-stage">
+          <div className='row container-initActivity d-flex justify-content-center w-100 h-100'>
+              <div className='select-stage ms-2'>
                 <select onChange={handleStageSelect} name="" id="">
                   <option value="">Selecciona un escenario...</option>
-                  <option value="Escuela">Escuela</option>
-                  <option value="Trabajo">Trabajo</option>
+                  <option value="la escuela">Escuela</option>
+                  <option value="el trabajo">Trabajo</option>
                 </select>
               </div>
-              <div className='col text-end'>
-                <button className='btn btn-primary me-2 mt-2'>Iniciar</button>
+              <div className='text-center'>
+                <button onClick={initGame} className='btn btn-primary me-2 mt-2'>Iniciar</button>
               </div>
           </div>
         {/* <div className="card-body">
