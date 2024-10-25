@@ -1,8 +1,7 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import { CustomFetch } from '../../../../api/CustomFetch';
 import { useParams } from 'react-router-dom';
 import '../../../../assets/style/activities/HabilitySocial.css'
-import { patientDto } from '../../../../types/patients.dto';
 import { fetchSocialHability } from './fetchSocialHability';
 import { socialHabilityResponseDto } from '../../../../types/activity/socialHability.dto';
 
@@ -43,6 +42,9 @@ export const SocialHability= () => {
     correcta: "",
     respuestas: []
   })
+  const [responseSelected, setResponseSelected] = useState<number>(0)
+  const [confirmResponse, setConfirmResponse] = useState<boolean>(false)
+
 
   const handleStageSelect = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectStage(e.target.value)
@@ -54,23 +56,35 @@ export const SocialHability= () => {
       return alert("No se selecciono ningun escenario.")
     }
     setActivityState(true)
+    setResponseAI({correcta:"",escenario:"",respuestas:[]})
+    setConfirmResponse(false)
+    setResponseSelected(0)
+
     const response = await fetchSocialHability(genrePatient!, selectStage)
     if (response.escenario){
       setResponseAI(response)
     }
-    
+  }
+
+
+  const selectResponse = (index: number) => {
+    setResponseSelected(index + 1)  
+    console.log(responseAI.correcta);
+      
   }
 
   const stopGame = async () => {
     setActivityState(false)
     setResponseAI({correcta:"",escenario:"",respuestas:[]})
+    setConfirmResponse(false)
   }
+  
 
   useEffect(() => {
     ( 
       async () => {
         const patient = await CustomFetch(`${import.meta.env.VITE_API_URL}patient/${patientId}`, 'GET');
-       setGenrePatient(patient.genre)
+        setGenrePatient(patient.genre)
         
       }
     )()
@@ -117,14 +131,20 @@ export const SocialHability= () => {
                 {responseAI.respuestas.map((option, index) => (
                   <button
                     key={index}
-                    className={`list-group-item list-group-item-action mt-3 mb-3`}
+                    className={`list-group-item list-group-item-action mt-3 mb-3 ${responseSelected === index + 1 ? 'active' : ''}
+                      ${!confirmResponse  ? "" : index + 1  == Number(responseAI.correcta) ? "bg-success"  :"bg-danger" }
+
+                    `}
                     // onClick={() => handleOptionSelect(index)}
-                    // ${selectedOption === index ? 'active' : ''
+                    
+                    onClick={() => selectResponse(index)}
                   >
                     {option}
                   </button>
                 ))}
               </div>
+               {confirmResponse ? "" :<button onClick={() => setConfirmResponse(true)} className='btn btn-primary'>Confimar</button>}
+               {confirmResponse ? <button className='btn btn-info ms-1' onClick={initGame}>Siguiente</button> : ""}
           </div>
         }
 
