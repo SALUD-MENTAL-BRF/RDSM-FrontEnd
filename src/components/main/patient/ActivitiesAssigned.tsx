@@ -2,7 +2,6 @@ import React,{ useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
 import { activityXPatientDto} from "../../../types/activity.dto";
 import { findActivitiesLinked } from "../professional/optionsProfessional/Request/fetchActivity";
-import { useNavigate } from "react-router-dom";
 import { CardActivity } from "../activities/CardActivity";
 
 interface Props {
@@ -21,7 +20,6 @@ export const ActivitiesAssigned: React.FC<Props> = ({setOpacity, opacity}) => {
     const [activitieState, setActivitiesState] = useState<Array<activityXPatientDto>>()
     const [saveActivities, setSaveActivities] = useState<Array<activityXPatientDto>>()
     const {patientId,professionalId} = useParams()
-    const navigate = useNavigate()
     
     const chanBoxActivities = () => {
         if(contanerActivity === '700px'){

@@ -7,7 +7,7 @@ interface Props {
     professional: boolean;
     unlinkActivity?: (id: number) => void;
     patientId: string;
-    professionalId?: string;
+    professionalId?: string | number;
 };
 
 export const    CardActivity: React.FC<Props> =  ({activitieState, professional, unlinkActivity, patientId, professionalId}) => {

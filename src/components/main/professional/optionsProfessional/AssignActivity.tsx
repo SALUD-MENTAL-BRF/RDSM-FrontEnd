@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { activityXPatientDto } from "../../../../types/activity.dto";
@@ -7,7 +6,6 @@ import Swal from "sweetalert2";
 import { CardActivity } from "../../activities/CardActivity";
 
 export const AssignActivity: React.FC<{professionalId: number}> = ({professionalId}) => {
-    const navigate = useNavigate();
     const {patientId} = useParams();
     const [activitiesLinkedState, setActivitiesLinkedState] = useState<Array<activityXPatientDto>>([]);
     const [reloadPage, setReloadPage] = useState<boolean>(false)
@@ -48,7 +46,7 @@ export const AssignActivity: React.FC<{professionalId: number}> = ({professional
     return(
         <div className="activitiesAssign-container mt-5 rounded-5">
             <h3 className="text-center">Actividades</h3>
-            <CardActivity patientId={patientId!} professionalId={professionalId.toString()} professional={true} activitieState={activitiesLinkedState} unlinkActivity={unlinkActivity}/>
+            <CardActivity patientId={patientId!} professionalId={professionalId} professional={true} activitieState={activitiesLinkedState} unlinkActivity={unlinkActivity}/>
         </div>
     );
 };
