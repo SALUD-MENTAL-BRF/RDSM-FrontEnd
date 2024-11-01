@@ -60,6 +60,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     return <Navigate to="/home" />;
   }
 
+  if (user.roleId !== roleSuperAdmin && user.roleId !== roleHospital) {
+    return <Navigate to="/home" />;
+  }
+
   return children;
 };
 
