@@ -148,7 +148,7 @@ export const CreateRecommendation: React.FC<{professionalId:number}> = ({profess
                                 
                                 <div className="mt-5">
                                     <label className="form-label" htmlFor="description">Descripción</label>
-                                    <textarea onChange={handleChange} value={formState.description} className="form-control" name="description" id="description"></textarea>
+                                    <textarea style={{textTransform: "none"}} onChange={handleChange} value={formState.description} className="form-control" name="description" id="description"></textarea>
                                 </div>
                                 <button onClick={createRecommendation} className="btn btn-primary">{editState ? "Guardar" : "Crear"}</button>
                                 {editState ? <button onClick={cancelEdit} className="btn btn-danger ms-1">Cancelar</button> : ""}

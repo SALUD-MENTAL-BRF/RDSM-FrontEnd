@@ -199,10 +199,10 @@ export const AppRouters: React.FC = () => {
           element={<PlayActivityPage/>}
         />
         <Route
-          path="/setting-activiti/:patientId/:activityId"
+          path="/setting-activity/:patientId/:activityId"
           element={
             <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
-              <ActivitiesPage />
+              <SettinActivitiesPage />
             </ProtectedRoute>
           }
         />
