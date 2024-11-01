@@ -11,9 +11,7 @@ export const SocialHabilitySetting = () => {
 
     const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const {name, value} = event.target
-        setSelectState(prevstate => ({...prevstate, [name]: value}));
-        console.log(selectState);
-        
+        setSelectState(prevstate => ({...prevstate, [name]: value}));         
     };
 
     return (
@@ -44,7 +42,7 @@ export const SocialHabilitySetting = () => {
                     <option value="Difícil">Difícil</option>
                 </select>
             </div>
-            <button className="btn btn-primary">Guardar</button>
+            <button className="btn btn-primary mt-4">Guardar</button>
         </div>
     );
 };
