@@ -5,33 +5,6 @@ import '../../../../assets/style/activities/HabilitySocial.css'
 import { fetchSocialHability } from './fetchSocialHability';
 import { socialHabilityResponseDto } from '../../../../types/activity/socialHability.dto';
 
-type Scenario = {
-  id: number;
-  description: string;
-  options: string[];
-  feedback: string[];
-};
-
-const scenarios: Scenario[] = [
-  {
-    id: 1,
-    description: "Estás en una fiesta y ves a alguien que te interesa. ¿Cómo te acercas?",
-    options: [
-      "Te acercas directamente y te presentas.",
-      "Esperas a que la persona esté sola y luego te acercas.",
-      "Le pides a un amigo que te presente.",
-      "No te acercas y esperas que la otra persona dé el primer paso."
-    ],
-    feedback: [
-      "¡Bien! Mostraste confianza y iniciativa.",
-      "Es una opción segura, pero podrías perder la oportunidad si esperas demasiado.",
-      "Buena estrategia para romper el hielo de manera más cómoda.",
-      "Ser proactivo suele dar mejores resultados en situaciones sociales."
-    ]
-  },
-
-];
-
 export const SocialHability= () => {
   const [selectStage, setSelectStage] = useState<string>("")
   const [genrePatient, setGenrePatient] = useState<string>()
@@ -160,8 +133,6 @@ export const SocialHability= () => {
                
           </div>
         }
-
-
       </div>
     </div>
   );

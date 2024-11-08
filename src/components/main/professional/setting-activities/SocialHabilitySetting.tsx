@@ -1,36 +1,101 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import'../../../../assets/style/activities/SocialHabilitySetting.css';
+import { useParams } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { socialHabilitySettingDto } from '../../../../types/activity/socialHability.dto';
 
 export const SocialHabilitySetting = () => {
-    const [selectState, setSelectState] = useState({
+    const [selectState, setSelectState] = useState<socialHabilitySettingDto>({
         age: "",
         genre: "",
         complexity: "",
         personality: ""
     });
     const [ages, _setAges] = useState<Array<number>>(Array.from({ length: 80 }, (_, i) => i + 1));
+    const {professionalId, patientId} = useParams()
+    const [settingId, setSettingId] = useState<number>()
 
     const handleSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const {name, value} = event.target
         setSelectState(prevstate => ({...prevstate, [name]: value})); 
-        console.log(selectState);
-                
     };
 
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        let url:string;
+        let method: string;
+
+        if(settingId){
+            url=`${import.meta.env.VITE_API_URL}social-hability/setting/${settingId}`;
+            method='PUT';
+        } else {
+            url=`${import.meta.env.VITE_API_URL}social-hability/setting/${professionalId}/${patientId}`;
+            method='POST';
+        };
+
+        const response = await fetch(url,{
+            method: method,
+            body: JSON.stringify(selectState),
+            headers: {
+                'content-type':'application/json'
+            }
+        });
+
+        const data = await response.json();
+
+        if(data.statusCode == 400){
+            return Swal.fire({
+                title: "Error",
+                text: data.message[0],
+                icon: "error",
+                confirmButtonColor: "#3085d6",
+                confirmButtonText: "ok",
+              })
+        };
+
+        return Swal.fire({
+              title: "Guardado",
+              text: "Configuración guardada.",
+              icon: "success",
+              confirmButtonColor: "#3085d6",
+              confirmButtonText: "ok",
+        })
+        
+    };
+
+    useEffect(() => {
+        (
+            async () => {
+                const response = await fetch(`${import.meta.env.VITE_API_URL}social-hability/setting/${professionalId}/${patientId}`);
+                const setting: socialHabilitySettingDto = await response.json();
+                if(setting){
+                    setSettingId(setting.id)
+                    setSelectState({
+                        age: setting.age,
+                        complexity: setting.complexity,
+                        genre: setting.genre,
+                        personality: setting.personality
+                    })
+                };
+            }
+        )();
+    },[]);
+
     return (
-        <div className="text-center">
+        <form onSubmit={handleSubmit} className="text-center">
             <div className="row d-flex justify-content-center">
                 <label className='text-center' htmlFor="age">Edad</label>
                 <select onChange={handleSelect} value={selectState.age} className="form-select w-25 mt-1 text-center select-settingSocialHability" name="age" id="age">
                     <option value="">Selecciona una edad...</option>
                     {
-                        ages.map((age) => (
+                        ages.filter(age => age > 4).map((age) => (
                             <option key={age} value={age}>{age}</option>
                         ))
                     }
                 </select>
                 <label htmlFor="genre">Género</label>
-                <select onChange={handleSelect} value={selectState.age} className="form-select w-25 text-center select-settingSocialHability" name="genre" id="genre">
+                <select onChange={handleSelect} value={selectState.genre} className="form-select w-25 text-center select-settingSocialHability" name="genre" id="genre">
                 <option value="">Selecciona un género...</option>
                     <option value="Masculino">
                         Masculino
@@ -53,13 +118,13 @@ export const SocialHabilitySetting = () => {
                     <option value="Extrovertido">Extrovertido</option>
                 </select>
             </div>
-            <button className="btn btn-primary mt-4">Guardar</button>
+            <button type='submit' className="btn btn-primary mt-4">Guardar</button>
             <section className='ms-5'>
                 <h4 className='text-start mt-5 title-settingSocialHability'>Descripción:</h4>
                 <p className='text-start ms-5 text-settingSocialHability'>Estas configuraciones afectaran la respuesta que le dara la Inteligencia Artificial al paciente, por lo tanto,
                     asegurece de ajustarlo según el paciente lo necesite.
                 </p>
             </section>
-        </div>
+        </form>
     );
 };

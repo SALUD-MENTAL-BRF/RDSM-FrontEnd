@@ -4,3 +4,11 @@ export interface socialHabilityResponseDto {
     correcta: string;
     explicacion:string
 }
+
+export interface socialHabilitySettingDto {
+    id?: number;
+    age: string;
+    genre: string;
+    complexity: string;
+    personality: string;
+};
