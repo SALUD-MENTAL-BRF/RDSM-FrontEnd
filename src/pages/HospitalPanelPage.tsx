@@ -5,7 +5,7 @@ import { Aside } from "../components/panelHospital/Aside";
 import PatientManagement from "../components/panelHospital/PatientManagement";
 import { TherapyManagement } from "../components/panelHospital/TherapyManagement";
 import { MedicationManagement } from "../components/panelHospital/MedicationManagement";
-import { StaffManagement } from "../components/panelHospital/StaffManagement";
+import { StaffManagement } from "../components/panelHospital/staffManagment/StaffManagement";
 import { CrisisManagement } from "../components/panelHospital/CrisisManagement";
 
 export const HospitalPanelPage: FC = () => {
