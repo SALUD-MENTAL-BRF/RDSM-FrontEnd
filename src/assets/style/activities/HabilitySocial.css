@@ -3,9 +3,19 @@
 }
 
 .container-initActivity {
-    margin-top: 150px;
+    margin-top: 60px;
+    margin-bottom: 10px;
 }
 
-.select-stage{
-    width: 400px;
+
+.container-select-socialHability {
+    width: 500px;
 }
+
+.select-socialHability{
+    text-transform: none;
+}
+
+/* .container-selects-socialHability{
+    margin-left: 80px;
+} */

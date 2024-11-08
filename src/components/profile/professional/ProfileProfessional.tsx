@@ -28,7 +28,8 @@ export const ProfileProfessional = () => {
                 setConsult(true)
               }
               setProfessionalState(professional);
-              setUserState(user);              
+              setUserState(user);
+                       
           }
       })();
   }, [id, authState.token, reloadPage]);
@@ -153,12 +154,10 @@ export const ProfileProfessional = () => {
               <div className="row text-center">
                 <div className="col-4">
                   <Book size={24} className="iconProfileProfessional mb-2" />
-                  {/* <h5>{profile.publications}</h5> */}
                   <p className="text-muted">Publicaciones</p>
                 </div>
                 <div className="col-4">
                   <Users size={24} className="iconProfileProfessional mb-2" />
-                  {/* <h5>{profile.followers}</h5> */}
                   <p className="text-muted">Seguidores</p>
                 </div>
                 <div className="col-4 mt-3">
@@ -178,7 +177,10 @@ export const ProfileProfessional = () => {
                               Consultar
                           </button>
                         :
-                        ""
+                        <button disabled className="btn btn-primary">
+                          <Heart size={24} className="" />
+                          Consultar
+                        </button> 
                     }
                 </div>
               </div>

@@ -1,7 +1,14 @@
-export const fetchSocialHability = async (genre: string, stage: string) => {
+import { socialHabilitySettingDto } from "../../../../types/activity/socialHability.dto";
+
+interface socialHabilitySetting extends socialHabilitySettingDto {
+    genre: string;
+    stage: string;
+}
+
+export const fetchSocialHability = async (setting: socialHabilitySetting) => {
     const data = await fetch(`${import.meta.env.VITE_API_URL_IA}hability-social`, {
         method: 'POST',
-        body: JSON.stringify({ genre: genre, stage: stage }),
+        body: JSON.stringify(setting),
         headers: {
             'Content-Type': 'application/json'
         }

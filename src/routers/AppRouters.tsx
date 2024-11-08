@@ -195,7 +195,7 @@ export const AppRouters: React.FC = () => {
           }
         />
         <Route
-          path="/play-activity/:patientId/:activityId"
+          path="/play-activity/:patientId/:professionalId/:activityId"
           element={<PlayActivityPage/>}
         />
         <Route

@@ -10,7 +10,7 @@ interface Props {
     professionalId?: string | number;
 };
 
-export const    CardActivity: React.FC<Props> =  ({activitieState, professional, unlinkActivity, patientId, professionalId}) => {
+export const CardActivity: React.FC<Props> =  ({activitieState, professional, unlinkActivity, patientId, professionalId}) => {
 
     const navigate = useNavigate();
 
@@ -21,7 +21,7 @@ export const    CardActivity: React.FC<Props> =  ({activitieState, professional,
                         activitieState?.map((data) => (
                             <div role="button" key={data.id} onClick={() => {}} className='d-flex justify-content-center mt-1 mb-1 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3'>
                                 <div onClick={() => 
-                                       professional ? "" : navigate(`/play-activity/${patientId}/${data.activityId}`)
+                                       professional ? "" : navigate(`/play-activity/${patientId}/${professionalId}/${data.activityId}`)
                                     } 
                                     className ={`card-activityList`}>
 

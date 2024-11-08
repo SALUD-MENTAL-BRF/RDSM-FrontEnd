@@ -1,4 +1,4 @@
-import React,{ useEffect, useState } from "react"
+import React,{ useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { activityXPatientDto} from "../../../types/activity.dto";
 import { findActivitiesLinked } from "../professional/optionsProfessional/Request/fetchActivity";
@@ -78,7 +78,7 @@ export const ActivitiesAssigned: React.FC<Props> = ({setOpacity, opacity}) => {
                 </div>
 
             </div>
-                <CardActivity professional={false} patientId={patientId!}  activitieState={activitieState}/>
+                <CardActivity professionalId={professionalId} professional={false} patientId={patientId!}  activitieState={activitieState}/>
         </div>
     </div>
     )
