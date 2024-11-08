@@ -1,7 +1,7 @@
 import { Edit, PlusCircle, Trash2 } from "lucide-react";
 import { FC, useState } from "react";
-import styles from '../../assets/style/panelHospital/StaffManagement.module.css';
-
+import styles from '../../../assets/style/panelHospital/StaffManagement.module.css';
+import { ModalStaffManagement } from "./modalStaffManagment";
 export const StaffManagement: FC = () => {
 
   const [showModal, setShowModal] = useState(false);
@@ -59,18 +59,7 @@ export const StaffManagement: FC = () => {
         </div>
       </div>
 
-      {showModal && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modalContent}>
-            <h5>Agregar personal</h5>
-
-              
-
-            <button type="submit" className="btn btn-primary mt-4 me-2">Guardar </button>
-            <button type="button" className="btn btn-secondary mt-4" onClick={toggleModal}>Cancelar</button>
-          </div>
-        </div>
-      )}
+      {showModal && ( <ModalStaffManagement toggleModal={toggleModal} /> )}
     </div>
   );
 };
