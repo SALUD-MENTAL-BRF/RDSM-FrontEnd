@@ -101,8 +101,8 @@ export const StaffManagement: FC = () => {
                       <td>{professional.user.username}</td>
                       <td>{professional.specialization}</td>
                       <td>{professional.tuition}</td>
-                      <td>Mañana</td>
-                      <td>15</td>
+                      <td>{professional.turnOfAttention}</td>
+                      <td>{professional.patient.length === 0 ? 'No asignados' : professional.patient.length}</td>
                       <td>
                         <button className="btn btn-sm btn-link">
                           <Edit size={16} className={styles.customBlueText} />

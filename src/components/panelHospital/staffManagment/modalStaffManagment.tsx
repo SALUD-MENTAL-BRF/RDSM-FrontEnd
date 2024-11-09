@@ -22,6 +22,7 @@ interface StatusForm {
   tuition: number | null;
   birthdate: string;
   hospitalId: null | number;
+  turnOfAttention: string | null;
 }
 
 export const ModalStaffManagement: FC<Props> = ({ toggleModal, setChanged }) => {
@@ -40,6 +41,7 @@ export const ModalStaffManagement: FC<Props> = ({ toggleModal, setChanged }) => 
     tuition: null,
     birthdate: '',
     hospitalId: null,
+    turnOfAttention: null,
   });
 
   useEffect(() => {
@@ -81,6 +83,7 @@ export const ModalStaffManagement: FC<Props> = ({ toggleModal, setChanged }) => 
           birthdate: statusForm.birthdate,
           roleId: statusForm.roleId,
           hospitalId: statusForm.hospitalId,
+          turnOfAttention: statusForm.turnOfAttention,
         }
         const response = await CustomFetch(`${import.meta.env.VITE_API_URL}professional`, 'POST', data);
         if (response.success) {
@@ -231,6 +234,18 @@ export const ModalStaffManagement: FC<Props> = ({ toggleModal, setChanged }) => 
                   id="birthdate"
                   name="birthdate"
                   value={statusForm.birthdate}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
+            <div className={styles.formgroup}>
+              <div className={styles.input}>
+                <label htmlFor="turnOfAttention">Turno de Atención</label>
+                <input
+                  type="text"
+                  id="turnOfAttention"
+                  name="turnOfAttention"
+                  value={statusForm.turnOfAttention || ''}
                   onChange={handleChange}
                 />
               </div>
