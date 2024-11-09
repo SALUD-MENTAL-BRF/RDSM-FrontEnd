@@ -6,7 +6,8 @@ import Swal from 'sweetalert2';
 import { CustomFetch } from '../../../api/CustomFetch';
 
 interface Props {
-  toggleModal: () => void
+  toggleModal: () => void,
+  setChanged: any
 }
 
 interface StatusForm {
@@ -23,7 +24,7 @@ interface StatusForm {
   hospitalId: null | number;
 }
 
-export const ModalStaffManagement: FC<Props> = ({ toggleModal }) => {
+export const ModalStaffManagement: FC<Props> = ({ toggleModal, setChanged }) => {
 
   const { hospitalData } = useFetchHospitalData();
 
@@ -76,7 +77,7 @@ export const ModalStaffManagement: FC<Props> = ({ toggleModal }) => {
           lastname: statusForm.lastname,
           title: statusForm.title,
           specialization: statusForm.specialization,
-          tuition: Number(statusForm.tuition), // Convert to numbers
+          tuition: Number(statusForm.tuition),
           birthdate: statusForm.birthdate,
           roleId: statusForm.roleId,
           hospitalId: statusForm.hospitalId,
@@ -85,6 +86,7 @@ export const ModalStaffManagement: FC<Props> = ({ toggleModal }) => {
         if (response.success) {
           Swal.fire('Profesional creado exitosamente!', 'El profesional ha sido creado correctamente.', 'success');
           toggleModal();
+          setChanged((prev: boolean) => !prev);
         }
       } catch (err: any) {
         const errorMessages = (err as Error).message.split(','); 

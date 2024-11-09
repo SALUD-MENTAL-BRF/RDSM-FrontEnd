@@ -8,7 +8,7 @@ export const CustomFetch = async (
     method,
     headers: {
       'Content-Type': 'application/json',
-      ...headers, // Agrega cabeceras adicionales si las hay
+      ...headers,
     },
     body: method !== 'GET' && method !== 'HEAD' && body ? JSON.stringify(body) : undefined,
   };
