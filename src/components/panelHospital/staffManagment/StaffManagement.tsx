@@ -4,6 +4,7 @@ import styles from "../../../assets/style/panelHospital/StaffManagement.module.c
 import { ModalStaffManagement } from "./modalStaffManagment";
 import useAuth from "../../../hooks/useAuth";
 import { CustomFetch } from "../../../api/CustomFetch";
+import Swal from "sweetalert2";
 export const StaffManagement: FC = () => {
   const [showModal, setShowModal] = useState(false);
 
@@ -39,9 +40,23 @@ export const StaffManagement: FC = () => {
 
   const handleDelete = async (id: number) => {
     try {
-      await CustomFetch(`${import.meta.env.VITE_API_URL}professional/${id}`, 'DELETE');
-      setProfessionals(professionals.filter(professional => professional.id !== id));
-      setChanged(true);
+      Swal.fire({
+        title: '¿Estás seguro?',
+        text: 'No podrás revertir esta acción',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+      }).then(async (result) => {
+        if (result.isConfirmed) {
+          await CustomFetch(`${import.meta.env.VITE_API_URL}professional/${id}`, 'DELETE');
+          setChanged((prev: boolean) => !prev);
+        }
+        if (result.isDenied) {
+          return;
+        }
+      }
+    )
     } catch (err) {
       console.error('Error deleting professional:', err);
     }
