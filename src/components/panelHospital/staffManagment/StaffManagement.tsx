@@ -5,17 +5,19 @@ import { ModalStaffManagement } from "./modalStaffManagment";
 import useAuth from "../../../hooks/useAuth";
 import { CustomFetch } from "../../../api/CustomFetch";
 import Swal from "sweetalert2";
+
 export const StaffManagement: FC = () => {
   const [showModal, setShowModal] = useState(false);
+  const [professionals, setProfessionals] = useState<any[]>([]);
+  const [filteredProfessionals, setFilteredProfessionals] = useState<any[]>([]);
+  const [_error, setError] = useState<string | null>(null);
+  const { authState } = useAuth();
+  const [changed, setChanged] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const toggleModal = () => {
     setShowModal(!showModal);
   };
-
-  const [professionals, setProfessionals] = useState<any[]>([]);
-  const [_error, setError] = useState<string | null>(null);
-  const { authState } = useAuth();
-  const [changed, setChanged] = useState(false);
 
   useEffect(() => { 
     try {
@@ -28,6 +30,7 @@ export const StaffManagement: FC = () => {
         .then((response) => response.json())
         .then((data) => {
           setProfessionals(data.professionals);
+          setFilteredProfessionals(data.professionals);
         })
     } catch (err: unknown) {
       if (err instanceof Error) {
@@ -37,6 +40,21 @@ export const StaffManagement: FC = () => {
       }
     }
   }, [changed]);
+
+  useEffect(() => {
+    const results = professionals.filter((professional) => {
+      const username = professional.user.username?.toLowerCase() || "";
+      const specialization = professional.specialization?.toLowerCase() || "";
+      const tuition = typeof professional.tuition === "string" ? professional.tuition.toLowerCase() : "";
+  
+      return (
+        username.includes(searchTerm.toLowerCase()) ||
+        specialization.includes(searchTerm.toLowerCase()) ||
+        tuition.includes(searchTerm.toLowerCase())
+      );
+    });
+    setFilteredProfessionals(results);
+  }, [searchTerm, professionals]);
 
   const handleDelete = async (id: number) => {
     try {
@@ -55,13 +73,11 @@ export const StaffManagement: FC = () => {
         if (result.isDenied) {
           return;
         }
-      }
-    )
+      });
     } catch (err) {
       console.error('Error deleting professional:', err);
     }
-  }
-
+  };
 
   return (
     <div>
@@ -70,33 +86,33 @@ export const StaffManagement: FC = () => {
           type="text"
           className="form-control w-auto"
           placeholder="Buscar personal..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
         <button
           className={`btn ${styles.customBlueBackground}`}
           onClick={toggleModal}
         >
-          <PlusCircle size={16} className={`me-2`} />
+          <PlusCircle size={16} className="me-2" />
           Agregar Personal
         </button>
       </div>
-        <div className="card">
-          <div className="card-body">
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th>Especialidad</th>
-                  <th>Matricula</th>
-                  <th>Turno</th>
-                  <th>Pacientes Asignados</th>
-                  <th>Acciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  professionals.length > 0 
-                  ? 
-                  professionals.map((professional: any) => (
+      <div className="card">
+        <div className="card-body">
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Especialidad</th>
+                <th>Matricula</th>
+                <th>Turno</th>
+                <th>Pacientes Asignados</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredProfessionals.length > 0
+                ? filteredProfessionals.map((professional: any) => (
                     <tr key={professional.id}>
                       <td>{professional.user.username}</td>
                       <td>{professional.specialization}</td>
@@ -107,20 +123,18 @@ export const StaffManagement: FC = () => {
                         <button className="btn btn-sm btn-link">
                           <Edit size={16} className={styles.customBlueText} />
                         </button>
-                        <button className="btn btn-sm btn-link">
-                          <Trash2 size={16} className={styles.customBlueText} onClick={() => handleDelete(professional.id)} />
+                        <button className="btn btn-sm btn-link" onClick={() => handleDelete(professional.id)}>
+                          <Trash2 size={16} className={styles.customBlueText} />
                         </button>
                       </td>
                     </tr>
                   ))
-                  : 
-                  null
-                }
-              </tbody>
-            </table>
-          </div>
+                : <tr><td colSpan={6}>No se encontraron resultados</td></tr>}
+            </tbody>
+          </table>
         </div>
-      {showModal && <ModalStaffManagement toggleModal={toggleModal} setChanged={setChanged}/>}
+      </div>
+      {showModal && <ModalStaffManagement toggleModal={toggleModal} setChanged={setChanged} />}
     </div>
   );
 };
