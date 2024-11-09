@@ -32,8 +32,7 @@ export const HospitalPanelPage: FC = () => {
 
   return (
     <div className="d-flex">
-      <Aside setActiveTab={setActiveTab} />
-      <main className={`${styles.mainContent} col-md-9 col-lg-10`}>
+      <main className={`${styles.mainContent} col-sm-12 col-md-12 col-lg-12`}>
         <h2 className="h3 mb-4">Panel de Administración de Salud Mental</h2>
         <ul className="nav nav-tabs mb-4">
           <li className="nav-item">
