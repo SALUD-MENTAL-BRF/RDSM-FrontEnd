@@ -12,3 +12,16 @@ export interface socialHabilitySettingDto {
     complexity: string;
     personality: string;
 };
+
+export interface socialHabilityHistoryDto{
+    id: number;
+    stage: string;
+    responses: Array<string>;
+    explanation: string;
+    complexity: string;
+    answer: number
+    correctResponse: string;
+    professionalid: number;
+    patientId: number;
+    createdAt: string;
+};

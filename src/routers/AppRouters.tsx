@@ -208,7 +208,7 @@ export const AppRouters: React.FC = () => {
           }
         />
         <Route
-          path="/social-hability/progress/:patientId"
+          path="/social-hability/progress/:professionalId/:patientId"
           element={
             <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
               <SocialHabilityProgress/>
