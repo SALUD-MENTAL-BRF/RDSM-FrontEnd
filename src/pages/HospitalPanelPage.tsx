@@ -1,10 +1,9 @@
 import { FC, useState } from "react";
 import styles from '../assets/style/panelHospital/HospitalPanelPage.module.css';
 import OverviewDashboard from "../components/panelHospital/OverviewDashboard";
-import { Aside } from "../components/panelHospital/Aside";
 import PatientManagement from "../components/panelHospital/PatientManagement";
 import { TherapyManagement } from "../components/panelHospital/TherapyManagement";
-import { MedicationManagement } from "../components/panelHospital/MedicationManagement";
+import { MedicationManagement } from "../components/panelHospital/MedicationManagement/MedicationManagement";
 import { StaffManagement } from "../components/panelHospital/staffManagment/StaffManagement";
 import { CrisisManagement } from "../components/panelHospital/CrisisManagement";
 
