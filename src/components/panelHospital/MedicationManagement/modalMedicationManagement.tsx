@@ -8,7 +8,7 @@ interface Props {
 
 export const ModalMedicationManagement:FC<Props> = ({ toggleModal }) => {
 
-  console.log(toggleModal)
+  
 
   return (
     <div className={styles.modalOverlay}>
