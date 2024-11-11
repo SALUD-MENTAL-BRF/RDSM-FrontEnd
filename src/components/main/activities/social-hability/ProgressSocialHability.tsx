@@ -92,10 +92,10 @@ export const ProgressSocialHability = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="row me-1 mt-5">
+                    <div className="row me-1 mt-5 d-flex justify-content-center">
                         {
                             historyPatient?.map((history) => (
-                                <div key={history.id} className="card mb-5">
+                                <div key={history.id} className="card w-75 mt-5">
                                     <div className="card-body text-center">
                                         <h6 className="card-text">{history.stage}</h6>
                                         <div className="list-group mt-5">

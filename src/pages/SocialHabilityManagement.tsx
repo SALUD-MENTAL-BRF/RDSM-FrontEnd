@@ -23,12 +23,12 @@ export const SocialHabilityManagement = () => {
                         </div>
                     </div>
                     <div className="row  w-100 mt-5">
-                        <div onClick={() => setTabState(!tabState)} className={`col-6 text-end options-SocialHabilityManagement 
+                        <div onClick={() => setTabState(false)} className={`col-6 text-end options-SocialHabilityManagement 
                             ${!tabState?'select-option-history':''}`
                             }>
                             <h5 role="button" className="text-SocialHabilityManagement mt-1">Historial</h5>
                         </div>
-                        <div onClick={() => setTabState(!tabState)} className={`col-6 
+                        <div onClick={() => setTabState(true)} className={`col-6 
                             ${tabState?'select-option-setting':''}
                             `}>
                             <h5 role="button" className="text-SocialHabilityManagement mt-1">Configuración</h5>
