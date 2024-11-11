@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { activityXPatientDto } from "../../../types/activity.dto";
 import { useNavigate } from "react-router-dom";
+import { ProgressActivity } from "./ProgressActivity";
 
 interface Props {
     activitieState?: Array<activityXPatientDto>;
@@ -14,14 +15,15 @@ export const CardActivity: React.FC<Props> =  ({activitieState, professional, un
 
     const navigate = useNavigate();
 
-
+   
     return (
                 <div className="row">
                     {
                         activitieState?.map((data) => (
                             <div role="button" key={data.id} onClick={() => {}} className='d-flex justify-content-center mt-1 mb-1 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3'>
                                 <div onClick={() => 
-                                       professional ? "" : navigate(`/play-activity/${patientId}/${professionalId}/${data.activityId}`)
+                                       !professional ? navigate(`/play-activity/${patientId}/${professionalId}/${data.activityId}`)  : 
+                                       ProgressActivity(data.activity.id) !== undefined ? navigate(`${ProgressActivity(data.activity.id)}/${patientId}`) :""
                                     } 
                                     className ={`card-activityList`}>
 
