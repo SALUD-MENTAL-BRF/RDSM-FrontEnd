@@ -25,7 +25,6 @@ import { ManagementActivitiesPage } from "../pages/ManagementActivitiesPage";
 import { AddActivityPage } from "../pages/AddActivityPage";
 import { AssignedProfessionalsPage } from "../pages/AssignedProfessionalsPage";
 import { PlayActivityPage } from "../pages/PlayActivityPage";
-import { SettinActivitiesPage } from "../pages/SettingActivities";
 import { SocialHabilityManagement } from "../pages/SocialHabilityManagement";
 
 // Definir constante para los roles
@@ -198,14 +197,6 @@ export const AppRouters: React.FC = () => {
         <Route
           path="/play-activity/:patientId/:professionalId/:activityId"
           element={<PlayActivityPage/>}
-        />
-        <Route
-          path="/setting-activity/:patientId/:professionalId/:activityId"
-          element={
-            <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
-              <SettinActivitiesPage />
-            </ProtectedRoute>
-          }
         />
         <Route
           path="/social-hability/:professionalId/:patientId"
