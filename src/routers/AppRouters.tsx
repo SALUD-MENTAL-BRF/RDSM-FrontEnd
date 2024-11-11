@@ -26,7 +26,7 @@ import { AddActivityPage } from "../pages/AddActivityPage";
 import { AssignedProfessionalsPage } from "../pages/AssignedProfessionalsPage";
 import { PlayActivityPage } from "../pages/PlayActivityPage";
 import { SettinActivitiesPage } from "../pages/SettingActivities";
-import { SocialHabilityProgress } from "../pages/SocialHabilityProgress";
+import { SocialHabilityManagement } from "../pages/SocialHabilityManagement";
 
 // Definir constante para los roles
 const ROLE_SUPERADMIN = parseInt(import.meta.env.VITE_ROLE_ADMIN);
@@ -208,10 +208,10 @@ export const AppRouters: React.FC = () => {
           }
         />
         <Route
-          path="/social-hability/progress/:professionalId/:patientId"
+          path="/social-hability/:professionalId/:patientId"
           element={
             <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
-              <SocialHabilityProgress/>
+              <SocialHabilityManagement/>
             </ProtectedRoute>
           }
         />

@@ -1,7 +1,7 @@
 import React from "react";
 import { activityXPatientDto } from "../../../types/activity.dto";
 import { useNavigate } from "react-router-dom";
-import { ProgressActivity } from "./ProgressActivity";
+import { redirectSetting } from "./RedirectSetting";
 
 interface Props {
     activitieState?: Array<activityXPatientDto>;
@@ -20,13 +20,12 @@ export const CardActivity: React.FC<Props> =  ({activitieState, professional, un
                 <div className="row">
                     {
                         activitieState?.map((data) => (
-                            <div role="button" key={data.id} onClick={() => {}} className='d-flex justify-content-center mt-1 mb-1 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3'>
+                            <div role="button" key={data.id} onClick={() => {}} className='row d-flex justify-content-center mt-1 mb-1 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3'>
                                 <div onClick={() => 
                                        !professional ? navigate(`/play-activity/${patientId}/${professionalId}/${data.activityId}`)  : 
-                                       ProgressActivity(data.activity.id) !== undefined ? navigate(`${ProgressActivity(data.activity.id)}/${professionalId}/${patientId}`) :""
+                                       redirectSetting(data.activity.id) !== undefined ? navigate(`${redirectSetting(data.activity.id)}/${professionalId}/${patientId}`) :""
                                     } 
                                     className ={`card-activityList`}>
-
                                     {
                                     professional && unlinkActivity ? 
                                         <div className="text-end mt-1 me-2 d-flex">
@@ -57,7 +56,7 @@ export const CardActivity: React.FC<Props> =  ({activitieState, professional, un
                                         <h5 className='activityCategory'>Categoría</h5>
                                         <p className='activityType'>{data.activity.categoryActivities?.type}</p>
                                     </div>
-                                </div>     
+                                </div>
                             </div>
                         </div>
                     ))
