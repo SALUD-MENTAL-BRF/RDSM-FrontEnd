@@ -14,13 +14,24 @@ export interface activityDto {
     description: string;
     active: boolean;
     categoryActivitiesId: number;
-    disorderId: number;
-    categoryActivities?: CategoryActivitiesDto;
+    categoryActivities?: categoryActivitiesDto;
+    activityXdisorder: Array<activityXdisorder>;
 };
 
-export interface CategoryActivitiesDto{
+export interface categoryActivitiesDto{
     id: number;
     type: string;
+}
+
+export interface disorderXcategoryDto {
+    id: number;
     disorderId: number;
-    disorder?: disorderDto
+    categoryId: number;
+    category: categoryActivitiesDto
+}
+
+export interface activityXdisorder {
+    id: number;
+    disorderId: number;
+    activityId: number;
 }

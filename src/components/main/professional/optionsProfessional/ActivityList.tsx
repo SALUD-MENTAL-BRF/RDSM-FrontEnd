@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { CustomFetch } from '../../../../api/CustomFetch';
-import { activityDto, CategoryActivitiesDto } from '../../../../types/activity.dto';
+import { activityDto,disorderXcategoryDto } from '../../../../types/activity.dto';
 import { linkedActivityWithPatient,findAllActivities, findActivitiesLinked } from './Request/fetchActivity';
 import { disorderDto } from '../../../../types/disorder.dto';
 import Swal from 'sweetalert2';
@@ -16,7 +16,7 @@ export const ActivityList : React.FC= () => {
     const [activitySelected, setActivitySelected] = useState<Array<number>>([]);
     const [activitiesLinkedState, setActivitiesLinkedState] = useState<Array<activityDto>>([]);
     const [disorderState, setDisorderState] = useState<Array<disorderDto>>([]);
-    const [categorieState, setCategorieState] = useState<Array<CategoryActivitiesDto>>([]);
+    const [categorieState, setCategorieState] = useState<Array<disorderXcategoryDto>>([]);
     const [saveActivities, setSaveActivities] = useState<Array<activityDto>>([]);
     const [disorderIdState, setDisorderId] = useState<string>("");
     const [categoryId, setCategotyId] = useState<string>("");
@@ -27,6 +27,8 @@ export const ActivityList : React.FC= () => {
             async () => {
                 const disorder = await CustomFetch(`${import.meta.env.VITE_API_URL}disorder`, 'GET');
                 const activities = await findAllActivities()
+                console.log(activities);
+                
                 setDisorderState(disorder);
                 setActivitiesLinkedState(await findActivitiesLinked(patientId!,professionalId!));
                 setActivitieState(activities);
@@ -75,52 +77,75 @@ export const ActivityList : React.FC= () => {
 
         if(name == "disorderId"){
             if(value !== "0"){
-                setCategorieState(await findCategoryByDisorder(value));
-                setActivitieState(saveActivities?.filter(activity => activity.disorderId == Number(value)));
+                const categories = await findCategoryByDisorder(value)
+                setCategorieState(categories);
+                let filtro: Array<activityDto> = [];
+        
+                saveActivities?.forEach((activity) => {
+                    activity.activityXdisorder.forEach((activityXdisorder) => {
+                        if(activityXdisorder.disorderId == Number(value)){
+                            filtro.push(activity);
+                        }
+                    });
+                });
+                setActivitieState(filtro);
                 setDisorderId(value);
-                setCategotyId("")
-            }else {
-               setCategorieState([]);
-               setActivitieState(saveActivities);
-               setDisorderId("");
-               setCategotyId("")
-            };
-        };
+                setCategotyId("");
+            } else {
+                setCategorieState([]);
+                setActivitieState(saveActivities);
+                setDisorderId("");
+                setCategotyId("");
+            }
+        }
+        
 
         if(name == "categoryId"){
             if (value !== "0") {
-              setActivitieState(saveActivities.filter(activity => activity.categoryActivitiesId == Number(value)));
-              setCategotyId(value)
+                const filtro = saveActivities.filter(activity => 
+                    activity.categoryActivitiesId == Number(value) && 
+                    (disorderIdState.length === 0 || activity.activityXdisorder.some(a => a.disorderId == Number(disorderIdState)))
+                );
+                setActivitieState(filtro);
+                setCategotyId(value);
             } else {
-                setCategotyId("")             
+                setCategotyId("");
                 if(disorderIdState.length > 0){
-                    setActivitieState(saveActivities?.filter(activity => activity.disorderId == Number(disorderIdState)));
+                    const filtro = saveActivities.filter(activity => 
+                        activity.activityXdisorder.some(a => a.disorderId == Number(disorderIdState))
+                    );
+                    setActivitieState(filtro);
+                } else {
+                    setActivitieState(saveActivities);
                 }
-            };
-        };
+            }
+        }
 
+                        
         if(name == "active"){
             if(!isChecked){
-                setActivitieState(activitieState?.filter(activity => activity.active == true))
-                setIsChecked(true)
-            } else  {
+                const filtro = activitieState?.filter(activity => activity.active == true);
+                setActivitieState(filtro);
+                setIsChecked(true);
+            } else {
                 if(categoryId.length > 0){
-                    setActivitieState(saveActivities.filter(activity => activity.categoryActivitiesId == Number(categoryId)));
+                    const filtro = saveActivities.filter(activity => 
+                        activity.categoryActivitiesId == Number(categoryId) && 
+                        (disorderIdState.length === 0 || activity.activityXdisorder.some(a => a.disorderId == Number(disorderIdState)))
+                    );
+                    setActivitieState(filtro);
+                } else if(disorderIdState.length > 0){
+                    const filtro = saveActivities.filter(activity => 
+                        activity.activityXdisorder.some(a => a.disorderId == Number(disorderIdState))
+                    );
+                    setActivitieState(filtro);
                 } else {
-                    if(disorderIdState.length > 0){
-                        setActivitieState(saveActivities?.filter(activity => activity.disorderId == Number(disorderIdState)));
-                        
-                        
-                        
-                    } else {
-                        setActivitieState(saveActivities)
-                    }
+                    setActivitieState(saveActivities);
                 }
-
-                setIsChecked(false)
+                setIsChecked(false);
             }
-            
         }
+        
     };
 
     return(
@@ -151,7 +176,7 @@ export const ActivityList : React.FC= () => {
                             <option value="0">--</option>
                             {
                                 categorieState?.map((category)=> (
-                                    <option key={category.id} value={category.id}>{category.type}</option>
+                                    <option key={category.id} value={category.category.id}>{category.category.type}</option>
                                 ))
                             }
                         </select>
