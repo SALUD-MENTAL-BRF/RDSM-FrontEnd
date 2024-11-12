@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { CustomFetch } from '../../../../api/CustomFetch';
-import { activityDto,disorderXcategoryDto } from '../../../../types/activity.dto';
+import { activityDto,activityXdisorder,disorderXcategoryDto } from '../../../../types/activity.dto';
 import { linkedActivityWithPatient,findAllActivities, findActivitiesLinked } from './Request/fetchActivity';
 import { disorderDto } from '../../../../types/disorder.dto';
 import Swal from 'sweetalert2';
@@ -14,7 +14,7 @@ export const ActivityList : React.FC= () => {
     const {patientId, professionalId} = useParams();
     const [activitieState, setActivitieState] = useState<Array<activityDto>>();
     const [activitySelected, setActivitySelected] = useState<Array<number>>([]);
-    const [activitiesLinkedState, setActivitiesLinkedState] = useState<Array<activityDto>>([]);
+    const [activitiesLinkedState, setActivitiesLinkedState] = useState<Array<activityXdisorder>>([]);
     const [disorderState, setDisorderState] = useState<Array<disorderDto>>([]);
     const [categorieState, setCategorieState] = useState<Array<disorderXcategoryDto>>([]);
     const [saveActivities, setSaveActivities] = useState<Array<activityDto>>([]);
@@ -27,10 +27,11 @@ export const ActivityList : React.FC= () => {
             async () => {
                 const disorder = await CustomFetch(`${import.meta.env.VITE_API_URL}disorder`, 'GET');
                 const activities = await findAllActivities()
-                console.log(activities);
+                const activitiesLinked = await findActivitiesLinked(patientId!,professionalId!)
+                console.log(activitiesLinked);
                 
                 setDisorderState(disorder);
-                setActivitiesLinkedState(await findActivitiesLinked(patientId!,professionalId!));
+                setActivitiesLinkedState(activitiesLinked);
                 setActivitieState(activities);
                 setSaveActivities(activities);
             }
@@ -195,20 +196,20 @@ export const ActivityList : React.FC= () => {
                     activitieState?.map((activity) => (
                         <div role='button' key={activity.id} onClick={() => {
 
-                            if(activitiesLinkedState.find(value => value.id == activity.id)){
+                            if(activitiesLinkedState.find(value => value.activityId == activity.id)){
                                 return 
                             };
                             selectActivity(activity.id, activity.active)
                             
                             }} className='d-flex justify-content-center mt-1 mb-1 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-3'>
                             <div className ={`card-activityList
-                                ${activitiesLinkedState.find(value => value.id == activity.id) || activity.active == false ? 
+                                ${activitiesLinkedState.find(value => value.activityId == activity.id) || activity.active == false ? 
                                     'bg-secondary' : ''}
                                 ${activitySelected.find(value => value == activity.id) ? 'border border-2 border-dark':''}`
                                 
                                 }>
                                 {
-                                    activitiesLinkedState.find(value => value.id == activity.id) ?
+                                    activitiesLinkedState.find(value => value.activityId == activity.id) ?
                                     <h6 className='text-white text-center mt-1'>Actividad añadida</h6>
                                     : ""
                                 }
