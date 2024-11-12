@@ -38,7 +38,12 @@
 .card-activityList a,
 .activityDescription,
 .activityCategory,
-.activityType {
+.activityType,
+.activityDescription-professional,
+.activityDescriptionText-professional,
+.activityCategory-professional,
+.activityType-professional,
+.options-professional   {
     position: absolute;
     opacity: 0;
     transition: opacity 0.3s ease-out;
@@ -46,6 +51,26 @@
 
 .activityDescriptionText {
     bottom: 150px;
+    left: 30px;
+}
+
+.activityDescriptionText-professional {
+    bottom: 200px;
+    left: 30px;
+}
+
+.activityDescription-professional {
+    bottom: 325px;
+    left: 30px;
+}
+
+.activityCategory-professional {
+    bottom: 150px;
+    left: 30px;
+}
+
+.activityType-professional {
+    bottom: 120px;
     left: 30px;
 }
 
@@ -71,15 +96,33 @@
     text-decoration: none;
 }
 
-.card-activityList:hover h4 {
+.card-activityList:hover .card-h4 {
     bottom: 320px;
 }
+
+.card-activityList:hover .card-professional-h4 {
+    bottom: 400px;
+}
+
+.options-professional{
+    bottom: 10px;
+    text-align: center;
+}
+
+/* .card-activityList-professional-h4:hover{
+    bottom: 350px;
+} */
 
 .card-activityList:hover .activityDescriptionText,
 .card-activityList:hover a,
 .card-activityList:hover .activityDescription,
 .card-activityList:hover .activityCategory,
-.card-activityList:hover .activityType {
+.card-activityList:hover .activityType,
+.card-activityList:hover .activityDescription-professional,
+.card-activityList:hover .activityDescriptionText-professional,
+.card-activityList:hover .activityCategory-professional,
+.card-activityList:hover .activityType-professional,
+.card-activityList:hover .options-professional   {
     opacity: 1;
 }
 

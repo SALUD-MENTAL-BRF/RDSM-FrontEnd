@@ -17,15 +17,14 @@ export const CardActivity: React.FC<Props> =  ({activitieState, professional, un
 
    
     return (
-                <div className="row">
+                <div className="row justify-content-center">
                     {
                         activitieState?.map((data) => (
-                            <div role="button" key={data.id} onClick={() => {}} className='row d-flex justify-content-center mt-1 mb-1 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4'>
+                            <div role={professional && unlinkActivity ? "" :"button"} key={data.id} onClick={() => {}} className='row d-flex justify-content-center mt-1 mb-1 col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4 col-xxl-4'>
                                 <div onClick={() => 
-                                       !professional ? navigate(`/play-activity/${patientId}/${professionalId}/${data.activityId}`)  : 
-                                       redirectSetting(data.activity.id) !== undefined ? navigate(`${redirectSetting(data.activity.id)}/${professionalId}/${patientId}`) :""
+                                       !professional ? navigate(`/play-activity/${patientId}/${professionalId}/${data.activityId}`)  : ''
                                     } 
-                                    className ={`card-activityList`}>
+                                    className ={`card-activityList`} style={professional && unlinkActivity ? {height: '32rem'} :{} }>
                                     {
                                     professional && unlinkActivity ? 
                                         <div className="text-end mt-1 me-2 d-flex">
@@ -40,16 +39,23 @@ export const CardActivity: React.FC<Props> =  ({activitieState, professional, un
                                     ""
                                     }
                                     <div className="card-content">
-                                        <h4>
+                                        <h4 className={professional && unlinkActivity ? 'card-professional-h4':'card-h4'}>
                                             {data.activity.title}
                                         </h4>
                                         <div className='container-infocard'>
-                                        <h5 className='activityDescription'>Descripción</h5>
-                                        <p className={`activityDescriptionText ${data.activity.description.length < 120 ? 'mb-5': ''}`}>
+                                        <h5 className={professional && unlinkActivity ? 'activityDescription-professional' :'activityDescription'}>Descripción</h5>
+                                        <p className={`${professional && unlinkActivity ? 'activityDescriptionText-professional' :'activityDescriptionText'} 
+                                        ${data.activity.description.length < 120 ? 'mb-5': ''}`}>
                                                 {data.activity.description}
                                         </p>
-                                        <h5 className='activityCategory'>Categoría</h5>
-                                        <p className='activityType'>{data.activity.categoryActivities?.type}</p>
+                                        <h5 className={professional && unlinkActivity ?'activityCategory-professional':'activityCategory'}>Categoría</h5>
+                                        <p className={professional && unlinkActivity ? 'activityType-professional ' :'activityType'}>{data.activity.categoryActivities?.type}</p>
+                                        <div className="options-professional w-100">
+                                            <h6 role="button" onClick={() =>redirectSetting(data.activity.id) !== undefined ? navigate(`${redirectSetting(data.activity.id)}/history/${professionalId}/${patientId}`) :""}
+                                                >Ver historial</h6>
+                                            <h6 role="button"onClick={() =>redirectSetting(data.activity.id) !== undefined ? navigate(`${redirectSetting(data.activity.id)}/setting/${professionalId}/${patientId}`) :""}
+                                                >Configuración</h6>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
