@@ -104,7 +104,7 @@ export const MedicationManagement:FC = () => {
         </div>
       </div>
       {
-        showModal && <ModalMedicationManagement toggleModal={toggleModal} />
+        showModal && <ModalMedicationManagement toggleModal={toggleModal} setChanged={setChanged} />
       }
     </div>
   )
