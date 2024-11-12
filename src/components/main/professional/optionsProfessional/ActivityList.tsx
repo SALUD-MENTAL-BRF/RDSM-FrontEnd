@@ -219,7 +219,7 @@ export const ActivityList : React.FC= () => {
                                     : ""
                                 }
                                 <div className="card-content">
-                                <h4>
+                                <h4 className='card-h4'>
                                     {activity.title}
                                 </h4>
                                 <div className='container-infocard'>
