@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { SocialHability } from '../components/main/activities/social-hability/SocialHability';
 import { useParams } from 'react-router-dom';
 import { Header } from '../components/headers/Header';

@@ -46,13 +46,19 @@ export const RecommendationsList: React.FC<Props> = ({opacity, setOpacity}) => {
                         </div>
                     </div>
                 </div>
-                <div className="row ">
+                <div className="row">
+                {recommendationState?.length === 0 ? (
+                    <p className="text-muted">No hay recomendaciones disponibles.</p>
+                    ) : (
+                    <ul className="ms-3 list-group list-group-flush">
                         {recommendationState?.map((recommendation) => (
-                            <div key={recommendation.id} className="border border-3 mb-1 rounded-2">
-                                <h5>{recommendation.title}:</h5>
-                                <p className="ms-4">{recommendation.description}</p>
-                            </div>
+                        <li key={recommendation.id} className="list-group-item">
+                            <h5 className="mb-1">{recommendation.title}</h5>
+                            <p className="mb-0">{recommendation.description}</p>
+                        </li>
                         ))}
+                    </ul>
+                    )}
                 </div>
                 <div className=" d-flex align-items-end justify-content-end me-1 mb-1">
                     <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-card-list" viewBox="0 0 16 16">
