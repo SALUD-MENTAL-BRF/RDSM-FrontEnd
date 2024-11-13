@@ -107,10 +107,7 @@ export const SocialHability= () => {
       }
     });
 
-    const data = await save.json();
-
-    console.log(data);
-    
+    await save.json();
   };
 
   return (
