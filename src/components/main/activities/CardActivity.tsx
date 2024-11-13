@@ -1,7 +1,7 @@
 import React from "react";
 import { activityXPatientDto } from "../../../types/activity.dto";
 import { useNavigate } from "react-router-dom";
-import { redirectSetting } from "./RedirectSetting";
+import { redirectPage } from "./RedirectPage";
 
 interface Props {
     activitieState?: Array<activityXPatientDto>;
@@ -53,9 +53,9 @@ export const CardActivity: React.FC<Props> =  ({activitieState, professional, un
                                       {  
                                         professional && unlinkActivity ?
                                         <div className="options-professional w-100">
-                                            <h6 role="button" onClick={() =>redirectSetting(data.activity.id) !== undefined ? navigate(`${redirectSetting(data.activity.id)}/history/${professionalId}/${patientId}`) :""}
+                                            <h6 role="button" onClick={() =>redirectPage(data.activity.id) !== undefined ? navigate(`${redirectPage(data.activity.id)}/history/${professionalId}/${patientId}`) :""}
                                                 >Ver historial</h6>
-                                            <h6 role="button"onClick={() =>redirectSetting(data.activity.id) !== undefined ? navigate(`${redirectSetting(data.activity.id)}/setting/${professionalId}/${patientId}`) :""}
+                                            <h6 role="button"onClick={() =>redirectPage(data.activity.id) !== undefined ? navigate(`${redirectPage(data.activity.id)}/setting/${professionalId}/${patientId}`) :""}
                                                 >Configuración</h6>
                                         </div>:''
                                         }

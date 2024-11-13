@@ -1,5 +1,5 @@
 import { useEffect,useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { socialHabilityHistoryDto } from "../../../../types/activity/socialHability.dto";
 import '../../../../assets/style/activities/ProgressSocialHability.css'
 

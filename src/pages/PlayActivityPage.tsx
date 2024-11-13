@@ -22,7 +22,8 @@ export const PlayActivityPage = () => {
         </div>
       
       {
-        activityId == "3" ? <SocialHability/> : 
+        activityId == "3" ? <SocialHability/> :
+        activityId == "4" ?"":
             <h6 className='text-center mt-5'>Actividad no disponible</h6>
       }
       </main>
