@@ -28,7 +28,6 @@ export const ActivityList : React.FC= () => {
                 const disorder = await CustomFetch(`${import.meta.env.VITE_API_URL}disorder`, 'GET');
                 const activities = await findAllActivities()
                 const activitiesLinked = await findActivitiesLinked(patientId!,professionalId!)
-                console.log(activitiesLinked);
                 
                 setDisorderState(disorder);
                 setActivitiesLinkedState(activitiesLinked);

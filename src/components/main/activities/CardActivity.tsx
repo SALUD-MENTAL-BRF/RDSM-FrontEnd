@@ -50,12 +50,15 @@ export const CardActivity: React.FC<Props> =  ({activitieState, professional, un
                                         </p>
                                         <h5 className={professional && unlinkActivity ?'activityCategory-professional':'activityCategory'}>Categoría</h5>
                                         <p className={professional && unlinkActivity ? 'activityType-professional ' :'activityType'}>{data.activity.categoryActivities?.type}</p>
+                                      {  
+                                        professional && unlinkActivity ?
                                         <div className="options-professional w-100">
                                             <h6 role="button" onClick={() =>redirectSetting(data.activity.id) !== undefined ? navigate(`${redirectSetting(data.activity.id)}/history/${professionalId}/${patientId}`) :""}
                                                 >Ver historial</h6>
                                             <h6 role="button"onClick={() =>redirectSetting(data.activity.id) !== undefined ? navigate(`${redirectSetting(data.activity.id)}/setting/${professionalId}/${patientId}`) :""}
                                                 >Configuración</h6>
-                                        </div>
+                                        </div>:''
+                                        }
                                     </div>
                                 </div>
                             </div>
