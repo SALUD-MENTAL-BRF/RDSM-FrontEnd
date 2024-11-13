@@ -1,160 +1,206 @@
-import React,{ useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import { recomendationDto } from "../../../../types/recomendation.dto"
-import Swal from "sweetalert2"
-import { deleteRecommendationById, findRecommendations } from "./Request/fetchRecommendations"
-import { createOrUpdate } from "./Request/fetchRecommendations"
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+import { recomendationDto } from "../../../../types/recomendation.dto";
+import { deleteRecommendationById, findRecommendations, createOrUpdate } from "./Request/fetchRecommendations";
 
-export const CreateRecommendation: React.FC<{professionalId:number}> = ({professionalId}) => {
-    const [formState, setFormSate] = useState<recomendationDto>({
-        description:"",
-        title: ""
-    }) 
-    const {patientId} = useParams()
-    const [recommendationState, setRecommendationState] = useState<Array<recomendationDto>>()
-    const [editState, setEditState] = useState<boolean>(false)
-
-    const createRecommendation = async () => {
-        const url = editState ? `${import.meta.env.VITE_API_URL}recommendation/${formState.id}` :
-                `${import.meta.env.VITE_API_URL}recommendation/${patientId}/${professionalId}` 
-
-        const method = editState ? 'PUT' : 'POST'
-
-        const data = await createOrUpdate(url, method, formState)
-
-        if(data.statusCode == 400){
-            return Swal.fire({
-              title: "Error",
-              text: data.message[0],
-              icon: "error",
-              confirmButtonColor: "#3085d6",
-              confirmButtonText: "ok",
-            })
-          }
-          
-      
-         return Swal.fire({
-            title: "Enviado",
-            text: `Recomendación ${editState ? 'editada' : 'creada'} .`,
-            icon: "success",
-            confirmButtonColor: "#3085d6",
-            confirmButtonText: "ok",
-        }).then(async () => {
-              setFormSate({
-                        description:"",
-                        title: ""
-              })
-              setRecommendationState(await findRecommendations(Number(patientId!), professionalId))
-              setEditState(false)
-        })
-    };
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        const {name, value} = e.target
-        setFormSate(prevState => ({
-            ...prevState,
-            [name]: value
-          }));
-    }; 
-
-
-    useEffect(() => {
-        (
-            async () => {
-                if(professionalId){
-                    setRecommendationState(await findRecommendations(Number(patientId!), professionalId))
-                }
-            }
-        )()
-    },[professionalId])
-
-    const editRecommendation = async (data: recomendationDto) =>{
-        setFormSate({
-            id: data.id,
-            title: data.title,
-            description: data.description
-        })
-        setEditState(true)
-        window.scrollTo({
-            top: 100,
-            behavior: "smooth"
-        })
-    };
-
-    const cancelEdit = async () => {
-        setFormSate({
-            description:"",
-            title: ""
-        })
-        setEditState(false)
-    }
-
-    const deleteRecomendation = async (recommendationId: number) => {        
-         Swal.fire({
-            text: "¿Seguro que quiere eliminar esta recomendación?",
-            icon: "warning",
-            confirmButtonColor: "#3085d6",
-            showCancelButton: true,
-            confirmButtonText: "Sí",
-            cancelButtonColor: "#d33"
-          }).then(async (result) => {
-            if (result.isConfirmed) {
-              await deleteRecommendationById(recommendationId)
-              Swal.fire(
-                "",
-                "Se elimino correctamente.",
-                "success"
-              );
-              setRecommendationState(await findRecommendations(Number(patientId!), professionalId))
-            }
-          });
-    }
-
-    return(
-            <div className="row">
-                    <section className="recommendations col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 col-xxl-6 mt-4 rounded-4 ms-2 m-2">
-                        <div className="mb-3">
-                            <h4 className="text-center h4 fw-bold mb-3 mt-2">Recomendaciones creadas</h4>
-                            <div className="row ">
-                                    {recommendationState?.map((recommendation) => (
-                                        <div key={recommendation.id} className="border border-3 mb-1 rounded-2">
-                                            <h5>{recommendation.title}:</h5>
-                                            <p className="ms-4">{recommendation.description}</p>
-                                            <div className="text-end mb-2">
-                                                <svg onClick={() => editRecommendation(recommendation)} role="button" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#059669" className="bi bi-pen me-2" viewBox="0 0 16 16">
-                                                    <path d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z"/>
-                                                </svg>
-                                                <svg onClick={() => deleteRecomendation(recommendation.id!)} role="button" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="red" className="bi bi-archive" viewBox="0 0 16 16">
-                                                    <path d="M0 2a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1v7.5a2.5 2.5 0 0 1-2.5 2.5h-9A2.5 2.5 0 0 1 1 12.5V5a1 1 0 0 1-1-1zm2 3v7.5A1.5 1.5 0 0 0 3.5 14h9a1.5 1.5 0 0 0 1.5-1.5V5zm13-3H1v2h14zM5 7.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
-                                                </svg>
-                                            </div>
-                                        </div>
-                                    ))}
-                            </div>
-                        </div>
-                    </section>
-                    <section className="activities-designated col mt-4 rounded-4 ms-2 m-2">
-                        <div className="row">
-                            <div className="d-flex">
-                                <div className="w-100">
-                                    <h4 className="text-center h4 fw-bold mb-3 mt-2">{editState ? "Edita" : "Crea"} tu recomendación</h4> 
-                                </div>
-                            </div>
-                            <div className="text-center">
-                                <div>
-                                    <label className="form-label" htmlFor="title">Título</label>
-                                    <input onChange={handleChange} value={formState.title} className="form-control" type="text" name="title" id="title"/>
-                                </div>
-                                
-                                <div className="mt-5">
-                                    <label className="form-label" htmlFor="description">Descripción</label>
-                                    <textarea style={{textTransform: "none"}} onChange={handleChange} value={formState.description} className="form-control" name="description" id="description"></textarea>
-                                </div>
-                                <button onClick={createRecommendation} className="btn btn-primary">{editState ? "Guardar" : "Crear"}</button>
-                                {editState ? <button onClick={cancelEdit} className="btn btn-danger ms-1">Cancelar</button> : ""}
-                            </div>
-                        </div>
-                </section>
-        </div>
-        )
+interface CreateRecommendationProps {
+  professionalId: number;
 }
+
+export const CreateRecommendation: React.FC<CreateRecommendationProps> = ({ professionalId }) => {
+  const [formState, setFormState] = useState<recomendationDto>({
+    description: "",
+    title: "",
+  });
+  const { patientId } = useParams<{ patientId: string }>();
+  const [recommendations, setRecommendations] = useState<recomendationDto[]>([]);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    fetchRecommendations();
+  }, [professionalId, patientId]);
+
+  const fetchRecommendations = async () => {
+    if (professionalId && patientId) {
+      setIsLoading(true);
+      try {
+        const fetchedRecommendations = await findRecommendations(Number(patientId), professionalId);
+        setRecommendations(fetchedRecommendations);
+      } catch (error) {
+        Swal.fire("Error", "Failed to fetch recommendations", "error");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    const url = isEditing
+      ? `${import.meta.env.VITE_API_URL}recommendation/${formState.id}`
+      : `${import.meta.env.VITE_API_URL}recommendation/${patientId}/${professionalId}`;
+
+    const method = isEditing ? "PUT" : "POST";
+
+    try {
+      const data = await createOrUpdate(url, method, formState);
+
+      if (data.statusCode === 400) {
+        Swal.fire("Error", data.message[0], "error");
+      } else {
+        await Swal.fire("Success", `Recommendation ${isEditing ? "updated" : "created"} successfully`, "success");
+        resetForm();
+        fetchRecommendations();
+      }
+    } catch (error) {
+      Swal.fire("Error", "An unexpected error occurred", "error");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const editRecommendation = (recommendation: recomendationDto) => {
+    setFormState(recommendation);
+    setIsEditing(true);
+    window.scrollTo({ top: 100, behavior: "smooth" });
+  };
+
+  const resetForm = () => {
+    setFormState({ description: "", title: "" });
+    setIsEditing(false);
+  };
+
+  const deleteRecommendation = async (recommendationId: number) => {
+    const result = await Swal.fire({
+      text: "Are you sure you want to delete this recommendation?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it",
+    });
+
+    if (result.isConfirmed) {
+      setIsLoading(true);
+      try {
+        await deleteRecommendationById(recommendationId);
+        Swal.fire("Deleted", "The recommendation has been deleted.", "success");
+        fetchRecommendations();
+      } catch (error) {
+        Swal.fire("Error", "Failed to delete the recommendation", "error");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
+
+  return (
+    <div className="row">
+      <section className="col-12 col-lg-6 mt-4">
+        <div className="card">
+          <div className="card-header">
+            <h4 className="text-center fw-bold mb-0">Recomendaciones</h4>
+          </div>
+          <div className="card-body">
+            {isLoading ? (
+              <div className="text-center">cargando recomendaciones...</div>
+            ) : recommendations.length === 0 ? (
+              <p className="text-center text-muted">No hay recomendaciones.</p>
+            ) : (
+              recommendations.map((recommendation) => (
+                <div key={recommendation.id} className="card mb-3">
+                  <div className="card-body">
+                    <h5 className="card-title">{recommendation.title}</h5>
+                    <p className="card-text">{recommendation.description}</p>
+                    <div className="text-end">
+                      <button
+                        onClick={() => editRecommendation(recommendation)}
+                        className="btn btn-sm btn-outline-primary me-2"
+                        aria-label="Edit recommendation"
+                      >
+                        <i className="bi bi-pencil"></i> Editar
+                      </button>
+                      <button
+                        onClick={() => deleteRecommendation(recommendation.id!)}
+                        className="btn btn-sm btn-outline-danger"
+                        aria-label="Delete recommendation"
+                      >
+                        <i className="bi bi-trash"></i> Eliminar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+      </section>
+      <section className="col-12 col-lg-6 mt-4">
+        <div className="card">
+          <div className="card-header">
+            <h4 className="text-center fw-bold mb-0">
+              {isEditing ? "Editar" : "Crear"} Recomendación
+            </h4>
+          </div>
+          <div className="card-body">
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label htmlFor="title" className="form-label">
+                  Título
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="title"
+                  name="title"
+                  value={formState.title}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="description" className="form-label">
+                  Descripción
+                </label>
+                <textarea
+                  className="form-control"
+                  id="description"
+                  name="description"
+                  value={formState.description}
+                  onChange={handleChange}
+                  rows={4}
+                  required
+                ></textarea>
+              </div>
+              <div className="d-grid gap-2">
+                <button type="submit" className="btn btn-primary" disabled={isLoading}>
+                  {isLoading ? (
+                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                  ) : null}
+                  {isEditing ? "Actualizar" : "Crear"}
+                </button>
+                {isEditing && (
+                  <button type="button" className="btn btn-secondary" onClick={resetForm}>
+                    Cancelar
+                  </button>
+                )}
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
