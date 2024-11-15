@@ -84,22 +84,22 @@ export const CreateRecommendation: React.FC<CreateRecommendationProps> = ({ prof
 
   const deleteRecommendation = async (recommendationId: number) => {
     const result = await Swal.fire({
-      text: "Are you sure you want to delete this recommendation?",
+      text: "Está seguro de que desea eliminar esta recomendación?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it",
+      confirmButtonText: "Si, eliminar.",
     });
 
     if (result.isConfirmed) {
       setIsLoading(true);
       try {
         await deleteRecommendationById(recommendationId);
-        Swal.fire("Deleted", "The recommendation has been deleted.", "success");
+        Swal.fire("Deleted", "La recomendación ha sido eliminada.", "success");
         fetchRecommendations();
       } catch (error) {
-        Swal.fire("Error", "Failed to delete the recommendation", "error");
+        Swal.fire("Error", "No se eliminó la recomendación.", "error");
       } finally {
         setIsLoading(false);
       }
