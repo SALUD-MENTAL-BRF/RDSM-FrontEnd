@@ -4,3 +4,11 @@ export interface logicalProblemResponseDto {
     correcta: string;
     explicacion:string
 }
+
+
+export interface logicalProblemSettingDto{
+  id?: number;
+  complexity: string;
+  theme: string;
+  problem_type: string
+}

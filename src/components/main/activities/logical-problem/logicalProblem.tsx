@@ -3,10 +3,10 @@
 // import { useParams } from 'react-router-dom';
 // import '../../../../assets/style/activities/HabilitySocial.css'
 // import Swal from 'sweetalert2';
-// import { logicalProblemResponseDto } from '../../../../types/activity/logicalProblem.dto';
+// import { logicalProblemResponseDto, logicalProblemSettingDto } from '../../../../types/activity/logicalProblem.dto';
 // import { fetchLogicalProblem } from './fetchLogicalProblem';
 
-// export const SocialHability= () => {
+// export const LogicalProblem = () => {
 //   const [selectStage, setSelectStage] = useState<string>("");
 //   const {patientId,professionalId} = useParams();
 //   const [activityState, setActivityState] = useState<boolean>(false);
@@ -46,13 +46,13 @@
 //       })
 //     }
 //     setActivityState(true)
-//     setResponseAI({correcta:"",escenario:"",respuestas:[], explicacion: ""})
+//     setResponseAI({correcta:"",problema:"",respuestas:[], explicacion: ""})
 //     setConfirmResponse(false)
 //     setResponseSelected(0)
 
 //     const response = await fetchLogicalProblem({...settingState,stage:selectStage})
     
-//     if (response.escenario){
+//     if (response.problema){
 //       setResponseAI(response)
 //     }
 //   }
@@ -66,15 +66,15 @@
 //   const stopGame = async () => {
 //     setResponseSelected(0)
 //     setActivityState(false)
-//     setResponseAI({correcta:"",escenario:"",respuestas:[], explicacion: ""})
+//     setResponseAI({correcta:"",problema:"",respuestas:[], explicacion: ""})
 //     setConfirmResponse(false)
 //   }
 
 //   useEffect(() => {
 //     ( 
 //       async () => {
-//         const setting:socialHabilitySettingDto = await CustomFetch(`${import.meta.env.VITE_API_URL}social-hability/setting/${professionalId}/${patientId}`, 'GET');
-//         setSettingState(setting);   
+//         // const setting:socialHabilitySettingDto = await CustomFetch(`${import.meta.env.VITE_API_URL}social-hability/setting/${professionalId}/${patientId}`, 'GET');
+//         // setSettingState(setting);   
 //       }
 //     )()
 //   },[])
@@ -94,12 +94,12 @@
 //     const save = await fetch(`${import.meta.env.VITE_API_URL}social-hability/history/${professionalId}/${patientId}`,{
 //       method:'POST',
 //       body: JSON.stringify({
-//         stage:responseAI.escenario,
+//         stage:responseAI.problema,
 //         responses: responseAI.respuestas,
 //         answer: responseSelected,
 //         correctResponse: responseAI.correcta,
 //         explanation: responseAI.explicacion,
-//         complexity: settingState?.complexity
+//         // complexity: settingState?.complexity
 //       }),
 //       headers: {
 //         'content-type':'application/json'
