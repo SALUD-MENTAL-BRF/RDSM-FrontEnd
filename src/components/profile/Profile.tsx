@@ -99,9 +99,7 @@ export const Profile: React.FC = () => {
     } finally {
       setIsLoading(false);
     }
-  };  
-
-  console.log(user?.imageUrl)
+  };
 
   return (
     <div className='container-fluid profile-page'>

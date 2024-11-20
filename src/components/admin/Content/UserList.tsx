@@ -124,7 +124,7 @@ export const UserList = () => {
                 <tr key={user.id}>
                   <td>{user.username}</td>
                   <td>{user.email}</td>
-                  <td>{user.roleId}</td>
+                  <td>{user.rol.type}</td>
                   <td>{user.status}</td>
                   <td>{new Date(user.createdAt).toLocaleDateString()}</td>
                   <td>
