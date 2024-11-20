@@ -24,6 +24,9 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
 
   const roleSuperAdmin = parseInt(import.meta.env.VITE_ROLE_ADMIN, 10);
   const roleHospital = parseInt(import.meta.env.VITE_ROLE_HOSPITAL, 10);
+  const roleProfessional = Number(import.meta.env.VITE_ROLE_PROFESSIONAL);
+  const rolePatient = Number(import.meta.env.VITE_ROLE_PATIENT)
+  const roleGuest = Number(import.meta.env.VITE_ROLE_GUEST)
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -64,6 +67,9 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
     return <Navigate to="/home" />;
   }
 
+  if (user.roleId !== roleProfessional && window.location.pathname === "/patient") {
+    return <Navigate to="/home" />;
+  }
   return children;
 };
 

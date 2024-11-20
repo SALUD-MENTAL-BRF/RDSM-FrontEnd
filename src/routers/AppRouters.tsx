@@ -28,7 +28,6 @@ import { PlayActivityPage } from "../pages/PlayActivityPage";
 import { SocialHabilityManagement } from "../pages/Activities/SocialHabilityManagement";
 import { OptionActivitiesPage } from "../pages/OptionsActivitiesPage";
 
-// Definir constante para los roles
 const ROLE_SUPERADMIN = parseInt(import.meta.env.VITE_ROLE_ADMIN);
 import { HospitalPanelPage } from "../pages/HospitalPanelPage";
 
@@ -49,135 +48,269 @@ export const AppRouters: React.FC = () => {
         />
         <Route
           path="/home"
-          element={authState.isLogged ? <HomePage /> : <Navigate to={"/login"}/> }
+          element={
+            authState.isLogged ? (
+                <HomePage />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/profile"
-          element={authState.isLogged ? <ProfilePage /> : <Navigate to={"/login"} />}
+          element={
+            authState.isLogged ? (
+                <ProfilePage />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
-        <Route path="/information" element={<InfoMentalHealthPage />} />
+        <Route
+          path="/information"
+          element={
+            authState.isLogged ? (
+                <InfoMentalHealthPage />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
         <Route
           path="/personalDiary"
-          element={authState.isLogged ? <PersonalDiaryPage /> : <Navigate to={"/login"} />}
+          element={
+            authState.isLogged ? (
+                <PersonalDiaryPage />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/chatbot"
-          element={authState.isLogged ? <ChatbotPage /> : <Navigate to={"/login"} />}
+          element={
+            authState.isLogged ? (
+              <ProtectedRoute>
+                <ChatbotPage />
+              </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/professionals"
-          element={authState.isLogged ? <ProfessionalListPage /> : <Navigate to={"/login"} />}
+          element={
+            authState.isLogged ? (
+                <ProfessionalListPage />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/form-professional"
-          element={authState.isLogged ? <FormProfessionalPage /> : <Navigate to={"/login"} />}
+          element={
+            authState.isLogged ? (
+              <ProtectedRoute>
+                <FormProfessionalPage />
+              </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/consultation"
-          element={authState.isLogged ? <ConsultationPage /> : <Navigate to={"/login"} />}
+          element={
+            authState.isLogged ? (
+              <ProtectedRoute>
+                <ConsultationPage />
+              </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/profile-professional/:id"
-          element={authState.isLogged ? <ProfileProfessionalPage /> : <Navigate to={"/login"} />}
+          element={
+            authState.isLogged ? (
+                <ProfileProfessionalPage />
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/superAdmin"
-          element={authState.isLogged ? <ProtectedRoute><SuperAdmin /></ProtectedRoute> : <Navigate to={"/login"} />}
+          element={
+            authState.isLogged ? (
+              <ProtectedRoute>
+                <SuperAdmin />
+              </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/hospital"
-          element={authState.isLogged ? <ProtectedRoute><HospitalPanelPage /></ProtectedRoute> : <Navigate to={"/login"} />}
+          element={
+            authState.isLogged ? (
+              <ProtectedRoute>
+                <HospitalPanelPage />
+              </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/patient"
-          element={authState.isLogged ? <PatientManagementPage /> : <Navigate to={"/login"} />}
+          element={
+            authState.isLogged ? (
+              <ProtectedRoute>
+                <PatientManagementPage />
+              </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route path="*" element={<Navigate to="/" replace />} />
         <Route
           path="/information-patient/:id"
           element={
-            authState.isLogged ? 
-              <InfoPatientPage/> :
-            <Navigate to={"/login"} />
+            authState.isLogged ? (
+              <ProtectedRoute>
+                <InfoPatientPage />
+              </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
         <Route
           path="/form-patient/:id/:userId"
           element={
-            authState.isLogged ? 
-              <FormPatientPage/> :
-              <Navigate to={"/login"} />
+            authState.isLogged ? (
+              <ProtectedRoute>
+                <FormPatientPage />
+              </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
         <Route
           path="/request-list"
           element={
-            authState.isLogged ? 
-              <RequestListPage/> :
-            <Navigate to={"/login"} />
+            authState.isLogged ? (
+              <ProtectedRoute>
+                <RequestListPage />
+              </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
         <Route
           path="/view-request/:professionalId/:requestId"
           element={
-            authState.isLogged ? 
-              <ViewRequestPatientPage/>:
-            <Navigate to={"/login"} />
+            authState.isLogged ? (
+              <ProtectedRoute>
+                <ViewRequestPatientPage />
+              </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
         <Route
           path="/management-activities/:patientId"
           element={
-            authState.isLogged ? 
-            <ManagementActivitiesPage/>:
-            <Navigate to={"/login"} />
+            authState.isLogged ? (
+              <ProtectedRoute>
+                <ManagementActivitiesPage />
+              </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
-        <Route 
+        <Route
           path="/activity-list/:patientId/:professionalId"
           element={
-            authState.isLogged ? 
-            <AddActivityPage/>:
-            <Navigate to={"/login"} />
+            authState.isLogged ? (
+              <ProtectedRoute>
+                <AddActivityPage />
+              </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
         <Route
           path="/assigned-professionals/"
           element={
-            authState.isLogged ? 
-            <AssignedProfessionalsPage/>:
-            <Navigate to={"/login"} />
+            authState.isLogged ? (
+              <ProtectedRoute>
+                <AssignedProfessionalsPage />
+              </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
         <Route
           path="/activities/:patientId/:professionalId"
-          element={authState.isLogged ? <ActivitiesPage /> : <Navigate to={"/login"} />}
+          element={
+            authState.isLogged ? (
+              <ProtectedRoute>
+                <ActivitiesPage />
+              </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/play-activity/:patientId/:professionalId/:activityId"
           element={
-            authState.isLogged ? 
-              <PlayActivityPage/>:
-          <Navigate to={"/login"} />
-        }
+            authState.isLogged ? (
+              <ProtectedRoute>
+                <PlayActivityPage />
+              </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
         />
         <Route
           path="/social-hability/:section/:professionalId/:patientId"
           element={
-            authState.isLogged ? 
-              <SocialHabilityManagement/>:
-            <Navigate to={"/login"} />
+            authState.isLogged ? (
+              <ProtectedRoute>
+                <SocialHabilityManagement />
+              </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
         <Route
           path="/options-activity/:activityId/:section/:professionalId/:patientId"
           element={
-            authState.isLogged ? 
-              <OptionActivitiesPage/>:
-            <Navigate to={"/login"} />
+            authState.isLogged ? (
+              <ProtectedRoute>
+                <OptionActivitiesPage />
+              </ProtectedRoute>
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         />
-        {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
       </Routes>
     </BrowserRouter>
   );
