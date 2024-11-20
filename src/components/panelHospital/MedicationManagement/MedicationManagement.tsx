@@ -1,4 +1,4 @@
-import { Edit, PlusCircle } from "lucide-react"
+import { Edit, PlusCircle, Trash } from "lucide-react"
 import { FC, useEffect, useState } from "react"
 import styles from '../../../assets/style/panelHospital/MedicationManagement.module.css'
 import { ModalMedicationManagement } from "./modalMedicationManagement"
@@ -90,10 +90,12 @@ export const MedicationManagement:FC = () => {
                     <td>{medication.type}</td>
                     <td>{medication.description}</td>
                     <td>{medication.quantity}</td>
-                    <td>En Stock</td>
+                    {
+                      medication.quantity > 50 ? <td className="text-success">En Stock</td> : <td className="text-danger">Se necesita Reponer</td>
+                    }
                     <td>
                       <button className="btn btn-sm btn-link"><Edit size={16} className={styles.customBlueText} /></button>
-                      <button className="btn btn-sm btn-link"><PlusCircle size={16} className={styles.customBlueText} /></button>
+                      <button className="btn btn-sm btn-link"><Trash size={16} className={styles.customBlueText} /></button>
                     </td>
                   </tr>
                 ))
