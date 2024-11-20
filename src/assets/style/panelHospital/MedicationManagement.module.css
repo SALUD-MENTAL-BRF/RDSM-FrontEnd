@@ -1,0 +1,170 @@
+.customBlueBackground {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+.customBlueText {
+  color: #007bff;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.modalContent {
+  background-color: white;
+  padding: 15px;
+  border-radius: 8px;
+  width: 95%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modalContent .modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #E5E5E7;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.modalContent .modalHeader h5 {
+  color: #2563EB;
+  font-size: 1.3rem;
+  font-weight: 700;
+}
+
+.modalContent .modalHeader .closeModal {
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.modalContent .modalBody {
+  height: auto;
+  max-height: calc(90vh - 100px);
+  overflow-y: auto;
+  padding: 10px 0;
+}
+
+.modalContent .modalBody .inputName,
+.modalContent .modalBody .inputDescription,
+.modalContent .modalBody .inputQuantity {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.modalContent .modalBody label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  font-family: sans-serif;
+  margin-bottom: 5px;
+}
+
+.modalContent .modalBody input,
+.modalContent .modalBody textarea {
+  border: 1px solid #E4E4E7;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 0.9em;
+  width: 100%;
+}
+
+.modalContent .modalBody textarea {
+  height: 80px;
+  resize: vertical;
+}
+
+.modalContent .modalBody input::placeholder,
+.modalContent .modalBody textarea::placeholder {
+  color: #71717A;
+}
+
+.modalContent .modalBody .actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.modalContent .modalBody .actions .btnSubmit,
+.modalContent .modalBody .actions .btnCancel {
+  padding: 8px 15px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.modalContent .modalBody .actions .btnSubmit {
+  background-color: #2563EB;
+  color: #fff;
+  border: none;
+}
+
+.modalContent .modalBody .actions .btnSubmit:hover {
+  background-color: #1D4ED8;
+}
+
+.modalContent .modalBody .actions .btnCancel {
+  background-color: #fff;
+  color: #1D4ED8;
+  border: 1px solid #1D4ED8;
+}
+
+.modalContent .modalBody .actions .btnCancel:hover {
+  background-color: #E5E5E7;
+}
+
+@media (min-width: 768px) {
+  .modalContent {
+    padding: 20px;
+    width: 80%;
+    max-width: 600px;
+  }
+
+  .modalContent .modalHeader h5 {
+    font-size: 1.7rem;
+  }
+
+  .modalContent .modalHeader .closeModal {
+    font-size: 1.5rem;
+  }
+
+  .modalContent .modalBody {
+    padding: 20px 0;
+  }
+
+  .modalContent .modalBody label {
+    font-size: 1rem;
+  }
+
+  .modalContent .modalBody input,
+  .modalContent .modalBody textarea {
+    padding: 10px;
+    font-size: 1em;
+  }
+
+  .modalContent .modalBody textarea {
+    height: 100px;
+  }
+
+  .modalContent .modalBody .actions .btnSubmit,
+  .modalContent .modalBody .actions .btnCancel {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+}

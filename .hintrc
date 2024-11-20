@@ -33,6 +33,12 @@
       {
         "select-name": "off"
       }
+    ],
+    "axe/aria": [
+      "default",
+      {
+        "aria-command-name": "off"
+      }
     ]
   }
 }

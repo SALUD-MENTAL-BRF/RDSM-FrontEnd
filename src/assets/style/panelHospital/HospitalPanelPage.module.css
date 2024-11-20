@@ -1,0 +1,13 @@
+.mainContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.customBlueText {
+  color: var(--bs-primary);
+}
+
+.mainContent {
+  background-color: var(--bs-light);
+  padding: 1rem;
+}

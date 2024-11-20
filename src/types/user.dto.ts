@@ -9,4 +9,7 @@ export interface User {
     createdAt: string;
     updatedAt: string;
     status: string;
+    rol: {
+        type: string;
+    }
 }
