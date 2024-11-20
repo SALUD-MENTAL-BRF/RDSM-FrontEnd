@@ -33,6 +33,10 @@ import { HospitalPanelPage } from "../pages/HospitalPanelPage";
 
 export const AppRouters: React.FC = () => {
   const { authState } = useAuth();
+  const VITE_ROLE_ADMIN = import.meta.env.VITE_ROLE_ADMIN
+  const VITE_ROLE_PATIENT = import.meta.env.VITE_ROLE_PATIENT
+  const VITE_ROLE_PROFESSIONAL = import.meta.env.VITE_ROLE_PROFESSIONAL
+  const VITE_ROLE_HOSPITAL = import.meta.env.VITE_ROLE_HOSPITAL
 
   return (
     <BrowserRouter>
@@ -49,266 +53,188 @@ export const AppRouters: React.FC = () => {
         <Route
           path="/home"
           element={
-            authState.isLogged ? (
-                <HomePage />
-            ) : (
-              <Navigate to="/login" />
-            )
+            <ProtectedRoute>
+              <HomePage />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/profile"
           element={
-            authState.isLogged ? (
+            <ProtectedRoute>
                 <ProfilePage />
-            ) : (
-              <Navigate to="/login" />
-            )
+            </ProtectedRoute>
           }
         />
         <Route
           path="/information"
           element={
-            authState.isLogged ? (
-                <InfoMentalHealthPage />
-            ) : (
-              <Navigate to="/login" />
-            )
+            <ProtectedRoute>
+              <InfoMentalHealthPage />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/personalDiary"
           element={
-            authState.isLogged ? (
-                <PersonalDiaryPage />
-            ) : (
-              <Navigate to="/login" />
-            )
+            <ProtectedRoute>
+              <PersonalDiaryPage />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/chatbot"
           element={
-            authState.isLogged ? (
               <ProtectedRoute>
                 <ChatbotPage />
               </ProtectedRoute>
-            ) : (
-              <Navigate to="/login" />
-            )
           }
         />
         <Route
           path="/professionals"
           element={
-            authState.isLogged ? (
-                <ProfessionalListPage />
-            ) : (
-              <Navigate to="/login" />
-            )
+            <ProtectedRoute>
+              <ProfessionalListPage />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/form-professional"
           element={
-            authState.isLogged ? (
               <ProtectedRoute>
                 <FormProfessionalPage />
               </ProtectedRoute>
-            ) : (
-              <Navigate to="/login" />
-            )
           }
         />
         <Route
           path="/consultation"
           element={
-            authState.isLogged ? (
               <ProtectedRoute>
                 <ConsultationPage />
               </ProtectedRoute>
-            ) : (
-              <Navigate to="/login" />
-            )
           }
         />
         <Route
           path="/profile-professional/:id"
           element={
-            authState.isLogged ? (
-                <ProfileProfessionalPage />
-            ) : (
-              <Navigate to="/login" />
-            )
+            <ProtectedRoute>
+              <ProfileProfessionalPage />
+            </ProtectedRoute>
           }
         />
         <Route
           path="/superAdmin"
           element={
-            authState.isLogged ? (
-              <ProtectedRoute>
+              <ProtectedRoute VITE_ROLE_ADMIN={VITE_ROLE_ADMIN}>
                 <SuperAdmin />
               </ProtectedRoute>
-            ) : (
-              <Navigate to="/login" />
-            )
           }
         />
         <Route
           path="/hospital"
           element={
-            authState.isLogged ? (
-              <ProtectedRoute>
+              <ProtectedRoute VITE_ROLE_HOSPITAL={VITE_ROLE_HOSPITAL}>
                 <HospitalPanelPage />
               </ProtectedRoute>
-            ) : (
-              <Navigate to="/login" />
-            )
           }
         />
         <Route
           path="/patient"
           element={
-            authState.isLogged ? (
-              <ProtectedRoute>
+              <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
                 <PatientManagementPage />
               </ProtectedRoute>
-            ) : (
-              <Navigate to="/login" />
-            )
           }
         />
         <Route path="*" element={<Navigate to="/" replace />} />
         <Route
           path="/information-patient/:id"
           element={
-            authState.isLogged ? (
-              <ProtectedRoute>
+              <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
                 <InfoPatientPage />
               </ProtectedRoute>
-            ) : (
-              <Navigate to="/login" />
-            )
           }
         />
         <Route
           path="/form-patient/:id/:userId"
           element={
-            authState.isLogged ? (
               <ProtectedRoute>
                 <FormPatientPage />
               </ProtectedRoute>
-            ) : (
-              <Navigate to="/login" />
-            )
           }
         />
         <Route
           path="/request-list"
           element={
-            authState.isLogged ? (
-              <ProtectedRoute>
+              <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
                 <RequestListPage />
               </ProtectedRoute>
-            ) : (
-              <Navigate to="/login" />
-            )
           }
         />
         <Route
           path="/view-request/:professionalId/:requestId"
           element={
-            authState.isLogged ? (
-              <ProtectedRoute>
+              <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
                 <ViewRequestPatientPage />
               </ProtectedRoute>
-            ) : (
-              <Navigate to="/login" />
-            )
           }
         />
         <Route
           path="/management-activities/:patientId"
           element={
-            authState.isLogged ? (
-              <ProtectedRoute>
+              <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
                 <ManagementActivitiesPage />
               </ProtectedRoute>
-            ) : (
-              <Navigate to="/login" />
-            )
+
           }
         />
         <Route
           path="/activity-list/:patientId/:professionalId"
           element={
-            authState.isLogged ? (
-              <ProtectedRoute>
+              <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
                 <AddActivityPage />
               </ProtectedRoute>
-            ) : (
-              <Navigate to="/login" />
-            )
           }
         />
         <Route
           path="/assigned-professionals/"
           element={
-            authState.isLogged ? (
-              <ProtectedRoute>
+              <ProtectedRoute VITE_ROLE_PATIENT={VITE_ROLE_PATIENT}>
                 <AssignedProfessionalsPage />
               </ProtectedRoute>
-            ) : (
-              <Navigate to="/login" />
-            )
           }
         />
         <Route
           path="/activities/:patientId/:professionalId"
           element={
-            authState.isLogged ? (
-              <ProtectedRoute>
+              <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PATIENT}>
                 <ActivitiesPage />
               </ProtectedRoute>
-            ) : (
-              <Navigate to="/login" />
-            )
+
           }
         />
         <Route
           path="/play-activity/:patientId/:professionalId/:activityId"
           element={
-            authState.isLogged ? (
-              <ProtectedRoute>
+              <ProtectedRoute VITE_ROLE_PATIENT={VITE_ROLE_PATIENT}>
                 <PlayActivityPage />
               </ProtectedRoute>
-            ) : (
-              <Navigate to="/login" />
-            )
           }
         />
         <Route
           path="/social-hability/:section/:professionalId/:patientId"
           element={
-            authState.isLogged ? (
-              <ProtectedRoute>
+              <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
                 <SocialHabilityManagement />
               </ProtectedRoute>
-            ) : (
-              <Navigate to="/login" />
-            )
           }
         />
         <Route
           path="/options-activity/:activityId/:section/:professionalId/:patientId"
           element={
-            authState.isLogged ? (
-              <ProtectedRoute>
+              <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
                 <OptionActivitiesPage />
               </ProtectedRoute>
-            ) : (
-              <Navigate to="/login" />
-            )
           }
         />
       </Routes>
