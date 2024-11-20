@@ -1,11 +1,11 @@
-import { Header } from "../components/headers/Header";
+import { Header } from "../../components/headers/Header";
 import { useNavigate } from "react-router-dom";
-import '../assets/style/activities/SocialHabilityManagement.css'
-import { ProgressSocialHability } from "../components/main/activities/social-hability/ProgressSocialHability";
-import { SocialHabilitySetting } from "../components/main/professional/setting-activities/SocialHabilitySetting";
+import '../../assets/style/activities/ActivitiesManagement.css'
+import { ProgressSocialHability } from "../../components/main/activities/social-hability/ProgressSocialHability";
+import { LogicalProblemSetting } from "../../components/main/professional/setting-activities/LogicalProblemSetting";
 import { useParams } from "react-router-dom";
 
-export const SocialHabilityManagement = () => {
+export const LogicalProblemManagement = () => {
     const {section,professionalId,patientId} = useParams() 
     const navigate = useNavigate();
 
@@ -24,20 +24,20 @@ export const SocialHabilityManagement = () => {
                     </div>
                     <div className="row  w-100 mt-5">
                         <div onClick={() => navigate(`/social-hability/history/${professionalId}/${patientId}`)} 
-                        className={`col-6 text-end options-SocialHabilityManagement 
+                        className={`col-6 text-end options-ActivitiesManagements 
                             ${section == 'history'?'select-option-history':''}`
                             }>
-                            <h5 role="button" className="text-SocialHabilityManagement mt-1">Historial</h5>
+                            <h5 role="button" className="text-ActivitiesManagements mt-1">Historial</h5>
                         </div>
                         <div onClick={() => navigate(`/social-hability/setting/${professionalId}/${patientId}`)} className={`col-6 
                             ${section == 'setting'?'select-option-setting':''}
                             `}>
-                            <h5 role="button" className="text-SocialHabilityManagement mt-1">Configuración</h5>
+                            <h5 role="button" className="text-ActivitiesManagements mt-1">Configuración</h5>
                         </div>
                     </div>
                 </div>
                 {
-                    section == "setting" ? <SocialHabilitySetting/> : <ProgressSocialHability/>
+                    section == "setting" ? <LogicalProblemSetting/> : <ProgressSocialHability/>
                 }
             </main>
             

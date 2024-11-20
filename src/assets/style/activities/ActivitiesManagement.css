@@ -1,8 +1,8 @@
-.options-SocialHabilityManagement {
+.options-ActivitiesManagements {
     border-right:  solid 2px black;
 }
 
-.text-SocialHabilityManagement{
+.text-ActivitiesManagements{
     color: black;
 }
 
@@ -17,3 +17,5 @@
     border-bottom-right-radius: 10px;
     background-color: rgb(204, 199, 199);
 }
+
+

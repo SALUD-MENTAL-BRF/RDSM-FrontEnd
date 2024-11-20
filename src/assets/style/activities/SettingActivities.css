@@ -1,16 +1,16 @@
-.select-settingSocialHability {
+.select-setting{
    width: 100px;
    text-transform:  none; 
 }
 
-.text-settingSocialHability{
+.text-setting{
    font-family: "Roboto", sans-serif;
    font-optical-sizing: auto;
    font-weight: 400;   
    font-style: normal;
 }
 
-.title-settingSocialHability{
+.title-setting{
    font-family: "Radio Canada Big", sans-serif;
    font-optical-sizing: auto;
    font-weight: 500;
