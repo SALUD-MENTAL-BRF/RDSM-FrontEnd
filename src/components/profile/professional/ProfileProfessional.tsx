@@ -33,6 +33,25 @@ export const ProfileProfessional = () => {
       })();
   }, [id, authState.token, reloadPage]);
 
+  function calcularEdad(fechaNacimiento:string) {
+    const hoy = new Date();
+    const nacimiento = new Date(fechaNacimiento);
+
+    let edad = hoy.getFullYear() - nacimiento.getFullYear();
+
+
+    const mesActual = hoy.getMonth();
+    const diaActual = hoy.getDate();
+    const mesNacimiento = nacimiento.getMonth();
+    const diaNacimiento = nacimiento.getDate();
+
+    if (mesActual < mesNacimiento || (mesActual === mesNacimiento && diaActual < diaNacimiento)) {
+        edad--;
+    }
+
+    return edad;
+}
+
 
   return (
     <div className="container-fluid bg-light min-vh-100">
@@ -65,7 +84,7 @@ export const ProfileProfessional = () => {
                       <h3 className="mb-3">Descripción</h3>
                       <p>{professionalState?.description || 'Sin descripción.'}</p>
                       <div className="mb-3">
-                        <strong>Edad:</strong> {}
+                        <strong>Edad:</strong> {calcularEdad(professionalState?.professional?.birthdate!)}
                       </div>
                       <div className="mb-3">
                         <strong>Especialización:</strong> {professionalState?.professional?.specialization}
