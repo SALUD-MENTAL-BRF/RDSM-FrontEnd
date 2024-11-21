@@ -7,6 +7,7 @@ import { OptionsSocialHability } from "../components/main/activities/social-habi
 import { SocialHabilitySetting } from "../components/main/professional/setting-activities/SocialHabilitySetting";
 import { ProgressSocialHability } from "../components/main/activities/social-hability/ProgressSocialHability";
 import { LogicalProblemSetting } from "../components/main/professional/setting-activities/LogicalProblemSetting";
+import { ProgressLogicalProblem } from "../components/main/activities/logical-problem/ProgressLogicalProblem";
 
 export const OptionActivitiesPage = () => {
     const {section,professionalId,patientId, activityId} = useParams() 
@@ -35,7 +36,7 @@ export const OptionActivitiesPage = () => {
                 }
                 {activityId == "5" ?
                     <>
-                        {section == "setting" ? <LogicalProblemSetting/> : ""}
+                        {section == "setting" ? <LogicalProblemSetting/> : <ProgressLogicalProblem/>}
                     </>: ""
                 }
             </main>
