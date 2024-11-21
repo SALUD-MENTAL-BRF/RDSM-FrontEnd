@@ -122,7 +122,7 @@ export const Profile: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLTextAreaElement>) => {
     const {name, value} = e.target
 
-    setProfileProfessional(prevstate => ({
+    setProfileProfessional(prevstate => ({  
       ...prevstate, [name]: value
     }));
   };
