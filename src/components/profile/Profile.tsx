@@ -5,7 +5,7 @@ import { CustomFetch } from '../../api/CustomFetch';
 import Swal from 'sweetalert2';
 import { formatInTimeZone } from "date-fns-tz";
 import { useNavigate } from 'react-router-dom';
-import { ProfessionalDto, ProfileProfessionalDto } from '../../types/profileProfessional.dto';
+import { ProfessionalDto } from '../../types/profileProfessional.dto';
 
 const imageExample = './image-example/imageUser.jpg'
 
