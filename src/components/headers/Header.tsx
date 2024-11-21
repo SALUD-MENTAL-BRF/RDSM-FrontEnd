@@ -4,12 +4,14 @@ import { Lougout } from './Logout';
 import { CustomFetch } from '../../api/CustomFetch';
 import useAuth from '../../hooks/useAuth';
 import { User } from '../../types/user.dto';
+import { useNavigate } from 'react-router-dom';
 
 export const Header: React.FC = () => {
 
   const { authState } = useAuth()
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [user, setUser] = useState<User>();
+  const nagivate = useNavigate()
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -56,7 +58,7 @@ export const Header: React.FC = () => {
               <ul className='dropdown-menu show position-absolute end-0 mt-2'>
                 <li><a className='dropdown-item' href='/profile'>Mi Perfil</a></li>
                 <li><a className='dropdown-item' href='#'>Configuración</a></li>
-                <li><Lougout/></li>
+                <li className='ms-1'><Lougout/></li>
               </ul>
             )}
           </div>

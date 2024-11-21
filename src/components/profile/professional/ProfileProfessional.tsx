@@ -86,7 +86,7 @@ export const ProfileProfessional = () => {
       },
     })
   
-    await CustomFetch(`${import.meta.env.VITE_API_URL}professional/${professionalState?.id}`, 'PUT', formValues)
+    await CustomFetch(`${import.meta.env.VITE_API_URL}professional/profile/${professionalState?.id}`, 'PUT', formValues)
     setReloadPage(!reloadPage)
   };
   
@@ -112,8 +112,8 @@ export const ProfileProfessional = () => {
                     ? professionalState.professional.user.imageUrl :
                                 "/image-example/imageUser.jpg"
                         } alt="" className="image-profileProfessional"/>
-                  <h2>{`${professionalState?.professional.firstname} ${professionalState?.professional.lastname}`}</h2>
-                  <p className="text-muted">{professionalState?.professional.title}</p>
+                  <h2>{`${professionalState?.professional?.firstname} ${professionalState?.professional?.lastname}`}</h2>
+                  <p className="text-muted">{professionalState?.professional?.title}</p>
                 </div>
 
                 <div className="col-md-8">
@@ -125,7 +125,7 @@ export const ProfileProfessional = () => {
                         <strong>Edad:</strong> {}
                       </div>
                       <div className="mb-3">
-                        <strong>Especialización:</strong> {professionalState?.professional.specialization}
+                        <strong>Especialización:</strong> {professionalState?.professional?.specialization}
                       </div>
                       <div className="mb-3">
                         <strong>Preferencia de comunicación:</strong> {professionalState?.preference_communication}
@@ -135,7 +135,7 @@ export const ProfileProfessional = () => {
                       </div>
                     </div>
                     {
-                      userState?.roleId == Number(import.meta.env.VITE_ROLE_PROFESSIONAL) && userState.id == professionalState?.professional.userId && (
+                      userState?.roleId == Number(import.meta.env.VITE_ROLE_PROFESSIONAL) && userState.id == professionalState?.professional?.userId && (
                         <div title="Editar" className="col text-end">
                           <svg onClick={handleSubmit} role="button" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-pencil-square" viewBox="0 0 16 16">
                             <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -161,12 +161,12 @@ export const ProfileProfessional = () => {
                   <p className="text-muted">Seguidores</p>
                 </div>
                 <div className="col-4 mt-3">
-                    {professionalState?.professional.patient?.find(patient => patient.userId == userState?.id) ? <h6>¡Ya es tu médico!</h6> : consult ?
+                    {professionalState?.professional?.patient?.find(patient => patient.userId == userState?.id) ? <h6>¡Ya es tu médico!</h6> : consult ?
                       <h6>¡Tienes una solicitud pendiente!</h6>
                       : ""}
                     {
                         userState?.roleId == import.meta.env.VITE_ROLE_PATIENT || userState?.roleId == import.meta.env.VITE_ROLE_GUEST  && professionalState?.availability  ?
-                        !consult && !(professionalState?.professional.patient?.find(patient => patient.userId == userState?.id)) ?
+                        !consult && !(professionalState?.professional?.patient?.find(patient => patient.userId == userState?.id)) ?
                           <button onClick={() => navigate(`/form-patient/${id}/${userState?.id}`)} className="btn btn-primary">
                             <Heart size={24} className="" />
                               Consultar

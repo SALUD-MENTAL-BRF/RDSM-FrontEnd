@@ -15,7 +15,7 @@ export const PatientManagement = () => {
         (
             async () => {
                 const user = await CustomFetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`, 'GET')
-                const professional = await CustomFetch(`${import.meta.env.VITE_API_URL}professional/${user.id}`, 'GET')                
+                const professional = await CustomFetch(`${import.meta.env.VITE_API_URL}professional/user/${user.id}`, 'GET')                
                 const data = await CustomFetch(`${import.meta.env.VITE_API_URL}patient/professional/${professional.id}`, 'GET') 
                 setPatientState(data.patient)
             }

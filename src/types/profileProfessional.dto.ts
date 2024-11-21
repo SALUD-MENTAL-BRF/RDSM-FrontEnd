@@ -3,13 +3,12 @@ import { User } from "./user.dto";
 import { patientDto } from "./patients.dto";
 
 export interface ProfileProfessionalDto {
-    id: number;
+    id?: number;
     description: string;
     availability: boolean;
     preference_communication: string;
-    url_image: string;
-    professionalId: number;
-    professional: ProfessionalDto;
+    professionalId?: number;
+    professional?: ProfessionalDto;
 }
 
 export interface ProfessionalDto {

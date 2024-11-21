@@ -91,9 +91,9 @@ export const LogicalProblemSetting = () => {
                     id="complexity"
                 >
                     <option value="">Selecciona una complejidad...</option>
-                    <option value="Baja">Baja</option>
-                    <option value="Moderada">Moderada</option>
-                    <option value="Alta">Alta</option>
+                    <option value="Baja">Facíl</option>
+                    <option value="Moderada">Normal</option>
+                    <option value="Alta">Difícil</option>
                 </select>
                 <label htmlFor="theme">Tema</label>
                 <select

@@ -19,7 +19,7 @@ export const RequestPatient = () => {
         async () => {
             const userResponse = await fetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`);
             const user = await userResponse.json()
-            const professionalResponse = await fetch(`${import.meta.env.VITE_API_URL}professional/${user.id}`);
+            const professionalResponse = await fetch(`${import.meta.env.VITE_API_URL}professional/user/${user.id}`);
             console.log(professionalState);
             
             const professional = await professionalResponse.json()

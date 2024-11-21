@@ -4,6 +4,8 @@ import useAuth from '../../hooks/useAuth';
 import { CustomFetch } from '../../api/CustomFetch';
 import Swal from 'sweetalert2';
 import { formatInTimeZone } from "date-fns-tz";
+import { useNavigate } from 'react-router-dom';
+import { ProfessionalDto, ProfileProfessionalDto } from '../../types/profileProfessional.dto';
 
 const imageExample = './image-example/imageUser.jpg'
 
@@ -24,6 +26,14 @@ export const Profile: React.FC = () => {
   const [user, setUser] = useState<User>();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [profileProfessional, setProfileProfessional] = useState({
+    availability: "",
+    description: "Sin descripción",
+    preference_communication: "Sin preferencias",
+  })
+  const [professionalState, setProfessional] = useState<ProfessionalDto>()
+
+  const navigate = useNavigate()
 
   // Convertir la fecha de creación a la zona horaria de Argentina
   const formatCreatedAt = (createdAt: string) => {
@@ -33,14 +43,22 @@ export const Profile: React.FC = () => {
 
   useEffect(() => {
     if (authState.token) {
-      CustomFetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`, 'GET')
-        .then((response) => {
-          setUser(response);
-        })
-        .catch((error) => {
-          console.error("Error fetching user data:", error);
-        });
+      (
+        async () => {
+          const user = await CustomFetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`, 'GET')
+          setUser(user)
+          if(user?.roleId == Number(import.meta.env.VITE_ROLE_PROFESSIONAL)){
+            const professionalResponse = await fetch(`${import.meta.env.VITE_API_URL}professional/user/${user.id}`)
+            const professional = await professionalResponse.json()
+            const profileResponse = await fetch(`${import.meta.env.VITE_API_URL}professional/profile/professional/${professional.id}`)
+            const profile = await profileResponse.json()
+            setProfileProfessional({...profile, availability: profile.availability ? "true": "false"})    
+            setProfessional(professional)    
+          }
+        }
+      )()
     }
+
   }, [authState.token]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -101,46 +119,79 @@ export const Profile: React.FC = () => {
     }
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLTextAreaElement>) => {
+    const {name, value} = e.target
+
+    setProfileProfessional(prevstate => ({
+      ...prevstate, [name]: value
+    }));
+  };
+
+  const updateProfileProfessional = async (e: React.FormEvent) => {
+    e.preventDefault()
+    await CustomFetch(`${import.meta.env.VITE_API_URL}professional/profile/${professionalState?.id}`, 'PUT', 
+      {...profileProfessional, availability: profileProfessional.availability == "true" ? true:false}
+    );
+  };
+
   return (
     <div className='container-fluid profile-page'>
       <main className='container pt-5'>
         <div className='row'>
-          <div className='col-md-3'>
-            <div className='card'>
-              <img
-                src={
-                  user?.imageUrl ? user.imageUrl : imageExample}
-                alt='Foto de perfil'
-                className='card-img-top rounded-circle mx-auto d-block mt-3'
-                style={{ width: '150px', height: '150px' }}
-              />
-              <div className='card-body text-center'>
-                <h5 className='card-title'>{user?.username}</h5>
-                <p className='card-text'>Usuario desde: {user?.createdAt ? formatCreatedAt(user.createdAt) : 'Fecha no disponible'}</p>
-              </div>
-            </div>
-            <div className='list-group mt-4'>
-              <button
-                className={`list-group-item list-group-item-action ${activeTab === 'perfil' ? 'active' : ''}`}
-                onClick={() => setActiveTab('perfil')}
-              >
-                Perfil
-              </button>
-              <button
-                className={`list-group-item list-group-item-action ${activeTab === 'sesiones' ? 'active' : ''}`}
-                onClick={() => setActiveTab('sesiones')}
-              >
-                Mis Sesiones
-              </button>
-              <button
-                className={`list-group-item list-group-item-action ${activeTab === 'recursos' ? 'active' : ''}`}
-                onClick={() => setActiveTab('recursos')}
-              >
-                Recursos
-              </button>
+          <div className='col-md-4'>
+            <div className='row'>
+                <div className='col-2'>
+                  <div role='button' onClick={() => navigate(-1)}>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-arrow-bar-left mt-4" viewBox="0 0 16 16">
+                          <path fillRule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5" />
+                      </svg>
+                      <h6 className='ms-1'>Atrás</h6>
+                  </div>
+                </div>
+                <div className='col-10'>
+                  <div className='card'>
+                    <img
+                      src={
+                        user?.imageUrl ? user.imageUrl : imageExample}
+                      alt='Foto de perfil'
+                      className='card-img-top rounded-circle mx-auto d-block mt-3'
+                      style={{ width: '150px', height: '150px' }}
+                    />
+                    <div className='card-body text-center'>
+                      <h5 className='card-title'>{user?.username}</h5>
+                      <p className='card-text'>Usuario desde: {user?.createdAt ? formatCreatedAt(user.createdAt) : 'Fecha no disponible'}</p>
+                    </div>
+                  </div>
+                  <div className='list-group mt-4'>
+                    <button
+                      className={`list-group-item list-group-item-action ${activeTab === 'perfil' ? 'active' : ''}`}
+                      onClick={() => setActiveTab('perfil')}
+                    >
+                      Perfil de usuario
+                    </button>
+                    {user?.roleId  == Number(import.meta.env.VITE_ROLE_PROFESSIONAL) ?<button
+                      className={`list-group-item list-group-item-action ${activeTab === 'perfilProfesional' ? 'active' : ''}`}
+                      onClick={() => setActiveTab('perfilProfesional')}
+                    >
+                      Perfil de profesional
+                    </button>:""}
+                    <button
+                      className={`list-group-item list-group-item-action ${activeTab === 'sesiones' ? 'active' : ''}`}
+                      onClick={() => setActiveTab('sesiones')}
+                    >
+                      Mis Sesiones
+                    </button>
+                    <button
+                      className={`list-group-item list-group-item-action ${activeTab === 'recursos' ? 'active' : ''}`}
+                      onClick={() => setActiveTab('recursos')}
+                    >
+                      Recursos
+                    </button>
+                  </div>
+                </div>
             </div>
           </div>
-          <div className='col-md-9'>
+          <div className='col-md-8'>
             {activeTab === 'perfil' && (
               <div className='card'>
                 <div className='card-body'>
@@ -181,9 +232,44 @@ export const Profile: React.FC = () => {
                         onChange={handleFileChange}
                       />
                     </div>
-                    <button type='submit' className='btn btn-primary' disabled={isLoading}>
-                      {isLoading ? 'Actualizando...' : 'Actualizar Perfil'}
-                    </button>
+                    <div className='text-center'>
+                      <button type='submit' className='btn btn-primary' disabled={isLoading}>
+                        {isLoading ? 'Actualizando...' : 'Actualizar Perfil'}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            )}
+            {activeTab === 'perfilProfesional' && (
+              <div className='card'>
+                <div className='card-body'>
+                  <h3 className='card-title'>Mi Perfil profesional</h3>
+                  <form onSubmit={updateProfileProfessional}>
+                    <div className="mb-3">
+                      <label htmlFor="preference_communication" className="form-label">Preferencia de comunicación</label>
+                      <select onChange={handleChange} value={profileProfessional?.preference_communication} className="form-select" id="preference_communication" name="preference_communication" required>
+                        <option value="Sin preferencias">Sin preferencias</option>
+                        <option value="Virtual">Virtual</option>
+                        <option value="Presencial">Presencial</option>
+                      </select>
+                    </div>
+                    <div className="mb-3">
+                      <label htmlFor="availability" className="form-label">Disponible</label>
+                      <select onChange={handleChange} value={profileProfessional?.availability == "true" ? "true" : "false"} className="form-select" id="availability" name="availability" required>
+                        <option value="false">No</option>
+                        <option value="true">Sí</option>
+                      </select>
+                    </div>
+                    <div className='mb-3'>
+                      <label htmlFor="description" className="form-label">Descripción</label>
+                      <textarea onChange={handleChange} value={profileProfessional?.description} style={{textTransform: 'none'}}  className="form-control" id="description" name="description"></textarea>
+                    </div>
+                    <div className='text-center'>
+                      <button type='submit' className='btn btn-primary' disabled={isLoading}>
+                        {isLoading ? 'Actualizando...' : 'Actualizar Perfil'}
+                      </button>
+                    </div>
                   </form>
                 </div>
               </div>
