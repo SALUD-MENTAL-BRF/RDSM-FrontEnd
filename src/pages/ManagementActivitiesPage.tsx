@@ -25,7 +25,7 @@ export const ManagementActivitiesPage: React.FC = () => {
         async () => {
             const patient = await CustomFetch(`${import.meta.env.VITE_API_URL}patient/${patientId}`, 'GET')
             const user = await CustomFetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`, 'GET')
-            const professional = await CustomFetch(`${import.meta.env.VITE_API_URL}professional/${user.id}`, 'GET')
+            const professional = await CustomFetch(`${import.meta.env.VITE_API_URL}professional/user/${user.id}`, 'GET')
             setProfessionalId(professional.id)
             setPatient(patient)
         }
