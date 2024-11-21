@@ -255,7 +255,7 @@ export const FormPatient = () => {
               </div>
               <div className="mb-3">
                 <label htmlFor="descripcionProblema" className="form-label">Descripción breve del problema actual</label>
-                <textarea className="form-control" id="descripcionProblema" name="descriptionProblem" value={formData.descriptionProblem} onChange={handleChange} required></textarea>
+                <textarea style={{textTransform: 'none'}} className="form-control" id="descripcionProblema" name="descriptionProblem" value={formData.descriptionProblem} onChange={handleChange} required></textarea>
               </div>
             </div>
           </div>
@@ -267,31 +267,31 @@ export const FormPatient = () => {
             <div className="card-body">
               <div className="mb-3">
                 <label htmlFor="diagnosticosPrevios" className="form-label">Diagnósticos previos de salud mental</label>
-                <textarea className="form-control" id="diagnosticosPrevios" name="diagnosesPrevious" value={formData.diagnosesPrevious} onChange={handleChange}></textarea>
+                <textarea style={{textTransform: 'none'}}  className="form-control" id="diagnosticosPrevios" name="diagnosesPrevious" value={formData.diagnosesPrevious} onChange={handleChange}></textarea>
               </div>
               <div className="mb-3">
                 <label htmlFor="tratamientosAnteriores" className="form-label">Tratamientos anteriores (terapia, medicación)</label>
-                <textarea className="form-control" id="tratamientosAnteriores" name="treatmentsPrevious" value={formData.treatmentsPrevious} onChange={handleChange}></textarea>
+                <textarea style={{textTransform: 'none'}}  className="form-control" id="tratamientosAnteriores" name="treatmentsPrevious" value={formData.treatmentsPrevious} onChange={handleChange}></textarea>
               </div>
               <div className="mb-3">
                 <label htmlFor="hospitalizacionesPrevias" className="form-label">Hospitalizaciones previas</label>
-                <textarea className="form-control" id="hospitalizacionesPrevias" name="hospitalizationsPrevious" value={formData.hospitalizationsPrevious} onChange={handleChange}></textarea>
+                <textarea style={{textTransform: 'none'}}  className="form-control" id="hospitalizacionesPrevias" name="hospitalizationsPrevious" value={formData.hospitalizationsPrevious} onChange={handleChange}></textarea>
               </div>
               <div className="mb-3">
                 <label htmlFor="medicacionActual" className="form-label">Medicación actual (nombre, dosis)</label>
-                <textarea className="form-control" id="medicacionActual" name="meciationCurrent" value={formData.meciationCurrent} onChange={handleChange}></textarea>
+                <textarea style={{textTransform: 'none'}}  className="form-control" id="medicacionActual" name="meciationCurrent" value={formData.meciationCurrent} onChange={handleChange}></textarea>
               </div>
               <div className="mb-3">
                 <label htmlFor="historialConsumo" className="form-label">Historial de consumo de sustancias (alcohol, tabaco, drogas)</label>
-                <textarea className="form-control" id="historialConsumo" name="historyConsumption" value={formData.historyConsumption} onChange={handleChange}></textarea>
+                <textarea style={{textTransform: 'none'}}  className="form-control" id="historialConsumo" name="historyConsumption" value={formData.historyConsumption} onChange={handleChange}></textarea>
               </div>
               <div className="mb-3">
                 <label htmlFor="historialEnfermedades" className="form-label">Historial de enfermedades físicas (condiciones crónicas, alergias, etc.)</label>
-                <textarea className="form-control" id="historialEnfermedades" name="historyDiseases" value={formData.historyDiseases} onChange={handleChange}></textarea>
+                <textarea style={{textTransform: 'none'}}  className="form-control" id="historialEnfermedades" name="historyDiseases" value={formData.historyDiseases} onChange={handleChange}></textarea>
               </div>
               <div className="mb-3">
                 <label htmlFor="historiaFamiliar" className="form-label">Historia familiar de problemas de salud mental</label>
-                <textarea className="form-control" id="historiaFamiliar" name="histoyFamily" value={formData.histoyFamily} onChange={handleChange}></textarea>
+                <textarea style={{textTransform: 'none'}}  className="form-control" id="historiaFamiliar" name="histoyFamily" value={formData.histoyFamily} onChange={handleChange}></textarea>
               </div>
             </div>
           </div>
