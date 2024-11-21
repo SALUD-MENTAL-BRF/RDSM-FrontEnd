@@ -1,25 +1,23 @@
-interface settingDto {
-   complexity: string
-}
+import { logicalProblemSettingDto } from "../../../../types/activity/logicalProblem.dto";
 
-export const fetchLogicalProblem = async (setting: settingDto) => {
+
+export const fetchLogicalProblem = async (setting: logicalProblemSettingDto) => {
     const data = await fetch(`${import.meta.env.VITE_API_URL_IA}logical-problem`, {
         method: 'POST',
         body: JSON.stringify(setting),
         headers: {
-            'Content-Type': 'application/json'
-        }
+            'Content-Type': 'application/json',
+        },
     });
 
     const response = await data.json();
     const answer = response.answer;
-    console.log(answer);
-    console.log(response);
 
-    const problemaMatch = answer.match(/##\s*Problema\s*:\s*([\s\S]*?)(?=\n##|$)/i);
-    const respuestasMatch = answer.match(/##\s*Respuestas\s*:\s*([\s\S]*?)(?=\n##|$)/i);
-    const correctaMatch = answer.match(/##\s*Correcta\s*:\s*(\d+)/i);
-    const explicacionMatch = answer.match(/##\s*Explicación\s*:\s*([\s\S]*?)(?=\n##|$)/i);
+    // Ajustamos la extracción de cada sección
+    const problemaMatch = answer.match(/Problema\s*:\s*([\s\S]*?)(?=\nRespuestas|$)/i);
+    const respuestasMatch = answer.match(/Respuestas\s*:\s*([\s\S]*?)(?=\nCorrecta|$)/i);
+    const correctaMatch = answer.match(/Correcta\s*:\s*(\d+)/i);
+    const explicacionMatch = answer.match(/Explicación\s*:\s*([\s\S]*?)(?=$|$)/i);
 
     if (!problemaMatch || !respuestasMatch || !correctaMatch) {
         console.error("Estructura inesperada en la respuesta", { respuesta: answer });
@@ -46,7 +44,7 @@ export const fetchLogicalProblem = async (setting: settingDto) => {
         problema,
         respuestas,
         correcta,
-        explicacion 
+        explicacion,
     };
 
     return resultadoEstructurado;

@@ -48,7 +48,7 @@ export const RecommendationsList: React.FC<Props> = ({opacity, setOpacity}) => {
                 </div>
                 <div className="row">
                 {recommendationState?.length === 0 ? (
-                    <p className="text-muted">No hay recomendaciones disponibles.</p>
+                    <p className="text-center">No hay recomendaciones disponibles.</p>
                     ) : (
                     <ul className="ms-3 list-group list-group-flush">
                         {recommendationState?.map((recommendation) => (

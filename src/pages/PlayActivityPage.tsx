@@ -2,6 +2,7 @@ import { SocialHability } from '../components/main/activities/social-hability/So
 import { useParams } from 'react-router-dom';
 import { Header } from '../components/headers/Header';
 import { useNavigate } from 'react-router-dom';
+import { LogicalProblem } from '../components/main/activities/logical-problem/logicalProblem';
 
 export const PlayActivityPage = () => {
   const navigate = useNavigate()
@@ -22,7 +23,7 @@ export const PlayActivityPage = () => {
       
       {
         activityId == "3" ? <SocialHability/> :
-        activityId == "4" ?"":
+        activityId == "5" ?<LogicalProblem/>:
             <h6 className='text-center mt-5'>Actividad no disponible</h6>
       }
       </main>
