@@ -1,6 +1,6 @@
 import Select from 'react-select';
 import styles from '../../../../assets/style/admin/Content/Hospitals.module.css';
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Hospital } from "../../../../types/Hospital";
 import { useFetchTypesHospitals } from "../../../../hooks/useFetchTypesHospitals";
 import { useFetchSpecialityHospital } from "../../../../hooks/useFetchSpecialityHospital";
@@ -11,7 +11,7 @@ import { SubmitCreateHospital } from "./SubmitCreateHospital";
 import { FormCreateSpecialtyHospital } from './FormCreateSpecialtyHospital';
 import { FormCreateServiceHospital } from './FormCreateServiceHospital';
 import { useFetchUserHospitals } from '../../../../hooks/useFetchUserHospitals';
-
+import { CustomFetch } from '../../../../api/CustomFetch';
 interface FormCreateHospitalProps {
   setShowList: (setShowList: boolean) => void;
 }
@@ -32,6 +32,8 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
     services: [],
     userId: '',
   });
+  const [specialityState, setSpeciality] = useState<Array<specialityHospitalOptions>>([])
+  const [serviceHospitalState, setServiceHospital] = useState<Array<serviceHospitalOptions>>([])
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -56,11 +58,11 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
   // ---------------------------------------------
 
   // specialties Hospitals -----------------------
-  const { specialityHospital } = useFetchSpecialityHospital();
-  const specialityHospitalOptions = specialityHospital?.map((specialty: specialityHospitalOptions) => ({
-    value: specialty.id,
-    label: specialty.name,
-  }));
+
+  // const specialityHospitalOptions = specialityHospital?.map((specialty: specialityHospitalOptions) => ({
+  //   value: specialty.id,
+  //   label: specialty.name,
+  // }));
   const handleSpecialityHospitalChange = (selectedOptions: any) => {
     setStateForm((prevState) => ({
       ...prevState,
@@ -118,6 +120,18 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
   const closeSpecialtyModal = () => {
     setShowSpecialtyModal(false);
   };
+
+  useEffect(() => {
+    (
+      async () => {
+        const speciality = await CustomFetch(`${import.meta.env.VITE_API_URL}specialityHospital`, "GET");
+        const service = await CustomFetch(`${import.meta.env.VITE_API_URL}serviceHospital`, "GET");
+        setSpeciality(speciality)
+        setServiceHospital(service)
+        
+      }
+    )()
+  },[showSpecialtyModal, showServiceModal])
 
   return (
     <div className='card'>
@@ -240,7 +254,10 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
             <Select
               className={styles.select}
               isMulti
-              options={specialityHospitalOptions}
+              options={specialityState?.map((specialty: specialityHospitalOptions) => ({
+                  value: specialty.id,
+                  label: specialty.name,
+                }))}
               onChange={handleSpecialityHospitalChange}
             />
             <button className={`btn btn-success ${styles.button}`} onClick={openSpecialtyModal}>Crear</button>
@@ -252,7 +269,10 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
             <Select
               className={styles.select}
               isMulti
-              options={serviceHospitalOptions}
+              options={serviceHospitalState?.map((service: serviceHospitalOptions) => ({
+                value: service.id,
+                label: service.name,
+              }))}
               onChange={handleServiceHospitalChange}
             />
             <button className={`btn btn-success ${styles.button}`} onClick={openServiceModal}>Crear</button>
@@ -267,8 +287,8 @@ export const FormCreateHospital:FC<FormCreateHospitalProps> = ({ setShowList }) 
         </div>
         <SubmitCreateHospital stateForm={stateForm} setStateForm={setStateForm} setShowList={setShowList}/>
       </div>
-      <FormCreateSpecialtyHospital showSpecialtyModal={showSpecialtyModal} closeSpecialtyModal={closeSpecialtyModal} setShowSpecialtyModal={setShowSpecialtyModal} specialityHospital={specialityHospital}/>
-      <FormCreateServiceHospital showServiceModal={showServiceModal} closeServiceModal={closeServiceModal} setShowServiceModal={setShowServiceModal} serviceHospital={serviceHospital}/>
+      <FormCreateSpecialtyHospital showSpecialtyModal={showSpecialtyModal} closeSpecialtyModal={closeSpecialtyModal} setShowSpecialtyModal={setShowSpecialtyModal} specialityHospital={specialityState}/>
+      <FormCreateServiceHospital showServiceModal={showServiceModal} closeServiceModal={closeServiceModal} setShowServiceModal={setShowServiceModal} serviceHospital={serviceHospitalState}/>
     </div>
   );
 }
