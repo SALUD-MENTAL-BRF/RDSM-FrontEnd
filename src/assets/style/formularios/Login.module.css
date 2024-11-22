@@ -1,0 +1,34 @@
+.background {
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(to bottom right, #d5f8f3, #96EEDE, #0AE6C0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerLogin {
+  height: 70%;
+  width: 60%;
+  display: flex;
+  & .form {
+    height: 100%;
+    width: 50%;
+    background-color: #F4FDFA;
+    border-radius: 10px 0 0 10px;
+    padding: 5%;
+    & h2 {
+      font-size: 2rem;
+      color: #232D37;
+      font-weight: 600;
+      font-family: sans-serif;
+    }
+  }
+  & .logo {
+    height: 100%;
+    width: 50%;
+    background-color: #00C6A3;
+    border-radius: 0 10px 10px 0
+  }
+}
+

@@ -3,6 +3,7 @@ import { gapi } from "gapi-script";
 import GoogleLogin from "react-google-login";
 import { CustomFetch } from "../../../api/CustomFetch";
 import useAuth from "../../../hooks/useAuth";
+import styles from "../../../assets/style/formularios/Login.module.css";  // Cambio aquí
 
 function LoginGoogle() {
   const { login } = useAuth();
@@ -27,28 +28,20 @@ function LoginGoogle() {
         login(data.token);
       } else {
         console.error("Error: Datos de usuario o token no recibidos correctamente.");
-        }
+      }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const onFailure = (err:any) => {
+  const onFailure = (err: any) => {
     console.log("Error", err);
   };
 
   return (
-    <div className="center">
-      <div className="btn">
-        <GoogleLogin
-          clientId={CLIENT_ID}
-          onSuccess={onSuccess}
-          onFailure={onFailure}
-          cookiePolicy={"single_host_policy"}
-          redirectUri="http://localhost:4000/auth/google/callback"
-        />
-      </div>
-    </div>
+  <>
+    
+  </>
   );
 }
 
