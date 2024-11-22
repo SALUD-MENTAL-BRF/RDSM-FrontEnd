@@ -4,9 +4,12 @@ import { useEffect, useState } from "react";
 import { formPatientDto } from "../../../types/patients.dto";
 import useAuth from "../../../hooks/useAuth";
 import { CustomFetch } from "../../../api/CustomFetch";
+import { ProfessionalDto } from "../../../types/profileProfessional.dto";
+import Swal from "sweetalert2";
 
 export const PatientManagement = () => {
     const [patientsState, setPatientState] = useState<Array<formPatientDto>>([]);
+    const [professionalState, setProfessional] = useState<ProfessionalDto>()
     const navigate = useNavigate();
     const {authState} = useAuth()
 
@@ -18,9 +21,35 @@ export const PatientManagement = () => {
                 const professional = await CustomFetch(`${import.meta.env.VITE_API_URL}professional/user/${user.id}`, 'GET')                
                 const data = await CustomFetch(`${import.meta.env.VITE_API_URL}patient/professional/${professional.id}`, 'GET') 
                 setPatientState(data.patient)
+                setProfessional(professional)
             }
         )()
     },[]);
+
+    const desvincular = (patientId: number) => {
+        Swal.fire({
+            text: '¿Seguro que quiere desvincularse del paciente?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, desvincular',
+            cancelButtonText: 'Cancelar'
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+              const response = await fetch(`${import.meta.env.VITE_API_URL}professional/desvincular/${professionalState?.id}/${patientId}`,{
+                method:'DELETE'
+              })
+              if(response.status == 200){
+                  Swal.fire(
+                    'Desvinculado',
+                    'El paciente ha sido desvinculado.',
+                    'success'
+                  )
+              }
+            }
+          })
+    };
 
 
     return(
@@ -61,7 +90,7 @@ export const PatientManagement = () => {
                                 </ul>
                                 </div>
                                 <div className="card-footer">
-                                <button className="btn btn-danger w-100">Derivar</button>
+                                <button onClick={() => desvincular(patient.id!)} className="btn btn-danger w-100">Desvincularse</button>
                                 </div>
                             </div>
                             </div>

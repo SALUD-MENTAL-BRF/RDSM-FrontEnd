@@ -229,14 +229,14 @@ export const AppRouters: React.FC = () => {
               </ProtectedRoute>
           }
         />
-        <Route
+        {/* <Route
           path="/derivar/:professionalId/:patientId"
           element={
             <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
               <DerivarPage/>
             </ProtectedRoute>
           }
-        />
+        /> */}
       </Routes>
     </BrowserRouter>
   );

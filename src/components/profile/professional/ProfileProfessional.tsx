@@ -13,6 +13,9 @@ export const ProfileProfessional = () => {
   const { authState } = useAuth();
   const { id } = useParams();
   const [consult, setConsult] = useState<boolean>(false)
+  const [stateIsOwnProfile, setIsOwnProfile] = useState<boolean>(false)
+  const [stateCanConsult, setCanConsult] = useState<boolean>(false)
+  const [stateIsAlreadyDoctor, setIsAlreadyDoctor] = useState<any>()
 
     useEffect(() => {
       (async () => {
@@ -29,6 +32,26 @@ export const ProfileProfessional = () => {
           }
         })();
       }, [id, authState.token]);
+
+
+    useEffect(() => {
+      
+      const isOwnProfile = userState?.roleId === Number(import.meta.env.VITE_ROLE_PROFESSIONAL) && 
+        userState.id === professionalState?.professional?.userId;
+
+      const canConsult = userState?.roleId === Number(import.meta.env.VITE_ROLE_PATIENT) || 
+      userState?.roleId === Number(import.meta.env.VITE_ROLE_GUEST) && 
+      professionalState?.availability
+
+      const isAlreadyDoctor = professionalState?.professional?.patient?.some(patient => patient.userId === userState?.id);
+
+      setIsOwnProfile(isOwnProfile);
+      setCanConsult(canConsult!)
+      setIsAlreadyDoctor(isAlreadyDoctor)
+
+      
+      
+    },[professionalState, userState, consult])
 
     function calcularEdad(fechaNacimiento:string) {
     const hoy = new Date();
@@ -48,16 +71,6 @@ export const ProfileProfessional = () => {
 
     return edad;
 }
-
-  const isOwnProfile = userState?.roleId === Number(import.meta.env.VITE_ROLE_PROFESSIONAL) && 
-                       userState.id === professionalState?.professional?.userId;
-
-  const canConsult = (userState?.roleId === import.meta.env.VITE_ROLE_PATIENT || 
-                      userState?.roleId === import.meta.env.VITE_ROLE_GUEST) && 
-                      professionalState?.availability;
-
-  const isAlreadyDoctor = professionalState?.professional?.patient?.some(patient => patient.userId === userState?.id);
-
 
 
   return (
@@ -88,7 +101,7 @@ export const ProfileProfessional = () => {
                 <div className="col-md-8">
                   <div className="d-flex justify-content-between align-items-start mb-3">
                     <h3>Descripción</h3>
-                    {isOwnProfile && (
+                    {stateIsOwnProfile && (
                       <button className="btn btn-outline-secondary btn-sm" onClick={() => navigate("/profile")} aria-label="Editar perfil">
                         <Pencil size={16} />
                       </button>
@@ -123,11 +136,11 @@ export const ProfileProfessional = () => {
                   <p className="text-muted">Seguidores</p>
                 </div>
                 <div className="col-4">
-                  {isAlreadyDoctor ? (
+                  {stateIsAlreadyDoctor ? (
                     <p className="font-weight-bold mt-3">¡Ya es tu médico!</p>
                   ) : consult ? (
                     <p className="font-weight-bold mt-3">¡Tienes una solicitud pendiente!</p>
-                  ) : canConsult ? (
+                  ) : stateCanConsult ? (
                     <button onClick={() => navigate(`/form-patient/${id}/${userState?.id}`)} className="btn btn-primary mt-3">
                       <Heart size={16} className="mr-2" />
                       Consultar

@@ -64,7 +64,7 @@ export const AssignedProfessionals = () => {
                                 </ul>
                                 </div>
                                 <div className="card-footer">
-                                <button className="btn btn-danger w-100">Dar de baja</button>
+                                {/* <button className="btn btn-danger w-100">Dar de baja</button> */}
                                 </div>
                             </div>
                             </div>
