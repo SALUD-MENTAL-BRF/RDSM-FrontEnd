@@ -40,7 +40,16 @@ function LoginGoogle() {
 
   return (
   <>
-    
+    <div className={`${styles.buttonLoginGoogle}`}>
+      <GoogleLogin
+        clientId={CLIENT_ID}
+        onSuccess={onSuccess}
+        onFailure={onFailure}
+        cookiePolicy={"single_host_policy"}
+        redirectUri="http://localhost:4000/auth/google/callback"
+        className={`${styles.google}`}
+      />
+    </div>
   </>
   );
 }

@@ -52,7 +52,7 @@ export const LoginSubmit: React.FC<{ stateForm: FormState }> = ({ stateForm }) =
 
   return (
     <>
-      
+      <button className={`${styles.buttonLogin}`} type="submit" onClick={handleSubmit}> Iniciar Sesión </button>
     </>
   );
 };

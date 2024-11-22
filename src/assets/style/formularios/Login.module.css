@@ -23,6 +23,103 @@
       font-weight: 600;
       font-family: sans-serif;
     }
+    & .formInputs {
+      height: 45%;
+      width: 100%;
+      & .EmailInput {
+        height: 50%;
+        & label {
+          font-size: .8rem;
+          color: #232D37;
+          font-weight: 500;
+          font-family: sans-serif;
+          margin: 20px 0 10px 0;
+        }
+        & input {
+          width: 100%;
+          border: 1px solid #b6b8ba;
+          border-radius: 7px;
+          padding: 10px;
+          font-size: .8rem;
+          font-family: sans-serif;
+          font-weight: 400;
+          background-color: #FFFFFF;
+          text-transform: none;
+        }
+        & input::placeholder {
+          color: #929496;
+        }
+      }
+      & .PasswordInput {
+        height: 50%;
+        & label {
+          font-size: .8rem;
+          color: #232D37;
+          font-weight: 500;
+          font-family: sans-serif;
+          margin: 20px 0 10px 0;
+        }
+        & input {
+          width: 91%;
+          border: 1px solid #b6b8ba;
+          border-radius: 7px;
+          padding: 10px;
+          font-size: .8rem;
+          font-family: sans-serif;
+          font-weight: 400;
+          background-color: #FFFFFF;
+          text-transform: none;
+        }
+        & input::placeholder {
+          color: #929496;
+        }
+        & .eye {
+          cursor: pointer;
+          margin-left: 10px;
+        }
+      }
+      & .buttonLogin {
+        width: 100%;
+        height: 25%;
+        border-radius: 7px;
+        background-color: #00E5BE;
+        border: none;
+        color: #FFFFFF;
+        font-weight: 600;
+        margin-top: 10px;
+      }
+      & .links {
+        height: 20%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        & a {
+          color: #00C6A3;
+          font-size: .8rem;
+          text-decoration: none;
+          margin: 0 19px;
+          font-weight: 700;
+        }
+        & a:hover {
+          color: #00C6A3;
+          text-decoration: underline;
+        }
+      }
+      & .buttonLoginGoogle {
+        height: 25%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        & .google {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+        }
+      }
+    }
   }
   & .logo {
     height: 100%;
