@@ -42,7 +42,7 @@ export const FormCreateServiceHospital: FC<FormCreateServiceHospitalProps> = ({
       if(response.success) {
         Swal.fire('Éxito!', 'El servicio ha sido agregado','success');
         setTimeout(() => {
-          window.location.reload();
+          // window.location.reload();
         }, 1000)
       } else {
         console.error('Error al agregar el servicio:', response.error);
@@ -69,7 +69,7 @@ export const FormCreateServiceHospital: FC<FormCreateServiceHospitalProps> = ({
       if (response.success) {
         Swal.fire('Éxito!', 'El servicio ha sido eliminado','success');
         setTimeout(() => {
-          window.location.reload();
+          // window.location.reload();
         }, 1000)
       }
     } catch (err) {

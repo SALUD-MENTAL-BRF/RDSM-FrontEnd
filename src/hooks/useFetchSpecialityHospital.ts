@@ -10,7 +10,8 @@ export const useFetchSpecialityHospital = () => {
     const fetchSpecialityHospital = async () => {
       try {
         const response = await CustomFetch(`${import.meta.env.VITE_API_URL}specialityHospital`, "GET");
-
+        console.log(response);
+        
         setSpecialityHospital(response);
       } catch (err: unknown) {
         if (err instanceof Error) {

@@ -55,7 +55,7 @@ export const UserForm: React.FC<UserFormProps> = ({ onClose, user }) => {
           'success'
         );
         onClose();
-        window.location.reload();
+
       }
     } catch (err) {
       console.error('Error al procesar usuario:', err);

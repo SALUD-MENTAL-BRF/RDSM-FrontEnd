@@ -3,6 +3,7 @@ import styles from '../../../../assets/style/admin/Content/Hospitals.module.css'
 import { specialityHospitalOptions } from "../../../../types/SpecialtyHospitals.type";
 import { CustomFetch } from '../../../../api/CustomFetch';
 import Swal from 'sweetalert2';
+import { useFetchSpecialityHospital } from '../../../../hooks/useFetchSpecialityHospital';
 
 interface FormCreateSpecialtyHospitalProps {
   showSpecialtyModal: boolean;
@@ -20,7 +21,9 @@ export const FormCreateSpecialtyHospital: FC<FormCreateSpecialtyHospitalProps> =
 }) => {
 
   const [speciality, setSpeciality] = useState('');
-
+  const [specialityState, setSpecialityState] =  useState<specialityHospitalOptions[]>()
+  const [reloadPage, serReloadPage] = useState<boolean>(false)
+  
   const handleSubmitSpecialty = async (e: any) => {
     e.preventDefault();
 
@@ -39,7 +42,7 @@ export const FormCreateSpecialtyHospital: FC<FormCreateSpecialtyHospitalProps> =
       if(response.success) {
         Swal.fire('Éxito!', 'La especialidad ha sido agregada','success');
         setTimeout(() => {
-          window.location.reload();
+          // window.location.reload();
         }, 1000)
       } else {
         Swal.fire('Error!', 'Hubo un error al agregar la especialidad', 'error');
@@ -76,9 +79,9 @@ export const FormCreateSpecialtyHospital: FC<FormCreateSpecialtyHospitalProps> =
         const response = await CustomFetch(`${import.meta.env.VITE_API_URL}specialityHospital/${id}`, 'DELETE');
         if(response.success) {
           Swal.fire('Éxito!', 'La especialidad ha sido eliminada','success');
-          setTimeout(() => {
-            window.location.reload();
-          }, 1000)
+          // setTimeout(() => {
+          //   window.location.reload();
+          // }, 1000)
         }
       }
     }  catch (err) {

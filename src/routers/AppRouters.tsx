@@ -26,6 +26,7 @@ import { AddActivityPage } from "../pages/AddActivityPage";
 import { AssignedProfessionalsPage } from "../pages/AssignedProfessionalsPage";
 import { PlayActivityPage } from "../pages/PlayActivityPage";
 import { OptionActivitiesPage } from "../pages/OptionsActivitiesPage";
+import { DerivarPage } from "../pages/DerivarPage";
 
 const ROLE_SUPERADMIN = parseInt(import.meta.env.VITE_ROLE_ADMIN);
 import { HospitalPanelPage } from "../pages/HospitalPanelPage";
@@ -228,6 +229,14 @@ export const AppRouters: React.FC = () => {
               </ProtectedRoute>
           }
         />
+        {/* <Route
+          path="/derivar/:professionalId/:patientId"
+          element={
+            <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
+              <DerivarPage/>
+            </ProtectedRoute>
+          }
+        /> */}
       </Routes>
     </BrowserRouter>
   );

@@ -26,13 +26,13 @@ export const InfoPatient = () => {
     },[])
   return (
     <div className="container mt-5">
-              <div className="headerProfileProfessional card-header text-white d-flex justify-content-between align-items-center mb-1">
-            <button className="btn btn-link text-white" onClick={() => navigate("/patient")}>
+        <div style={{backgroundColor: '#10b981'}} className="card-header text-white d-flex justify-content-between align-items-center">
+            <button className="btn btn-link text-white" onClick={() => navigate(-1)}>
                 <ArrowLeft size={24} />
                 Atrás
             </button>
-            <h1 className="p-2">Información del paciente</h1>
-            <div></div> 
+            <h1 className="mb-2 mt-2">Información del paciente</h1>
+            <div style={{width: '72px'}}></div>
         </div>
       <div className="card">
         <div className="card-body">
