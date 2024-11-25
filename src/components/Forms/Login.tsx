@@ -4,6 +4,7 @@ import styles from '../../assets/style/formularios/Login.module.css';  // Cambio
 import LoginGoogle from "./submits/LoginGoogle";
 import { Eye, EyeOff } from "lucide-react";
 import { motion } from "framer-motion"
+import useBodyScrollLock from "../../hooks/useBodyScrollLock";
 
 interface FormState {
   email: string;
@@ -29,6 +30,9 @@ export const Login: React.FC = () => {
   const handlePasswordVisibilityChange = () => {
     setShowPassword(!showPassword);
   };
+  
+
+  useBodyScrollLock(true)
 
   return (
     <>
