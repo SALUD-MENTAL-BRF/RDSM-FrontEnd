@@ -52,7 +52,7 @@ export const CreateRecommendation: React.FC<CreateRecommendationProps> = ({ prof
       if (data.statusCode === 400) {
         Swal.fire("Error", data.message[0], "error");
       } else {
-        await Swal.fire("Success", `Recommendation ${isEditing ? "updated" : "created"} successfully`, "success");
+        await Swal.fire("Añadido", `Se añadio una nueva recomendación`, "success");
         resetForm();
         fetchRecommendations();
       }
@@ -96,7 +96,7 @@ export const CreateRecommendation: React.FC<CreateRecommendationProps> = ({ prof
       setIsLoading(true);
       try {
         await deleteRecommendationById(recommendationId);
-        Swal.fire("Deleted", "La recomendación ha sido eliminada.", "success");
+        Swal.fire("Eliminado", "La recomendación ha sido eliminada.", "success");
         fetchRecommendations();
       } catch (error) {
         Swal.fire("Error", "No se eliminó la recomendación.", "error");
