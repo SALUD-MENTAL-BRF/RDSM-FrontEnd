@@ -60,7 +60,7 @@ export const AssignedProfessionals = () => {
                                 <ul className="list-group list-group-flush text-center">
                                     <a role="button" onClick={() => navigate(`/profile-professional/${professional.id}`)} className="info-professional-title list-group-item text-primary">Perfil</a>
                                     <a role="button" onClick={() => navigate(`/activities/${patientId}/${professional.id}`)} className="info-professional-title list-group-item text-success">Recomendaciones/Actividades</a>
-                                    <a role="button" className="info-professional-title list-group-item text-info">Reunión</a>
+                                    <a role="button" onClick={() => navigate(`/request-for-call/${patientId}/${professional.id}`)} className="info-professional-title list-group-item text-info">Solicitar una Reunión</a>
                                 </ul>
                                 </div>
                                 <div className="card-footer">

@@ -16,10 +16,16 @@ export const CustomFetch = async (
   const response = await fetch(url, options);
 
   if (!response.ok) {
-    const errorResponse = await response.json().catch(() => null);
-    const errorMessage = errorResponse?.message || `HTTP error! status: ${response.status}`;
+    const errorResponse = await response.text().catch(() => null); 
+    const errorMessage = errorResponse || `HTTP error! status: ${response.status}`;
     throw new Error(errorMessage);
   }
 
-  return await response.json();
+  const contentType = response.headers.get('Content-Type');
+  if (contentType && contentType.includes('application/json')) {
+    return await response.json(); 
+  }
+
+  
+  return await response.text();
 };
