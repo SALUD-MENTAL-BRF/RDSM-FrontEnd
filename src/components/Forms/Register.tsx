@@ -1,7 +1,9 @@
 import React, { useState, ChangeEvent } from "react";
 import { RegisterSubmit } from "./submits/RegisterSubmit";
-import "../../assets/style/formularios/Register.css";
+import styles from "../../assets/style/formularios/Register.module.css";
 import LoginGoogle from "./submits/LoginGoogle";
+import { motion } from "framer-motion"
+import useBodyScrollLock from "../../hooks/useBodyScrollLock";
 
 interface FormState {
   username: string;
@@ -37,9 +39,24 @@ export const Register: React.FC = () => {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
+  useBodyScrollLock(true)
+
   return (
     <>
-      
+      <main className={`${styles.background}`}>
+        <div className={`${styles.containerRegister}`}>
+          <motion.div
+            className={`${styles.form}`}
+          >
+            
+          </motion.div>
+          <motion.div
+            className={`${styles.logo}`}
+          >
+
+          </motion.div>
+        </div>
+      </main>
     </>
   );
 };

@@ -1,0 +1,26 @@
+.background {
+  height: 100vh;
+  width: 100vw;
+  background: linear-gradient(to bottom right, #d5f8f3, #96EEDE, #0AE6C0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerRegister {
+  height: 70%;
+  width: 60%;
+  display: flex;
+  & .form {
+    height: 100%;
+    width: 50%;
+    background-color: #F4FDFA;
+    border-radius: 10px 0 0 10px;
+  }
+  & .logo {
+    height: 100%;
+    width: 50%;
+    background-color: #00C6A3;
+    border-radius: 0 10px 10px 0;
+  }
+}
