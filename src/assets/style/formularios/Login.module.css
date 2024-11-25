@@ -45,6 +45,7 @@
           font-weight: 400;
           background-color: #FFFFFF;
           text-transform: none;
+          margin-bottom: 10px;
         }
         & input::placeholder {
           color: #929496;
@@ -57,7 +58,7 @@
           color: #232D37;
           font-weight: 500;
           font-family: sans-serif;
-          margin: 20px 0 10px 0;
+          margin: 10px 0 10px 0;
         }
         & input {
           width: 91%;
@@ -80,13 +81,13 @@
       }
       & .buttonLogin {
         width: 100%;
-        height: 25%;
+        height: 40px;
         border-radius: 7px;
         background-color: #00E5BE;
         border: none;
         color: #FFFFFF;
         font-weight: 600;
-        margin-top: 10px;
+        margin-top: 20px;
       }
       & .links {
         height: 20%;
@@ -94,7 +95,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        margin-top: 10px;
+        margin-top: 20px;
         & a {
           color: #00C6A3;
           font-size: .8rem;
@@ -113,6 +114,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-top: 30px;
         & .google {
           width: 100%;
           display: flex;
@@ -125,7 +127,30 @@
     height: 100%;
     width: 50%;
     background-color: #00C6A3;
-    border-radius: 0 10px 10px 0
+    border-radius: 0 10px 10px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    & .logoContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      gap: 20px;
+      & p {
+        font-size: 1.2rem;
+        color: #FFFFFF;
+        font-weight: 600;
+          font-family: sans-serif;
+        margin: 0;
+        padding: 0;
+        line-height: 1.2;
+        letter-spacing: 0.5px;
+        text-align: center;
+        
+      }
+    }
   }
 }
 
