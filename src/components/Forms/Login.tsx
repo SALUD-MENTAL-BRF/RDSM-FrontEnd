@@ -67,7 +67,9 @@ export const Login: React.FC = () => {
                   <a href="/login">¿Olvidaste tu contraseña?</a>
                   <a href="/register">¿No tienes una cuenta?</a>
                 </div>
-                <LoginGoogle />
+                <div className={`${styles.buttonLoginGoogle}`}>
+                  <LoginGoogle />
+                </div>
               </div>
             </motion.div>
           </div>

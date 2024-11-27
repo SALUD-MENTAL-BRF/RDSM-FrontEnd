@@ -1,6 +1,7 @@
 import { CustomFetch } from '../../../api/CustomFetch';
 import Swal from "sweetalert2";
 import useAuth from '../../../hooks/useAuth';
+import styles from '../../../assets/style/formularios/Register.module.css';
 
 interface FormState {
   username: string;
@@ -46,15 +47,12 @@ export const RegisterSubmit: React.FC<{ stateForm: FormState }> = ({ stateForm }
         });
 
       } catch (error) {
-        console.error("Error al registrar el usuario:", error);
+        const errorMessages = (error as Error).message.split(','); 
+        const firstError = errorMessages[0].trim();
         Swal.fire({
-          title: "Error",
-          text: "Hubo un problema al registrar el usuario",
-          icon: "error",
-          width: "50%",
-          padding: "1rem",
-          background: "#FFF",
-          grow: "row",
+          icon: 'error',
+          title: 'Error al crear el profesional',
+          text: firstError,
         });
       }
     }
@@ -62,6 +60,7 @@ export const RegisterSubmit: React.FC<{ stateForm: FormState }> = ({ stateForm }
 
   return (
     <>
+      <button type="submit" onClick={handleSubmit} className={`${styles.buttonRegister}`}>Registrase</button>
     </>
   );
 };

@@ -48,6 +48,7 @@ function LoginGoogle() {
         cookiePolicy={"single_host_policy"}
         redirectUri="http://localhost:4000/auth/google/callback"
         className={`${styles.google}`}
+        style={{ width: "100%" }}
       />
     </div>
   </>

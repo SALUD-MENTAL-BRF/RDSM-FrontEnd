@@ -109,11 +109,6 @@
         }
       }
       & .buttonLoginGoogle {
-        height: 25%;
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
         margin-top: 30px;
         & .google {
           width: 100%;
