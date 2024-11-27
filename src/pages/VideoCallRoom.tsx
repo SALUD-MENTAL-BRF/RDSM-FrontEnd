@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 import useAuth from '../hooks/useAuth';
 import { CustomFetch } from '../api/CustomFetch';
+import { Header } from '../components/headers/Header';
 
 interface User {
   email: string;
@@ -82,7 +83,7 @@ export default function VideoCallRoom() {
         String(userID),
         userName
       );
-
+    
       const zp = ZegoUIKitPrebuilt.create(kitToken);
       zp.joinRoom({
         container: containerRef.current,
@@ -100,6 +101,9 @@ export default function VideoCallRoom() {
         ],
         scenario: {
           mode: ZegoUIKitPrebuilt.OneONoneCall,
+        },
+        onReturnToHomeScreenClicked: () => {
+          window.location.href = '/patient';
         },
       });
 
@@ -120,18 +124,21 @@ export default function VideoCallRoom() {
   }
 
   return (
-<div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
+    <div>
+        <Header/>
+      <div
+        className="myCallContainer"
+        ref={containerRef}
+        style={{ width: '100%', height: '84%' }}
+      ></div>
+        {/* <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
       <header style={{ top: 0, width: '100%', backgroundColor: '#333', color: '#fff', padding: '7px', textAlign: 'center' }}>
         <h1>Sala de videollamada</h1>
         <button onClick={() => window.location.href = '/home'} style={{ position: 'absolute', right: '2%', top: '10px', backgroundColor: '#f00', color: '#fff', border: 'none', padding: '10px', cursor: 'pointer' }}>
           Volver al inicio
         </button>
       </header>
-      <div
-        className="myCallContainer"
-        ref={containerRef}
-        style={{ width: '100%', height: '91%' }}
-      ></div>
+    </div> */}
     </div>
   );
 }

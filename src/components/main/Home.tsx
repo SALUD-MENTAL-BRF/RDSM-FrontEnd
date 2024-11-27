@@ -142,9 +142,9 @@ export const Home: React.FC = () => {
                 <Feature
                   icon={<IconMessageCircle />}
                   title="Consultas en Línea"
-                  description={`Accede a tus sesiones programadas con ${userState?.roleId == 2 ? "los pacientes" : "profesionales"}.`}
+                  description={`Accede a tus sesiones programadas con ${userState?.roleId == import.meta.env.VITE_ROLE_PROFESSIONAL ? "los pacientes" : "profesionales"}.`}
                   buttonText="Ver Consultas"
-                  link='#'
+                  link={userState?.roleId != import.meta.env.VITE_ROLE_PROFESSIONAL ? '/seeconsultations/:patientId/:professionalId' : '/Hola/:professionalId/:patientId'}
                 />
                 <Feature
                   icon={<IconCalendar />}

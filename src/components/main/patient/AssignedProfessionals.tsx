@@ -5,13 +5,14 @@ import { ProfessionalDto } from "../../../types/profileProfessional.dto";
 import useAuth from "../../../hooks/useAuth";
 import { CustomFetch } from "../../../api/CustomFetch";
 import '../../../assets/style/HomePatient/assignedProfessionals.css'
+import Swal from "sweetalert2";
 
 export const AssignedProfessionals = () => {
     const [professionalState, setProfessionalState] = useState<Array<ProfessionalDto>>([]);
     const [patientId, setPatientId] = useState<number>(0)
     const navigate = useNavigate();
     const {authState} = useAuth()
-
+    const [solicitudes, setSolicitudes] = useState<any[]>([]);
 
     useEffect(() => {
         (
@@ -19,6 +20,10 @@ export const AssignedProfessionals = () => {
                 const user = await CustomFetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`, 'GET')
                 const patient = await CustomFetch(`${import.meta.env.VITE_API_URL}patient/user/${user.id}`, 'GET')                
                 const data = await CustomFetch(`${import.meta.env.VITE_API_URL}professional/patient/${patient.id}`, 'GET') 
+                const checkSolicitudes = await CustomFetch(`${import.meta.env.VITE_API_URL}request-videocall/${patient.id}`, 'GET');
+                console.log(checkSolicitudes)
+                setSolicitudes(checkSolicitudes.data)
+
                 setProfessionalState(data.professional)
                 setPatientId(patient.id)
             }
@@ -60,7 +65,7 @@ export const AssignedProfessionals = () => {
                                 <ul className="list-group list-group-flush text-center">
                                     <a role="button" onClick={() => navigate(`/profile-professional/${professional.id}`)} className="info-professional-title list-group-item text-primary">Perfil</a>
                                     <a role="button" onClick={() => navigate(`/activities/${patientId}/${professional.id}`)} className="info-professional-title list-group-item text-success">Recomendaciones/Actividades</a>
-                                    <a role="button" onClick={() => navigate(`/request-for-call/${patientId}/${professional.id}`)} className="info-professional-title list-group-item text-info">Solicitar una Reunión</a>
+                                    <a role="button" onClick={() => {solicitudes.length > 0 ? Swal.fire('Solicitud Denegada','Ya tienes una solicitud pendiente', 'error') : navigate(`/request-for-call/${patientId}/${professional.id}`)}} className="info-professional-title list-group-item text-info">Solicitar una Reunión</a>
                                 </ul>
                                 </div>
                                 <div className="card-footer">
