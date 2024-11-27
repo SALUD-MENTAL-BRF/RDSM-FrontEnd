@@ -2,9 +2,20 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { CustomFetch } from '../../api/CustomFetch';
-import './formrequestforcall.css';
 import { Header } from '../headers/Header';
 import Swal from 'sweetalert2';
+import {
+  PageContainer,
+  FormContainer,
+  FormWrapper,
+  Title,
+  FormGroup,
+  Label,
+  Input,
+  Button,
+  ErrorMessage,
+  LoadingMessage
+} from './StyleForm';
 
 export const FormRequestForCall = () => {
     const { authState } = useAuth();
@@ -26,10 +37,10 @@ export const FormRequestForCall = () => {
                         `${import.meta.env.VITE_API_URL}request-videocall/token/${authState.token}`,
                         'GET'
                     );
-                    console.log('Datos del usuario:', userData.patientId); // Verifica los datos del usuario
+                    console.log('Datos del usuario:', userData.patientId);
                     if (userData && userData.id) {
                         setUserId(userData.id);
-                        console.log('User ID establecido:', authState.token); // Verifica que se está actualizando
+                        console.log('User ID establecido:', authState.token);
                     } else {
                         console.error('No se pudo obtener el ID del usuario.');
                     }
@@ -43,7 +54,6 @@ export const FormRequestForCall = () => {
 
         fetchUserData();
     }, [authState.token]);
-
 
     const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -76,61 +86,65 @@ export const FormRequestForCall = () => {
     };
 
     if (loading) {
-        return <div>Cargando datos del usuario...</div>;
+        return (
+            <PageContainer>
+                <Header />
+                <LoadingMessage>Cargando datos del usuario...</LoadingMessage>
+            </PageContainer>
+        );
     }
 
     return (
-        <div>
+        <PageContainer>
             <Header />
-            <div className="form-container">
-                <div style={{ display: "flex", justifyContent: "center", minWidth: "100%", minHeight: "75vh", alignItems: "center" }}>
-                    <div style={{ border: "solid black 1px", padding: 30, borderRadius: "5px" }}>
-                        <h2>Solicitud de Reunión</h2>
-                        {error && <div className="error-message">{error}</div>}
-                        <form onSubmit={handleSubmit}>
-                            {!userId ? (
-                                <p>Cargando datos del usuario...</p>
-                            ) : (
-                                <>
-                                    <div className="form-group">
-                                        <label htmlFor="motivo">Motivo de la Solicitud:</label>
-                                        <input
-                                            type="text"
-                                            id="motivo"
-                                            value={motivo}
-                                            onChange={(e) => setMotivo(e.target.value)}
-                                            required
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="fechaSolicitud">Fecha de la Reunión:</label>
-                                        <input
-                                            type="date"
-                                            id="fechaSolicitud"
-                                            value={fechaSolicitud}
-                                            onChange={(e) => setFechaSolicitud(e.target.value)}
-                                            required
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="horaSolicitud">Hora de la Reunión:</label>
-                                        <input
-                                            type="time"
-                                            id="horaSolicitud"
-                                            value={horaSolicitud}
-                                            onChange={(e) => setHoraSolicitud(e.target.value)}
-                                            required
-                                        />
-                                    </div>
-                                    <button type="submit" className="btn btn-primary">
-                                        Enviar Solicitud
-                                    </button>
-                                </>
-                            )}
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <FormContainer>
+                <FormWrapper>
+                    <Title>Solicitud de Reunión</Title>
+                    {error && <ErrorMessage>{error}</ErrorMessage>}
+                    <form onSubmit={handleSubmit}>
+                        {!userId ? (
+                            <LoadingMessage>Cargando datos del usuario...</LoadingMessage>
+                        ) : (
+                            <>
+                                <FormGroup>
+                                    <Label htmlFor="motivo">Motivo de la Solicitud:</Label>
+                                    <Input
+                                        type="text"
+                                        id="motivo"
+                                        value={motivo}
+                                        onChange={(e) => setMotivo(e.target.value)}
+                                        required
+                                    />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label htmlFor="fechaSolicitud">Fecha de la Reunión:</Label>
+                                    <Input
+                                        type="date"
+                                        id="fechaSolicitud"
+                                        value={fechaSolicitud}
+                                        onChange={(e) => setFechaSolicitud(e.target.value)}
+                                        required
+                                    />
+                                </FormGroup>
+                                <FormGroup>
+                                    <Label htmlFor="horaSolicitud">Hora de la Reunión:</Label>
+                                    <Input
+                                        type="time"
+                                        id="horaSolicitud"
+                                        value={horaSolicitud}
+                                        onChange={(e) => setHoraSolicitud(e.target.value)}
+                                        required
+                                    />
+                                </FormGroup>
+                                <Button type="submit">
+                                    Enviar Solicitud
+                                </Button>
+                            </>
+                        )}
+                    </form>
+                </FormWrapper>
+            </FormContainer>
+        </PageContainer>
     );
 };
+

@@ -1,10 +1,23 @@
 import React, { useEffect, useState } from 'react';
+import { 
+    Table, 
+    TableBody, 
+    TableCell, 
+    TableContainer, 
+    TableHead, 
+    TableRow, 
+    Paper, 
+    Button, 
+    Chip 
+} from '@mui/material';
+import { Cancel, CalendarToday, AccessTime } from '@mui/icons-material';
 import { CustomFetch } from '../../api/CustomFetch';
 import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
 import { Header } from '../headers/Header';
+import { Check, Trash } from 'lucide-react';
 
-export const ProfessionalSeeConsultations = () => {
+export const ProfessionalSeeConsultations: React.FC = () => {
     const { authState } = useAuth();
 
     interface Solicitud {
@@ -32,12 +45,9 @@ export const ProfessionalSeeConsultations = () => {
                     `${import.meta.env.VITE_API_URL}request-videocall/professional/token/${authState.token}`,
                     'GET'
                 );
-                console.log('Datos del usuario:', userData);
-
                 if (userData && userData.professionalId) {
                     const solicitudesUrl = `${import.meta.env.VITE_API_URL}request-videocall/professional/${userData.professionalId}`;
                     const solicitudesData = await CustomFetch(solicitudesUrl, 'GET');
-                    console.log('Datos de solicitudes:', solicitudesData);
                     if (solicitudesData && Array.isArray(solicitudesData.data)) {
                         setSolicitudes(solicitudesData.data);
 
@@ -75,7 +85,6 @@ export const ProfessionalSeeConsultations = () => {
                 { nuevoEstado }
             );
             if (response.success) {
-                console.log('Estado actualizado:', response.data);
                 Swal.fire('Éxito', 'El estado de la solicitud fue actualizado correctamente.', 'success');
                 fetchData();
             } else {
@@ -91,62 +100,104 @@ export const ProfessionalSeeConsultations = () => {
         return patient ? patient.fullName : 'Desconocido';
     };
 
+    const deletedSolicitud = async (solicitudId: number) => {
+        try {
+            const url = `${import.meta.env.VITE_API_URL}request-videocall/${solicitudId}`;
+            await CustomFetch(url, 'DELETE');
+            Swal.fire('Solicitud cancelada', 'La solicitud ha sido cancelada correctamente.', 'success');
+            fetchData();
+        } catch (error: any) {
+            console.error('Error al cancelar la solicitud:', error);
+        }
+    };
 
     return (
         <div>
-            <Header/>
-            <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
-            <h1>Ver Sesiones Programadas</h1>
-            <table style={{ width: '80%', marginTop: '20px', borderCollapse: 'collapse' }}>
-                <thead>
-                    <tr>
-                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Paciente</th>
-                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Motivo</th>
-                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Hora</th>
-                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Fecha</th>
-                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Estado</th>
-                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {solicitudes.length > 0 ? (
-                        solicitudes.map((solicitud) => (
-                            <tr key={solicitud.id}>
-                                <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
-                                    {getPatientName(solicitud.patientId)}
-                                </td>
-                                <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
-                                    {solicitud.motivo || 'No especificado'}
-                                </td>
-                                <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
-                                    {solicitud.horaSolicitud || 'No especificada'}
-                                </td>
-                                <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
-                                    {new Date(solicitud.fechaSolicitud).toLocaleDateString() || 'No especificada'}
-                                </td>
-                                <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
-                                    {solicitud.estadoSolicitud || 'No especificada'}
-                                </td>
-                                <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
-                                    <button style={{ padding: '5px 10px' }} onClick={() => updateSolicitudStatus(solicitud.id, 'ACEPTADA')}>
-                                         Aceptar Solicitud 
-                                    </button>
-                                    <button style={{ padding: '5px 10px' }} onClick={() => updateSolicitudStatus(solicitud.id, 'CANCELADA')}>
-                                         Cancelar Solicitud 
-                                    </button>
-                                </td>
-                            </tr>
-                        ))
-                    ) : (
-                        <tr>
-                            <td colSpan={6} style={{ textAlign: 'center', padding: '8px' }}>
-                                No se encontraron solicitudes.
-                            </td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-        </div>
+            <Header />
+            <div className="scheduled-sessions" style={{ padding: "4%" }}>
+                <h1>Ver Sesiones Programadas</h1>
+                
+                <TableContainer component={Paper} style={{ marginTop: 30 }}>
+                    <Table aria-label="sesiones programadas">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Paciente</TableCell>
+                                <TableCell className="hide-on-mobile">Motivo</TableCell>
+                                <TableCell>Hora</TableCell>
+                                <TableCell className="hide-on-mobile">Fecha</TableCell>
+                                <TableCell>Estado</TableCell>
+                                <TableCell align="right">Acciones</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {solicitudes.length > 0 ? (
+                                solicitudes.map((solicitud) => (
+                                    <TableRow key={solicitud.id}>
+                                        <TableCell>{getPatientName(solicitud.patientId)}</TableCell>
+                                        <TableCell className="hide-on-mobile">{solicitud.motivo || 'No especificado'}</TableCell>
+                                        <TableCell>
+                                            <div className="icon-text">
+                                                <AccessTime fontSize="small" />
+                                                <span style={{margin: 7, padding: 2}}>{solicitud.horaSolicitud || 'No especificada'}</span>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell className="hide-on-mobile">
+                                            <div className="icon-text">
+                                                <CalendarToday fontSize="small" />
+                                                <span style={{margin: 7, padding: 2}}>{new Date(solicitud.fechaSolicitud).toLocaleDateString() || 'No especificada'}</span>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Chip 
+                                                label={solicitud.estadoSolicitud || 'No especificada'} 
+                                                color={solicitud.estadoSolicitud === 'ACEPTADA' ? 'success' : solicitud.estadoSolicitud === 'CANCELADA' ? 'error' : 'warning'} 
+                                                size="small" 
+                                            />
+                                        </TableCell>
+                                        <TableCell align="right">
+                                            {solicitud.estadoSolicitud === 'PENDIENTE' ? <><Button 
+                                                variant="contained" 
+                                                color="success" 
+                                                size="small" 
+                                                startIcon={<Check />}
+                                                onClick={() => updateSolicitudStatus(solicitud.id, 'ACEPTADA')}
+                                            >
+                                                Aceptar
+                                            </Button>
+                                            <Button 
+                                                variant="contained" 
+                                                color="error" 
+                                                size="small" 
+                                                onClick={() => updateSolicitudStatus(solicitud.id, 'CANCELADA')}
+                                                startIcon={<Cancel />}
+                                                style={{ marginLeft: 10 }}
+                                            >
+                                                Cancelar
+                                            </Button></> : null}
+                                            <Button 
+                                                variant="contained" 
+                                                color="error" 
+                                                size="small" 
+                                                onClick={() => deletedSolicitud(solicitud.id)}
+                                                startIcon={<Trash />}
+                                                style={{ marginLeft: 10 }}
+                                            >
+                                                Eliminar Solicitud
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell colSpan={6} style={{ textAlign: 'center', padding: '16px' }}>
+                                        No se encontraron solicitudes.
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </div>
         </div>
     );
 };

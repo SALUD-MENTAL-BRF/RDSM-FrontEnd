@@ -1,4 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import { 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableContainer, 
+  TableHead, 
+  TableRow, 
+  Paper, 
+  Button, 
+  Chip 
+} from '@mui/material';
+import { Cancel, CalendarToday, AccessTime } from '@mui/icons-material';
 import { CustomFetch } from '../../api/CustomFetch';
 import useAuth from '../../hooks/useAuth';
 import Swal from 'sweetalert2';
@@ -33,16 +45,12 @@ export const SeeConsultations = () => {
                         `${import.meta.env.VITE_API_URL}request-videocall/token/${authState.token}`,
                         'GET'
                     );
-                    // console.log('Datos del usuario:', userData);
 
                     if (userData && userData.patientId) {
                         const url = `${import.meta.env.VITE_API_URL}request-videocall/${userData.patientId}`;
                         const url2 = `${import.meta.env.VITE_API_URL}patient/${userData.patientId}`;
-                        // console.log('URL utilizada:', url);
 
                         const solicitudesData = await CustomFetch(url, 'GET');
-                        // console.log('Datos de solicitudes:', solicitudesData);
-
                         if (solicitudesData && Array.isArray(solicitudesData.data)) {
                             setSolicitudes(solicitudesData.data);
                         }
@@ -67,73 +75,97 @@ export const SeeConsultations = () => {
 
     const getPatientName = (patientId: number) => {
         const patient = userPatientforId.find((p) => p.id.toString() === patientId.toString());
-        // console.log('Paciente encontrado:', patient);
         return patient ? patient.fullName : 'Desconocido';
     };
 
     const cancelSolicitud = async (solicitudId: number) => {
         try {
             const url = `${import.meta.env.VITE_API_URL}request-videocall/${solicitudId}`;
-            const data = await CustomFetch(url, 'DELETE');
+            await CustomFetch(url, 'DELETE');
             Swal.fire('Solicitud cancelada', 'La solicitud ha sido cancelada correctamente.', 'success');
-            setSolicitudes(solicitudes.filter((solicitud) => solicitud.id !== solicitudId))
-            console.log('Solicitud cancelada:', data);
+            setSolicitudes(solicitudes.filter((solicitud) => solicitud.id !== solicitudId));
         } catch (error: any) {
             console.error('Error al cancelar la solicitud:', error);
         }
     };
 
     return (
-
         <div>
-            <Header/>
-            <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
-            <h1>Ver Sesiones Programadas</h1>
-            <table style={{ width: '80%', marginTop: '20px', borderCollapse: 'collapse' }}>
-                <thead>
-                    <tr>
-                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Paciente</th>
-                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Motivo</th>
-                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Hora</th>
-                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Fecha</th>
-                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Estado</th>
-                        <th style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {solicitudes.length > 0 ? (
-                        solicitudes.map((solicitud) => (
-                            <tr key={solicitud.id}>
-                                <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
-                                    {getPatientName(solicitud.patientId)}
-                                </td>
-                                <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
-                                    {solicitud.motivo || 'No especificado'}
-                                </td>
-                                <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
-                                    {solicitud.horaSolicitud || 'No especificada'}
-                                </td>
-                                <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
-                                    {new Date(solicitud.fechaSolicitud).toLocaleDateString() || 'No especificada'}
-                                </td>
-                                <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
-                                    {solicitud.estadoSolicitud || 'No especificada'}
-                                </td>
-                                <td style={{ border: '1px solid #ddd', padding: '8px', textAlign: 'center' }}>
-                                    <button style={{ padding: '5px 10px' }} onClick={() => cancelSolicitud(solicitud.id)}>X Cancelar Solicitud X</button>
-                                </td>
-                            </tr>
-                        ))
-                    ) : (
-                        <tr>
-                            <td colSpan={5} style={{ textAlign: 'center', padding: '8px' }}>
-                                No se encontraron solicitudes.
-                            </td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-        </div>
+            <Header />
+            <div style={{ padding: '4%' }}>
+                <h1>Ver Sesiones Programadas</h1>
+                <TableContainer component={Paper} style={{ marginTop: 30 }}>
+                    <Table aria-label="sesiones programadas">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Paciente</TableCell>
+                                <TableCell className="hide-on-mobile">Motivo</TableCell>
+                                <TableCell>Hora</TableCell>
+                                <TableCell className="hide-on-mobile">Fecha</TableCell>
+                                <TableCell>Estado</TableCell>
+                                <TableCell align="right">Acciones</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {solicitudes.length > 0 ? (
+                                solicitudes.map((solicitud) => (
+                                    <TableRow key={solicitud.id}>
+                                        <TableCell>{getPatientName(solicitud.patientId)}</TableCell>
+                                        <TableCell className="hide-on-mobile">
+                                            {solicitud.motivo || 'No especificado'}
+                                        </TableCell>
+                                        <TableCell>
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                                <AccessTime fontSize="small" />
+                                                <span>{solicitud.horaSolicitud || 'No especificada'}</span>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell className="hide-on-mobile">
+                                            <div style={{ display: 'flex', alignItems: 'center', gap: '5px' }}>
+                                                <CalendarToday fontSize="small" />
+                                                <span>
+                                                    {new Date(solicitud.fechaSolicitud).toLocaleDateString() ||
+                                                        'No especificada'}
+                                                </span>
+                                            </div>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Chip
+                                                label={solicitud.estadoSolicitud || 'No especificada'}
+                                                color={
+                                                    solicitud.estadoSolicitud === 'ACEPTADA'
+                                                        ? 'success'
+                                                        : solicitud.estadoSolicitud === 'CANCELADA'
+                                                        ? 'error'
+                                                        : 'warning'
+                                                }
+                                                size="small"
+                                            />
+                                        </TableCell>
+                                        {solicitud.estadoSolicitud === 'PENDIENTE' ? <TableCell align="right">
+                                            <Button
+                                                variant="contained"
+                                                color="error"
+                                                startIcon={<Cancel />}
+                                                size="small"
+                                                onClick={() => cancelSolicitud(solicitud.id)}
+                                            >
+                                                Cancelar Solicitud
+                                            </Button>
+                                        </TableCell> : <TableCell>No disponible</TableCell>}
+                                    </TableRow>
+                                ))
+                            ) : (
+                                <TableRow>
+                                    <TableCell colSpan={6} style={{ textAlign: 'center', padding: '16px' }}>
+                                        No se encontraron solicitudes.
+                                    </TableCell>
+                                </TableRow>
+                            )}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+            </div>
         </div>
     );
 };
