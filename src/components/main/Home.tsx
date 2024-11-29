@@ -142,7 +142,7 @@ export const Home: React.FC = () => {
                 <Feature
                   icon={<IconMessageCircle />}
                   title="Consultas en Línea"
-                  description={`Accede a tus sesiones programadas con ${userState?.roleId == 2 ? "los pacientes" : "profesionales"}.`}
+                  description={`Accede a tus sesiones programadas con ${userState?.roleId == Number(import.meta.env.VITE_ROLE_PROFESSIONAL) ? "los pacientes" : "profesionales"}.`}
                   buttonText="Ver Consultas"
                   link='#'
                 />
@@ -162,7 +162,7 @@ export const Home: React.FC = () => {
                 />
                 
                 {
-                  userState?.roleId != import.meta.env.VITE_ROLE_PROFESSIONAL  ?
+                  userState?.roleId == Number(import.meta.env.VITE_ROLE_PATIENT) || userState?.roleId == Number(import.meta.env.VITE_ROLE_GUEST) ?
                   <Feature
                   icon={<IconSettings />}
                   title="Diario Personal"
@@ -184,7 +184,7 @@ export const Home: React.FC = () => {
                 />: ""
                 } */}
                 {
-                userState?.roleId == import.meta.env.VITE_ROLE_PROFESSIONAL ? 
+                userState?.roleId == Number(import.meta.env.VITE_ROLE_PROFESSIONAL) ? 
                 <Feature
                   icon={<IconPerson/>}
                   title='Pacientes'
@@ -195,7 +195,7 @@ export const Home: React.FC = () => {
                 :  ""
                 } 
                 {
-                  userState?.roleId == import.meta.env.VITE_ROLE_PROFESSIONAL ? 
+                  userState?.roleId == Number(import.meta.env.VITE_ROLE_PROFESSIONAL) ? 
                   <Feature
                     icon={<IconList/>}
                     title='Solicitudes'
@@ -206,7 +206,7 @@ export const Home: React.FC = () => {
                   :  ""
                 }
                 {
-                  userState?.roleId == import.meta.env.VITE_ROLE_PATIENT ? 
+                  userState?.roleId == Number(import.meta.env.VITE_ROLE_PATIENT) ? 
                     <Feature
                       icon={<IconPerson/>}
                       title='Profesionales'
