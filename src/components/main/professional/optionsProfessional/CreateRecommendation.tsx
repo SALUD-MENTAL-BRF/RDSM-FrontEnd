@@ -175,6 +175,7 @@ export const CreateRecommendation: React.FC<CreateRecommendationProps> = ({ prof
                   Descripción
                 </label>
                 <textarea
+                  style={{textTransform: 'none'}}
                   className="form-control"
                   id="description"
                   name="description"
