@@ -5,6 +5,7 @@ import { CustomFetch } from '../../api/CustomFetch';
 import useAuth from '../../hooks/useAuth';
 import { User } from '../../types/user.dto';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export const Header: React.FC = () => {
 
@@ -58,6 +59,12 @@ export const Header: React.FC = () => {
               <ul className='dropdown-menu show position-absolute end-0 mt-2'>
                 <li><a className='dropdown-item' href='/profile'>Mi Perfil</a></li>
                 <li><a className='dropdown-item' href='#'>Configuración</a></li>
+                {user?.roleId === Number(import.meta.env.VITE_ROLE_ADMIN)?
+                  <li><Link className='dropdown-item' to={'/superadmin'}>Panel de administrador</Link></li>:""
+                }
+                {user?.roleId === Number(import.meta.env.VITE_ROLE_HOSPITAL)?
+                  <li><Link className='dropdown-item' to={'/hospital'}>Panel de hospital</Link></li>:""
+                }
                 <li className='ms-1'><Lougout/></li>
               </ul>
             )}

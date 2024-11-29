@@ -1,6 +1,7 @@
 // Sidebar.tsx
 import React, { useState } from 'react';
 import '../../../assets/style/admin/Sidebar.css';
+import { useNavigate } from 'react-router-dom';
 
 interface SidebarProps {
     activeTab: string;
@@ -9,7 +10,7 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
     const [isCollapsed, setIsCollapsed] = useState(false);
-
+    const navigate = useNavigate()
     const toggleSidebar = () => {
         setIsCollapsed(!isCollapsed);
     };
@@ -51,7 +52,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
                 <div className="ma-bottom-content mt-auto">
                     <button className="btn d-flex align-items-center">
                         <i className="bx bxs-log-out ma-icon"></i>
-                        <span className="ma-text ma-nav-text">Salir</span>
+                        <span onClick={() => navigate("/home")} className="ma-text ma-nav-text">Salir</span>
                     </button>
                 </div>
             </div>

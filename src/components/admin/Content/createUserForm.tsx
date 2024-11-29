@@ -8,12 +8,14 @@ import { User } from '../../../types/user.dto';
 interface UserFormProps {
   onClose: () => void;
   user?: User;
+  reloadPage: boolean;
+  setReloadPage: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const UserForm: React.FC<UserFormProps> = ({ onClose, user }) => {
+export const UserForm: React.FC<UserFormProps> = ({ onClose, user,setReloadPage, reloadPage }) => {
   const [username, setUsername] = useState(user?.username || '');
   const [email, setEmail] = useState(user?.email || '');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState(user?.password || '');
   const [roles, setRoles] = useState<RolesList[]>([]);
   const [selectedRole, setSelectedRole] = useState(user?.roleId.toString() || '');
   const [status, setStatus] = useState(user?.status || 'active');
@@ -30,16 +32,16 @@ export const UserForm: React.FC<UserFormProps> = ({ onClose, user }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const data: any = {
+      let data: any = {
         username,
         email,
         password,
         roleId: parseInt(selectedRole),
         status
       };
-      if (!user) {
-        data.password = password;
-      }
+      // if (!user) {
+      //   data.password = password
+      // }
 
       const url = user
         ? `${import.meta.env.VITE_API_URL}users/${user.id}`
@@ -53,7 +55,9 @@ export const UserForm: React.FC<UserFormProps> = ({ onClose, user }) => {
           user ? 'Usuario actualizado exitosamente!' : 'Usuario creado exitosamente!',
           '',
           'success'
-        );
+        ).then(() => {
+          setReloadPage(!reloadPage)
+        });
         onClose();
 
       }

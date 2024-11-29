@@ -12,20 +12,29 @@ export const UserList = () => {
   const [showInactive, setShowInactive] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
-
-  const { users, error, loading } = useFetchUser();
+  const [reloadPage, setReloadPage] = useState<boolean>(false);
+  // const { users, error, loading } = useFetchUser();
 
   useEffect(() => {
-    setUsersList(users);
-  }, [users]);
+    ( 
+      async () => {
+        const users = await CustomFetch(
+          `${import.meta.env.VITE_API_URL}users`,
+          'GET',
+        )
+        setUsersList(users)
+      }
 
-  if (error) {
-    return <div>Error cargando usuarios: {error.message}</div>;
-  }
+    )()
+  }, [reloadPage]);
 
-  if (loading) {
-    return <div>Cargando usuarios...</div>;
-  }
+  // if (error) {
+  //   return <div>Error cargando usuarios: {error.message}</div>;
+  // }
+
+  // if (loading) {
+  //   return <div>Cargando usuarios...</div>;
+  // }
 
   const filteredUsers = usersList.filter(user => {
     const matchesSearchTerm =
@@ -149,7 +158,7 @@ export const UserList = () => {
                   <button type="button" className="btn-close" onClick={toggleModal} aria-label="Cerrar"></button>
                 </div>
                 <div className="modal-body">
-                  <UserForm user={editingUser || undefined} onClose={toggleModal} />
+                  <UserForm reloadPage={reloadPage} setReloadPage={setReloadPage} user={editingUser || undefined} onClose={toggleModal} />
                 </div>
               </div>
             </div>

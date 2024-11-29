@@ -9,9 +9,10 @@ import Swal from "sweetalert2";
 
 export const PatientManagement = () => {
     const [patientsState, setPatientState] = useState<Array<formPatientDto>>([]);
-    const [professionalState, setProfessional] = useState<ProfessionalDto>()
+    const [professionalState, setProfessional] = useState<ProfessionalDto>();
+    const [reloadPage, setReloadPage] = useState<boolean>(false);
     const navigate = useNavigate();
-    const {authState} = useAuth()
+    const {authState} = useAuth();
 
 
     useEffect(() => {
@@ -24,7 +25,7 @@ export const PatientManagement = () => {
                 setProfessional(professional)
             }
         )()
-    },[]);
+    },[reloadPage]);
 
     const desvincular = (patientId: number) => {
         Swal.fire({
@@ -41,6 +42,7 @@ export const PatientManagement = () => {
                 method:'DELETE'
               })
               if(response.status == 200){
+                 setReloadPage(!reloadPage);
                   Swal.fire(
                     'Desvinculado',
                     'El paciente ha sido desvinculado.',
