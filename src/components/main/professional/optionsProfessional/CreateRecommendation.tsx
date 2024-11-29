@@ -29,7 +29,7 @@ export const CreateRecommendation: React.FC<CreateRecommendationProps> = ({ prof
         const fetchedRecommendations = await findRecommendations(Number(patientId), professionalId);
         setRecommendations(fetchedRecommendations);
       } catch (error) {
-        Swal.fire("Error", "Failed to fetch recommendations", "error");
+        Swal.fire("Error", "Error al traer las recomendaciones", "error");
       } finally {
         setIsLoading(false);
       }
@@ -52,12 +52,12 @@ export const CreateRecommendation: React.FC<CreateRecommendationProps> = ({ prof
       if (data.statusCode === 400) {
         Swal.fire("Error", data.message[0], "error");
       } else {
-        await Swal.fire("Success", `Recommendation ${isEditing ? "updated" : "created"} successfully`, "success");
+        await Swal.fire("Se añadio", `Recomendación ${isEditing ? "actualizada" : "creada"} con exito.`, "success");
         resetForm();
         fetchRecommendations();
       }
     } catch (error) {
-      Swal.fire("Error", "An unexpected error occurred", "error");
+      Swal.fire("Error", "Error al añadir recomendación", "error");
     } finally {
       setIsLoading(false);
     }
@@ -96,7 +96,7 @@ export const CreateRecommendation: React.FC<CreateRecommendationProps> = ({ prof
       setIsLoading(true);
       try {
         await deleteRecommendationById(recommendationId);
-        Swal.fire("Deleted", "La recomendación ha sido eliminada.", "success");
+        Swal.fire("Eliminado", "La recomendación ha sido eliminada.", "success");
         fetchRecommendations();
       } catch (error) {
         Swal.fire("Error", "No se eliminó la recomendación.", "error");
