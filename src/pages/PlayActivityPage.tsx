@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Header } from '../components/headers/Header';
 import { useNavigate } from 'react-router-dom';
 import { LogicalProblem } from '../components/main/activities/logical-problem/logicalProblem';
-
+import '../assets/style/PlayActivity.css'
 export const PlayActivityPage = () => {
   const navigate = useNavigate()
   const {activityId} = useParams()
@@ -11,7 +11,7 @@ export const PlayActivityPage = () => {
   return (
     <>
       <Header/>
-      <main className='conteiner-fluid'>
+      <main className='conteiner-fluid container-playactivity'>
         <div className="col-1 mt-1 ms-5">
             <div role='button' onClick={() => navigate(-1)}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-arrow-bar-left mt-4" viewBox="0 0 16 16">
