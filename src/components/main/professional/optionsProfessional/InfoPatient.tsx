@@ -17,10 +17,12 @@ export const InfoPatient = () => {
             async () => {
                 const patient = await CustomFetch(`${import.meta.env.VITE_API_URL}patient/${id}`,"GET")
                 const user = await  CustomFetch(`${import.meta.env.VITE_API_URL}users/token/${authState.token}`, 'GET')
-                const professional = await CustomFetch(`${import.meta.env.VITE_API_URL}professional/${user.id}`, 'GET')
+                const professional = await CustomFetch(`${import.meta.env.VITE_API_URL}professional/user/${user.id}`, 'GET')
                 const InfoPatient = await CustomFetch(`${import.meta.env.VITE_API_URL}patient/info/${patient.id}/${professional.id}`, 'GET')      
                 setPatientState(patient)
                 setInfoPatient(InfoPatient)
+                console.log(InfoPatient);
+                
             }
         )()
     },[])

@@ -60,7 +60,7 @@ export const ProfessionalList = () => {
                                     />
                                     <button className="btn btn-primary">Buscar</button>
                                 </form>
-                                <table id="myTable">
+                                {/* <table id="myTable">
                                     <thead>
                                         <tr>
                                             <th>Título</th>
@@ -77,7 +77,7 @@ export const ProfessionalList = () => {
                                             </td>
                                         </tr>
                                     </tbody>
-                                </table>
+                                </table> */}
                             </div>
                         </div>
                     <div className="row">
@@ -95,9 +95,9 @@ export const ProfessionalList = () => {
                                     alt="Card image cap"
                                     />
                                     <div className="card-body">
-                                        <h5 className="card-title">{value.professional.firstname}, {value.professional.lastname}</h5>
-                                            <p className="card-text">{value.professional.title}</p>
-                                            <p className="card-text">{value.professional.specialization}</p>
+                                        <h5 className="card-title">{value.professional?.firstname} {value.professional?.lastname}</h5>
+                                            <p className="card-text">{value.professional?.title}</p>
+                                            <p className="card-text">{value.professional?.specialization}</p>
                                         <button onClick={() => navigate(`/profile-professional/${value.id}`)} className="btn btn-primary">Ver más</button>
                                     </div>
                                 </div>

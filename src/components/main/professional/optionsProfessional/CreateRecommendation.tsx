@@ -29,7 +29,7 @@ export const CreateRecommendation: React.FC<CreateRecommendationProps> = ({ prof
         const fetchedRecommendations = await findRecommendations(Number(patientId), professionalId);
         setRecommendations(fetchedRecommendations);
       } catch (error) {
-        Swal.fire("Error", "Failed to fetch recommendations", "error");
+        Swal.fire("Error", "Error al traer las recomendaciones", "error");
       } finally {
         setIsLoading(false);
       }
@@ -52,12 +52,16 @@ export const CreateRecommendation: React.FC<CreateRecommendationProps> = ({ prof
       if (data.statusCode === 400) {
         Swal.fire("Error", data.message[0], "error");
       } else {
+<<<<<<< HEAD
         await Swal.fire("Añadido", `Se añadio una nueva recomendación`, "success");
+=======
+        await Swal.fire("Se añadio", `Recomendación ${isEditing ? "actualizada" : "creada"} con exito.`, "success");
+>>>>>>> 6a9a348bd1e5efc6d8a8b7d0aab53f4f8cb11327
         resetForm();
         fetchRecommendations();
       }
     } catch (error) {
-      Swal.fire("Error", "An unexpected error occurred", "error");
+      Swal.fire("Error", "Error al añadir recomendación", "error");
     } finally {
       setIsLoading(false);
     }
