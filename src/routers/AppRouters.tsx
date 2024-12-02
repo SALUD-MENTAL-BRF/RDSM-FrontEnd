@@ -30,6 +30,10 @@ import { DerivarPage } from "../pages/DerivarPage";
 
 const ROLE_SUPERADMIN = parseInt(import.meta.env.VITE_ROLE_ADMIN);
 import { HospitalPanelPage } from "../pages/HospitalPanelPage";
+import VideoCallRoom from "../pages/VideoCallRoom";
+import { FormRequestForCall } from "../components/videocall/FormRequestForCall";
+import { SeeConsultations } from "../components/seeconsultations/SeeConsultations";
+import { ProfessionalSeeConsultations } from "../components/seeconsultations/ProfessionalSeeConsultations";
 
 export const AppRouters: React.FC = () => {
   const { authState } = useAuth();
@@ -205,6 +209,38 @@ export const AppRouters: React.FC = () => {
           }
         />
         <Route
+          path="/meeting/"
+          element={
+              <ProtectedRoute>
+                <VideoCallRoom />
+              </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/request-for-call/:patientId/:professionalId"
+          element={
+              <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PATIENT}>
+                <FormRequestForCall />
+              </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/seeconsultations/:patientId/:professionalId"
+          element={
+              <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PATIENT}>
+                <SeeConsultations />
+              </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/Hola/:professionalId/:patientId"
+          element={
+              <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
+                <ProfessionalSeeConsultations />
+              </ProtectedRoute>
+          }
+        />
+        <Route
           path="/activities/:patientId/:professionalId"
           element={
               <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PATIENT}>
@@ -218,6 +254,14 @@ export const AppRouters: React.FC = () => {
           element={
               <ProtectedRoute VITE_ROLE_PATIENT={VITE_ROLE_PATIENT}>
                 <PlayActivityPage />
+              </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/requestForCall"
+          element={
+              <ProtectedRoute VITE_ROLE_PATIENT={VITE_ROLE_PATIENT}>
+                <FormRequestForCall />
               </ProtectedRoute>
           }
         />
