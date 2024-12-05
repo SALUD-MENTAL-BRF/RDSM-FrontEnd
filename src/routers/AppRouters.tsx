@@ -26,14 +26,16 @@ import { AddActivityPage } from "../pages/AddActivityPage";
 import { AssignedProfessionalsPage } from "../pages/AssignedProfessionalsPage";
 import { PlayActivityPage } from "../pages/PlayActivityPage";
 import { OptionActivitiesPage } from "../pages/OptionsActivitiesPage";
-import { DerivarPage } from "../pages/DerivarPage";
+// import { DerivarPage } from "../pages/DerivarPage";
 
-const ROLE_SUPERADMIN = parseInt(import.meta.env.VITE_ROLE_ADMIN);
+// const ROLE_SUPERADMIN = parseInt(import.meta.env.VITE_ROLE_ADMIN);
 import { HospitalPanelPage } from "../pages/HospitalPanelPage";
 import VideoCallRoom from "../pages/VideoCallRoom";
 import { FormRequestForCall } from "../components/videocall/FormRequestForCall";
 import { SeeConsultations } from "../components/seeconsultations/SeeConsultations";
 import { ProfessionalSeeConsultations } from "../components/seeconsultations/ProfessionalSeeConsultations";
+import { ChatPatient } from "../components/main/chat/ChatPatient";
+import { ChatProfessional } from "../components/main/chat/ChatProfessional";
 
 export const AppRouters: React.FC = () => {
   const { authState } = useAuth();
@@ -205,6 +207,22 @@ export const AppRouters: React.FC = () => {
           element={
               <ProtectedRoute VITE_ROLE_PATIENT={VITE_ROLE_PATIENT}>
                 <AssignedProfessionalsPage />
+              </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/chat/patient/:patientId/:professionalId"
+          element={
+              <ProtectedRoute VITE_ROLE_PATIENT={VITE_ROLE_PATIENT}>
+                <ChatPatient />
+              </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/chat/professional/:patientId/:professionalId"
+          element={
+              <ProtectedRoute VITE_ROLE_PROFESSIONAL={VITE_ROLE_PROFESSIONAL}>
+                <ChatProfessional />
               </ProtectedRoute>
           }
         />

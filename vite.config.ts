@@ -8,6 +8,12 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     server: {
       port: parseInt(env.VITE_PORT),
+      proxy: {
+        '/socket.io': {
+          target: 'http://localhost:3000',
+          ws: true
+        }
+      }
     },
   };
 });

@@ -89,6 +89,7 @@ export const PatientManagement = () => {
                                     <a role="button" onClick={() => navigate(`/information-patient/${patient.id}`)} className="info-patient-title list-group-item text-primary">Información</a>
                                     <a role="button" onClick={() => navigate(`/management-activities/${patient.id}`)} className="info-patient-title list-group-item text-success">Recomendaciones/Actividades</a>
                                     <a role="button" onClick={() => navigate(`/meeting/`)} className="info-patient-title list-group-item text-info">Empezar Reunión</a>
+                                    <a role="button" onClick={() => navigate(`/chat/professional/${patient?.id}/${professionalState?.id}`)} className="info-patient-title list-group-item text-primary">Chat</a>
                                 </ul>
                                 </div>
                                 <div className="card-footer">

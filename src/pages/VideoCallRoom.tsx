@@ -3,7 +3,8 @@ import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 import useAuth from '../hooks/useAuth';
 import { CustomFetch } from '../api/CustomFetch';
 import { Header } from '../components/headers/Header';
-
+import { Chat } from '../components/main/chat/Chat';
+import { ChatProfessional } from '../components/main/chat/ChatProfessional';
 interface User {
   email: string;
   googleId: string;
@@ -48,6 +49,17 @@ export default function VideoCallRoom() {
   }, [authState.token]);
 
   const roomID = getUrlParams().get('roomID') || randomID(5);
+
+  const generateMeetingLink = () => {
+    return (
+      window.location.protocol +
+      '//' +
+      window.location.host +
+      window.location.pathname +
+      '?roomID=' +
+      roomID
+    );
+  };
 
   const myMeeting = async () => {
     if (initializedRef.current || !user) {
@@ -125,20 +137,19 @@ export default function VideoCallRoom() {
 
   return (
     <div>
-        <Header/>
+      <Header />
+      <div>
+        <p>Meeting Link: <a href={generateMeetingLink()}>{generateMeetingLink()}</a></p>
+      </div>
       <div
         className="myCallContainer"
         ref={containerRef}
         style={{ width: '100%', height: '84%' }}
       ></div>
-        {/* <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
-      <header style={{ top: 0, width: '100%', backgroundColor: '#333', color: '#fff', padding: '7px', textAlign: 'center' }}>
-        <h1>Sala de videollamada</h1>
-        <button onClick={() => window.location.href = '/home'} style={{ position: 'absolute', right: '2%', top: '10px', backgroundColor: '#f00', color: '#fff', border: 'none', padding: '10px', cursor: 'pointer' }}>
-          Volver al inicio
-        </button>
-      </header>
-    </div> */}
+      {/* <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
+      // ...existing code...
+      </div> */}
+      <ChatProfessional />
     </div>
   );
 }

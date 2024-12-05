@@ -66,6 +66,7 @@ export const AssignedProfessionals = () => {
                                     <a role="button" onClick={() => navigate(`/profile-professional/${professional.id}`)} className="info-professional-title list-group-item text-primary">Perfil</a>
                                     <a role="button" onClick={() => navigate(`/activities/${patientId}/${professional.id}`)} className="info-professional-title list-group-item text-success">Recomendaciones/Actividades</a>
                                     <a role="button" onClick={() => {solicitudes.length > 0 ? Swal.fire('Solicitud Denegada','Ya tienes una solicitud pendiente', 'error') : navigate(`/request-for-call/${patientId}/${professional.id}`)}} className="info-professional-title list-group-item text-info">Solicitar una Reunión</a>
+                                    <a role="button" onClick={() => navigate(`/chat/patient/${patientId}/${professional.id}`)} className="info-professional-title list-group-item text-primary">Chat</a>
                                 </ul>
                                 </div>
                                 <div className="card-footer">
