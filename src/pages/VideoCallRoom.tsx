@@ -138,9 +138,9 @@ export default function VideoCallRoom() {
   return (
     <div>
       <Header />
-      <div>
+      {/* <div>
         <p>Meeting Link: <a href={generateMeetingLink()}>{generateMeetingLink()}</a></p>
-      </div>
+      </div> */}
       <div
         className="myCallContainer"
         ref={containerRef}
