@@ -4,7 +4,9 @@ import { useEffect, useState } from "react";
 import { CustomFetch } from "../../../api/CustomFetch.tsx";
 import { ProfileProfessionalDto } from "../../../types/profileProfessional.dto.ts";
 import React from "react";
-import { Calendar, Mail, NotepadText, User } from "lucide-react";
+import { Calendar, Mail, NotepadText, User, ArrowLeft } from "lucide-react";
+import { motion } from "framer-motion";
+
 
 export const ProfessionalList = () => {
   const [professionalState, setProfessionalState] = useState<Array<ProfileProfessionalDto>>([]);
@@ -51,6 +53,14 @@ export const ProfessionalList = () => {
           <button>Buscar</button>
         </div>
       </section>
+
+      <motion.div
+          className={`${styles.arrow} ms-4 mt-4`}
+          whileHover={{ x: -5 }}
+          onClick={() => navigate('/home')}
+        >
+          <ArrowLeft size={40} color="#43c1bb" />
+        </motion.div>
       <section className={styles.cardsList}>
         {filteredProfessionals.length > 0 ? (
           filteredProfessionals.map((professional) => (

@@ -37,7 +37,7 @@ export const DashboardActivities = () => {
                 </div>
             </div>
             <div className="col">
-                <div className="row">
+                <div className="row mt-5">
                     {
                         activitiesLinkedState.map((activity) => (
                             <ActivityContainer key={activity.activityId} professionalId={professionalState?.id!} activityId={activity.activityId} title={activity.activity.title}/>

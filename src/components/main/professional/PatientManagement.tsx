@@ -6,7 +6,7 @@ import useAuth from "../../../hooks/useAuth";
 import { CustomFetch } from "../../../api/CustomFetch";
 import { ProfessionalDto } from "../../../types/profileProfessional.dto";
 import Swal from "sweetalert2";
-import { ArrowLeft, Filter, Search, User, MoreHorizontal, UserCircle, BookOpen, MessageCircle, UserMinus } from 'lucide-react';
+import { ArrowLeft, Filter, Search, User, MoreHorizontal, UserCircle, BookOpen, MessageCircle, UserMinus,ChartNoAxesCombined  } from 'lucide-react';
 import { motion, AnimatePresence } from "framer-motion";
 import useBodyScrollLock from "../../../hooks/useBodyScrollLock";
 
@@ -155,6 +155,10 @@ export const PatientManagement = () => {
                             <button className={styles.dropdownItem} onClick={() => navigate(`/management-activities/${patient.id}`)}>
                               <BookOpen size={16} />
                                Actividades
+                            </button>
+                            <button className={styles.dropdownItem} onClick={() => navigate(`/dashboard-activities/${patient.id}`)}>
+                              <ChartNoAxesCombined size={16}/>
+                              Progreso
                             </button>
                             <button className={styles.dropdownItem} onClick={() => navigate(`/meeting/`)}>
                               <MessageCircle size={16} />
