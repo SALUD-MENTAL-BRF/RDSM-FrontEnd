@@ -154,9 +154,9 @@ export const PatientManagement = () => {
                             </button>
                             <button className={styles.dropdownItem} onClick={() => navigate(`/management-activities/${patient.id}`)}>
                               <BookOpen size={16} />
-                              Dar actividades
+                               Actividades
                             </button>
-                            <button className={styles.dropdownItem} onClick={() => navigate(`/meeting`)}>
+                            <button className={styles.dropdownItem} onClick={() => navigate(`/meeting/`)}>
                               <MessageCircle size={16} />
                               Comunicarse
                             </button>
