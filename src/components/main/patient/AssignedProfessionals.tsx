@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import '../../../assets/style/professional/PatientList.css'
 import { useEffect, useState } from "react";
 import { ProfessionalDto } from "../../../types/profileProfessional.dto";
 import useAuth from "../../../hooks/useAuth";
