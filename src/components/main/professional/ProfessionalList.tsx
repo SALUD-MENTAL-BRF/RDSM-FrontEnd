@@ -57,7 +57,6 @@ export const ProfessionalList = () => {
             <div
               className={styles.cardProfessional}
               key={professional.id}
-              onClick={() => navigate(`/professional/${professional.id}`)}
             >
               <img
                 src={
