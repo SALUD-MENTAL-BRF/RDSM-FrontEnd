@@ -10,7 +10,7 @@ let socket: any;
 
 export function ChatPatient() {
   const { authState } = useAuth();
-  const [data, setData] = useState<any>(null);
+  // const [data, setData] = useState<any>(null);
   const { professionalId } = useParams<{ professionalId: string }>();
   const [userName, setUserName] = useState('');
   const [room, setRoom] = useState('');
@@ -24,7 +24,7 @@ export function ChatPatient() {
           'GET'
         );
         console.log('Datos del usuario:', userData);
-        setData(userData);
+        // setData(userData);
         setUserName(userData.username);
         setRoom(Number(professionalId) + (userData.patientId));
         socket = io('/', {
@@ -44,7 +44,7 @@ export function ChatPatient() {
   // Unirse automáticamente a la sala cuando `room` y `userName` estén listos
   useEffect(() => {
     if (socket && userName !== '' && room !== '' && !hasJoined) {
-      socket.emit('join_room', room, (ack) => {
+      socket.emit('join_room', room, () => {
         console.log(`Unido a la sala: ${room}`);
         setHasJoined(true); // Evitar unirse múltiples veces
       });

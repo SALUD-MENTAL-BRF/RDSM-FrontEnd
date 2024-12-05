@@ -3,7 +3,7 @@ import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 import useAuth from '../hooks/useAuth';
 import { CustomFetch } from '../api/CustomFetch';
 import { Header } from '../components/headers/Header';
-import { Chat } from '../components/main/chat/Chat';
+// import { Chat } from '../components/main/chat/Chat';
 import { ChatProfessional } from '../components/main/chat/ChatProfessional';
 interface User {
   email: string;

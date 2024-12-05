@@ -52,7 +52,6 @@ export const CreateRecommendation: React.FC<CreateRecommendationProps> = ({ prof
       if (data.statusCode === 400) {
         Swal.fire("Error", data.message[0], "error");
       } else {
-
         await Swal.fire("Se añadio", `Recomendación ${isEditing ? "actualizada" : "creada"} con exito.`, "success");
         resetForm();
         fetchRecommendations();

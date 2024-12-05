@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 
-export const Chat = ({ socket, username, room }) => {
+interface ChatProps {
+    socket: any;
+    username: string;
+    room: string;
+}
+
+export const Chat = ({ socket, username, room }: ChatProps) => {
     const [currentMessage, setCurrentMessage] = useState('');
     const [messagesList, setMessagesList] = useState<any>([]);
 
@@ -15,10 +21,9 @@ export const Chat = ({ socket, username, room }) => {
                 time
             };
 
-            // Emitir el mensaje al servidor
             await socket.emit('send_message', info);
             // setMessagesList((list) => [...list, info]); // Agrega el mensaje localmente
-            setCurrentMessage(''); // Limpia el campo de entrada
+            setCurrentMessage(''); 
         }
     };
 
@@ -28,8 +33,8 @@ export const Chat = ({ socket, username, room }) => {
           socket.off('receive_message');
       
           // Registrar el listener
-          socket.on('receive_message', (data) => {
-            setMessagesList((list) => [...list, data]);
+          socket.on('receive_message', (data:any) => {
+            setMessagesList((list:any) => [...list, data]);
           });
       
           return () => {

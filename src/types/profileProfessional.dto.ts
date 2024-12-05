@@ -22,4 +22,5 @@ export interface ProfessionalDto {
     userId: number;
     user?: User;
     patient?: Array<patientDto>;
+    turnOfAttention: string;
 }

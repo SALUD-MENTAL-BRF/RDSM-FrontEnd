@@ -12,7 +12,7 @@ export function ChatProfessional() {
   const { authState } = useAuth();
   const { professionalId } = useParams<{ professionalId: string }>();
   const { patientId } = useParams<{ patientId: string }>();
-  const [data, setData] = useState<any>(null);
+  // const [data, setData] = useState<any>(null);
   const [userName, setUserName] = useState('');
   const [room, setRoom] = useState('');
 
@@ -26,7 +26,7 @@ export function ChatProfessional() {
             'GET'
           );
           console.log('Datos del profesional:', userData);
-          setData(userData);
+          // setData(userData);
           setUserName(userData.username);
           setRoom(Number(professionalId) + Number(patientId));
 

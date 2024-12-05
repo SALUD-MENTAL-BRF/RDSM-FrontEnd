@@ -1,114 +1,122 @@
-import "../../../assets/style/professional/ProfessionalList.css";
+import styles from "../../../assets/style/professional/ProfessionalList.module.css";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { CustomFetch } from "../../../api/CustomFetch.tsx";
 import { ProfileProfessionalDto } from "../../../types/profileProfessional.dto.ts";
 import React from "react";
+import { Calendar, Mail, NotepadText, User, ArrowLeft } from "lucide-react";
+import { motion } from "framer-motion";
+
 
 export const ProfessionalList = () => {
-    // const [allProfessionalState, setAllProfessionalState] = useState<Array<Professional>>([])
-    const [professionalState, setProfessionalState] = useState<Array<ProfileProfessionalDto>>([])
-    const [barSearch, setBarSearch] = useState<string>("")
+  const [professionalState, setProfessionalState] = useState<Array<ProfileProfessionalDto>>([]);
+  const [barSearch, setBarSearch] = useState<string>("");
 
-    useEffect(() => {
-        (
-            async () => {
-                const data = await CustomFetch(`${import.meta.env.VITE_API_URL}professional`, 'GET')
-                // setAllProfessionalState(data)
-                setProfessionalState(data)
-                
-            }
-        )()
-    },[])
+  useEffect(() => {
+    (async () => {
+      const data = await CustomFetch(`${import.meta.env.VITE_API_URL}professional`, 'GET');
+      setProfessionalState(data);
+    })();
+  }, []);
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setBarSearch(e.target.value)
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setBarSearch(e.target.value);
+  };
 
-    }
+  const filteredProfessionals = professionalState.filter((professional) =>
+    `${professional.professional?.firstname} ${professional.professional?.lastname}`
+      .toLowerCase()
+      .includes(barSearch.toLowerCase())
+  );
 
-    // const searchProfessional = (name:string) => {
-    //     const professional = professionalState.filter((value) => value.professional.firstname && value.professional.lastname == name)
-    //     console.log(professional);
-        
-    // }
+  const navigate = useNavigate();
 
+  return (
+    <main className={styles.backgroundMain}>
+      <section className={styles.containerFilter}>
+        <h1>Directorio de Profesionales</h1>
+        <div className={styles.searchBar}>
+          <input
+            className={styles.searchName}
+            type="text"
+            placeholder="Buscar Profesional"
+            onChange={handleInputChange}
+            value={barSearch}
+          />
+          <select name="filter" id="filter">
+            <option value="all">Todos</option>
+            <option value="Neurodesarrollo">Neurodesarrollo</option>
+            <option value="Psicología">Psicología</option>
+            <option value="Terapia Familiar">Terapia Familiar</option>
+            <option value="Terapia de Pareja">Terapia de Pareja</option>
+          </select>
+          <button>Buscar</button>
+        </div>
+      </section>
 
-    const navigate = useNavigate()
-    return(
-
-
-        <main>
-            <div className="container-ProfessionalList rounded-5">
-                <div className="ms-4" role='button' onClick={() => navigate('/home')}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" className="bi bi-arrow-bar-left mt-4" viewBox="0 0 16 16">
-                            <path fillRule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5" />
-                        </svg>
-                        <h6 className=''>Atrás</h6>
+      <motion.div
+          className={`${styles.arrow} ms-4 mt-4`}
+          whileHover={{ x: -5 }}
+          onClick={() => navigate('/home')}
+        >
+          <ArrowLeft size={40} color="#43c1bb" />
+        </motion.div>
+      <section className={styles.cardsList}>
+        {filteredProfessionals.length > 0 ? (
+          filteredProfessionals.map((professional) => (
+            <div
+              className={styles.cardProfessional}
+              key={professional.id}
+            >
+              <img
+                src={
+                  professional.professional?.user?.imageUrl
+                    ? professional.professional.user.imageUrl
+                    : "./image-example/imageUser.jpg"
+                }
+                alt="user"
+              />
+              <h2>{professional.professional?.firstname} {professional.professional?.lastname}</h2>
+              <p className={styles.professionalTitle}>{professional.professional?.title}</p>
+              <p
+                title={professional.professional?.specialization}
+                className={styles.professionalSpecialization}
+              >
+                {professional.professional?.specialization}
+              </p>
+              <div className={styles.containerData}>
+                <div className={styles.Data}>
+                  <User size={20} color="#16A34A" />
+                  <p>{professional.professional?.user?.username}</p>
                 </div>
-                <div className="row w-100 mt-3 container justify-content-center">
-                    <section className="col-10 col-sm-10 col-md-10 col-lg-11 col-xl-11 col-xxl-11 mt-1">
-                        <div className="row justify-content-center">
-                            <div className="col">
-                                <form className="d-flex justify-content-center mb-2" action="">
-                                    <input
-                                        className="form-control me-2"
-                                        style={{ maxWidth: '80%' }}
-                                        placeholder="Buscar profesionales"
-                                        type="text"
-                                        value={barSearch}
-                                        onChange={(e)=>handleInputChange(e)}
-                                    />
-                                    <button className="btn btn-primary">Buscar</button>
-                                </form>
-                                {/* <table id="myTable">
-                                    <thead>
-                                        <tr>
-                                            <th>Título</th>
-                                            <th>Especialización</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td valign="top" width="150" align="center">
-                                                <select className="w-100" name="" id=""></select>
-                                            </td>
-                                            <td valign="top" width="150" align="center">
-                                                <select className="w-100" name="" id=""></select>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table> */}
-                            </div>
-                        </div>
-                    <div className="row">
-                    {
-                        professionalState.map((value) => (
-                            <div key={value.id} className="col-12 col-sm-6 col-md-3">
-                                <div className="card card-profesional">
-                                <img 
-                                    className="card-img-top" 
-                                    src={
-                                        value?.professional?.user?.imageUrl && value.professional.user.imageUrl.length > 1 
-                                        ? value.professional.user.imageUrl 
-                                        : "/image-example/imageUser.jpg"
-                                    } 
-                                    alt="Card image cap"
-                                    />
-                                    <div className="card-body">
-                                        <h5 className="card-title">{value.professional?.firstname} {value.professional?.lastname}</h5>
-                                            <p className="card-text">{value.professional?.title}</p>
-                                            <p className="card-text">{value.professional?.specialization}</p>
-                                        <button onClick={() => navigate(`/profile-professional/${value.id}`)} className="btn btn-primary">Ver más</button>
-                                    </div>
-                                </div>
-                            </div>
-                        ))
-                        }
-                        </div>
-                    </section>
+                <div className={styles.Data}>
+                  <Mail size={20} color="#16A34A" />
+                  <p>{professional.professional?.user?.email}</p>
                 </div>
+                <div className={styles.Data}>
+                  <NotepadText size={20} color="#16A34A" />
+                  <p>{professional.professional?.tuition}</p>
+                </div>
+                <div className={styles.Data}>
+                  <Calendar size={20} color="#16A34A" />
+                  <p>{professional.professional?.turnOfAttention}</p>
+                </div>
+              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigate(`/profile-professional/${professional.id}`);
+                }}
+                className={styles.ViewDetails}
+              >
+                Ver Detalles
+              </button>
             </div>
-        </main>
-
-    )
-}
+          ))
+        ) : (
+          <p>No hay profesionales que coincidan con tu búsqueda.</p>
+        )}
+      </section>
+    </main>
+  );
+};
