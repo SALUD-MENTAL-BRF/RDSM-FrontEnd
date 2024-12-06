@@ -34,7 +34,7 @@ export const ProfessionalList = () => {
   return (
     <main className={styles.backgroundMain}>
       <section className={styles.containerFilter}>
-        <h1>Directorio de Profesionales</h1>
+        <h1 style={{color:'#10b981'}}>Directorio de Profesionales</h1>
         <div className={styles.searchBar}>
           <input
             className={styles.searchName}
@@ -50,7 +50,7 @@ export const ProfessionalList = () => {
             <option value="Terapia Familiar">Terapia Familiar</option>
             <option value="Terapia de Pareja">Terapia de Pareja</option>
           </select>
-          <button>Buscar</button>
+          <button style={{backgroundColor: '#10b981'}}>Buscar</button>
         </div>
       </section>
 

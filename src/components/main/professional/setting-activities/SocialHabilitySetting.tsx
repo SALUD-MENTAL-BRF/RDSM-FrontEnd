@@ -85,7 +85,7 @@ export const SocialHabilitySetting = () => {
     return (
         <form onSubmit={handleSubmit} className="text-center">
             <div className="row d-flex justify-content-center">
-                <label className='text-center' htmlFor="age">Edad</label>
+                <h6 className='text-center'>Edad</h6>
                 <select onChange={handleSelect} value={selectState.age} className="form-select w-25 mt-1 text-center select-setting" name="age" id="age">
                     <option value="">Selecciona una edad...</option>
                     {
@@ -94,7 +94,7 @@ export const SocialHabilitySetting = () => {
                         ))
                     }
                 </select>
-                <label htmlFor="genre">Género</label>
+                <h6>Género</h6>
                 <select onChange={handleSelect} value={selectState.genre} className="form-select w-25 text-center select-setting" name="genre" id="genre">
                 <option value="">Selecciona un género...</option>
                     <option value="Masculino">
@@ -103,15 +103,18 @@ export const SocialHabilitySetting = () => {
                     <option value="Femenino">
                         Femenino
                     </option>
+                    <option value="No binario">
+                        No binario
+                    </option>
                 </select>
-                <label htmlFor="complexity">Complejidad</label>
+                <h6>Complejidad</h6>
                 <select onChange={handleSelect} value={selectState.complexity} name="complexity" className="form-select w-25 text-center select-setting" id="complexity">
                 <option value="">Selecciona la complejidad...</option>
                     <option value="Fácil">Fácil</option>
                     <option value="Normal">Normal</option>
                     <option value="Difícil">Difícil</option>
                 </select>
-                <label htmlFor="personality">Personalidad</label>
+                <h6>Personalidad</h6>
                 <select onChange={handleSelect} value={selectState.personality} name="personality" className='form-select w-25 text-center select-setting' id="">
                     <option value="">Selecciona una personalidad...</option>
                     <option value="Introvertido">Introvertido</option>
